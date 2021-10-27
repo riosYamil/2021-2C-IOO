@@ -13,7 +13,7 @@ public class UsuarioController {
         return l;
     }
 
-    public Recepcion AltaRecepción(UsuarioDTO usuarioDTO) {
+    public Recepcion AltaRecepcion(UsuarioDTO usuarioDTO) {
         Recepcion r = new Recepcion(usuarioDTO);
         dao.UsuarioDAO.InsertarUsuario(r.toUsuarioDTO());
         return r;

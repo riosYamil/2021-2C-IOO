@@ -1,41 +1,52 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
-public class Main {
+public class Main implements ActionListener {
+	static JLabel text;
 
 	public static void main(String[] args) {
-        JFrame frame = new JFrame("Chat Frame");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 400);
- 
-        JMenuBar ob = new JMenuBar();
-        JMenu ob1 = new JMenu("FILE");
-        JMenu ob2 = new JMenu("Help");
-        ob.add(ob1);
-        ob.add(ob2);
-        JMenuItem m11 = new JMenuItem("Open");
-        JMenuItem m22 = new JMenuItem("Save as");
-        ob1.add(m11);
-        ob1.add(m22);
- 
-         
-        JPanel panel = new JPanel(); // the panel is not visible in output
-        JLabel label = new JLabel("Enter Text");
-        JTextField tf = new JTextField(10); // accepts upto 10 characters
-        JButton send = new JButton("Send");
-        JButton reset = new JButton("Reset");
-        panel.add(label); // Components Added using Flow Layout
-        panel.add(label); // Components Added using Flow Layout
-        panel.add(tf);
-        panel.add(send);
-        panel.add(reset);
-        JTextArea ta = new JTextArea();
- 
-        frame.getContentPane().add(BorderLayout.SOUTH, panel);
-        frame.getContentPane().add(BorderLayout.NORTH, tf);
-        frame.getContentPane().add(BorderLayout.CENTER, ta);
-        frame.setVisible(true);
+		// Create a frame
+		JFrame frame = new JFrame("Menu");
+		frame.setSize(500, 500);
+		frame.getContentPane().setBackground(Color.black);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLayout(new FlowLayout());
 
+		// Create an object
+		Menu obj = new Menu();
+
+		// Create a Menu
+		JMenu menu = new JMenu("Menu");
+
+		// Create Menu Items
+		JMenuItem item[] = new JMenuItem[5];
+
+		for (int i = 0; i < 5; i++)
+		{
+			item[i] = new JMenuItem("Item " + (i + 1));
+			//item[i].addActionListener(obj);
+			menu.add(item[i]);
+		}
+
+		// Create a menu bar
+		JMenuBar mb = new JMenuBar();
+		mb.add(menu);
+		mb.setBackground(Color.white);
+		frame.setJMenuBar(mb);
+
+		// Create the label
+		text = new JLabel();
+		frame.add(text);
+
+		// Display the frame
+		frame.setVisible(true);
+	}
+
+	// Function to display the menu item selected
+	public void actionPerformed(ActionEvent e)
+	{
+		text.setText("Menu Item Selected : " + e.getActionCommand());
 	}
 
 }
