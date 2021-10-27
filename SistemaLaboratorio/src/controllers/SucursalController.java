@@ -1,9 +1,7 @@
 package controllers;
 
-import domains.Administrador;
 import domains.Sucursal;
 import dtos.SucursalDTO;
-import dtos.UsuarioDTO;
 
 public class SucursalController {
 

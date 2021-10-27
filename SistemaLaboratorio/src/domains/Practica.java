@@ -3,7 +3,7 @@ package domains;
 import enums.EstadoPractica;
 
 public class Practica {
-    private int codigo;
+    private Integer id;
     private String nombre;
     private String grupo;
     private int valorCriticoMin;
@@ -18,7 +18,7 @@ public class Practica {
     }
 
     public Practica(String nombre, String grupo, int valorCriticoMin, int valorCriticoMax, int valorReservadoMin, int valorReservadoMax, int horasEsperaResultado) {
-        this.codigo = 2021;
+        this.id = 2021;
         this.nombre = nombre;
         this.grupo = grupo;
         this.valorCriticoMin = valorCriticoMin;

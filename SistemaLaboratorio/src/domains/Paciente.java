@@ -1,23 +1,25 @@
 package domains;
-import java.util.List;
 
 import dtos.PacienteDTO;
-import dtos.UsuarioDTO;
 import enums.EstadoPaciente;
 
+import java.util.List;
+
 public class Paciente {
-	private String DNI;
-	private String nombre;
-	private String apellido;
-	private String mail;
-	private String sexo;
-	private int edad;
-	private List<Peticion> peticiones_completas;
-	private List<Peticion> peticiones_pendientes;
-	private EstadoPaciente estado;
-	
-	public Paciente(PacienteDTO paciente) {
-        this.DNI = paciente.DNI;
+    private Integer id;
+    private String dni;
+    private String nombre;
+    private String apellido;
+    private String mail;
+    private String sexo;
+    private int edad;
+    private List<Peticion> peticiones_completas;
+    private List<Peticion> peticiones_pendientes;
+    private EstadoPaciente estado;
+
+    public Paciente(PacienteDTO paciente) {
+        this.id = paciente.id;
+        this.dni = paciente.dni;
         this.nombre = paciente.nombre;
         this.apellido = paciente.apellido;
         this.mail = paciente.mail;
@@ -26,11 +28,31 @@ public class Paciente {
         this.peticiones_completas = paciente.peticiones_completas;
         this.peticiones_pendientes = paciente.peticiones_pendientes;
         this.estado = paciente.estado;
-	}
-	
-    public PacienteDTO toPacienteDTO(){
+    }
+
+    public static void agregarPeticionesCompletas(Peticion peticion) {
+    }
+
+    public static void quitarPeticionCompleta(Peticion peticion) {
+    }
+
+    public static void agregarPeticionPendientes(Peticion peticion) {
+    }
+
+    public static void quitarPeticionPendientes(Peticion peticion) {
+    }
+
+    public static boolean tienePeticionesCompletas() {
+        return true;
+    }
+
+    public static void notificarEstadoDePeticion(Peticion peticion) {
+    }
+
+    public PacienteDTO toPacienteDTO() {
         PacienteDTO pacienteDTO = new PacienteDTO();
-        pacienteDTO.DNI = this.DNI;
+        pacienteDTO.id = this.id;
+        pacienteDTO.dni = this.dni;
         pacienteDTO.nombre = this.nombre;
         pacienteDTO.apellido = this.apellido;
         pacienteDTO.mail = this.mail;
@@ -41,27 +63,4 @@ public class Paciente {
         pacienteDTO.estado = this.estado;
         return pacienteDTO;
     }
-	
-	public static void agregar_peticiones_completas(Peticion peticion) {
-		
-	}
-	
-	public static void quitar_peticion_completa(Peticion peticion) {
-		
-	}
-	
-	public static void agregar_peticion_pendientes(Peticion peticion) {
-		
-	}
-	
-	public static void quitar_peticion_pendientes(Peticion peticion) {
-		
-	}
-	
-	public static boolean tiene_peticiones_completas() {
-		return true;
-	}
-	
-	public static void notificar_estado_de_petición(Peticion peticion) {}
-
 }

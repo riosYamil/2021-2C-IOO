@@ -1,10 +1,9 @@
 package dtos;
 
-import enums.rol;
 import java.util.Date;
 
 public class UsuarioDTO {
-    public int usuarioID;
+    public int id;
     public String nombre;
     public String email;
     public String password;

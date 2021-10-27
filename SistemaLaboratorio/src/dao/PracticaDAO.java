@@ -1,12 +1,10 @@
 package dao;
 
+import domains.Paciente;
 import domains.Practica;
-import dtos.SucursalDTO;
 
 public class PracticaDAO {
-
-
-    public static void CrearPractica(Practica p) {
+    public static void CrearPractica(Practica practica, Paciente paciente) {
         return;
     }
 

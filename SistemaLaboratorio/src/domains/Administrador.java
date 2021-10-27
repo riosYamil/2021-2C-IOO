@@ -1,7 +1,6 @@
 package domains;
 
 import dtos.UsuarioDTO;
-import enums.rol;
 
 public class Administrador extends Usuario {
     public Administrador(UsuarioDTO usuario) {
@@ -9,7 +8,7 @@ public class Administrador extends Usuario {
         usuario.rol = enums.rol.Administrador;
     }
 
-    public UsuarioDTO toUsuarioDTO(){
+    public UsuarioDTO toUsuarioDTO() {
         return toUsuarioDTO();
     }
 }

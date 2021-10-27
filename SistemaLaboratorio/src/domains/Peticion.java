@@ -1,18 +1,19 @@
 package domains;
 
+import enums.EstadoPeticion;
+
 import java.util.Date;
 import java.util.List;
 
-import enums.EstadoPeticion;
-
 public class Peticion {
-	private Paciente paciente;
-	private String obra_social;
-	private Date fecha_de_carga;
-	private Date fecha_de_entrega;
-	private List<PracticaAsociada> practicas_asociadas;
-	private EstadoPeticion estadoPeticion;
-	private int sucursalID;
+    private Integer id;
+    private Paciente paciente;
+    private String obra_social;
+    private Date fecha_de_carga;
+    private Date fecha_de_entrega;
+    private List<PracticaAsociada> practicas_asociadas;
+    private EstadoPeticion estadoPeticion;
+    private int sucursalID;
 	
 	/*public static List<PracticaAsociada> obtener_practicas_asociadas(){
 		
@@ -22,12 +23,12 @@ public class Peticion {
 		
 	}
 	
-	public static boolean es_petición_para_el_paciente() {
+	public static boolean es_peticiï¿½n_para_el_paciente() {
 		return true;
 	}
 	
 	public static void cambiar_estado(EstadoPeticion estado) {}
 	
 	public static void modificar_peticion(Peticion peticion) {} */
-	
+
 }

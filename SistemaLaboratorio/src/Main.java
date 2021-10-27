@@ -1,52 +1,51 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Main implements ActionListener {
-	static JLabel text;
+    static JLabel text;
 
-	public static void main(String[] args) {
-		// Create a frame
-		JFrame frame = new JFrame("Menu");
-		frame.setSize(500, 500);
-		frame.getContentPane().setBackground(Color.black);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLayout(new FlowLayout());
+    public static void main(String[] args) {
+        // Create a frame
+        JFrame frame = new JFrame("Menu");
+        frame.setSize(500, 500);
+        frame.getContentPane().setBackground(Color.black);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(new FlowLayout());
 
-		// Create an object
-		Menu obj = new Menu();
+        // Create an object
+        Menu obj = new Menu();
 
-		// Create a Menu
-		JMenu menu = new JMenu("Menu");
+        // Create a Menu
+        JMenu menu = new JMenu("Menu");
 
-		// Create Menu Items
-		JMenuItem item[] = new JMenuItem[5];
+        // Create Menu Items
+        JMenuItem item[] = new JMenuItem[5];
 
-		for (int i = 0; i < 5; i++)
-		{
-			item[i] = new JMenuItem("Item " + (i + 1));
-			//item[i].addActionListener(obj);
-			menu.add(item[i]);
-		}
+        for (int i = 0; i < 5; i++) {
+            item[i] = new JMenuItem("Item " + (i + 1));
+            //item[i].addActionListener(obj);
+            menu.add(item[i]);
+        }
 
-		// Create a menu bar
-		JMenuBar mb = new JMenuBar();
-		mb.add(menu);
-		mb.setBackground(Color.white);
-		frame.setJMenuBar(mb);
+        // Create a menu bar
+        JMenuBar mb = new JMenuBar();
+        mb.add(menu);
+        mb.setBackground(Color.white);
+        frame.setJMenuBar(mb);
 
-		// Create the label
-		text = new JLabel();
-		frame.add(text);
+        // Create the label
+        text = new JLabel();
+        frame.add(text);
 
-		// Display the frame
-		frame.setVisible(true);
-	}
+        // Display the frame
+        frame.setVisible(true);
+    }
 
-	// Function to display the menu item selected
-	public void actionPerformed(ActionEvent e)
-	{
-		text.setText("Menu Item Selected : " + e.getActionCommand());
-	}
+    // Function to display the menu item selected
+    public void actionPerformed(ActionEvent e) {
+        text.setText("Menu Item Selected : " + e.getActionCommand());
+    }
 
 }

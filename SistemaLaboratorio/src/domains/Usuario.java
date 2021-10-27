@@ -5,7 +5,7 @@ import dtos.UsuarioDTO;
 import java.util.Date;
 
 public class Usuario {
-    private int usuarioID;
+    private Integer id;
     private String nombre;
     private String email;
     private String password;
@@ -16,7 +16,7 @@ public class Usuario {
     private enums.rol rol;
 
     public Usuario(UsuarioDTO usuario) {
-        this.usuarioID = usuario.usuarioID;
+        this.id = usuario.id;
         this.nombre = usuario.nombre;
         this.email = usuario.email;
         this.password = usuario.password;
@@ -26,9 +26,9 @@ public class Usuario {
         this.rol = usuario.rol;
     }
 
-    public UsuarioDTO toUsuarioDTO(){
+    public UsuarioDTO toUsuarioDTO() {
         UsuarioDTO usuarioDTO = new UsuarioDTO();
-        usuarioDTO.usuarioID = this.usuarioID;
+        usuarioDTO.id = this.id;
         usuarioDTO.nombre = this.nombre;
         usuarioDTO.email = this.email;
         usuarioDTO.password = this.password;

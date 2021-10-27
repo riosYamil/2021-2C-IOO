@@ -1,7 +1,6 @@
 package dao;
 
 import dtos.SucursalDTO;
-import dtos.UsuarioDTO;
 
 public class SucursalDAO {
 

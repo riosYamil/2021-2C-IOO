@@ -1,5 +1,6 @@
 package controllers;
 
+import dao.UsuarioDAO;
 import domains.Administrador;
 import domains.Laboratista;
 import domains.Recepcion;
@@ -7,33 +8,86 @@ import dtos.UsuarioDTO;
 
 public class UsuarioController {
 
-    public Laboratista AltaLaboratista(UsuarioDTO usuarioDTO) {
-        Laboratista l = new Laboratista(usuarioDTO);
-        dao.UsuarioDAO.InsertarUsuario(l.toUsuarioDTO());
-        return l;
+    public UsuarioDTO AltaUsuario(UsuarioDTO u) {
+        try {
+            UsuarioDAO usuarioDAO = new UsuarioDAO(u.dni);
+            usuarioDAO.CrearUsuario(u);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return u;
     }
 
-    public Recepcion AltaRecepcion(UsuarioDTO usuarioDTO) {
-        Recepcion r = new Recepcion(usuarioDTO);
-        dao.UsuarioDAO.InsertarUsuario(r.toUsuarioDTO());
-        return r;
+    public UsuarioDTO AltaLaboratista(Laboratista l) {
+        UsuarioDTO u = l.toUsuarioDTO();
+        try {
+            UsuarioDAO usuarioDAO = new UsuarioDAO(u.dni);
+            usuarioDAO.CrearLaboratista(l);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return u;
     }
 
-    public Administrador AltaAdministrador(UsuarioDTO usuarioDTO) {
-        Administrador a = new Administrador(usuarioDTO);
-        dao.UsuarioDAO.InsertarUsuario(a.toUsuarioDTO());
-        return a;
+    public UsuarioDTO AltaRecepcion(Recepcion r) {
+        UsuarioDTO u = r.toUsuarioDTO();
+        try {
+            UsuarioDAO usuarioDAO = new UsuarioDAO(u.dni);
+            usuarioDAO.CrearRecepcion(r);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return u;
     }
 
-    public void BajaUsuario(int usuarioID) {
-        dao.UsuarioDAO.BorrarUsuario(usuarioID);
+    public UsuarioDTO AltaAdministrador(Administrador a) {
+        UsuarioDTO u = a.toUsuarioDTO();
+        try {
+            UsuarioDAO usuarioDAO = new UsuarioDAO(u.dni);
+            usuarioDAO.CrearAdministrador(a);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return u;
     }
 
-    public void ModificarUsuario(UsuarioDTO usuarioDTO) {
-        dao.UsuarioDAO.ActualizarUsuario(usuarioDTO);
+    public boolean BajaUsuario(UsuarioDTO u) {
+        try {
+            UsuarioDAO usuarioDAO = new UsuarioDAO(u.dni);
+            boolean fueBorrado = usuarioDAO.BorrarUsuario(u.id);
+
+            if (!fueBorrado) {
+                //Do something
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return true;
     }
 
-    public UsuarioDTO ObtenerUsuario(int usuarioID) {
-        return dao.UsuarioDAO.ObtenerUsuario(usuarioID);
+    public boolean ModificarUsuario(UsuarioDTO u) {
+        try {
+            UsuarioDAO usuarioDAO = new UsuarioDAO(u.dni);
+            boolean fueActualizado = usuarioDAO.ActualizarUsuario(u);
+            if (!fueActualizado) {
+                //Do something
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
+    public UsuarioDTO ObtenerUsuario(Integer id) {
+        UsuarioDTO u = new UsuarioDTO();
+        try {
+            UsuarioDAO usuarioDAO = new UsuarioDAO(id.toString());
+            u = usuarioDAO.ObtenerUsuario(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return u;
     }
 }

@@ -6,7 +6,7 @@ import domains.Usuario;
 import java.util.List;
 
 public class SucursalDTO {
-    public int sucursalID;
+    public int id;
     public int numero;
     public String direccion;
     public Usuario responsableTecnico;

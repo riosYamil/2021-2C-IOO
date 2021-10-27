@@ -8,7 +8,7 @@ public class Laboratista extends Usuario {
         usuario.rol = enums.rol.Laboratista;
     }
 
-    public UsuarioDTO toUsuarioDTO(){
+    public UsuarioDTO toUsuarioDTO() {
         return toUsuarioDTO();
     }
 }

@@ -3,20 +3,20 @@ package domains;
 import enums.EstadoResultadoPractica;
 
 public class PracticaAsociada {
-	private Practica practica;
-	private EstadoResultadoPractica resultado_practica;
-	private int resultado;
-	
-	public boolean tiene_valores_reservados() {
-		return true;
-	}
-	
-	public boolean tiene_valores_criticos() {
-		return true;
-	}
-	
-	public static void modificar_resultado_practica(EstadoResultadoPractica rp) {
-		
-	}
+    private Practica practica;
+    private EstadoResultadoPractica resultadoPractica;
+    private int resultado;
+
+    public static void modificarResultadoPractica(EstadoResultadoPractica rp) {
+
+    }
+
+    public boolean tieneValoresReservados() {
+        return true;
+    }
+
+    public boolean tieneValoresCriticos() {
+        return true;
+    }
 
 }

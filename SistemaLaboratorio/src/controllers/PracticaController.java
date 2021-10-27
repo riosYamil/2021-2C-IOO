@@ -1,13 +1,12 @@
 package controllers;
 
+import domains.Paciente;
 import domains.Practica;
-import domains.Sucursal;
-import dtos.SucursalDTO;
 
 public class PracticaController {
-    public Practica AltaPractica(Practica p) {
-        dao.PracticaDAO.CrearPractica(p);
-        return p;
+    public Practica AltaPractica(Practica practica, Paciente paciente) {
+        dao.PracticaDAO.CrearPractica(practica, paciente);
+        return practica;
     }
 
     public void BajaPractica(int codigoPractica) {

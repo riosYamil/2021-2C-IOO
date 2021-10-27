@@ -8,7 +8,7 @@ public class Recepcion extends Usuario {
         usuario.rol = enums.rol.Recepcion;
     }
 
-    public UsuarioDTO toUsuarioDTO(){
+    public UsuarioDTO toUsuarioDTO() {
         return toUsuarioDTO();
     }
 }
