@@ -73,7 +73,6 @@ public class FrmPrincipal extends JFrame {
 	public static void main(String[] args) throws ClassNotFoundException {
 		FrmPrincipal frame = new FrmPrincipal(titulo);
 		frame.setLocationRelativeTo(null);
-		//frame.setUndecorated(true);
 		frame.setVisible(true);
 	}
 	
@@ -125,6 +124,8 @@ public class FrmPrincipal extends JFrame {
 				//if admin
 				cleanPanel();
 				addTabbedOPanel();
+				//else 
+				//dialog ?
 			}
 		});
 		
@@ -145,6 +146,7 @@ public class FrmPrincipal extends JFrame {
 		});
 	}
 	
+	
 	private void cleanPanel() {
 		pnlIntro.removeAll();
 		pnlIntro.revalidate();
@@ -153,20 +155,9 @@ public class FrmPrincipal extends JFrame {
 	}
 	
 	private void addTabbedOPanel() {
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		pnlIntro.add(tabbedPane);
+		InternalTabs frame = new InternalTabs(); //should get if it is admin, recep or labo
+		pnlIntro.add(frame);
 		
-		JTabbedPane tabbedPane_1 = new JTabbedPane(JTabbedPane.TOP);
-		JTabbedPane tabbedPane_2 = new JTabbedPane(JTabbedPane.TOP);
-		JTabbedPane tabbedPane_3 = new JTabbedPane(JTabbedPane.TOP);
 		
-		//if admin or recep
-		tabbedPane.addTab("Pacientes", null, tabbedPane_1, null);
-		
-		//if admin or labo
-		tabbedPane.addTab("Peticion", null, tabbedPane_2, null);
-		
-		//if admin
-		tabbedPane.addTab("Sucursales", null, tabbedPane_3, null);
 	}
 }
