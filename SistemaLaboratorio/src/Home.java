@@ -111,13 +111,6 @@ public class Home extends JFrame {
 		panel.add(btnRecep);
 				
 		btnLabo = new Button("Laboratorista");
-		btnLabo.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {	
-				SetHomePanelVisibility(false);
-				SetLabPanel(panel);
-			}
-		});
 		btnLabo.setForeground(Color.white);
 		btnLabo.setBackground(new Color( 84, 153, 199));
 		btnLabo.setBounds(26, 320, 300, 27);
