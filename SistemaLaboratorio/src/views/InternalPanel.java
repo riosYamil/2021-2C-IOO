@@ -63,12 +63,12 @@ public class InternalPanel extends JTabbedPane {
 	private Panel Peticiones;
 	private JLabel lblBaja_2;
 	private JLabel lbldni_1;
-	private JTextField textField;
+	private JTextField tDNIPeticiones;
 	private JCheckBox chckbxPeticionesCompletas;
 	private Button btnObtenerPeticiones;
 	private JCheckBox chckbxPeticionesCriticas;
 	private JButton btnNewButton;
-	private JLabel lblNewLabel_1;
+	private JLabel lblNotificar;
 
 	public InternalPanel() {
 		setBorder(null);
@@ -378,8 +378,8 @@ public class InternalPanel extends JTabbedPane {
 		
 		lbldni_1 = new JLabel("DNI");
 		
-		textField = new JTextField();
-		textField.setColumns(10);
+		tDNIPeticiones = new JTextField();
+		tDNIPeticiones.setColumns(10);
 		
 		JCheckBox chckbxPeticionesPendientes = new JCheckBox("Solo peticiones completas");
 		chckbxPeticionesPendientes.setBackground(Color.WHITE);
@@ -397,9 +397,7 @@ public class InternalPanel extends JTabbedPane {
 		
 		btnNewButton = new JButton("Enviar notificaci\u00F3n");
 		
-		JTextArea textArea = new JTextArea();
-		
-		lblNewLabel_1 = new JLabel("Notificar a aquellos pacientes que deben retirar sus resultados por sucursal.");
+		lblNotificar = new JLabel("Notificar a aquellos pacientes que deben retirar sus resultados con valores reservados por sucursal.");
 		
 		GroupLayout gl_Peticiones = new GroupLayout(Peticiones);
 		gl_Peticiones.setHorizontalGroup(
@@ -408,7 +406,7 @@ public class InternalPanel extends JTabbedPane {
 					.addGap(35)
 					.addGroup(gl_Peticiones.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_Peticiones.createSequentialGroup()
-							.addComponent(lblNewLabel_1)
+							.addComponent(lblNotificar)
 							.addContainerGap())
 						.addGroup(gl_Peticiones.createParallelGroup(Alignment.LEADING)
 							.addGroup(gl_Peticiones.createSequentialGroup()
@@ -418,19 +416,15 @@ public class InternalPanel extends JTabbedPane {
 								.addGroup(gl_Peticiones.createSequentialGroup()
 									.addComponent(btnObtenerPeticiones, GroupLayout.PREFERRED_SIZE, 152, GroupLayout.PREFERRED_SIZE)
 									.addContainerGap())
-								.addGroup(gl_Peticiones.createSequentialGroup()
-									.addGap(368)
-									.addComponent(textArea, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addContainerGap())
 								.addGroup(gl_Peticiones.createParallelGroup(Alignment.LEADING)
 									.addGroup(gl_Peticiones.createSequentialGroup()
 										.addComponent(lblBaja_2, GroupLayout.PREFERRED_SIZE, 474, GroupLayout.PREFERRED_SIZE)
 										.addContainerGap())
 									.addGroup(gl_Peticiones.createSequentialGroup()
 										.addGroup(gl_Peticiones.createParallelGroup(Alignment.LEADING)
-											.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-											.addComponent(lbldni_1))
-										.addPreferredGap(ComponentPlacement.RELATED, 150, Short.MAX_VALUE)
+											.addComponent(lbldni_1)
+											.addComponent(tDNIPeticiones, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE))
+										.addPreferredGap(ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
 										.addGroup(gl_Peticiones.createParallelGroup(Alignment.LEADING)
 											.addComponent(chckbxPeticionesPendientes)
 											.addComponent(chckbxPeticionesCriticas)
@@ -446,18 +440,19 @@ public class InternalPanel extends JTabbedPane {
 					.addGroup(gl_Peticiones.createParallelGroup(Alignment.TRAILING)
 						.addComponent(lbldni_1)
 						.addComponent(chckbxPeticionesPendientes))
-					.addGap(18)
 					.addGroup(gl_Peticiones.createParallelGroup(Alignment.LEADING)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(chckbxPeticionesCompletas))
-					.addGap(11)
-					.addComponent(chckbxPeticionesCriticas)
+						.addGroup(gl_Peticiones.createSequentialGroup()
+							.addGap(18)
+							.addComponent(chckbxPeticionesCompletas)
+							.addGap(11)
+							.addComponent(chckbxPeticionesCriticas))
+						.addGroup(gl_Peticiones.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(tDNIPeticiones, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 					.addGap(16)
-					.addComponent(btnObtenerPeticiones)
-					.addGap(18)
-					.addComponent(textArea, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(16)
-					.addComponent(lblNewLabel_1)
+					.addComponent(btnObtenerPeticiones, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(56)
+					.addComponent(lblNotificar)
 					.addGap(18)
 					.addComponent(btnNewButton)
 					.addContainerGap(133, Short.MAX_VALUE))
