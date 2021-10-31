@@ -9,6 +9,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.GroupLayout;
@@ -468,7 +470,11 @@ public class InternalPanel extends JTabbedPane {
 		});
 		deleteComponentBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(tDNI.getText());
+				if(false) {
+					System.out.println(lbldni.getText());
+				} else {
+					JOptionPane.showMessageDialog(tabbedPane_1, "Este paciente no se puede eliminar");
+				}
 			}
 		});
 		updateComponentBtn.addActionListener(new ActionListener() {

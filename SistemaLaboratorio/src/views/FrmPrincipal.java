@@ -26,6 +26,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JTextPane;
 import java.awt.Point;
 import javax.swing.JProgressBar;
+import javax.swing.JOptionPane;
 
 public class FrmPrincipal extends JFrame {
 
@@ -56,6 +57,7 @@ public class FrmPrincipal extends JFrame {
 		}
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setResizable(false);
 		setBounds(100, 100, 629, 476);
 		pnlPrincipal = new JPanel();
 		setContentPane(pnlPrincipal);
@@ -122,7 +124,7 @@ public class FrmPrincipal extends JFrame {
 		pnlIntro.add(btnLabo);
 
 		JLabel label = new JLabel("");
-		label.setBounds(-10, 200, 629, 576);
+		label.setBounds(0, 247, 619, 200);
 		label.setVerticalAlignment(SwingConstants.TOP);
 		label.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/images/pic.png")));
 		pnlIntro.add(label);
@@ -131,11 +133,8 @@ public class FrmPrincipal extends JFrame {
 	private void asociarEventos() {
 		btnAdmin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// if admin
 				cleanPanel();
 				addTabbedOPanel();
-				// else
-				// dialog ?
 			}
 		});
 
