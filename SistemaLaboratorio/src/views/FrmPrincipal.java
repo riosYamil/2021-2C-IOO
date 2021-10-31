@@ -86,9 +86,9 @@ public class FrmPrincipal extends JFrame {
 		
 		lblTitle = new JLabel(titulo);
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitle.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.PLAIN, 30));
-		lblTitle.setBounds(105, 80, 400, 27);
-		lblTitle.setForeground(Color.black);
+		lblTitle.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.PLAIN, 35));
+		lblTitle.setBounds(70, 80, 500, 27);
+		lblTitle.setForeground(new Color(200, 32, 58));
 		pnlIntro.add(lblTitle);
 		
 		lblSelect = new JLabel("Por favor, seleccione cómo quiere ingresar:");
@@ -99,21 +99,24 @@ public class FrmPrincipal extends JFrame {
 		pnlIntro.add(lblSelect);
 				
 		btnAdmin = new Button("Administrador");
-		btnAdmin.setForeground(Color.black);
-		btnAdmin.setBackground(new Color(  236, 240, 241));
-		btnAdmin.setBounds(163, 174, 300, 27);
+		btnAdmin.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnAdmin.setForeground(Color.WHITE);
+		btnAdmin.setBackground(new Color(133, 189, 212));
+		btnAdmin.setBounds(230, 174, 150, 27);
 		pnlIntro.add(btnAdmin);
 		
 		btnRecep = new Button("Recepcionista");
-		btnRecep.setForeground(Color.black);
-		btnRecep.setBackground(new Color(  236, 240, 241));
-		btnRecep.setBounds(163, 236, 300, 27);
+		btnRecep.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnRecep.setForeground(Color.WHITE);
+		btnRecep.setBackground(new Color(133, 189, 212));
+		btnRecep.setBounds(230, 237, 150, 27);
 		pnlIntro.add(btnRecep);
 		
 		btnLabo = new Button("Laboratorista");
-		btnLabo.setForeground(Color.black);
-		btnLabo.setBackground(new Color(  236, 240, 241));
-		btnLabo.setBounds(163, 297, 300, 27);
+		btnLabo.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnLabo.setForeground(Color.WHITE);
+		btnLabo.setBackground(new Color(133, 189, 212));
+		btnLabo.setBounds(230, 297, 150, 27);
 		pnlIntro.add(btnLabo);  
 		
 		JLabel label = new JLabel("");
