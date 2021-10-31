@@ -17,13 +17,17 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Panel;
 import java.awt.SystemColor;
 import javax.swing.JSplitPane;
+import javax.swing.JTable;
+import javax.swing.JTextPane;
+import javax.swing.JRadioButton;
+import javax.swing.JCheckBox;
+import javax.swing.JTextArea;
 
 public class InternalPanel extends JTabbedPane {
 
 	private JTabbedPane tabbedPane_1;
 	private JTabbedPane tabbedPane_2;
 	private JTabbedPane tabbedPane_3;
-	private JLayeredPane layeredPane;
 	private Button addComponentBtn;
 	private Button updateComponentBtn;
 	private JLabel dni;
@@ -44,16 +48,27 @@ public class InternalPanel extends JTabbedPane {
 	private JLabel lblDIreccion;
 	private JLabel lblResponsableTecnico;
 	private JTextField tNumero;
-	private JTextField textField_4;
-	private JTextField textField_5;
+	private JTextField tDireccion;
+	private JTextField tResponsableTecnico;
 	private JLabel lblNumero;
 	private Button addComponentBtn_1;
 	private Button updateComponentBtn_1;
 	private Panel Baja_1;
+	private Panel peticiones;
 	private JLabel lblNumero1;
 	private JLabel lblBaja_1;
 	private JTextField tNumero1;
 	private Button deleteComponentBtn_1;
+	private JLabel lblPeticiones;
+	private Panel Peticiones;
+	private JLabel lblBaja_2;
+	private JLabel lbldni_1;
+	private JTextField textField;
+	private JCheckBox chckbxPeticionesCompletas;
+	private Button btnObtenerPeticiones;
+	private JCheckBox chckbxPeticionesCriticas;
+	private JButton btnNewButton;
+	private JLabel lblNewLabel_1;
 
 	public InternalPanel() {
 		setBorder(null);
@@ -61,14 +76,16 @@ public class InternalPanel extends JTabbedPane {
 		tabbedPane_1 = new JTabbedPane(JTabbedPane.LEFT);
 		tabbedPane_1.setBackground(Color.WHITE);
 		tabbedPane_2 = new JTabbedPane(JTabbedPane.LEFT);
+		tabbedPane_2.setBackground(Color.WHITE);
 		tabbedPane_3 = new JTabbedPane(JTabbedPane.LEFT);
 
 		this.addTab("Pacientes", tabbedPane_1);
-		this.addTab("Petiones", tabbedPane_2);
+		this.addTab("Peticiones", tabbedPane_2);
 		this.addTab("Sucursales", tabbedPane_3);
 
 		setPacienteTab();
 		setSucursalTab();
+		setPeticionesTab();
 
 		asociarEventos();
 	}
@@ -291,11 +308,11 @@ public class InternalPanel extends JTabbedPane {
 		tNumero = new JTextField();
 		tNumero.setFont(new Font("Arial", Font.PLAIN, 15));
 
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
+		tDireccion = new JTextField();
+		tDireccion.setColumns(10);
 
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
+		tResponsableTecnico = new JTextField();
+		tResponsableTecnico.setColumns(10);
 
 		lblNumero = new JLabel("NUMERO");
 		lblNumero.setForeground(Color.BLACK);
@@ -317,8 +334,8 @@ public class InternalPanel extends JTabbedPane {
 						.addGroup(gl_Alta_1.createParallelGroup(Alignment.LEADING).addComponent(lblDIreccion)
 								.addComponent(lblResponsableTecnico)
 								.addComponent(tNumero, GroupLayout.PREFERRED_SIZE, 162, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textField_4, GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
-								.addComponent(textField_5)
+								.addComponent(tDireccion, GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
+								.addComponent(tResponsableTecnico)
 								.addGroup(gl_Alta_1.createSequentialGroup()
 										.addComponent(addComponentBtn_1, GroupLayout.PREFERRED_SIZE,
 												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -343,16 +360,114 @@ public class InternalPanel extends JTabbedPane {
 						.addComponent(tNumero, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
 						.addPreferredGap(ComponentPlacement.RELATED).addComponent(lblDIreccion)
 						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+						.addComponent(tDireccion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 								GroupLayout.PREFERRED_SIZE)
 						.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(lblResponsableTecnico)
-						.addPreferredGap(ComponentPlacement.RELATED).addComponent(textField_5,
+						.addPreferredGap(ComponentPlacement.RELATED).addComponent(tResponsableTecnico,
 								GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addContainerGap(216, Short.MAX_VALUE)));
 		Alta_1.setLayout(gl_Alta_1);
 		return Alta_1;
 	}
 
+	private void setPeticionesTab() {	
+		Peticiones = new Panel();
+		tabbedPane_2.addTab("Peticiones", null, Peticiones, null);
+		
+		lblBaja_2 = new JLabel("Por favor, ingrese el DNI del paciente para obtener sus peticiones o deje el campo vacio.");
+		
+		lbldni_1 = new JLabel("DNI");
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		
+		JCheckBox chckbxPeticionesPendientes = new JCheckBox("Solo peticiones completas");
+		chckbxPeticionesPendientes.setBackground(Color.WHITE);
+		
+		chckbxPeticionesCompletas = new JCheckBox("Solo peticiones pendientes");
+		chckbxPeticionesCompletas.setBackground(Color.WHITE);
+		
+		btnObtenerPeticiones = new Button("Obtener peticiones");
+		btnObtenerPeticiones.setForeground(Color.WHITE);
+		btnObtenerPeticiones.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnObtenerPeticiones.setBackground(new Color(133, 189, 212));
+		
+		chckbxPeticionesCriticas = new JCheckBox("Solo peticiones con resultados criticos");
+		chckbxPeticionesCriticas.setBackground(Color.WHITE);
+		
+		btnNewButton = new JButton("Enviar notificaci\u00F3n");
+		
+		JTextArea textArea = new JTextArea();
+		
+		lblNewLabel_1 = new JLabel("Notificar a aquellos pacientes que deben retirar sus resultados por sucursal.");
+		
+		GroupLayout gl_Peticiones = new GroupLayout(Peticiones);
+		gl_Peticiones.setHorizontalGroup(
+			gl_Peticiones.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_Peticiones.createSequentialGroup()
+					.addGap(35)
+					.addGroup(gl_Peticiones.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_Peticiones.createSequentialGroup()
+							.addComponent(lblNewLabel_1)
+							.addContainerGap())
+						.addGroup(gl_Peticiones.createParallelGroup(Alignment.LEADING)
+							.addGroup(gl_Peticiones.createSequentialGroup()
+								.addComponent(btnNewButton)
+								.addContainerGap())
+							.addGroup(gl_Peticiones.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_Peticiones.createSequentialGroup()
+									.addComponent(btnObtenerPeticiones, GroupLayout.PREFERRED_SIZE, 152, GroupLayout.PREFERRED_SIZE)
+									.addContainerGap())
+								.addGroup(gl_Peticiones.createSequentialGroup()
+									.addGap(368)
+									.addComponent(textArea, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addContainerGap())
+								.addGroup(gl_Peticiones.createParallelGroup(Alignment.LEADING)
+									.addGroup(gl_Peticiones.createSequentialGroup()
+										.addComponent(lblBaja_2, GroupLayout.PREFERRED_SIZE, 474, GroupLayout.PREFERRED_SIZE)
+										.addContainerGap())
+									.addGroup(gl_Peticiones.createSequentialGroup()
+										.addGroup(gl_Peticiones.createParallelGroup(Alignment.LEADING)
+											.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+											.addComponent(lbldni_1))
+										.addPreferredGap(ComponentPlacement.RELATED, 150, Short.MAX_VALUE)
+										.addGroup(gl_Peticiones.createParallelGroup(Alignment.LEADING)
+											.addComponent(chckbxPeticionesPendientes)
+											.addComponent(chckbxPeticionesCriticas)
+											.addComponent(chckbxPeticionesCompletas))
+										.addContainerGap(79, Short.MAX_VALUE)))))))
+		);
+		gl_Peticiones.setVerticalGroup(
+			gl_Peticiones.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_Peticiones.createSequentialGroup()
+					.addGap(16)
+					.addComponent(lblBaja_2, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+					.addGap(11)
+					.addGroup(gl_Peticiones.createParallelGroup(Alignment.TRAILING)
+						.addComponent(lbldni_1)
+						.addComponent(chckbxPeticionesPendientes))
+					.addGap(18)
+					.addGroup(gl_Peticiones.createParallelGroup(Alignment.LEADING)
+						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(chckbxPeticionesCompletas))
+					.addGap(11)
+					.addComponent(chckbxPeticionesCriticas)
+					.addGap(16)
+					.addComponent(btnObtenerPeticiones)
+					.addGap(18)
+					.addComponent(textArea, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(16)
+					.addComponent(lblNewLabel_1)
+					.addGap(18)
+					.addComponent(btnNewButton)
+					.addContainerGap(133, Short.MAX_VALUE))
+		);
+		Peticiones.setLayout(gl_Peticiones);
+	}
+	
+	
+
+	
 	private void asociarEventos() {
 		addComponentBtn.addActionListener(e -> {
 		});
