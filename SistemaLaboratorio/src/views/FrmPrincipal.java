@@ -36,11 +36,8 @@ public class FrmPrincipal extends JFrame {
 	private JLabel lblSelect;
 	private JLabel lblTitle;
 	private Button btnIngresar;
-	private JLabel lblUsuario;
 	private JTextField tUsuario;
 	private static String titulo = "Sistema Gestión de laboratorio";
-
-	private FrmPrincipal self;
 
 	/**
 	 * Create the frame.
@@ -66,8 +63,6 @@ public class FrmPrincipal extends JFrame {
 
 		setPrincipalPnl();
 		asociarEventos();
-
-		this.self = this;
 
 	}
 
@@ -102,23 +97,17 @@ public class FrmPrincipal extends JFrame {
 		lblSelect.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblSelect.setBounds(135, 118, 341, 27);
 		pnlIntro.add(lblSelect);
-		
-		/*lblUsuario = new JLabel("Nombre de usuario:");
-		lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblUsuario.setForeground(Color.DARK_GRAY);
-		lblUsuario.setBounds(230, 154, 150, 27);
-		pnlIntro.add(lblUsuario);*/
-		
+				
 		tUsuario = new JTextField();
 		tUsuario.setColumns(10);
-		tUsuario.setBounds(230, 160, 150, 27);
+		tUsuario.setBounds(163, 160, 295, 27);
 		pnlIntro.add(tUsuario);
 
 		btnIngresar = new Button("INGRESAR");
 		btnIngresar.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnIngresar.setForeground(Color.WHITE);
 		btnIngresar.setBackground(new Color(133, 189, 212));
-		btnIngresar.setBounds(230, 220, 150, 27);
+		btnIngresar.setBounds(230, 203, 150, 27);
 		pnlIntro.add(btnIngresar);
 
 		JLabel label = new JLabel("");

@@ -56,12 +56,10 @@ public class InternalPanel extends JTabbedPane {
 	private Button addComponentBtn_1;
 	private Button updateComponentBtn_1;
 	private Panel Baja_1;
-	private Panel peticiones;
 	private JLabel lblNumero1;
 	private JLabel lblBaja_1;
 	private JTextField tNumero1;
 	private Button deleteComponentBtn_1;
-	private JLabel lblPeticiones;
 	private Panel Peticiones;
 	private JLabel lblBaja_2;
 	private JLabel lbldni_1;
