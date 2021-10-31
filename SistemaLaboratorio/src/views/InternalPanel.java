@@ -8,7 +8,6 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;
@@ -18,12 +17,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Panel;
 import java.awt.SystemColor;
-import javax.swing.JSplitPane;
-import javax.swing.JTable;
-import javax.swing.JTextPane;
-import javax.swing.JRadioButton;
 import javax.swing.JCheckBox;
-import javax.swing.JTextArea;
 
 public class InternalPanel extends JTabbedPane {
 
@@ -471,7 +465,8 @@ public class InternalPanel extends JTabbedPane {
 				if(false) {
 					System.out.println(lbldni.getText());
 				} else {
-					JOptionPane.showMessageDialog(tabbedPane_1, "Este paciente no se puede eliminar");
+					JOptionPane.showMessageDialog(tabbedPane_1, "Este paciente no se puede eliminar", "Error",
+						    JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
