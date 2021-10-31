@@ -53,7 +53,7 @@ public class FrmPrincipal extends JFrame {
 		}
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 929, 476);
+		setBounds(100, 100, 629, 476);
 		pnlPrincipal = new JPanel();
 		pnlPrincipal.setBackground(Color.black);
 		setContentPane(pnlPrincipal);
@@ -80,7 +80,7 @@ public class FrmPrincipal extends JFrame {
 	public void setPrincipalPnl() {			
 		pnlIntro = new JPanel();
 		pnlIntro.setBackground(new Color( 174, 214, 241));
-		pnlIntro.setBounds(100, 100, 929, 476);
+		pnlIntro.setBounds(100, 100, 629, 476);
 		pnlPrincipal.add(pnlIntro);
 		pnlIntro.setLayout(null);
 		
