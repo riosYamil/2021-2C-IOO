@@ -67,7 +67,7 @@ public class FrmPrincipal extends JFrame {
 
 	public void setPrincipalPnl() {
 		pnlIntro = new JPanel();
-		pnlIntro.setBackground(new Color(180, 204, 227));
+		pnlIntro.setBackground(Color.white);
 		pnlIntro.setBounds(100, 100, 629, 476);
 		pnlPrincipal.add(pnlIntro);
 		pnlIntro.setLayout(null);
@@ -75,33 +75,34 @@ public class FrmPrincipal extends JFrame {
 		lblTitle = new JLabel(titulo);
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitle.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.PLAIN, 35));
-		lblTitle.setBounds(70, 80, 500, 27);
+		lblTitle.setBounds(55, 88, 500, 27);
 		lblTitle.setForeground(new Color(200, 32, 58));
 		pnlIntro.add(lblTitle);
 
 		lblSelect = new JLabel("Por favor, ingrese su nombre de usuario:");
+		lblSelect.setBackground(Color.WHITE);
 		lblSelect.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSelect.setForeground(Color.DARK_GRAY);
-		lblSelect.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblSelect.setBounds(135, 118, 341, 27);
+		lblSelect.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblSelect.setBounds(128, 126, 341, 27);
 		pnlIntro.add(lblSelect);
 				
 		tUsuario = new JTextField();
 		tUsuario.setColumns(10);
-		tUsuario.setBounds(163, 160, 295, 27);
+		tUsuario.setBounds(152, 164, 295, 27);
 		pnlIntro.add(tUsuario);
 
 		btnIngresar = new Button("INGRESAR");
 		btnIngresar.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnIngresar.setForeground(Color.WHITE);
 		btnIngresar.setBackground(new Color(133, 189, 212));
-		btnIngresar.setBounds(230, 203, 150, 27);
+		btnIngresar.setBounds(226, 197, 150, 27);
 		pnlIntro.add(btnIngresar);
 
 		JLabel label = new JLabel("");
-		label.setBounds(0, 247, 619, 200);
+		label.setBounds(316, 0, 325, 473);
 		label.setVerticalAlignment(SwingConstants.TOP);
-		label.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/images/pic.png")));
+		label.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/images/pic2.jpg")));
 		pnlIntro.add(label);
 	}
 
