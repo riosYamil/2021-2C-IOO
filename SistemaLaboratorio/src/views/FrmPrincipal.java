@@ -22,6 +22,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import javax.swing.JTabbedPane;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JTextPane;
 import java.awt.Point;
 import javax.swing.JProgressBar;
@@ -55,7 +56,6 @@ public class FrmPrincipal extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 629, 476);
 		pnlPrincipal = new JPanel();
-		pnlPrincipal.setBackground(Color.black);
 		setContentPane(pnlPrincipal);
 		pnlPrincipal.setLayout(new BoxLayout(pnlPrincipal, BoxLayout.X_AXIS));
 				
@@ -79,7 +79,7 @@ public class FrmPrincipal extends JFrame {
 	
 	public void setPrincipalPnl() {			
 		pnlIntro = new JPanel();
-		pnlIntro.setBackground(new Color( 174, 214, 241));
+		pnlIntro.setBackground(new Color( 180, 204, 227 ));
 		pnlIntro.setBounds(100, 100, 629, 476);
 		pnlPrincipal.add(pnlIntro);
 		pnlIntro.setLayout(null);
@@ -87,7 +87,7 @@ public class FrmPrincipal extends JFrame {
 		lblTitle = new JLabel(titulo);
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitle.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.PLAIN, 30));
-		lblTitle.setBounds(240, 80, 400, 27);
+		lblTitle.setBounds(105, 80, 400, 27);
 		lblTitle.setForeground(Color.black);
 		pnlIntro.add(lblTitle);
 		
@@ -95,26 +95,32 @@ public class FrmPrincipal extends JFrame {
 		lblSelect.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSelect.setForeground(Color.DARK_GRAY);
 		lblSelect.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblSelect.setBounds(260, 130, 341, 27);
+		lblSelect.setBounds(135, 118, 341, 27);
 		pnlIntro.add(lblSelect);
-		
+				
 		btnAdmin = new Button("Administrador");
 		btnAdmin.setForeground(Color.black);
 		btnAdmin.setBackground(new Color(  236, 240, 241));
-		btnAdmin.setBounds(280, 180, 300, 27);
+		btnAdmin.setBounds(163, 174, 300, 27);
 		pnlIntro.add(btnAdmin);
 		
 		btnRecep = new Button("Recepcionista");
 		btnRecep.setForeground(Color.black);
 		btnRecep.setBackground(new Color(  236, 240, 241));
-		btnRecep.setBounds(280, 250, 300, 27);
+		btnRecep.setBounds(163, 236, 300, 27);
 		pnlIntro.add(btnRecep);
 		
 		btnLabo = new Button("Laboratorista");
 		btnLabo.setForeground(Color.black);
 		btnLabo.setBackground(new Color(  236, 240, 241));
-		btnLabo.setBounds(280, 320, 300, 27);
+		btnLabo.setBounds(163, 297, 300, 27);
 		pnlIntro.add(btnLabo);  
+		
+		JLabel label = new JLabel("");
+		label.setBounds(-10, 200, 629, 576);
+		label.setVerticalAlignment(SwingConstants.TOP);
+		label.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/images/pic.png")));
+		pnlIntro.add(label);
 	}
 	
 	private void asociarEventos() {
