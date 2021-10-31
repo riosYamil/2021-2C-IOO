@@ -21,6 +21,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JTextPane;
@@ -34,9 +35,9 @@ public class FrmPrincipal extends JFrame {
 	private JPanel pnlIntro;
 	private JLabel lblSelect;
 	private JLabel lblTitle;
-	private Button btnAdmin;
-	private Button btnRecep;
-	private Button btnLabo;
+	private Button btnIngresar;
+	private JLabel lblUsuario;
+	private JTextField tUsuario;
 	private static String titulo = "Sistema Gestión de laboratorio";
 
 	private FrmPrincipal self;
@@ -101,27 +102,24 @@ public class FrmPrincipal extends JFrame {
 		lblSelect.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblSelect.setBounds(135, 118, 341, 27);
 		pnlIntro.add(lblSelect);
+		
+		lblUsuario = new JLabel("Nombre de usuario:");
+		lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblUsuario.setForeground(Color.DARK_GRAY);
+		lblUsuario.setBounds(230, 154, 150, 27);
+		pnlIntro.add(lblUsuario);
+		
+		tUsuario = new JTextField();
+		tUsuario.setColumns(10);
+		tUsuario.setBounds(230, 174, 150, 27);
+		pnlIntro.add(tUsuario);
 
-		btnAdmin = new Button("Administrador");
-		btnAdmin.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnAdmin.setForeground(Color.WHITE);
-		btnAdmin.setBackground(new Color(133, 189, 212));
-		btnAdmin.setBounds(230, 174, 150, 27);
-		pnlIntro.add(btnAdmin);
-
-		btnRecep = new Button("Recepcionista");
-		btnRecep.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnRecep.setForeground(Color.WHITE);
-		btnRecep.setBackground(new Color(133, 189, 212));
-		btnRecep.setBounds(230, 237, 150, 27);
-		pnlIntro.add(btnRecep);
-
-		btnLabo = new Button("Laboratorista");
-		btnLabo.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnLabo.setForeground(Color.WHITE);
-		btnLabo.setBackground(new Color(133, 189, 212));
-		btnLabo.setBounds(230, 297, 150, 27);
-		pnlIntro.add(btnLabo);
+		btnIngresar = new Button("INGRESAR");
+		btnIngresar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnIngresar.setForeground(Color.WHITE);
+		btnIngresar.setBackground(new Color(133, 189, 212));
+		btnIngresar.setBounds(230, 220, 150, 27);
+		pnlIntro.add(btnIngresar);
 
 		JLabel label = new JLabel("");
 		label.setBounds(0, 247, 619, 200);
@@ -131,24 +129,9 @@ public class FrmPrincipal extends JFrame {
 	}
 
 	private void asociarEventos() {
-		btnAdmin.addActionListener(new ActionListener() {
+		btnIngresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cleanPanel();
-				addTabbedOPanel();
-			}
-		});
-
-		btnRecep.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// if recep
-				cleanPanel();
-				addTabbedOPanel();
-			}
-		});
-
-		btnLabo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// if labo
+				// check user
 				cleanPanel();
 				addTabbedOPanel();
 			}
