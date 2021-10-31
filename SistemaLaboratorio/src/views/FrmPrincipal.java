@@ -96,22 +96,22 @@ public class FrmPrincipal extends JFrame {
 		lblTitle.setForeground(new Color(200, 32, 58));
 		pnlIntro.add(lblTitle);
 
-		lblSelect = new JLabel("Por favor, seleccione en qué modo quiere ingresar:");
+		lblSelect = new JLabel("Por favor, ingrese su nombre de usuario:");
 		lblSelect.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSelect.setForeground(Color.DARK_GRAY);
 		lblSelect.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblSelect.setBounds(135, 118, 341, 27);
 		pnlIntro.add(lblSelect);
 		
-		lblUsuario = new JLabel("Nombre de usuario:");
+		/*lblUsuario = new JLabel("Nombre de usuario:");
 		lblUsuario.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblUsuario.setForeground(Color.DARK_GRAY);
 		lblUsuario.setBounds(230, 154, 150, 27);
-		pnlIntro.add(lblUsuario);
+		pnlIntro.add(lblUsuario);*/
 		
 		tUsuario = new JTextField();
 		tUsuario.setColumns(10);
-		tUsuario.setBounds(230, 174, 150, 27);
+		tUsuario.setBounds(230, 160, 150, 27);
 		pnlIntro.add(tUsuario);
 
 		btnIngresar = new Button("INGRESAR");
