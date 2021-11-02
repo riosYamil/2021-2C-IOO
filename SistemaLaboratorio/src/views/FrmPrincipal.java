@@ -25,7 +25,7 @@ public class FrmPrincipal extends JFrame {
 	private JLabel lblTitle;
 	private Button btnIngresar;
 	private JTextField tUsuario;
-	private static String titulo = "Sistema Gestión de laboratorio";
+	private static String titulo = "Sistema GestiÃ³n de laboratorio";
 
 	/**
 	 * Create the frame.

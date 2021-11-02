@@ -9,12 +9,12 @@ public class PacienteDTO {
     public Integer id;
     public String dni;
     public String nombre;
-    public String apellido;
+    public String domicilio;
     public String mail;
     public String sexo;
     public int edad;
-    public List<Peticion> peticiones_completas;
-    public List<Peticion> peticiones_pendientes;
+    public List<Peticion> peticionesCompletas;
+    public List<Peticion> peticionePendientes;
     public EstadoPaciente estado;
 
     @Override

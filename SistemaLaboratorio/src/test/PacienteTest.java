@@ -17,8 +17,8 @@ public class PacienteTest {
         PacienteDTO pacienteDTO = new PacienteDTO();
         pacienteDTO.id = 37340794;
         pacienteDTO.dni = "37340794";
-        pacienteDTO.apellido = "RIOS";
         pacienteDTO.nombre = "GABRIEL";
+        pacienteDTO.domicilio = "CALLE FALSA 1234";
         pacienteDTO.edad = 27;
         pacienteDTO.estado = EstadoPaciente.Activo;
         pacienteDTO.mail = "gabriel.rios.93@gmail.com";
@@ -30,14 +30,12 @@ public class PacienteTest {
 
 
         pacienteDTO.nombre = "GABRIEL YAMIL";
-        pacienteDTO.apellido = "RIOS BURGOA";
+        pacienteDTO.domicilio = "CALLE VERDADERA 1234";
         pacienteController.ModificarPaciente(pacienteDTO);
 
         PacienteDTO pacienteB = pacienteController.ObtenerPaciente(37340794);
 
         assertNotEquals( pacienteA.nombre,pacienteB.nombre);
-        assertNotEquals( pacienteA.apellido,pacienteB.apellido);
-
 
         pacienteController.BajaPaciente(pacienteCreado);
     }

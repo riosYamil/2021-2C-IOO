@@ -1,8 +1,6 @@
 package controllers;
 
 import dao.PacienteDAO;
-import domains.Paciente;
-import domains.Practica;
 import dtos.PacienteDTO;
 
 public class PacienteController {
@@ -46,6 +44,7 @@ public class PacienteController {
         return true;
     }
 
+    //TODO: Checkear si este método será necesario
     public PacienteDTO ObtenerPaciente(Integer id) {
         PacienteDTO p = new PacienteDTO();
         try {
@@ -56,14 +55,4 @@ public class PacienteController {
         }
         return p;
     }
-
-    public Practica ObtenerPractica(int codigoPractica) {
-        return dao.PracticaDAO.ObtenerPractica(codigoPractica);
-    }
-
-    public Practica AltaPractica(Practica practica, Paciente paciente) {
-        dao.PracticaDAO.CrearPractica(practica, paciente);
-        return practica;
-    }
-
 }

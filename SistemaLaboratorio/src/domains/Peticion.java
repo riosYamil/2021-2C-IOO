@@ -8,10 +8,10 @@ import java.util.List;
 public class Peticion {
     private Integer id;
     private Paciente paciente;
-    private String obra_social;
-    private Date fecha_de_carga;
-    private Date fecha_de_entrega;
-    private List<PracticaAsociada> practicas_asociadas;
+    private String obraSocial;
+    private Date fechaDeCarga;
+    private Date fechaDeEntrega;
+    private List<PracticaAsociada> practicasAsociadas;
     private EstadoPeticion estadoPeticion;
     private int sucursalID;
 	
