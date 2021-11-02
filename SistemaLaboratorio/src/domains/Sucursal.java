@@ -15,7 +15,10 @@ public class Sucursal {
         this.id = sucursalDTO.id;
         this.numero = sucursalDTO.numero;
         this.direccion = sucursalDTO.direccion;
-        this.responsableTecnico = sucursalDTO.responsableTecnico;
+
+        Usuario u = new Usuario(sucursalDTO.responsableTecnico);
+        this.responsableTecnico = u;
+
         this.peticiones = sucursalDTO.peticiones;
     }
 
@@ -24,7 +27,7 @@ public class Sucursal {
         sucursalDTO.id = this.id;
         sucursalDTO.numero = this.numero;
         sucursalDTO.direccion = this.direccion;
-        sucursalDTO.responsableTecnico = this.responsableTecnico;
+        sucursalDTO.responsableTecnico = this.responsableTecnico.toUsuarioDTO();
         sucursalDTO.peticiones = this.peticiones;
         return sucursalDTO;
     }

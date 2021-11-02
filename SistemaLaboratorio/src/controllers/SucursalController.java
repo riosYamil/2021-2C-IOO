@@ -1,25 +1,59 @@
 package controllers;
 
-import domains.Sucursal;
+import dao.SucursalDAO;
 import dtos.SucursalDTO;
+import dtos.UsuarioDTO;
 
 public class SucursalController {
 
-    public Sucursal AltaSucursal(SucursalDTO sucursalDTO) {
-        Sucursal s = new Sucursal(sucursalDTO);
-        dao.SucursalDAO.CrearSucursal(s.toSucursalDTO());
-        return s;
+    public void AltaSucursal(SucursalDTO s, UsuarioDTO u) {
+        try {
+            SucursalDAO sucursalDAO = new SucursalDAO();
+            s.responsableTecnico = u;
+            sucursalDAO.CrearSucursal(s);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return;
     }
 
-    public void BajaSucursal(int sucursalID) {
-        dao.SucursalDAO.BorrarSucursal(sucursalID);
+    public boolean BajaSucursal(int sucursalID) {
+        try {
+            SucursalDAO sucursalDAO = new SucursalDAO();
+            boolean fueBorrado = sucursalDAO.BorrarSucursal(sucursalID);
+
+            if (!fueBorrado) {
+                //Do something
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return true;
     }
 
-    public void ModificarSucursal(SucursalDTO sucursalDTO) {
-        dao.SucursalDAO.ActualizarSucursal(sucursalDTO);
+    public boolean ModificarSucursal(SucursalDTO s) {
+        try {
+            SucursalDAO sucursalDAO = new SucursalDAO();
+            boolean fueActualizado = sucursalDAO.ActualizarSucursal(s);
+            if (!fueActualizado) {
+                //Do something
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return true;
     }
 
     public SucursalDTO ObtenerSucursal(int sucursalID) {
-        return dao.SucursalDAO.ObtenerSucursal(sucursalID);
+        SucursalDTO s = new SucursalDTO();
+        try {
+            SucursalDAO sucursalDAO = new SucursalDAO();
+            s = sucursalDAO.ObtenerSucursal(sucursalID);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return s;
     }
 }

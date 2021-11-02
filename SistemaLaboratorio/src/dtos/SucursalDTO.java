@@ -9,7 +9,7 @@ public class SucursalDTO {
     public int id;
     public int numero;
     public String direccion;
-    public Usuario responsableTecnico;
+    public UsuarioDTO responsableTecnico;
     public List<Peticion> peticiones;
 
     //TODO: Desarrollar
