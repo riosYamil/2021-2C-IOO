@@ -15,16 +15,22 @@ import java.awt.event.ActionEvent;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
+import controllers.PacienteController;
+import dtos.PacienteDTO;
+
 import java.awt.Panel;
 import java.awt.SystemColor;
 import javax.swing.JCheckBox;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class InternalPanel extends JTabbedPane {
 
 	private JTabbedPane tabbedPane_1;
 	private JTabbedPane tabbedPane_2;
 	private JTabbedPane tabbedPane_3;
-	private Button addComponentBtn;
+	private JButton addComponentBtn;
 	private Button updateComponentBtn;
 	private JLabel dni;
 	private JTextField tdni;
@@ -81,6 +87,7 @@ public class InternalPanel extends JTabbedPane {
 		setSucursalTab();
 		setPeticionesTab();
 
+		System.out.print("hola |1");
 		asociarEventos();
 	}
 
@@ -132,11 +139,18 @@ public class InternalPanel extends JTabbedPane {
 		JPanel Alta = new JPanel(false);
 		Alta.setBackground(Color.WHITE);
 
-		addComponentBtn = new Button("Agregar paciente");
+		addComponentBtn = new JButton("Agregar paciente");
 		addComponentBtn.setFont(new Font("Tahoma", Font.BOLD, 12));
 		addComponentBtn.setForeground(Color.WHITE);
 		addComponentBtn.setBackground(new Color(133, 189, 212));
 		addComponentBtn.setBounds(230, 174, 150, 27);
+		addComponentBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(tabbedPane_1, "Este paciente no se puede eliminar 2", "Error",
+					    JOptionPane.ERROR_MESSAGE);
+			}
+		});
+		
 		updateComponentBtn = new Button("Modificar paciente");
 		updateComponentBtn.setFont(new Font("Tahoma", Font.BOLD, 12));
 		updateComponentBtn.setForeground(Color.WHITE);
@@ -458,15 +472,30 @@ public class InternalPanel extends JTabbedPane {
 
 	
 	private void asociarEventos() {
-		addComponentBtn.addActionListener(e -> {
-		});
+		PacienteController pacienteController = new PacienteController();
+
 		deleteComponentBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(false) {
-					System.out.println(lbldni.getText());
+					System.out.print("hola");
 				} else {
+					try {
+					PacienteDTO p = new PacienteDTO();
+					p.dni = "43334";
+					p.nombre = "ttt";
+					p.domicilio = "ttt";
+					p.edad = 25;
+					p.sexo = "ttt";
+					p.mail = "ttt";
+					p = pacienteController.AltaPaciente(p);
+					System.out.print(p);
+					
 					JOptionPane.showMessageDialog(tabbedPane_1, "Este paciente no se puede eliminar", "Error",
 						    JOptionPane.ERROR_MESSAGE);
+					}
+					catch (Exception err) {
+						err.printStackTrace();
+					}
 				}
 			}
 		});
@@ -475,4 +504,5 @@ public class InternalPanel extends JTabbedPane {
 			}
 		});
 	}
+	
 }
