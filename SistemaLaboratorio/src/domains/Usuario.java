@@ -24,6 +24,7 @@ public class Usuario {
         this.nombreCompleto = usuario.nombreCompleto;
         this.domicilio = usuario.domicilio;
         this.dni = usuario.dni;
+        this.fechaDeNacimiento = usuario.fechaDeNacimiento;
         this.rol = usuario.rol;
     }
 
@@ -36,9 +37,27 @@ public class Usuario {
         usuarioDTO.nombreCompleto = this.nombreCompleto;
         usuarioDTO.domicilio = this.domicilio;
         usuarioDTO.dni = this.dni;
+        usuarioDTO.fechaDeNacimiento = this.fechaDeNacimiento;
         usuarioDTO.rol = this.rol;
         return usuarioDTO;
     }
+
+    public boolean esLaboratista() {
+        return this.rol.equals(rol.Laboratista);
+    }
+
+    public boolean esRecepcionista() {
+        return this.rol.equals(rol.Recepcion);
+    }
+
+    public boolean esAdministrador() {
+        return this.rol.equals(rol.Administrador);
+    }
+
+    public void trabajar() {
+        return;
+    }
+
 }
 
 

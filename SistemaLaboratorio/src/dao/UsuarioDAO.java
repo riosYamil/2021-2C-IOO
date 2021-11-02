@@ -1,47 +1,17 @@
 package dao;
 
-import domains.Administrador;
-import domains.Laboratista;
-import domains.Recepcion;
 import domains.Usuario;
 import dtos.UsuarioDTO;
 
 public class UsuarioDAO extends utils.GenericDAO {
 
-    public UsuarioDAO(String file) throws Exception {
-        super(Usuario.class, "./src/goldenfiles/usuarios/dni_" + file);
+    public UsuarioDAO() throws Exception {
+        super(UsuarioDTO.class, "./src/goldenfiles/usuarios/usuario_db");
     }
 
     public void CrearUsuario(UsuarioDTO u) throws Exception {
         try {
             this.save(u);
-        } catch (Exception e) {
-            throw (e);
-        }
-        return;
-    }
-
-    public void CrearLaboratista(Laboratista l) throws Exception {
-        try {
-            this.save(l);
-        } catch (Exception e) {
-            throw (e);
-        }
-        return;
-    }
-
-    public void CrearRecepcion(Recepcion r) throws Exception {
-        try {
-            this.save(r);
-        } catch (Exception e) {
-            throw (e);
-        }
-        return;
-    }
-
-    public void CrearAdministrador(Administrador a) throws Exception {
-        try {
-            this.save(a);
         } catch (Exception e) {
             throw (e);
         }
@@ -70,9 +40,21 @@ public class UsuarioDAO extends utils.GenericDAO {
     }
 
     public UsuarioDTO ObtenerUsuario(int usuarioID) throws Exception {
-        UsuarioDTO usuarioDTO;
+
+        UsuarioDTO usuarioDTO = new UsuarioDTO();
         try {
             usuarioDTO = (UsuarioDTO) this.search(usuarioID);
+        } catch (Exception e) {
+            throw (e);
+        }
+        return usuarioDTO;
+    }
+
+    //TODO: Codear este método
+    public UsuarioDTO BuscarUnLaboratista() throws Exception {
+        UsuarioDTO usuarioDTO;
+        try {
+            usuarioDTO = (UsuarioDTO) this.search(12345);
         } catch (Exception e) {
             throw (e);
         }

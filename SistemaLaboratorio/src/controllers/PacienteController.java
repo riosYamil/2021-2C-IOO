@@ -7,7 +7,7 @@ public class PacienteController {
 
     public PacienteDTO AltaPaciente(PacienteDTO p) {
         try {
-            PacienteDAO pacienteDAO = new PacienteDAO(p.dni);
+            PacienteDAO pacienteDAO = new PacienteDAO();
             pacienteDAO.CrearPaciente(p);
         } catch (Exception e) {
             e.printStackTrace();
@@ -17,7 +17,7 @@ public class PacienteController {
 
     public boolean BajaPaciente(PacienteDTO p) {
         try {
-            PacienteDAO pacienteDAO = new PacienteDAO(p.id.toString());
+            PacienteDAO pacienteDAO = new PacienteDAO();
             boolean fueBorrado = pacienteDAO.BorrarPaciente(p.id);
 
             if (!fueBorrado) {
@@ -32,7 +32,7 @@ public class PacienteController {
 
     public boolean ModificarPaciente(PacienteDTO p) {
         try {
-            PacienteDAO pacienteDAO = new PacienteDAO(p.dni);
+            PacienteDAO pacienteDAO = new PacienteDAO();
             boolean fueActualizado = pacienteDAO.ActualizarPaciente(p);
             if (!fueActualizado) {
                 //Do something
@@ -48,7 +48,7 @@ public class PacienteController {
     public PacienteDTO ObtenerPaciente(Integer id) {
         PacienteDTO p = new PacienteDTO();
         try {
-            PacienteDAO pacienteDAO = new PacienteDAO(id.toString());
+            PacienteDAO pacienteDAO = new PacienteDAO();
             p = pacienteDAO.ObtenerPaciente(id);
         } catch (Exception e) {
             e.printStackTrace();

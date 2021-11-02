@@ -10,7 +10,7 @@ import org.junit.Test;
 public class PacienteTest {
 
     @Test
-    public void abmPaciente() {
+    public void AltaPaciente() {
 
         PacienteController pacienteController = new PacienteController();
 
@@ -24,20 +24,43 @@ public class PacienteTest {
         pacienteDTO.mail = "gabriel.rios.93@gmail.com";
         pacienteDTO.sexo = "Masculino";
 
+        PacienteDTO paciente = pacienteController.AltaPaciente(pacienteDTO);
+        assertNotNull(paciente);
+    }
+
+    @Test
+    public void BajaPaciente() {
+
+        PacienteController pacienteController = new PacienteController();
+
+        PacienteDTO paciente = pacienteController.ObtenerPaciente(37340794);
+        pacienteController.BajaPaciente(paciente);
+    }
+
+    @Test
+    public void ModificarPaciente() {
+
+        PacienteController pacienteController = new PacienteController();
+
+        PacienteDTO pacienteDTO = new PacienteDTO();
+        pacienteDTO.id = 37340794;
+        pacienteDTO.dni = "37340794";
+        pacienteDTO.nombre = "GABRIEL";
+        pacienteDTO.domicilio = "CALLE FALSA 1234";
+        pacienteDTO.edad = 27;
+        pacienteDTO.estado = EstadoPaciente.Activo;
+        pacienteDTO.mail = "gabriel.rios.93@gmail.com";
+        pacienteDTO.sexo = "Masculino";
         PacienteDTO pacienteCreado = pacienteController.AltaPaciente(pacienteDTO);
         assertNotNull(pacienteCreado);
-        PacienteDTO pacienteA = pacienteController.ObtenerPaciente(37340794);
-
 
         pacienteDTO.nombre = "GABRIEL YAMIL";
         pacienteDTO.domicilio = "CALLE VERDADERA 1234";
-        pacienteController.ModificarPaciente(pacienteDTO);
+        assertTrue(pacienteController.ModificarPaciente(pacienteDTO));
 
-        PacienteDTO pacienteB = pacienteController.ObtenerPaciente(37340794);
-
-        assertNotEquals( pacienteA.nombre,pacienteB.nombre);
-
-        pacienteController.BajaPaciente(pacienteCreado);
+        PacienteDTO paciente = pacienteController.ObtenerPaciente(37340794);
+        assertEquals("GABRIEL YAMIL", paciente.nombre);
+        assertEquals("CALLE VERDADERA 1234", paciente.domicilio);
     }
 
 }

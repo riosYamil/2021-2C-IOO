@@ -12,4 +12,9 @@ public class Laboratista extends Usuario {
     public UsuarioDTO toUsuarioDTO() {
         return toUsuarioDTO();
     }
+
+    @Override
+    public void trabajar(){
+        return;
+    }
 }

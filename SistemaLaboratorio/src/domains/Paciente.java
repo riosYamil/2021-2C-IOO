@@ -30,22 +30,27 @@ public class Paciente {
         this.estado = paciente.estado;
     }
 
-    public static void agregarPeticionCompleta(Peticion peticion) {
+    public boolean agregarPeticionCompleta(Peticion peticion) {
+        return this.peticionesCompletas.add(peticion);
     }
 
-    public static void quitarPeticionCompleta(Peticion peticion) {
+    public boolean quitarPeticionCompleta(Peticion peticion) {
+        return this.peticionesCompletas.remove(peticion);
     }
 
-    public static void agregarPeticionPendiente(Peticion peticion) {
+    public boolean agregarPeticionPendiente(Peticion peticion) {
+        return this.peticionesPendientes.add(peticion);
     }
 
-    public static void quitarPeticionPendiente(Peticion peticion) {
+    public boolean quitarPeticionPendiente(Peticion peticion) {
+        return this.peticionesPendientes.remove(peticion);
     }
 
-    public static boolean tienePeticionesCompletas() {
-        return true;
+    public boolean tienePeticionesCompletas() {
+        return !this.peticionesCompletas.isEmpty();
     }
 
+    //TODO:Codear este método
     public static void notificarEstadoDePeticion(Peticion peticion) {
     }
 

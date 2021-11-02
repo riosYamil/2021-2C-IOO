@@ -1,16 +1,14 @@
 package controllers;
 
 import dao.UsuarioDAO;
-import domains.Administrador;
-import domains.Laboratista;
-import domains.Recepcion;
 import dtos.UsuarioDTO;
+import enums.Rol;
 
 public class UsuarioController {
 
     public UsuarioDTO AltaUsuario(UsuarioDTO u) {
         try {
-            UsuarioDAO usuarioDAO = new UsuarioDAO(u.dni);
+            UsuarioDAO usuarioDAO = new UsuarioDAO();
             usuarioDAO.CrearUsuario(u);
         } catch (Exception e) {
             e.printStackTrace();
@@ -18,33 +16,30 @@ public class UsuarioController {
         return u;
     }
 
-    public UsuarioDTO AltaLaboratista(Laboratista l) {
-        UsuarioDTO u = l.toUsuarioDTO();
+    public UsuarioDTO AltaLaboratista(UsuarioDTO u) {
         try {
-            UsuarioDAO usuarioDAO = new UsuarioDAO(u.dni);
-            usuarioDAO.CrearLaboratista(l);
+            UsuarioDAO usuarioDAO = new UsuarioDAO();
+            usuarioDAO.CrearUsuario(u);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return u;
     }
 
-    public UsuarioDTO AltaRecepcion(Recepcion r) {
-        UsuarioDTO u = r.toUsuarioDTO();
+    public UsuarioDTO AltaRecepcion(UsuarioDTO u) {
         try {
-            UsuarioDAO usuarioDAO = new UsuarioDAO(u.dni);
-            usuarioDAO.CrearRecepcion(r);
+            UsuarioDAO usuarioDAO = new UsuarioDAO();
+            usuarioDAO.CrearUsuario(u);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return u;
     }
 
-    public UsuarioDTO AltaAdministrador(Administrador a) {
-        UsuarioDTO u = a.toUsuarioDTO();
+    public UsuarioDTO AltaAdministrador(UsuarioDTO u) {
         try {
-            UsuarioDAO usuarioDAO = new UsuarioDAO(u.dni);
-            usuarioDAO.CrearAdministrador(a);
+            UsuarioDAO usuarioDAO = new UsuarioDAO();
+            usuarioDAO.CrearUsuario(u);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -53,7 +48,7 @@ public class UsuarioController {
 
     public boolean BajaUsuario(UsuarioDTO u) {
         try {
-            UsuarioDAO usuarioDAO = new UsuarioDAO(u.dni);
+            UsuarioDAO usuarioDAO = new UsuarioDAO();
             boolean fueBorrado = usuarioDAO.BorrarUsuario(u.id);
 
             if (!fueBorrado) {
@@ -68,7 +63,7 @@ public class UsuarioController {
 
     public boolean ModificarUsuario(UsuarioDTO u) {
         try {
-            UsuarioDAO usuarioDAO = new UsuarioDAO(u.dni);
+            UsuarioDAO usuarioDAO = new UsuarioDAO();
             boolean fueActualizado = usuarioDAO.ActualizarUsuario(u);
             if (!fueActualizado) {
                 //Do something
@@ -83,8 +78,20 @@ public class UsuarioController {
     public UsuarioDTO ObtenerUsuario(Integer id) {
         UsuarioDTO u = new UsuarioDTO();
         try {
-            UsuarioDAO usuarioDAO = new UsuarioDAO(id.toString());
+            UsuarioDAO usuarioDAO = new UsuarioDAO();
             u = usuarioDAO.ObtenerUsuario(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return u;
+    }
+
+    //TODO: Codear este método
+    public UsuarioDTO BuscarUnLaboratista() {
+        UsuarioDTO u = new UsuarioDTO();
+        try {
+            UsuarioDAO usuarioDAO = new UsuarioDAO();
+            u = usuarioDAO.BuscarUnLaboratista();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -1,11 +1,12 @@
 package dao;
 
 import dtos.PacienteDTO;
+import dtos.UsuarioDTO;
 
 public class PacienteDAO extends utils.GenericDAO {
 
-    public PacienteDAO(String file) throws Exception {
-        super(PacienteDTO.class, "./src/goldenfiles/pacientes/dni_" + file);
+    public PacienteDAO() throws Exception {
+        super(UsuarioDTO.class, "./src/goldenfiles/pacientes/pacientes_db");
     }
 
     public void CrearPaciente(PacienteDTO p) throws Exception {
@@ -37,6 +38,7 @@ public class PacienteDAO extends utils.GenericDAO {
         return fueBorrado;
     }
 
+    //TODO: Checkear si es necesario tener este método
     public PacienteDTO ObtenerPaciente(int pacienteID) throws Exception {
         PacienteDTO pacienteDTO = new PacienteDTO();
         try {
