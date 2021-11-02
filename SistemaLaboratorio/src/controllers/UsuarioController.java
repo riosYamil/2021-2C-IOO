@@ -19,6 +19,7 @@ public class UsuarioController {
     public UsuarioDTO AltaLaboratista(UsuarioDTO u) {
         try {
             UsuarioDAO usuarioDAO = new UsuarioDAO();
+            u.rol = Rol.Laboratista;
             usuarioDAO.CrearUsuario(u);
         } catch (Exception e) {
             e.printStackTrace();
@@ -29,6 +30,7 @@ public class UsuarioController {
     public UsuarioDTO AltaRecepcion(UsuarioDTO u) {
         try {
             UsuarioDAO usuarioDAO = new UsuarioDAO();
+            u.rol = Rol.Recepcion;
             usuarioDAO.CrearUsuario(u);
         } catch (Exception e) {
             e.printStackTrace();
@@ -39,6 +41,7 @@ public class UsuarioController {
     public UsuarioDTO AltaAdministrador(UsuarioDTO u) {
         try {
             UsuarioDAO usuarioDAO = new UsuarioDAO();
+            u.rol = Rol.Administrador;
             usuarioDAO.CrearUsuario(u);
         } catch (Exception e) {
             e.printStackTrace();

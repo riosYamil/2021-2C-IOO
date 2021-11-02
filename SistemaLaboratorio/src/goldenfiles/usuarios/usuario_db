@@ -1,4 +1,3 @@
-{"id":37340794,"nombre":"YAMIL","email":"GYRB@mail.com","password":"pass","nombreCompleto":"GABRIEL RIOS","domicilio":"CALLE VERDADERA 1234","dni":"37340794","fechaDeNacimiento":"Nov 2, 2021, 1:41:41 AM","rol":"Laboratista"}
-{"id":37340794,"nombre":"YAMIL","email":"GYRB@mail.com","password":"pass","nombreCompleto":"GABRIEL RIOS","domicilio":"CALLE VERDADERA 1234","dni":"37340794","fechaDeNacimiento":"Nov 2, 2021, 1:41:41 AM","rol":"Laboratista"}
-{"id":37340794,"nombre":"YAMIL","email":"GYRB@mail.com","password":"pass","nombreCompleto":"GABRIEL RIOS","domicilio":"CALLE VERDADERA 1234","dni":"37340794","fechaDeNacimiento":"Nov 2, 2021, 1:41:41 AM","rol":"Laboratista"}
-{"id":37340794,"nombre":"YAMIL","email":"GYRB@mail.com","password":"pass","nombreCompleto":"GABRIEL RIOS","domicilio":"CALLE VERDADERA 1234","dni":"37340794","fechaDeNacimiento":"Nov 2, 2021, 1:41:41 AM","rol":"Laboratista"}
+{"id":37340002,"nombre":"GABRIEL","email":"GYRB@mail.com","password":"pass","nombreCompleto":"GABRIEL RIOS","domicilio":"CALLE FALSA 1234","dni":"37340002","fechaDeNacimiento":"Nov 2, 2021, 1:50:55 AM","rol":"Recepcion"}
+{"id":37340003,"nombre":"GABRIEL","email":"GYRB@mail.com","password":"pass","nombreCompleto":"GABRIEL RIOS","domicilio":"CALLE FALSA 1234","dni":"37340003","fechaDeNacimiento":"Nov 2, 2021, 1:50:58 AM","rol":"Administrador"}
+{"id":37340794,"nombre":"YAMIL","email":"GYRB@mail.com","password":"pass","nombreCompleto":"GABRIEL RIOS","domicilio":"CALLE VERDADERA 1234","dni":"37340794","fechaDeNacimiento":"Nov 2, 2021, 1:51:20 AM","rol":"Administrador"}
