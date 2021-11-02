@@ -1,5 +1,7 @@
 package dtos;
 
+import enums.Rol;
+
 import java.util.Date;
 
 public class UsuarioDTO {
@@ -11,5 +13,5 @@ public class UsuarioDTO {
     public String domicilio;
     public String dni;
     public Date fechaDeNacimiento;
-    public enums.rol rol;
+    public Rol rol;
 }

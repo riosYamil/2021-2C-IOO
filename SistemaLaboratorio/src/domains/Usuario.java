@@ -1,6 +1,7 @@
 package domains;
 
 import dtos.UsuarioDTO;
+import enums.Rol;
 
 import java.util.Date;
 
@@ -13,7 +14,7 @@ public class Usuario {
     private String domicilio;
     private String dni;
     private Date fechaDeNacimiento;
-    private enums.rol rol;
+    private Rol rol;
 
     public Usuario(UsuarioDTO usuario) {
         this.id = usuario.id;

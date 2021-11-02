@@ -1,6 +1,6 @@
 package enums;
 
-public enum rol {
+public enum Rol {
     Recepcion,
     Laboratista,
     Administrador
