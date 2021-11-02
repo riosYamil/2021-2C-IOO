@@ -7278,6 +7278,24 @@
 									"subViews": [
 										{
 											"_type": "UMLAttributeView",
+											"_id": "AAAAAAF83wFI97V6MWU=",
+											"_parent": {
+												"$ref": "AAAAAAF8bd++8ia7uY8="
+											},
+											"model": {
+												"$ref": "AAAAAAF83wFI5rVfVsA="
+											},
+											"fillColor": "#ffffd8",
+											"font": "Arial;13;0",
+											"left": 1165,
+											"top": 62,
+											"width": 206.06396484375,
+											"height": 13,
+											"text": "+sucursal_id: Int",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
 											"_id": "AAAAAAF8beB8Ci5e04o=",
 											"_parent": {
 												"$ref": "AAAAAAF8bd++8ia7uY8="
@@ -7288,7 +7306,7 @@
 											"fillColor": "#ffffd8",
 											"font": "Arial;13;0",
 											"left": 1165,
-											"top": 62,
+											"top": 77,
 											"width": 206.06396484375,
 											"height": 13,
 											"text": "+número: Int",
@@ -7306,7 +7324,7 @@
 											"fillColor": "#ffffd8",
 											"font": "Arial;13;0",
 											"left": 1165,
-											"top": 77,
+											"top": 92,
 											"width": 206.06396484375,
 											"height": 13,
 											"text": "+dirección: String",
@@ -7324,7 +7342,7 @@
 											"fillColor": "#ffffd8",
 											"font": "Arial;13;0",
 											"left": 1165,
-											"top": 92,
+											"top": 107,
 											"width": 206.06396484375,
 											"height": 13,
 											"text": "+responsable_tecnico: UsuarioDTO",
@@ -7342,7 +7360,7 @@
 											"fillColor": "#ffffd8",
 											"font": "Arial;13;0",
 											"left": 1165,
-											"top": 107,
+											"top": 122,
 											"width": 206.06396484375,
 											"height": 13,
 											"text": "+peticiones: List<Petición>",
@@ -7354,7 +7372,7 @@
 									"left": 1160,
 									"top": 57,
 									"width": 216.06396484375,
-									"height": 68
+									"height": 83
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -7368,7 +7386,7 @@
 									"fillColor": "#ffffd8",
 									"font": "Arial;13;0",
 									"left": 1160,
-									"top": 125,
+									"top": 140,
 									"width": 216.06396484375,
 									"height": 10
 								},
@@ -7413,7 +7431,7 @@
 							"left": 1160,
 							"top": 32,
 							"width": 216.06396484375,
-							"height": 105,
+							"height": 118,
 							"nameCompartment": {
 								"$ref": "AAAAAAF8bd++8Sa2iho="
 							},
@@ -14649,6 +14667,15 @@
 					},
 					"name": "SucursalDTO",
 					"attributes": [
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAF83wFI5rVfVsA=",
+							"_parent": {
+								"$ref": "AAAAAAF8bd++7SazB98="
+							},
+							"name": "sucursal_id",
+							"type": "Int"
+						},
 						{
 							"_type": "UMLAttribute",
 							"_id": "AAAAAAF8beB71i464jY=",

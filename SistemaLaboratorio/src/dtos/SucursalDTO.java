@@ -11,4 +11,21 @@ public class SucursalDTO {
     public String direccion;
     public Usuario responsableTecnico;
     public List<Peticion> peticiones;
+
+    //TODO: Desarrollar
+    public void AltaPeticion(UsuarioDTO usuario, Peticion peticion){
+        return;
+    }
+
+    //TODO: Desarrollar
+    public Peticion DameUnaPeticionActiva() {
+        Peticion p = new Peticion();
+        return p;
+    }
+
+    //TODO: Desarrollar
+    public int ObtenerSucursalID(int numero) {
+        return 1;
+    }
+
 }
