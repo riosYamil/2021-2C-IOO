@@ -1,12 +1,11 @@
 package dao;
 
 import dtos.PacienteDTO;
-import dtos.UsuarioDTO;
 
 public class PacienteDAO extends utils.GenericDAO {
 
     public PacienteDAO() throws Exception {
-        super(UsuarioDTO.class, "./src/goldenfiles/pacientes/pacientes_db");
+        super(PacienteDTO.class, "./src/goldenfiles/pacientes/pacientes_db");
     }
 
     public void CrearPaciente(PacienteDTO p) throws Exception {

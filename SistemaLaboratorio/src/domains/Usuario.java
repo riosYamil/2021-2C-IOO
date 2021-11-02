@@ -54,6 +54,7 @@ public class Usuario {
         return this.rol.equals(rol.Administrador);
     }
 
+    //TODO: Implementar
     public void trabajar() {
         return;
     }

@@ -13,6 +13,7 @@ public class Administrador extends Usuario {
         return toUsuarioDTO();
     }
 
+    //TODO: Implementar
     @Override
     public void trabajar(){
         return;

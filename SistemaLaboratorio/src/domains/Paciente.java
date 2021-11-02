@@ -50,7 +50,7 @@ public class Paciente {
         return !this.peticionesCompletas.isEmpty();
     }
 
-    //TODO:Codear este método
+    //TODO: Codear este método
     public static void notificarEstadoDePeticion(Peticion peticion) {
     }
 

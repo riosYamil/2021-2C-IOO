@@ -1,6 +1,5 @@
 package dao;
 
-import domains.Usuario;
 import dtos.UsuarioDTO;
 
 public class UsuarioDAO extends utils.GenericDAO {

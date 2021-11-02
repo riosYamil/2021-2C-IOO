@@ -13,6 +13,7 @@ public class Recepcion extends Usuario {
         return toUsuarioDTO();
     }
 
+    //TODO: Implementar
     @Override
     public void trabajar(){
         return;
