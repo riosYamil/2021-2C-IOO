@@ -133,44 +133,49 @@ public class SucursalPanel {
 		
 		//layout
 		GroupLayout gl_Alta_1 = new GroupLayout(Alta_1);
-		gl_Alta_1.setHorizontalGroup(gl_Alta_1.createParallelGroup(Alignment.LEADING).addGap(0, 624, Short.MAX_VALUE)
-				.addGap(0, 563, Short.MAX_VALUE).addGap(0, 582, Short.MAX_VALUE)
-				.addGroup(gl_Alta_1.createSequentialGroup().addGap(31)
-						.addGroup(gl_Alta_1.createParallelGroup(Alignment.LEADING).addComponent(lblDireccion)
-								.addComponent(lblResponsableTecnico)
-								.addComponent(tNumero, GroupLayout.PREFERRED_SIZE, 162, GroupLayout.PREFERRED_SIZE)
-								.addComponent(tDireccion, GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
-								.addComponent(tResponsableTecnico)
-								.addGroup(gl_Alta_1.createSequentialGroup()
-										.addComponent(btnAddSuc, GroupLayout.PREFERRED_SIZE,
-												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addGap(18)
-										.addComponent(btnUpdateSuc, GroupLayout.PREFERRED_SIZE,
-												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED))
-								.addGroup(Alignment.TRAILING,
-										gl_Alta_1.createSequentialGroup()
-												.addComponent(lblNumero, GroupLayout.PREFERRED_SIZE, 79,
-														GroupLayout.PREFERRED_SIZE)
-												.addGap(402)))
-						.addContainerGap(70, Short.MAX_VALUE)));
-		gl_Alta_1.setVerticalGroup(gl_Alta_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_Alta_1.createSequentialGroup().addGap(30)
-						.addGroup(gl_Alta_1.createParallelGroup(Alignment.BASELINE)
-								.addComponent(btnAddSuc, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnUpdateSuc, GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGap(36).addComponent(lblNumero).addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(tNumero, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED).addComponent(lblDireccion)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(tDireccion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(lblResponsableTecnico)
-						.addPreferredGap(ComponentPlacement.RELATED).addComponent(tResponsableTecnico,
-								GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap(216, Short.MAX_VALUE)));
+		gl_Alta_1.setHorizontalGroup(
+			gl_Alta_1.createParallelGroup(Alignment.LEADING)
+				.addGap(0, 587, Short.MAX_VALUE)
+				.addGap(0, 587, Short.MAX_VALUE)
+				.addGroup(gl_Alta_1.createSequentialGroup()
+					.addGap(31)
+					.addGroup(gl_Alta_1.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblResponsableTecnico)
+						.addComponent(lblDireccion)
+						.addGroup(Alignment.TRAILING, gl_Alta_1.createSequentialGroup()
+							.addComponent(btnAddSuc, GroupLayout.PREFERRED_SIZE, 228, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnUpdateSuc, GroupLayout.PREFERRED_SIZE, 213, GroupLayout.PREFERRED_SIZE)
+							.addGap(140))
+						.addGroup(gl_Alta_1.createParallelGroup(Alignment.TRAILING, false)
+							.addComponent(tDireccion, Alignment.LEADING)
+							.addComponent(tResponsableTecnico, Alignment.LEADING, 484, 484, Short.MAX_VALUE))
+						.addGroup(gl_Alta_1.createParallelGroup(Alignment.TRAILING, false)
+							.addComponent(tNumero, Alignment.LEADING)
+							.addComponent(lblNumero, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)))
+					.addContainerGap())
+		);
+		gl_Alta_1.setVerticalGroup(
+			gl_Alta_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_Alta_1.createSequentialGroup()
+					.addGap(30)
+					.addGroup(gl_Alta_1.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnAddSuc, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnUpdateSuc, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(31)
+					.addComponent(lblNumero)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(tNumero, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblDireccion)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(tDireccion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(lblResponsableTecnico)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(tResponsableTecnico, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(244, Short.MAX_VALUE))
+		);
 		Alta_1.setLayout(gl_Alta_1);
 		return Alta_1;
 	}

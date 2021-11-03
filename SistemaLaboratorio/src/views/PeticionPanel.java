@@ -18,11 +18,14 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class PeticionPanel {
 	
 	private JTabbedPane tabbedPane_2;
 	private Panel Peticiones;
+	private Panel Peticiones1;
 	private JLabel lblBaja_2;
 	private JLabel lbldni_1;
 	private JTextField tDNIPeticiones;
@@ -31,6 +34,7 @@ public class PeticionPanel {
 	private JCheckBox chckbxPeticionesCriticas;
 	private JButton btnEnviarNot;
 	private JLabel lblNotificar;
+	private JTable table;
 
 	/**
 	 * @wbp.parser.entryPoint
@@ -40,12 +44,59 @@ public class PeticionPanel {
 		tabbedPane_2.setBackground(Color.WHITE);
 		tabbedPane_2.setBounds(100, 100, 629, 476);
 		tabbedPane_2.add(setLayout());
+		tabbedPane_2.add(set());
+		tabbedPane_2.setTitleAt(1, "Algo");
         tabbedPane_2.setEnabledAt(0, true);
         tabbedPane_2.setTitleAt(0, "Peticiones");
+        tabbedPane_2.setEnabledAt(0, true);
+        tabbedPane_2.setTitleAt(0, "?");
 		
 		asociarEventos();
 		
 		return tabbedPane_2;
+	}
+	
+	private Panel set() {
+		Peticiones1 = new Panel();
+		table = new JTable();
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+				{"test", "test", "test", "test", null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+			},
+			new String[] {
+				"Hola Col", "New column", "New column", "New column", "New column"
+			}
+		));
+		
+		JLabel lblPeticiones = new JLabel("Peticiones:");
+		GroupLayout gl_Peticiones1 = new GroupLayout(Peticiones1);
+		gl_Peticiones1.setHorizontalGroup(
+			gl_Peticiones1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_Peticiones1.createSequentialGroup()
+					.addGroup(gl_Peticiones1.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_Peticiones1.createSequentialGroup()
+							.addGap(65)
+							.addComponent(table, GroupLayout.PREFERRED_SIZE, 408, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_Peticiones1.createSequentialGroup()
+							.addGap(38)
+							.addComponent(lblPeticiones)))
+					.addContainerGap(97, Short.MAX_VALUE))
+		);
+		gl_Peticiones1.setVerticalGroup(
+			gl_Peticiones1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_Peticiones1.createSequentialGroup()
+					.addGap(30)
+					.addComponent(lblPeticiones)
+					.addGap(18)
+					.addComponent(table, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(329, Short.MAX_VALUE))
+		);
+		Peticiones1.setLayout(gl_Peticiones1);
+		return Peticiones1;
 	}
 	
 	private Panel setLayout() {
@@ -149,11 +200,10 @@ public class PeticionPanel {
 		
 		btnEnviarNot.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(tabbedPane_2, "Se notificó correctamente", "Informaciï¿½n",
+				JOptionPane.showMessageDialog(tabbedPane_2, "Se notificï¿½ correctamente", "Informaciï¿½n",
 						JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		
 	}
-	
 }
