@@ -30,7 +30,6 @@ public class PacienteTest {
 
     @Test
     public void BajaPaciente() {
-
         PacienteController pacienteController = new PacienteController();
 
         PacienteDTO paciente = pacienteController.ObtenerPaciente(37340794);
