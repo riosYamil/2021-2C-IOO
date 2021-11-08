@@ -1,21 +1,16 @@
 package views;
 
 
+import controllers.UsuarioController;
+import dtos.UsuarioDTO;
+
 import java.awt.Button;
 import java.awt.Color;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.*;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JTextField;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 
 public class FrmPrincipal extends JFrame {
 
@@ -79,7 +74,7 @@ public class FrmPrincipal extends JFrame {
 		lblTitle.setForeground(new Color(200, 32, 58));
 		pnlIntro.add(lblTitle);
 
-		lblSelect = new JLabel("Por favor, ingrese su nombre de usuario:");
+		lblSelect = new JLabel("Por favor, ingrese su DNI:");
 		lblSelect.setBackground(Color.WHITE);
 		lblSelect.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSelect.setForeground(Color.DARK_GRAY);
@@ -109,11 +104,32 @@ public class FrmPrincipal extends JFrame {
 	private void asociarEventos() {
 		btnIngresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// check user
-				cleanPanel();
-				addTabbedOPanel();
+				String rol = getUserRol();
+
+				if (rol != null) {
+					cleanPanel();
+					addTabbedOPanel(rol);
+				} else {
+					JOptionPane.showMessageDialog(pnlIntro, "No se reconoce ese DNI.", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
+	}
+
+	private String getUserRol() {
+		UsuarioController usuarioController = new UsuarioController();
+		UsuarioDTO u = new UsuarioDTO();
+		try {
+			u = usuarioController.ObtenerUsuario(Integer.parseInt(tUsuario.getText()));
+
+			if(u == null) return null;
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+
+		return u.rol.toString();
 	}
 
 	private void cleanPanel() {
@@ -124,8 +140,8 @@ public class FrmPrincipal extends JFrame {
 		pnlIntro.setLayout(new BoxLayout(pnlIntro, BoxLayout.X_AXIS));
 	}
 
-	private void addTabbedOPanel() {
-		InternalPanel frame = new InternalPanel();// should get if it is admin, recep or labo
+	private void addTabbedOPanel(String rol) {
+		InternalPanel frame = new InternalPanel(rol);// should get if it is admin, recep or labo
 		pnlIntro.add(frame);
 
 	}

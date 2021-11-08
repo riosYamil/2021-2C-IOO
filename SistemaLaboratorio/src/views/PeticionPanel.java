@@ -59,6 +59,8 @@ public class PeticionPanel {
 	private Panel set() {
 		Peticiones1 = new Panel();
 		table = new JTable();
+		table.setFillsViewportHeight(true);
+		table.setColumnSelectionAllowed(true);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
 				{"test", "test", "test", "test", null},
