@@ -7,16 +7,19 @@ public class PracticaAsociada {
     private EstadoResultadoPractica resultadoPractica;
     private int resultado;
 
-    public static void modificarResultadoPractica(EstadoResultadoPractica rp) {
-
+    public void modificarResultadoPractica(EstadoResultadoPractica rp) {
+        this.resultadoPractica = rp;
     }
 
     public boolean tieneValoresReservados() {
-        return true;
+        return practica.esUnValorReservado(resultado);
     }
 
     public boolean tieneValoresCriticos() {
-        return true;
+        return practica.esUnValorCritico(resultado);
     }
 
+    public boolean tieneResultadoPendiente(){
+        return  resultadoPractica.equals(EstadoResultadoPractica.Pendiente);
+    }
 }

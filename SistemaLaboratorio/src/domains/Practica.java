@@ -1,6 +1,6 @@
 package domains;
 
-import enums.EstadoPractica;
+import dtos.PracticaDTO;
 
 public class Practica {
     private Integer id;
@@ -13,19 +13,23 @@ public class Practica {
     private int horasEsperaResultado;
     private enums.EstadoPractica estadoPractica;
 
-    public Practica() {
-
+    public Practica(PracticaDTO practicaDTO) {
+        this.id = practicaDTO.id;
+        this.nombre = practicaDTO.nombre;
+        this.grupo = practicaDTO.grupo;
+        this.valorCriticoMin = practicaDTO.valorCriticoMin;
+        this.valorCriticoMax = practicaDTO.valorCriticoMax;
+        this.valorReservadoMin = practicaDTO.valorReservadoMin;
+        this.valorReservadoMax = practicaDTO.valorReservadoMax;
+        this.horasEsperaResultado = practicaDTO.horasEsperaResultado;
+        this.estadoPractica = practicaDTO.estadoPractica;
     }
 
-    public Practica(String nombre, String grupo, int valorCriticoMin, int valorCriticoMax, int valorReservadoMin, int valorReservadoMax, int horasEsperaResultado) {
-        this.id = 2021;
-        this.nombre = nombre;
-        this.grupo = grupo;
-        this.valorCriticoMin = valorCriticoMin;
-        this.valorCriticoMax = valorCriticoMax;
-        this.valorReservadoMin = valorReservadoMin;
-        this.valorReservadoMax = valorReservadoMax;
-        this.horasEsperaResultado = horasEsperaResultado;
-        this.estadoPractica = EstadoPractica.Habilitado;
+    public boolean esUnValorReservado(int resultado) {
+        return this.valorReservadoMin < resultado && resultado < this.valorReservadoMax;
+    }
+
+    public boolean esUnValorCritico(int resultado) {
+        return this.valorCriticoMin < resultado && resultado < this.valorCriticoMax;
     }
 }

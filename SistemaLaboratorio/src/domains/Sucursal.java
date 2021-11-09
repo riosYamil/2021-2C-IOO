@@ -31,4 +31,19 @@ public class Sucursal {
         sucursalDTO.peticiones = this.peticiones;
         return sucursalDTO;
     }
+
+    public void altaPeticion(){
+        //TODO: Do something
+        return;
+    }
+
+    public void dameUnaPeticionActiva(){
+        //TODO: Do something
+        return;
+    }
+
+    public void obtenerSucursalID(int sucursalID){
+        //TODO: Do something
+        return;
+    }
 }

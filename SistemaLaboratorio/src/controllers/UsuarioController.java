@@ -78,7 +78,7 @@ public class UsuarioController {
         return true;
     }
 
-    public UsuarioDTO ObtenerUsuario(Integer id) {
+    public UsuarioDTO ObtenerUsuario(int id) {
         UsuarioDTO u = new UsuarioDTO();
         try {
             UsuarioDAO usuarioDAO = new UsuarioDAO();

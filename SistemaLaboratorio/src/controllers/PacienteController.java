@@ -45,11 +45,11 @@ public class PacienteController {
     }
 
     //TODO: Checkear si este método será necesario
-    public PacienteDTO ObtenerPaciente(Integer id) {
+    public PacienteDTO ObtenerPaciente(int pacienteID) {
         PacienteDTO p = new PacienteDTO();
         try {
             PacienteDAO pacienteDAO = new PacienteDAO();
-            p = pacienteDAO.ObtenerPaciente(id);
+            p = pacienteDAO.ObtenerPaciente(pacienteID);
         } catch (Exception e) {
             e.printStackTrace();
         }
