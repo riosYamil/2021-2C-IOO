@@ -118,7 +118,7 @@ public class FrmPrincipal extends JFrame {
 	}
 
 	private String getUserRol() {
-		UsuarioController usuarioController = new UsuarioController();
+		UsuarioController usuarioController = UsuarioController.getInstance();
 		UsuarioDTO u = new UsuarioDTO();
 		try {
 			u = usuarioController.ObtenerUsuario(Integer.parseInt(tUsuario.getText()));

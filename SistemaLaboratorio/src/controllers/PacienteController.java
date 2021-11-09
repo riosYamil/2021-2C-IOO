@@ -4,6 +4,17 @@ import dao.PacienteDAO;
 import dtos.PacienteDTO;
 
 public class PacienteController {
+    static PacienteController instance=null;
+
+    private PacienteController(){
+    }
+
+    public static PacienteController getInstance() {
+        if (instance == null) {
+            instance = new PacienteController();
+        }
+        return instance;
+    }
 
     public PacienteDTO AltaPaciente(PacienteDTO p) {
         try {

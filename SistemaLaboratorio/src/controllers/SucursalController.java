@@ -10,6 +10,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SucursalController {
+    static SucursalController instance = null;
+
+    private SucursalController() {
+    }
+
+    public static SucursalController getInstance() {
+        if (instance == null) {
+            instance = new SucursalController();
+        }
+        return instance;
+    }
 
     public void AltaSucursal(SucursalDTO s, UsuarioDTO u) {
         try {

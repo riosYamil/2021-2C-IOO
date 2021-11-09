@@ -12,7 +12,7 @@ public class PacienteTest {
     @Test
     public void AltaPaciente() {
 
-        PacienteController pacienteController = new PacienteController();
+        PacienteController pacienteController = PacienteController.getInstance();
 
         PacienteDTO pacienteDTO = new PacienteDTO();
         pacienteDTO.id = 37340794;
@@ -30,7 +30,7 @@ public class PacienteTest {
 
     @Test
     public void BajaPaciente() {
-        PacienteController pacienteController = new PacienteController();
+        PacienteController pacienteController = PacienteController.getInstance();
 
         PacienteDTO paciente = pacienteController.ObtenerPaciente(37340794);
         pacienteController.BajaPaciente(paciente);
@@ -39,7 +39,7 @@ public class PacienteTest {
     @Test
     public void ModificarPaciente() {
 
-        PacienteController pacienteController = new PacienteController();
+        PacienteController pacienteController = PacienteController.getInstance();
 
         PacienteDTO pacienteDTO = new PacienteDTO();
         pacienteDTO.id = 37340794;

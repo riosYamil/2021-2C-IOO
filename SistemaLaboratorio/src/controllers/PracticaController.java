@@ -7,6 +7,17 @@ import dtos.PacienteDTO;
 import dtos.PracticaDTO;
 
 public class PracticaController {
+    static PracticaController instance=null;
+
+    private PracticaController(){
+    }
+
+    public static PracticaController getInstance() {
+        if (instance == null) {
+            instance = new PracticaController();
+        }
+        return instance;
+    }
 
     public PracticaDTO AltaPractica(PracticaDTO p) {
         try {

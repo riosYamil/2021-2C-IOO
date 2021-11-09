@@ -199,7 +199,7 @@ public class PacientePanel{
     }
     
     private void asociarEventos() {
-		PacienteController pacienteController = new PacienteController();
+		PacienteController pacienteController = PacienteController.getInstance();
 		
         btnAddPac.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -212,7 +212,7 @@ public class PacientePanel{
 				p.mail = tMail.getText();
 				pacienteController.AltaPaciente(p);
 				
-				JOptionPane.showMessageDialog(tabbedPane_1, "Se agreg� correctamente.", "Informaci�n",
+				JOptionPane.showMessageDialog(tabbedPane_1, "Se agregó correctamente.", "Información",
 						JOptionPane.INFORMATION_MESSAGE);
             }
         });

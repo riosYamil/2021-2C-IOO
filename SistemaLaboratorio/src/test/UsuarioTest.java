@@ -14,7 +14,7 @@ public class UsuarioTest {
 
     @Test
     public void AltaUsuarioLaboratista() {
-        UsuarioController usuarioController = new UsuarioController();
+        UsuarioController usuarioController = UsuarioController.getInstance();
 
         UsuarioDTO usuarioDTO = new UsuarioDTO();
         usuarioDTO.id = 37340001;
@@ -35,7 +35,7 @@ public class UsuarioTest {
 
     @Test
     public void AltaUsuarioRecepcion() {
-        UsuarioController usuarioController = new UsuarioController();
+        UsuarioController usuarioController = UsuarioController.getInstance();
 
         UsuarioDTO usuarioDTO = new UsuarioDTO();
         usuarioDTO.id = 37340002;
@@ -56,7 +56,7 @@ public class UsuarioTest {
 
     @Test
     public void AltaUsuarioAdministrador() {
-        UsuarioController usuarioController = new UsuarioController();
+        UsuarioController usuarioController = UsuarioController.getInstance();
 
         UsuarioDTO usuarioDTO = new UsuarioDTO();
         usuarioDTO.id = 37340003;
@@ -77,7 +77,7 @@ public class UsuarioTest {
 
     @Test
     public void BajaUsuario() {
-        UsuarioController usuarioController = new UsuarioController();
+        UsuarioController usuarioController = UsuarioController.getInstance();
 
         UsuarioDTO usuarioDTO = usuarioController.ObtenerUsuario(37340001);
         usuarioController.BajaUsuario(usuarioDTO);
@@ -85,7 +85,7 @@ public class UsuarioTest {
 
     @Test
     public void ModificarUsuario() {
-        UsuarioController usuarioController = new UsuarioController();
+        UsuarioController usuarioController = UsuarioController.getInstance();
 
         UsuarioDTO usuarioDTO = new UsuarioDTO();
         usuarioDTO.id = 37340794;

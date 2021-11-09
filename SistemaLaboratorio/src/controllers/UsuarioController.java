@@ -6,6 +6,18 @@ import enums.Rol;
 
 public class UsuarioController {
 
+    static UsuarioController instance = null;
+
+    private UsuarioController() {
+    }
+
+    public static UsuarioController getInstance() {
+        if (instance == null) {
+            instance = new UsuarioController();
+        }
+        return instance;
+    }
+
     public UsuarioDTO AltaUsuario(UsuarioDTO u) {
         try {
             UsuarioDAO usuarioDAO = new UsuarioDAO();
