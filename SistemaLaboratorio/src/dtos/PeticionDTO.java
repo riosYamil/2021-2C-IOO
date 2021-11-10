@@ -15,5 +15,4 @@ public class PeticionDTO {
     public List<PracticaAsociada> practicasAsociadas;
     public EstadoPeticion estadoPeticion;
     public int sucursalID;
-
 }

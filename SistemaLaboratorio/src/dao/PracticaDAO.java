@@ -27,7 +27,6 @@ public class PracticaDAO extends utils.GenericDAO {
         }
 
         return fueActualizado;
-
     }
 
     public boolean BorrarPractica(int practicaID) throws Exception {

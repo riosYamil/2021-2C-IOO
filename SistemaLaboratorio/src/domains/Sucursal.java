@@ -26,7 +26,7 @@ public class Sucursal {
         return sucursalDTO;
     }
 
-    public Integer obtenerSucursalID(){
+    public Integer ObtenerSucursalID(){
         return this.id;
     }
 }
