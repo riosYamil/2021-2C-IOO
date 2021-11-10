@@ -1,6 +1,5 @@
 package dtos;
 
-import domains.Peticion;
 import enums.EstadoPaciente;
 
 import java.util.List;
@@ -13,8 +12,8 @@ public class PacienteDTO {
     public String mail;
     public String sexo;
     public int edad;
-    public List<Peticion> peticionesCompletas;
-    public List<Peticion> peticionePendientes;
+    public List<PeticionDTO> peticionesCompletas;
+    public List<PeticionDTO> peticionePendientes;
     public EstadoPaciente estado;
 
     @Override

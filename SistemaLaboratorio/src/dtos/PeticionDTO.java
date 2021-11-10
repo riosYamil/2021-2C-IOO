@@ -1,21 +1,21 @@
-package domains;
+package dtos;
 
-import dtos.PacienteDTO;
+import domains.PracticaAsociada;
 import enums.EstadoPeticion;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Peticion {
-    private Integer id;
-    private PacienteDTO paciente;
-    private String obraSocial;
-    private Date fechaDeCarga;
-    private Date fechaDeEntrega;
-    private List<PracticaAsociada> practicasAsociadas;
-    private EstadoPeticion estadoPeticion;
-    private int sucursalID;
+public class PeticionDTO {
+    public Integer id;
+    public PacienteDTO paciente;
+    public String obraSocial;
+    public Date fechaDeCarga;
+    public Date fechaDeEntrega;
+    public List<PracticaAsociada> practicasAsociadas;
+    public EstadoPeticion estadoPeticion;
+    public int sucursalID;
 
     public boolean estaActiva() {
         return estadoPeticion.equals(EstadoPeticion.Activa);
@@ -59,7 +59,7 @@ public class Peticion {
         this.estadoPeticion = estadoPeticion;
     }
 	
-	public static void ModificarPeticion(Peticion peticion) {
+	public static void ModificarPeticion(PeticionDTO peticion) {
         //TODO: Hacerlo via DAO
     }
 

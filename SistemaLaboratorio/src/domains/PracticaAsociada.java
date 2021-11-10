@@ -1,5 +1,6 @@
 package domains;
 
+import dtos.PracticaDTO;
 import enums.EstadoResultadoPractica;
 
 public class PracticaAsociada {
@@ -7,6 +8,11 @@ public class PracticaAsociada {
     private EstadoResultadoPractica resultadoPractica;
     private int resultado;
 
+    public PracticaAsociada(PracticaDTO p){
+        this.practica = new Practica(p);
+        this.resultadoPractica = EstadoResultadoPractica.Pendiente;
+        this.resultado = 0;
+    }
     public void modificarResultadoPractica(EstadoResultadoPractica rp) {
         this.resultadoPractica = rp;
     }

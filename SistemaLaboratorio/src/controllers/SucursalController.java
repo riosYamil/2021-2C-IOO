@@ -1,7 +1,7 @@
 package controllers;
 
 import dao.SucursalDAO;
-import domains.Peticion;
+import dtos.PeticionDTO;
 import dtos.PacienteDTO;
 import dtos.SucursalDTO;
 import dtos.UsuarioDTO;
@@ -22,21 +22,22 @@ public class SucursalController {
         return instance;
     }
 
-    public void AltaSucursal(SucursalDTO s, UsuarioDTO u) {
+    public SucursalDTO AltaSucursal(SucursalDTO s, UsuarioDTO u) {
         try {
             SucursalDAO sucursalDAO = new SucursalDAO();
+            s.id = sucursalDAO.getLastInsertId() + 1;
             s.responsableTecnico = u;
             sucursalDAO.CrearSucursal(s);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return;
+        return s;
     }
 
-    public boolean BajaSucursal(int sucursalID) {
+    public boolean BajaSucursal(SucursalDTO s) {
         try {
             SucursalDAO sucursalDAO = new SucursalDAO();
-            boolean fueBorrado = sucursalDAO.BorrarSucursal(sucursalID);
+            boolean fueBorrado = sucursalDAO.BorrarSucursal(s.id);
 
             if (!fueBorrado) {
                 //Do something
@@ -73,10 +74,10 @@ public class SucursalController {
         return s;
     }
 
-    public List<Peticion> ObtenerPeticionesActivas(SucursalDTO s) {
-        List<Peticion> ps = new ArrayList<Peticion>();
+    public List<PeticionDTO> ObtenerPeticionesActivas(SucursalDTO s) {
+        List<PeticionDTO> ps = new ArrayList<PeticionDTO>();
 
-        for (Peticion p : s.peticiones) {
+        for (PeticionDTO p : s.peticiones) {
             if (p.estaActiva()) {
                 ps.add(p);
             }
@@ -84,10 +85,10 @@ public class SucursalController {
         return ps;
     }
 
-    public List<Peticion> ObtenerPeticionesFinalizadas(SucursalDTO s) {
-        List<Peticion> ps = new ArrayList<Peticion>();
+    public List<PeticionDTO> ObtenerPeticionesFinalizadas(SucursalDTO s) {
+        List<PeticionDTO> ps = new ArrayList<PeticionDTO>();
 
-        for (Peticion p : s.peticiones) {
+        for (PeticionDTO p : s.peticiones) {
             if (p.estaFinalizadas()) {
                 ps.add(p);
             }
@@ -103,10 +104,10 @@ public class SucursalController {
         return ObtenerPeticionesFinalizadas(s).size() > 1;
     }
 
-    public List<Peticion> BuscarPeticionesPorPaciente(SucursalDTO s, PacienteDTO paciente) {
-        List<Peticion> ps = new ArrayList<Peticion>();
+    public List<PeticionDTO> BuscarPeticionesPorPaciente(SucursalDTO s, PacienteDTO paciente) {
+        List<PeticionDTO> ps = new ArrayList<PeticionDTO>();
 
-        for (Peticion peticion : s.peticiones) {
+        for (PeticionDTO peticion : s.peticiones) {
             if (peticion.obtenerPaciente().equals(paciente)) {
                 ps.add(peticion);
             }

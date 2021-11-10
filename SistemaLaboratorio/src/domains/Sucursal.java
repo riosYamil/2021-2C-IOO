@@ -1,5 +1,6 @@
 package domains;
 
+import dtos.PeticionDTO;
 import dtos.SucursalDTO;
 
 import java.util.List;
@@ -9,7 +10,7 @@ public class Sucursal {
     private int numero;
     private String direccion;
     private Usuario responsableTecnico;
-    private List<Peticion> peticiones;
+    private List<PeticionDTO> peticiones;
 
     public Sucursal(SucursalDTO sucursalDTO) {
         this.id = sucursalDTO.id;

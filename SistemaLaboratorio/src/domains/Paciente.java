@@ -1,6 +1,7 @@
 package domains;
 
 import dtos.PacienteDTO;
+import dtos.PeticionDTO;
 import enums.EstadoPaciente;
 
 import java.util.List;
@@ -13,8 +14,8 @@ public class Paciente {
     private String mail;
     private String sexo;
     private int edad;
-    private List<Peticion> peticionesCompletas;
-    private List<Peticion> peticionesPendientes;
+    private List<PeticionDTO> peticionesCompletas;
+    private List<PeticionDTO> peticionesPendientes;
     private EstadoPaciente estado;
 
     public Paciente(PacienteDTO paciente) {
@@ -30,19 +31,19 @@ public class Paciente {
         this.estado = paciente.estado;
     }
 
-    public boolean agregarPeticionCompleta(Peticion peticion) {
+    public boolean agregarPeticionCompleta(PeticionDTO peticion) {
         return this.peticionesCompletas.add(peticion);
     }
 
-    public boolean quitarPeticionCompleta(Peticion peticion) {
+    public boolean quitarPeticionCompleta(PeticionDTO peticion) {
         return this.peticionesCompletas.remove(peticion);
     }
 
-    public boolean agregarPeticionPendiente(Peticion peticion) {
+    public boolean agregarPeticionPendiente(PeticionDTO peticion) {
         return this.peticionesPendientes.add(peticion);
     }
 
-    public boolean quitarPeticionPendiente(Peticion peticion) {
+    public boolean quitarPeticionPendiente(PeticionDTO peticion) {
         return this.peticionesPendientes.remove(peticion);
     }
 
@@ -51,7 +52,7 @@ public class Paciente {
     }
 
     //TODO: Codear este método
-    public static void notificarEstadoDePeticion(Peticion peticion) {
+    public static void notificarEstadoDePeticion(PeticionDTO peticion) {
     }
 
     public PacienteDTO toPacienteDTO() {

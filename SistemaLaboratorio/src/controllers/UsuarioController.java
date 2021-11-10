@@ -90,11 +90,11 @@ public class UsuarioController {
         return true;
     }
 
-    public UsuarioDTO ObtenerUsuario(int id) {
+    public UsuarioDTO ObtenerUsuario(int usuarioID) {
         UsuarioDTO u = new UsuarioDTO();
         try {
             UsuarioDAO usuarioDAO = new UsuarioDAO();
-            u = usuarioDAO.ObtenerUsuario(id);
+            u = usuarioDAO.ObtenerUsuario(usuarioID);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -111,5 +111,10 @@ public class UsuarioController {
             e.printStackTrace();
         }
         return u;
+    }
+
+    public boolean Autenticador(int id, String password) {
+        UsuarioDTO usuarioDTO = ObtenerUsuario(id);
+        return usuarioDTO.id == id && usuarioDTO.password.equals(password);
     }
 }
