@@ -9,8 +9,8 @@ public class Laboratista extends Usuario {
         usuario.rol = Rol.Laboratista;
     }
 
-    public UsuarioDTO toUsuarioDTO() {
-        return toUsuarioDTO();
+    public UsuarioDTO ToUsuarioDTO() {
+        return ToUsuarioDTO();
     }
 
     //TODO: Implementar

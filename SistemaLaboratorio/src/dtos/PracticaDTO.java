@@ -1,7 +1,7 @@
 package dtos;
 
 public class PracticaDTO {
-    public Integer id;
+    public int id;
     public String nombre;
     public String grupo;
     public int valorCriticoMin;
@@ -10,4 +10,10 @@ public class PracticaDTO {
     public int valorReservadoMax;
     public int horasEsperaResultado;
     public enums.EstadoPractica estadoPractica;
+
+    @Override
+    public boolean equals(Object obj) {
+        PracticaDTO p = (PracticaDTO) obj;
+        return this.id == p.id;
+    }
 }

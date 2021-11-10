@@ -9,8 +9,8 @@ public class Recepcion extends Usuario {
         usuario.rol = Rol.Recepcion;
     }
 
-    public UsuarioDTO toUsuarioDTO() {
-        return toUsuarioDTO();
+    public UsuarioDTO ToUsuarioDTO() {
+        return ToUsuarioDTO();
     }
 
     //TODO: Implementar

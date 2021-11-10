@@ -13,19 +13,19 @@ public class PracticaAsociada {
         this.resultadoPractica = EstadoResultadoPractica.Pendiente;
         this.resultado = 0;
     }
-    public void modificarResultadoPractica(EstadoResultadoPractica rp) {
+    public void ModificarResultadoPractica(EstadoResultadoPractica rp) {
         this.resultadoPractica = rp;
     }
 
-    public boolean tieneValoresReservados() {
-        return practica.esUnValorReservado(resultado);
+    public boolean TieneValoresReservados() {
+        return practica.EsUnValorReservado(resultado);
     }
 
-    public boolean tieneValoresCriticos() {
-        return practica.esUnValorCritico(resultado);
+    public boolean TieneValoresCriticos() {
+        return practica.EsUnValorCritico(resultado);
     }
 
-    public boolean tieneResultadoPendiente(){
+    public boolean TieneResultadoPendiente(){
         return  resultadoPractica.equals(EstadoResultadoPractica.Pendiente);
     }
 }

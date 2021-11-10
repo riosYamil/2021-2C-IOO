@@ -9,8 +9,8 @@ public class Administrador extends Usuario {
         usuario.rol = Rol.Administrador;
     }
 
-    public UsuarioDTO toUsuarioDTO() {
-        return toUsuarioDTO();
+    public UsuarioDTO ToUsuarioDTO() {
+        return ToUsuarioDTO();
     }
 
     //TODO: Implementar

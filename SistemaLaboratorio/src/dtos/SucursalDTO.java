@@ -8,8 +8,7 @@ public class SucursalDTO {
 
     @Override
     public boolean equals(Object obj) {
-        SucursalDTO c = (SucursalDTO) obj;
-        return this.id == c.id;
+        SucursalDTO s = (SucursalDTO) obj;
+        return this.id == s.id;
     }
-
 }

@@ -55,7 +55,6 @@ public class PacienteController {
         return true;
     }
 
-    //TODO: Checkear si este método será necesario
     public PacienteDTO ObtenerPaciente(int pacienteID) {
         PacienteDTO p = new PacienteDTO();
         try {

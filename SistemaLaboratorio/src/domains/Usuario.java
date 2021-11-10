@@ -28,7 +28,7 @@ public class Usuario {
         this.rol = usuario.rol;
     }
 
-    public UsuarioDTO toUsuarioDTO() {
+    public UsuarioDTO ToUsuarioDTO() {
         UsuarioDTO usuarioDTO = new UsuarioDTO();
         usuarioDTO.id = this.id;
         usuarioDTO.nombre = this.nombre;
@@ -42,15 +42,15 @@ public class Usuario {
         return usuarioDTO;
     }
 
-    public boolean esLaboratista() {
+    public boolean EsLaboratista() {
         return this.rol.equals(rol.Laboratista);
     }
 
-    public boolean esRecepcionista() {
+    public boolean EsRecepcionista() {
         return this.rol.equals(rol.Recepcion);
     }
 
-    public boolean esAdministrador() {
+    public boolean EsAdministrador() {
         return this.rol.equals(rol.Administrador);
     }
 

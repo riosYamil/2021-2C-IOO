@@ -81,7 +81,7 @@ public class SucursalController {
             PeticionDAO peticionDAO = new PeticionDAO();
             List<Peticion> peticiones = peticionDAO.ObtenerPeticionesDeSurcursal(s.id);
             for (Peticion p : peticiones) {
-                if (p.estaActiva()) {
+                if (p.EstaActiva()) {
                     ps.add(p);
                 }
             }
@@ -98,7 +98,7 @@ public class SucursalController {
             PeticionDAO peticionDAO = new PeticionDAO();
             List<Peticion> peticiones = peticionDAO.ObtenerPeticionesDeSurcursal(s.id);
             for (Peticion p : peticiones) {
-                if (p.estaFinalizadas()) {
+                if (p.EstaFinalizadas()) {
                     ps.add(p);
                 }
             }
@@ -123,7 +123,7 @@ public class SucursalController {
             PeticionDAO peticionDAO = new PeticionDAO();
             List<Peticion> peticiones = peticionDAO.ObtenerPeticionesDeSurcursal(s.id);
             for (Peticion peticion : peticiones) {
-                if (peticion.obtenerPaciente().equals(paciente)) {
+                if (peticion.ObtenerPaciente().equals(paciente)) {
                     ps.add(peticion);
                 }
             }

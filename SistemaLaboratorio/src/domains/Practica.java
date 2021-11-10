@@ -25,11 +25,11 @@ public class Practica {
         this.estadoPractica = practicaDTO.estadoPractica;
     }
 
-    public boolean esUnValorReservado(int resultado) {
+    public boolean EsUnValorReservado(int resultado) {
         return this.valorReservadoMin < resultado && resultado < this.valorReservadoMax;
     }
 
-    public boolean esUnValorCritico(int resultado) {
+    public boolean EsUnValorCritico(int resultado) {
         return this.valorCriticoMin < resultado && resultado < this.valorCriticoMax;
     }
 }

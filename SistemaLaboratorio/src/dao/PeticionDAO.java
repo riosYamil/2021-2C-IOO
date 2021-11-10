@@ -41,7 +41,6 @@ public class PeticionDAO extends utils.GenericDAO {
         return fueBorrado;
     }
 
-    //TODO: Checkear si es necesario tener este método
     public PeticionDTO ObtenerPeticion(int peticionID) throws Exception {
         PeticionDTO peticionDTO = new PeticionDTO();
         try {
@@ -63,7 +62,7 @@ public class PeticionDAO extends utils.GenericDAO {
         List<Peticion> peticionesDeSucursal = new ArrayList<Peticion>();
 
         for (Peticion p : peticiones) {
-            if (p.obtenerSucursalID() == sucursalID) {
+            if (p.ObtenerSucursalID() == sucursalID) {
                 peticionesDeSucursal.add(p);
             }
         }

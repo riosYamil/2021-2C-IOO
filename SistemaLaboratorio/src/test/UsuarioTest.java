@@ -27,9 +27,9 @@ public class UsuarioTest {
         usuarioController.AltaLaboratista(usuarioDTO);
 
         Usuario u = new Usuario(usuarioDTO);
-        assertFalse(u.esAdministrador());
-        assertFalse(u.esRecepcionista());
-        assertTrue(u.esLaboratista());
+        assertFalse(u.EsAdministrador());
+        assertFalse(u.EsRecepcionista());
+        assertTrue(u.EsLaboratista());
 
         assertTrue(usuarioController.BajaUsuario(usuarioDTO));
     }
@@ -50,9 +50,9 @@ public class UsuarioTest {
         usuarioController.AltaRecepcion(usuarioDTO);
 
         Usuario u = new Usuario(usuarioDTO);
-        assertFalse(u.esAdministrador());
-        assertTrue(u.esRecepcionista());
-        assertFalse(u.esLaboratista());
+        assertFalse(u.EsAdministrador());
+        assertTrue(u.EsRecepcionista());
+        assertFalse(u.EsLaboratista());
 
         assertTrue(usuarioController.BajaUsuario(usuarioDTO));
     }
@@ -73,9 +73,9 @@ public class UsuarioTest {
         usuarioController.AltaAdministrador(usuarioDTO);
 
         Usuario u = new Usuario(usuarioDTO);
-        assertTrue(u.esAdministrador());
-        assertFalse(u.esRecepcionista());
-        assertFalse(u.esLaboratista());
+        assertTrue(u.EsAdministrador());
+        assertFalse(u.EsRecepcionista());
+        assertFalse(u.EsLaboratista());
 
         assertTrue(usuarioController.BajaUsuario(usuarioDTO));
     }
@@ -126,9 +126,9 @@ public class UsuarioTest {
         assertTrue(usuarioController.ModificarUsuario(usuarioDTO));
 
         Usuario u = new Usuario(usuarioDTO);
-        assertTrue(u.esAdministrador());
-        assertFalse(u.esRecepcionista());
-        assertFalse(u.esLaboratista());
+        assertTrue(u.EsAdministrador());
+        assertFalse(u.EsRecepcionista());
+        assertFalse(u.EsLaboratista());
 
         assertTrue(usuarioController.BajaUsuario(usuarioDTO));
     }

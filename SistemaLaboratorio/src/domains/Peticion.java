@@ -17,19 +17,19 @@ public class Peticion {
     private enums.EstadoPeticion estadoPeticion;
     private int sucursalID;
 
-    public int obtenerSucursalID(){
+    public int ObtenerSucursalID() {
         return this.sucursalID;
     }
 
-    public boolean estaActiva() {
+    public boolean EstaActiva() {
         return estadoPeticion.equals(EstadoPeticion.Activa);
     }
 
-    public boolean estaFinalizadas() {
+    public boolean EstaFinalizadas() {
         return estadoPeticion.equals(EstadoPeticion.Finalizada);
     }
 
-    public PacienteDTO obtenerPaciente() {
+    public PacienteDTO ObtenerPaciente() {
         return this.paciente;
     }
 
@@ -37,18 +37,18 @@ public class Peticion {
         List<PracticaAsociada> pas = new ArrayList<PracticaAsociada>();
 
         for (PracticaAsociada pa : this.practicasAsociadas) {
-            if (!pa.tieneResultadoPendiente()) {
+            if (!pa.TieneResultadoPendiente()) {
                 pas.add(pa);
             }
         }
         return pas;
     }
 
-    public List<PracticaAsociada> obtenerPracticasPendientes() {
+    public List<PracticaAsociada> ObtenerPracticasPendientes() {
         List<PracticaAsociada> pas = new ArrayList<PracticaAsociada>();
 
         for (PracticaAsociada pa : this.practicasAsociadas) {
-            if (pa.tieneResultadoPendiente()) {
+            if (pa.TieneResultadoPendiente()) {
                 pas.add(pa);
             }
         }

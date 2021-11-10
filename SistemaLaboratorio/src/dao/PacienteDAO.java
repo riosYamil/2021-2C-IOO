@@ -39,7 +39,6 @@ public class PacienteDAO extends utils.GenericDAO {
         return fueBorrado;
     }
 
-    //TODO: Checkear si es necesario tener este método
     public PacienteDTO ObtenerPaciente(int pacienteID) throws FileNotFoundException {
         PacienteDTO pacienteDTO = new PacienteDTO();
         try {

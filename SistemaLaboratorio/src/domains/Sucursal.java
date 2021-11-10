@@ -17,12 +17,12 @@ public class Sucursal {
         this.responsableTecnico = u;
     }
 
-    public SucursalDTO toSucursalDTO() {
+    public SucursalDTO ToSucursalDTO() {
         SucursalDTO sucursalDTO = new SucursalDTO();
         sucursalDTO.id = this.id;
         sucursalDTO.numero = this.numero;
         sucursalDTO.direccion = this.direccion;
-        sucursalDTO.responsableTecnico = this.responsableTecnico.toUsuarioDTO();
+        sucursalDTO.responsableTecnico = this.responsableTecnico.ToUsuarioDTO();
         return sucursalDTO;
     }
 

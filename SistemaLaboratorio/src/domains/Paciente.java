@@ -31,31 +31,31 @@ public class Paciente {
         this.estado = paciente.estado;
     }
 
-    public boolean agregarPeticionCompleta(PeticionDTO peticion) {
+    public boolean AgregarPeticionCompleta(PeticionDTO peticion) {
         return this.peticionesCompletas.add(peticion);
     }
 
-    public boolean quitarPeticionCompleta(PeticionDTO peticion) {
+    public boolean QuitarPeticionCompleta(PeticionDTO peticion) {
         return this.peticionesCompletas.remove(peticion);
     }
 
-    public boolean agregarPeticionPendiente(PeticionDTO peticion) {
+    public boolean AgregarPeticionPendiente(PeticionDTO peticion) {
         return this.peticionesPendientes.add(peticion);
     }
 
-    public boolean quitarPeticionPendiente(PeticionDTO peticion) {
+    public boolean QuitarPeticionPendiente(PeticionDTO peticion) {
         return this.peticionesPendientes.remove(peticion);
     }
 
-    public boolean tienePeticionesCompletas() {
+    public boolean TienePeticionesCompletas() {
         return !this.peticionesCompletas.isEmpty();
     }
 
     //TODO: Codear este método
-    public static void notificarEstadoDePeticion(PeticionDTO peticion) {
+    public static void NotificarEstadoDePeticion(PeticionDTO peticion) {
     }
 
-    public PacienteDTO toPacienteDTO() {
+    public PacienteDTO ToPacienteDTO() {
         PacienteDTO pacienteDTO = new PacienteDTO();
         pacienteDTO.id = this.id;
         pacienteDTO.dni = this.dni;
