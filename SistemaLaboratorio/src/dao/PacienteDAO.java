@@ -2,6 +2,8 @@ package dao;
 
 import dtos.PacienteDTO;
 
+import java.io.FileNotFoundException;
+
 public class PacienteDAO extends utils.GenericDAO {
 
     public PacienteDAO() throws Exception {
@@ -38,7 +40,7 @@ public class PacienteDAO extends utils.GenericDAO {
     }
 
     //TODO: Checkear si es necesario tener este método
-    public PacienteDTO ObtenerPaciente(int pacienteID) throws Exception {
+    public PacienteDTO ObtenerPaciente(int pacienteID) throws FileNotFoundException {
         PacienteDTO pacienteDTO = new PacienteDTO();
         try {
             pacienteDTO = (PacienteDTO) this.search(pacienteID);

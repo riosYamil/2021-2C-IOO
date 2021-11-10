@@ -4,6 +4,8 @@ import dtos.SucursalDTO;
 import dtos.UsuarioDTO;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SucursalDAO extends utils.GenericDAO {
 
@@ -50,5 +52,24 @@ public class SucursalDAO extends utils.GenericDAO {
             throw (e);
         }
         return sucursaleDTO;
+    }
+
+    public List<SucursalDTO> ObtenerSucursalesPorUsuario(UsuarioDTO usuarioDTO) throws Exception {
+        List<SucursalDTO> sucursalDTOs;
+        try {
+            sucursalDTOs = (List<SucursalDTO>) this.getAll();
+        } catch (Exception e) {
+            throw (e);
+        }
+
+        List<SucursalDTO> surcursalesDelUsuario = new ArrayList<SucursalDTO>();
+
+        SucursalDTO sucursalDTO = new SucursalDTO();
+        for (SucursalDTO s : sucursalDTOs) {
+            if (s.responsableTecnico.equals(usuarioDTO)) {
+                surcursalesDelUsuario.add(s);
+            }
+        }
+        return surcursalesDelUsuario;
     }
 }

@@ -1,6 +1,10 @@
 package dao;
 
+import domains.Peticion;
 import dtos.PeticionDTO;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PeticionDAO extends utils.GenericDAO {
 
@@ -46,5 +50,23 @@ public class PeticionDAO extends utils.GenericDAO {
             throw (e);
         }
         return peticionDTO;
+    }
+
+    public List<Peticion> ObtenerPeticionesDeSurcursal(int sucursalID) throws Exception {
+        List<Peticion> peticiones = new ArrayList<Peticion>();
+        try {
+            peticiones = (List<Peticion>) this.getAll();
+        } catch (Exception e) {
+            throw (e);
+        }
+
+        List<Peticion> peticionesDeSucursal = new ArrayList<Peticion>();
+
+        for (Peticion p : peticiones) {
+            if (p.obtenerSucursalID() == sucursalID) {
+                peticionesDeSucursal.add(p);
+            }
+        }
+        return peticiones;
     }
 }

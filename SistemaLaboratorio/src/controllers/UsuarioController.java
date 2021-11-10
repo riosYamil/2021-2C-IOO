@@ -101,7 +101,6 @@ public class UsuarioController {
         return u;
     }
 
-    //TODO: Codear este método
     public UsuarioDTO BuscarUnLaboratista() {
         UsuarioDTO u = new UsuarioDTO();
         try {

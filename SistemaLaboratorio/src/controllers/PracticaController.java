@@ -1,9 +1,6 @@
 package controllers;
 
-import dao.PacienteDAO;
 import dao.PracticaDAO;
-import domains.Practica;
-import dtos.PacienteDTO;
 import dtos.PracticaDTO;
 
 public class PracticaController {

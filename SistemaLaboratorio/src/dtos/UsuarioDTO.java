@@ -1,6 +1,5 @@
 package dtos;
 
-import domains.Usuario;
 import enums.Rol;
 
 import java.util.Date;
@@ -20,6 +19,6 @@ public class UsuarioDTO {
     @Override
     public boolean equals(Object obj) {
         UsuarioDTO c = (UsuarioDTO) obj;
-        return this.id == c.id;
+        return this.dni.equals(c.dni);
     }
 }

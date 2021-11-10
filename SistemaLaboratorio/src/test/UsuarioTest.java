@@ -7,8 +7,7 @@ import org.junit.Test;
 
 import java.util.Date;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class UsuarioTest {
 
@@ -31,6 +30,8 @@ public class UsuarioTest {
         assertFalse(u.esAdministrador());
         assertFalse(u.esRecepcionista());
         assertTrue(u.esLaboratista());
+
+        assertTrue(usuarioController.BajaUsuario(usuarioDTO));
     }
 
     @Test
@@ -52,6 +53,8 @@ public class UsuarioTest {
         assertFalse(u.esAdministrador());
         assertTrue(u.esRecepcionista());
         assertFalse(u.esLaboratista());
+
+        assertTrue(usuarioController.BajaUsuario(usuarioDTO));
     }
 
     @Test
@@ -73,14 +76,34 @@ public class UsuarioTest {
         assertTrue(u.esAdministrador());
         assertFalse(u.esRecepcionista());
         assertFalse(u.esLaboratista());
+
+        assertTrue(usuarioController.BajaUsuario(usuarioDTO));
     }
 
     @Test
     public void BajaUsuario() {
         UsuarioController usuarioController = UsuarioController.getInstance();
 
-        UsuarioDTO usuarioDTO = usuarioController.ObtenerUsuario(37340001);
-        usuarioController.BajaUsuario(usuarioDTO);
+        UsuarioDTO usuarioDTO = new UsuarioDTO();
+        usuarioDTO.id = 37340794;
+        usuarioDTO.nombre = "GABRIEL";
+        usuarioDTO.email = "GYRB@mail.com";
+        usuarioDTO.password = "pass";
+        usuarioDTO.nombreCompleto = "GABRIEL RIOS";
+        usuarioDTO.domicilio = "CALLE FALSA 1234";
+        usuarioDTO.dni = "37340003";
+        usuarioDTO.fechaDeNacimiento = new Date();
+        usuarioController.AltaUsuario(usuarioDTO);
+
+        UsuarioDTO usuarioDTOParaTest = new UsuarioDTO();
+
+        //ID inexistente
+        usuarioDTOParaTest.id = 1;
+        assertFalse(usuarioController.BajaUsuario(usuarioDTOParaTest));
+
+        //ID existente
+        usuarioDTOParaTest.id = usuarioDTO.id;
+        assertTrue(usuarioController.BajaUsuario(usuarioDTOParaTest));
     }
 
     @Test
@@ -106,5 +129,75 @@ public class UsuarioTest {
         assertTrue(u.esAdministrador());
         assertFalse(u.esRecepcionista());
         assertFalse(u.esLaboratista());
+
+        assertTrue(usuarioController.BajaUsuario(usuarioDTO));
+    }
+
+    @Test
+    public void ObtenerUsuario() {
+        UsuarioController usuarioController = UsuarioController.getInstance();
+
+        UsuarioDTO usuarioDTO = new UsuarioDTO();
+        usuarioDTO.id = 37340794;
+        usuarioDTO.nombre = "GABRIEL";
+        usuarioDTO.email = "GYRB@mail.com";
+        usuarioDTO.password = "pass";
+        usuarioDTO.nombreCompleto = "GABRIEL RIOS";
+        usuarioDTO.domicilio = "CALLE FALSA 1234";
+        usuarioDTO.dni = "37340003";
+        usuarioDTO.fechaDeNacimiento = new Date();
+        UsuarioDTO usuario = usuarioController.AltaUsuario(usuarioDTO);
+        assertNotNull(usuario);
+
+        //ID inexistente
+        assertNull(usuarioController.ObtenerUsuario(123456789));
+
+        //ID existente
+        assertNotNull(usuarioController.ObtenerUsuario(usuario.id));
+
+        assertTrue(usuarioController.BajaUsuario(usuario));
+    }
+
+    @Test
+    public void AutentificarUsuario() {
+        UsuarioController usuarioController = UsuarioController.getInstance();
+
+        UsuarioDTO usuarioDTO = new UsuarioDTO();
+        usuarioDTO.id = 37340794;
+        usuarioDTO.nombre = "GABRIEL";
+        usuarioDTO.email = "GYRB@mail.com";
+        usuarioDTO.password = "pass";
+        usuarioDTO.nombreCompleto = "GABRIEL RIOS";
+        usuarioDTO.domicilio = "CALLE FALSA 1234";
+        usuarioDTO.dni = "37340003";
+        usuarioDTO.fechaDeNacimiento = new Date();
+        UsuarioDTO usuario = usuarioController.AltaUsuario(usuarioDTO);
+        assertNotNull(usuario);
+
+        assertFalse(usuarioController.Autenticador(usuarioDTO.id, "contraseña_invalida"));
+        assertTrue(usuarioController.Autenticador(usuarioDTO.id, "pass"));
+
+        assertTrue(usuarioController.BajaUsuario(usuario));
+    }
+
+    @Test
+    public void BuscarLaboratista() {
+        UsuarioController usuarioController = UsuarioController.getInstance();
+
+        UsuarioDTO usuarioDTO = new UsuarioDTO();
+        usuarioDTO.id = 37340794;
+        usuarioDTO.nombre = "GABRIEL";
+        usuarioDTO.email = "GYRB@mail.com";
+        usuarioDTO.password = "pass";
+        usuarioDTO.nombreCompleto = "GABRIEL RIOS";
+        usuarioDTO.domicilio = "CALLE FALSA 1234";
+        usuarioDTO.dni = "37340003";
+        usuarioDTO.fechaDeNacimiento = new Date();
+        UsuarioDTO usuario = usuarioController.AltaLaboratista(usuarioDTO);
+        assertNotNull(usuario);
+
+        UsuarioDTO laboratista = usuarioController.BuscarUnLaboratista();
+        assertEquals(usuarioDTO, laboratista);
+        assertTrue(usuarioController.BajaUsuario(usuario));
     }
 }

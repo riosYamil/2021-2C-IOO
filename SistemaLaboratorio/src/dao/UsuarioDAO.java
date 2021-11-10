@@ -1,6 +1,10 @@
 package dao;
 
 import dtos.UsuarioDTO;
+import enums.Rol;
+
+import java.io.FileNotFoundException;
+import java.util.List;
 
 public class UsuarioDAO extends utils.GenericDAO {
 
@@ -10,6 +14,7 @@ public class UsuarioDAO extends utils.GenericDAO {
 
     public void CrearUsuario(UsuarioDTO u) throws Exception {
         try {
+            u.id = Integer.parseInt(u.dni);
             this.save(u);
         } catch (Exception e) {
             throw (e);
@@ -38,7 +43,7 @@ public class UsuarioDAO extends utils.GenericDAO {
         return fueBorrado;
     }
 
-    public UsuarioDTO ObtenerUsuario(int usuarioID) throws Exception {
+    public UsuarioDTO ObtenerUsuario(int usuarioID) throws FileNotFoundException {
 
         UsuarioDTO usuarioDTO = new UsuarioDTO();
         try {
@@ -49,13 +54,20 @@ public class UsuarioDAO extends utils.GenericDAO {
         return usuarioDTO;
     }
 
-    //TODO: Codear este método
     public UsuarioDTO BuscarUnLaboratista() throws Exception {
-        UsuarioDTO usuarioDTO;
+        List<UsuarioDTO> usuarioDTOs;
         try {
-            usuarioDTO = (UsuarioDTO) this.search(12345);
+            usuarioDTOs = (List<UsuarioDTO>) this.getAll();
         } catch (Exception e) {
             throw (e);
+        }
+
+        UsuarioDTO usuarioDTO = new UsuarioDTO();
+        for (UsuarioDTO u : usuarioDTOs) {
+            if (u.rol == Rol.Laboratista) {
+                usuarioDTO = u;
+                break;
+            }
         }
         return usuarioDTO;
     }

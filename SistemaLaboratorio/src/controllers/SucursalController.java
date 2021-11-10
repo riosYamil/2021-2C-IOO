@@ -1,7 +1,8 @@
 package controllers;
 
+import dao.PeticionDAO;
 import dao.SucursalDAO;
-import dtos.PeticionDTO;
+import domains.Peticion;
 import dtos.PacienteDTO;
 import dtos.SucursalDTO;
 import dtos.UsuarioDTO;
@@ -74,45 +75,73 @@ public class SucursalController {
         return s;
     }
 
-    public List<PeticionDTO> ObtenerPeticionesActivas(SucursalDTO s) {
-        List<PeticionDTO> ps = new ArrayList<PeticionDTO>();
-
-        for (PeticionDTO p : s.peticiones) {
-            if (p.estaActiva()) {
-                ps.add(p);
+    public List<Peticion> ObtenerPeticionesActivas(SucursalDTO s) {
+        List<Peticion> ps = new ArrayList<Peticion>();
+        try {
+            PeticionDAO peticionDAO = new PeticionDAO();
+            List<Peticion> peticiones = peticionDAO.ObtenerPeticionesDeSurcursal(s.id);
+            for (Peticion p : peticiones) {
+                if (p.estaActiva()) {
+                    ps.add(p);
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return ps;
     }
 
-    public List<PeticionDTO> ObtenerPeticionesFinalizadas(SucursalDTO s) {
-        List<PeticionDTO> ps = new ArrayList<PeticionDTO>();
+    public List<Peticion> ObtenerPeticionesFinalizadas(SucursalDTO s) {
+        List<Peticion> ps = new ArrayList<Peticion>();
 
-        for (PeticionDTO p : s.peticiones) {
-            if (p.estaFinalizadas()) {
-                ps.add(p);
+        try {
+            PeticionDAO peticionDAO = new PeticionDAO();
+            List<Peticion> peticiones = peticionDAO.ObtenerPeticionesDeSurcursal(s.id);
+            for (Peticion p : peticiones) {
+                if (p.estaFinalizadas()) {
+                    ps.add(p);
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return ps;
     }
 
-    public boolean TienePeticionesActivas(SucursalDTO s){
+    public boolean TienePeticionesActivas(SucursalDTO s) {
         return ObtenerPeticionesActivas(s).size() > 1;
     }
 
-    public boolean TienePeticionesFinalizadas(SucursalDTO s){
+    public boolean TienePeticionesFinalizadas(SucursalDTO s) {
         return ObtenerPeticionesFinalizadas(s).size() > 1;
     }
 
-    public List<PeticionDTO> BuscarPeticionesPorPaciente(SucursalDTO s, PacienteDTO paciente) {
-        List<PeticionDTO> ps = new ArrayList<PeticionDTO>();
+    public List<Peticion> BuscarPeticionesPorPaciente(SucursalDTO s, PacienteDTO paciente) {
+        List<Peticion> ps = new ArrayList<Peticion>();
 
-        for (PeticionDTO peticion : s.peticiones) {
-            if (peticion.obtenerPaciente().equals(paciente)) {
-                ps.add(peticion);
+        try {
+            PeticionDAO peticionDAO = new PeticionDAO();
+            List<Peticion> peticiones = peticionDAO.ObtenerPeticionesDeSurcursal(s.id);
+            for (Peticion peticion : peticiones) {
+                if (peticion.obtenerPaciente().equals(paciente)) {
+                    ps.add(peticion);
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return ps;
     }
 
+    public  List<SucursalDTO> ObtenerSurcursalesPorUsuario(UsuarioDTO usuarioDTO){
+        List<SucursalDTO> sucursalDTOs = new ArrayList<SucursalDTO>();
+        try {
+            SucursalDAO sucursalDAO = new SucursalDAO();
+            sucursalDTOs = sucursalDAO.ObtenerSucursalesPorUsuario(usuarioDTO);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return sucursalDTOs;
+    }
 }

@@ -1,9 +1,8 @@
 package views;
 
-import controllers.UsuarioController;
 import enums.Rol;
 
-import javax.swing.JTabbedPane;
+import javax.swing.*;
 
 public class InternalPanel extends JTabbedPane {
 

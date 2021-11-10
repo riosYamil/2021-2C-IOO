@@ -1,14 +1,12 @@
 package test;
 
 import controllers.SucursalController;
-import domains.PracticaAsociada;
-import dtos.*;
-import enums.EstadoPeticion;
-import enums.EstadoPractica;
+import dtos.SucursalDTO;
+import dtos.UsuarioDTO;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -20,7 +18,6 @@ public class SucursalTest {
         SucursalController sucursalController = SucursalController.getInstance();
 
         SucursalDTO sucursalDTO = new SucursalDTO();
-        sucursalDTO.peticiones = new ArrayList<PeticionDTO>();
         sucursalDTO.numero = 12345;
         sucursalDTO.direccion = "Calle Falsa 1234";
 
@@ -45,7 +42,6 @@ public class SucursalTest {
         SucursalController sucursalController = SucursalController.getInstance();
 
         SucursalDTO sucursalDTO = new SucursalDTO();
-        sucursalDTO.peticiones = new ArrayList<PeticionDTO>();
         sucursalDTO.numero = 12345;
         sucursalDTO.direccion = "Calle Falsa 1234";
 
@@ -62,47 +58,15 @@ public class SucursalTest {
         SucursalDTO sucursal = sucursalController.AltaSucursal(sucursalDTO, usuarioDTO);
         assertNotNull(sucursal);
 
-        SucursalDTO sucursalDTOExpected = new SucursalDTO();
+        SucursalDTO sucursalDTOParaTest = new SucursalDTO();
 
         //ID inexistente
-        sucursalDTOExpected.id = 123456;
-        assertFalse(sucursalController.BajaSucursal(sucursalDTOExpected));
+        sucursalDTOParaTest.id = 123456;
+        assertFalse(sucursalController.BajaSucursal(sucursalDTOParaTest));
 
         //ID existente
-        sucursalDTOExpected.id = 1;
-        assertTrue(sucursalController.BajaSucursal(sucursalDTOExpected));
-    }
-
-    @Test
-    public void ObtenerSucursal() {
-        SucursalController sucursalController = SucursalController.getInstance();
-
-        SucursalDTO sucursalDTO = new SucursalDTO();
-        sucursalDTO.peticiones = new ArrayList<PeticionDTO>();
-        sucursalDTO.numero = 12345;
-        sucursalDTO.direccion = "Calle Falsa 1234";
-
-        UsuarioDTO usuarioDTO = new UsuarioDTO();
-        usuarioDTO.id = 37340001;
-        usuarioDTO.nombre = "GABRIEL";
-        usuarioDTO.email = "GYRB@mail.com";
-        usuarioDTO.password = "pass";
-        usuarioDTO.nombreCompleto = "GABRIEL RIOS";
-        usuarioDTO.domicilio = "CALLE FALSA 1234";
-        usuarioDTO.dni = "37340001";
-        usuarioDTO.fechaDeNacimiento = new Date();
-
-        SucursalDTO sucursal = sucursalController.AltaSucursal(sucursalDTO, usuarioDTO);
-        assertNotNull(sucursal);
-
-        //ID inexistente
-        sucursal = sucursalController.ObtenerSucursal(123456789);
-        assertNull(sucursal);
-
-        //ID existente
-        sucursal = sucursalController.ObtenerSucursal(1);
-        assertNotNull(sucursal);
-        assertTrue(sucursalController.BajaSucursal(sucursal));
+        sucursalDTOParaTest.id = sucursal.id;
+        assertTrue(sucursalController.BajaSucursal(sucursalDTOParaTest));
     }
 
     @Test
@@ -110,7 +74,6 @@ public class SucursalTest {
         SucursalController sucursalController = SucursalController.getInstance();
 
         SucursalDTO sucursalDTO = new SucursalDTO();
-        sucursalDTO.peticiones = new ArrayList<PeticionDTO>();
         sucursalDTO.numero = 12345;
         sucursalDTO.direccion = "Calle Falsa 1234";
 
@@ -127,34 +90,109 @@ public class SucursalTest {
         SucursalDTO sucursal = sucursalController.AltaSucursal(sucursalDTO, usuarioDTO);
         assertNotNull(sucursal);
 
-        //Creo una práctica
-        PracticaDTO practicaDTO = new PracticaDTO();
-        practicaDTO.id = 2020;
-        practicaDTO.nombre = "pcr";
-        practicaDTO.grupo = "covid19";
-        practicaDTO.valorCriticoMin = 1;
-        practicaDTO.valorCriticoMax = 1;
-        practicaDTO.valorReservadoMin = 1;
-        practicaDTO.valorReservadoMax = 1;
-        practicaDTO.horasEsperaResultado = 48;
-        practicaDTO.estadoPractica = EstadoPractica.Habilitado;
-        PracticaAsociada practicaAsociada = new PracticaAsociada(practicaDTO);
+        usuarioDTO = new UsuarioDTO();
+        usuarioDTO.id = 37340002;
+        usuarioDTO.nombre = "MAR";
+        usuarioDTO.email = "mas@mail.com";
+        usuarioDTO.password = "1234";
+        usuarioDTO.nombreCompleto = "MAR BENITEZ";
+        usuarioDTO.domicilio = "CALLE FALSA 1111";
+        usuarioDTO.dni = "37340002";
+        usuarioDTO.fechaDeNacimiento = new Date();
 
-        //Creo una petición
-        PeticionDTO peticionDTO = new PeticionDTO();
-        peticionDTO.id = 1001;
-        peticionDTO.paciente = new PacienteDTO();
-        peticionDTO.obraSocial = "OSDE";
-        peticionDTO.fechaDeCarga = new Date();
-        peticionDTO.fechaDeEntrega = new Date();
-        peticionDTO.estadoPeticion = EstadoPeticion.Activa;
-        peticionDTO.sucursalID = sucursal.id;
-        peticionDTO.practicasAsociadas = new ArrayList<PracticaAsociada>();
-        peticionDTO.practicasAsociadas.add(practicaAsociada);
-        sucursal.peticiones.add(peticionDTO);
-
+        sucursal.responsableTecnico = usuarioDTO;
         assertTrue(sucursalController.ModificarSucursal(sucursal));
-
+        assertTrue(sucursalController.BajaSucursal(sucursal));
     }
 
+
+    @Test
+    public void ObtenerSucursal() {
+        SucursalController sucursalController = SucursalController.getInstance();
+
+        SucursalDTO sucursalDTO = new SucursalDTO();
+        sucursalDTO.numero = 12345;
+        sucursalDTO.direccion = "Calle Falsa 1234";
+
+        UsuarioDTO usuarioDTO = new UsuarioDTO();
+        usuarioDTO.id = 37340001;
+        usuarioDTO.nombre = "GABRIEL";
+        usuarioDTO.email = "GYRB@mail.com";
+        usuarioDTO.password = "pass";
+        usuarioDTO.nombreCompleto = "GABRIEL RIOS";
+        usuarioDTO.domicilio = "CALLE FALSA 1234";
+        usuarioDTO.dni = "37340001";
+        usuarioDTO.fechaDeNacimiento = new Date();
+
+        SucursalDTO sucursal = sucursalController.AltaSucursal(sucursalDTO, usuarioDTO);
+        assertNotNull(sucursal);
+
+        //ID inexistente
+        assertNull(sucursalController.ObtenerSucursal(123456789));
+
+        //ID existente
+        assertNotNull(sucursalController.ObtenerSucursal(sucursal.id));
+
+        assertTrue(sucursalController.BajaSucursal(sucursal));
+    }
+
+    @Test
+    public void ObtenerSucursalesPorUsuario() {
+        SucursalController sucursalController = SucursalController.getInstance();
+
+
+        //Sucursal 1
+        SucursalDTO sucursalDTO1 = new SucursalDTO();
+        sucursalDTO1.numero = 1;
+        sucursalDTO1.direccion = "Calle Falsa 1";
+
+        UsuarioDTO usuarioDTO1 = new UsuarioDTO();
+        usuarioDTO1.dni = "37340001";
+        assertNotNull(sucursalController.AltaSucursal(sucursalDTO1, usuarioDTO1));
+
+        //Sucursal 2
+        SucursalDTO sucursalDTO2 = new SucursalDTO();
+        sucursalDTO2.numero = 2;
+        sucursalDTO2.direccion = "Calle Falsa 2";
+
+        UsuarioDTO usuarioDTO2 = new UsuarioDTO();
+        usuarioDTO2.dni = "37340002";
+        assertNotNull(sucursalController.AltaSucursal(sucursalDTO2, usuarioDTO2));
+
+        //Sucursal 3
+        SucursalDTO sucursalDTO3 = new SucursalDTO();
+        sucursalDTO3.numero = 3;
+        sucursalDTO3.direccion = "Calle Falsa 2";
+
+        UsuarioDTO usuarioDTO3 = new UsuarioDTO();
+        usuarioDTO3.dni = "37340003";
+        assertNotNull(sucursalController.AltaSucursal(sucursalDTO3, usuarioDTO3));
+
+        //Sucursal 4
+        SucursalDTO sucursalDTO4 = new SucursalDTO();
+        sucursalDTO4.numero = 4;
+        sucursalDTO4.direccion = "Calle Falsa 2";
+
+        UsuarioDTO usuarioDTO4 = new UsuarioDTO();
+        usuarioDTO4.dni = "37340004";
+        assertNotNull(sucursalController.AltaSucursal(sucursalDTO4, usuarioDTO4));
+
+        //Sucursal 5
+        SucursalDTO sucursalDTO5 = new SucursalDTO();
+        sucursalDTO5.numero = 5;
+        sucursalDTO5.direccion = "Calle Falsa 2";
+
+        UsuarioDTO usuarioDTO5 = new UsuarioDTO();
+        usuarioDTO5.dni = "37340001";
+        assertNotNull(sucursalController.AltaSucursal(sucursalDTO5, usuarioDTO5));
+
+        List<SucursalDTO> sucursalDTOs = sucursalController.ObtenerSurcursalesPorUsuario(usuarioDTO5);
+        assertEquals(2, sucursalDTOs.size());
+
+        assertTrue(sucursalController.BajaSucursal(sucursalDTO1));
+        assertTrue(sucursalController.BajaSucursal(sucursalDTO2));
+        assertTrue(sucursalController.BajaSucursal(sucursalDTO3));
+        assertTrue(sucursalController.BajaSucursal(sucursalDTO4));
+        assertTrue(sucursalController.BajaSucursal(sucursalDTO5));
+    }
 }

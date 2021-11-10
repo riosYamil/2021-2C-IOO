@@ -4,11 +4,8 @@ package views;
 import controllers.UsuarioController;
 import dtos.UsuarioDTO;
 
-import java.awt.Button;
-import java.awt.Color;
-
 import javax.swing.*;
-import java.awt.Font;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

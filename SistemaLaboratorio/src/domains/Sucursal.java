@@ -1,16 +1,12 @@
 package domains;
 
-import dtos.PeticionDTO;
 import dtos.SucursalDTO;
-
-import java.util.List;
 
 public class Sucursal {
     private Integer id;
     private int numero;
     private String direccion;
     private Usuario responsableTecnico;
-    private List<PeticionDTO> peticiones;
 
     public Sucursal(SucursalDTO sucursalDTO) {
         this.id = sucursalDTO.id;
@@ -19,8 +15,6 @@ public class Sucursal {
 
         Usuario u = new Usuario(sucursalDTO.responsableTecnico);
         this.responsableTecnico = u;
-
-        this.peticiones = sucursalDTO.peticiones;
     }
 
     public SucursalDTO toSucursalDTO() {
@@ -29,22 +23,10 @@ public class Sucursal {
         sucursalDTO.numero = this.numero;
         sucursalDTO.direccion = this.direccion;
         sucursalDTO.responsableTecnico = this.responsableTecnico.toUsuarioDTO();
-        sucursalDTO.peticiones = this.peticiones;
         return sucursalDTO;
     }
 
-    public void altaPeticion(){
-        //TODO: Do something
-        return;
-    }
-
-    public void dameUnaPeticionActiva(){
-        //TODO: Do something
-        return;
-    }
-
-    public void obtenerSucursalID(int sucursalID){
-        //TODO: Do something
-        return;
+    public Integer obtenerSucursalID(){
+        return this.id;
     }
 }

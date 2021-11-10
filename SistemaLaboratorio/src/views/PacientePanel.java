@@ -1,10 +1,9 @@
 package views;
 
-import javax.swing.*;
-
 import controllers.PacienteController;
 import dtos.PacienteDTO;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
