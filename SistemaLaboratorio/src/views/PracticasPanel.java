@@ -1,14 +1,27 @@
 package views;
 
-import javax.swing.*;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import java.awt.*;
+import java.awt.Button;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Panel;
+import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class UsuarioPanel {
-	
+import javax.swing.GroupLayout;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle;
+import javax.swing.SwingConstants;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+
+public class PracticasPanel {
+
 	private JTabbedPane tabbedPane_4;
     private Button btnAddUs;
     private Button btnUpdateUs;
@@ -33,19 +46,23 @@ public class UsuarioPanel {
 	/**
 	 * @wbp.parser.entryPoint
 	 */
-	public JTabbedPane setUsuarioTab() {	
+	public JTabbedPane setPracticasTab() {	
 		tabbedPane_4 = new JTabbedPane(JTabbedPane.LEFT);
 		tabbedPane_4.setBackground(Color.WHITE);
 		tabbedPane_4.setBounds(100, 100, 629, 476);
-		tabbedPane_4.add("Alta", setAltaPaciente());
-		tabbedPane_4.add("Baja", setBajaPaciente());
+		tabbedPane_4.add(setAltaPractica());
+		tabbedPane_4.add(setBajaPractica());
+		tabbedPane_4.setEnabledAt(0, true);
+		tabbedPane_4.setTitleAt(0, "Alta");
+		tabbedPane_4.setEnabledAt(1, true);
+		tabbedPane_4.setTitleAt(1, "Baja");
 		
 		asociarEventos();
 		
 		return tabbedPane_4;
 	}
 	
-	 private Panel setBajaPaciente() {
+	 private Panel setBajaPractica() {
 	        Baja = new Panel();
 
 	        btnDeleteUs = new Button("Eliminar Usuario");
@@ -83,7 +100,7 @@ public class UsuarioPanel {
 	        return Baja;
 	    }
 
-	    private JPanel setAltaPaciente() {
+	    private JPanel setAltaPractica() {
 	        JPanel Alta = new JPanel(false);
 	        Alta.setBackground(Color.WHITE);
 
@@ -295,10 +312,10 @@ public class UsuarioPanel {
 	    	
 	        btnDeleteUs.addActionListener(new ActionListener() {
 	        	public void actionPerformed(ActionEvent e) {
-                    JOptionPane.showMessageDialog(tabbedPane_4, "Este usuario no se pudo eliminar.", "Error",
+                    JOptionPane.showMessageDialog(tabbedPane_4, "Este práctica no se pudo eliminar.", "Error",
                             JOptionPane.ERROR_MESSAGE);
 	        	}
 	        });
 
 	    }
-	}
+}

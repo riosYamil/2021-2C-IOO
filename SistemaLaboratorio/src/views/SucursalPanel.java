@@ -32,12 +32,8 @@ public class SucursalPanel {
 		tabbedPane_3 = new JTabbedPane(JTabbedPane.LEFT);
 		tabbedPane_3.setBackground(Color.white);
 		tabbedPane_3.setBounds(100, 100, 629, 476);
-		tabbedPane_3.add(setAltaSucursal());
-		tabbedPane_3.add(setBajaSucursal());
-		tabbedPane_3.setTitleAt(0, "Alta");
-		tabbedPane_3.setEnabledAt(0, true);
-		tabbedPane_3.setEnabledAt(1, true);
-		tabbedPane_3.setTitleAt(1, "Baja");
+		tabbedPane_3.add("Alta", setAltaSucursal());
+		tabbedPane_3.add("Baja", setBajaSucursal());
 		
 		asociarEventos();
 		

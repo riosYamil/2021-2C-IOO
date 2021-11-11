@@ -18,6 +18,7 @@ public class FrmPrincipal extends JFrame {
 	private Button btnIngresar;
 	private JTextField tUsuario;
 	private static String titulo = "Sistema Gestión de laboratorio";
+	private JTextField tPassword;
 
 	/**
 	 * Create the frame.
@@ -71,62 +72,73 @@ public class FrmPrincipal extends JFrame {
 		lblTitle.setForeground(new Color(200, 32, 58));
 		pnlIntro.add(lblTitle);
 
-		lblSelect = new JLabel("Por favor, ingrese su DNI:");
+		lblSelect = new JLabel("DNI");
 		lblSelect.setBackground(Color.WHITE);
 		lblSelect.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSelect.setForeground(Color.DARK_GRAY);
 		lblSelect.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblSelect.setBounds(128, 126, 341, 27);
+		lblSelect.setBounds(216, 126, 183, 27);
 		pnlIntro.add(lblSelect);
 				
 		tUsuario = new JTextField();
 		tUsuario.setColumns(10);
 		tUsuario.setBounds(152, 164, 295, 27);
 		pnlIntro.add(tUsuario);
+		
+		JLabel lblPassword = new JLabel("CONTRASEÑA");
+		lblPassword.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblPassword.setForeground(Color.DARK_GRAY);
+		lblPassword.setBounds(273, 202, 109, 14);
+		pnlIntro.add(lblPassword);
+		
+		tPassword = new JTextField();
+		tPassword.setBounds(152, 227, 295, 27);
+		pnlIntro.add(tPassword);
+		tPassword.setColumns(10);
 
 		btnIngresar = new Button("INGRESAR");
 		btnIngresar.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnIngresar.setForeground(Color.WHITE);
 		btnIngresar.setBackground(new Color(133, 189, 212));
-		btnIngresar.setBounds(226, 197, 150, 27);
+		btnIngresar.setBounds(232, 270, 150, 27);
 		pnlIntro.add(btnIngresar);
-
+		
 		JLabel label = new JLabel("");
 		label.setBounds(316, 0, 325, 473);
 		label.setVerticalAlignment(SwingConstants.TOP);
 		label.setIcon(new ImageIcon(FrmPrincipal.class.getResource("/images/pic2.jpg")));
 		pnlIntro.add(label);
+		
 	}
 
 	private void asociarEventos() {
 		btnIngresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String rol = getUserRol();
-
-				if (rol != null) {
+				int id = Integer.parseInt(tUsuario.getText());
+				if (validateUser(id)) {
+					UsuarioController usuarioController = UsuarioController.getInstance();
+					String rol = usuarioController.ObtenerUsuario(id).rol.toString();
 					cleanPanel();
 					addTabbedOPanel(rol);
 				} else {
-					JOptionPane.showMessageDialog(pnlIntro, "No se reconoce ese DNI.", "Error",
+					JOptionPane.showMessageDialog(pnlIntro, "No se reconoce ese DNI o contraseña.", "Error",
 							JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
 	}
 
-	private String getUserRol() {
+	private boolean validateUser(int id) {
 		UsuarioController usuarioController = UsuarioController.getInstance();
-		UsuarioDTO u = new UsuarioDTO();
+		boolean isValid = false;
 		try {
-			u = usuarioController.ObtenerUsuario(Integer.parseInt(tUsuario.getText()));
-
-			if(u == null) return null;
+			isValid = usuarioController.Autenticador(id, tPassword.getText());
 		}
 		catch (Exception e){
 			e.printStackTrace();
 		}
-
-		return u.rol.toString();
+		
+		return isValid;
 	}
 
 	private void cleanPanel() {
@@ -138,7 +150,7 @@ public class FrmPrincipal extends JFrame {
 	}
 
 	private void addTabbedOPanel(String rol) {
-		InternalPanel frame = new InternalPanel(rol);// should get if it is admin, recep or labo
+		InternalPanel frame = new InternalPanel(rol);
 		pnlIntro.add(frame);
 
 	}

@@ -10,187 +10,283 @@ import java.awt.event.ActionListener;
 
 public class PeticionPanel {
 	
-	private JTabbedPane tabbedPane_2;
-	private Panel Peticiones;
+	private JTabbedPane tabbedPane_5;
 	private Panel Peticiones1;
-	private JLabel lblBaja_2;
-	private JLabel lbldni_1;
-	private JTextField tDNIPeticiones;
-	private JCheckBox chckbxPeticionesCompletas;
-	private Button btnObtenerPeticiones;
-	private JCheckBox chckbxPeticionesCriticas;
 	private JButton btnEnviarNot;
 	private JLabel lblNotificar;
-	private JTable table;
+	private JLabel lblID;
+	private JTextField tID;
+	private Button btnDeletePet;
+	private Button btnAddPet;
+	private JLabel lblDNI;
+	private JTextField tDNI;
+	private JLabel lblOB;
+	private JTextField textField;
+	private JLabel lblPracticas;
+	private JButton btnAddPractica;
+	private Panel MasPeticiones;
+	private Panel AltaPeticiones;
+	private Panel BajaPeticiones;
+	private Button btnObtenerPeticiones;
+	private JTextField tDNIPeticiones;
 
 	/**
 	 * @wbp.parser.entryPoint
 	 */
 	public JTabbedPane setPeticionesTab() {	
-		tabbedPane_2 = new JTabbedPane(JTabbedPane.LEFT);
-		tabbedPane_2.setBackground(Color.WHITE);
-		tabbedPane_2.setBounds(100, 100, 629, 476);
-		tabbedPane_2.add(setLayout());
-		tabbedPane_2.add(set());
-		tabbedPane_2.setTitleAt(1, "Algo");
-        tabbedPane_2.setEnabledAt(0, true);
-        tabbedPane_2.setTitleAt(0, "Peticiones");
-        tabbedPane_2.setEnabledAt(0, true);
-        tabbedPane_2.setTitleAt(0, "?");
+		tabbedPane_5 = new JTabbedPane(JTabbedPane.LEFT);
+		tabbedPane_5.setBackground(Color.WHITE);
+		tabbedPane_5.setBounds(100, 100, 629, 476);
+		tabbedPane_5.add("Peticiones", setObtenerPeticiones());
+		tabbedPane_5.add("Alta", setAltaPeticiones());
+		tabbedPane_5.add("Baja", setBajaPeticiones());
+		tabbedPane_5.add("+", setNotificar());
 		
 		asociarEventos();
 		
-		return tabbedPane_2;
+		return tabbedPane_5;
 	}
 	
-	private Panel set() {
+	private Panel setObtenerPeticiones() {
 		Peticiones1 = new Panel();
-		table = new JTable();
-		table.setFillsViewportHeight(true);
-		table.setColumnSelectionAllowed(true);
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"test", "test", "test", "test", null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-			},
-			new String[] {
-				"Hola Col", "New column", "New column", "New column", "New column"
-			}
-		));
 		
 		JLabel lblPeticiones = new JLabel("Peticiones:");
-		GroupLayout gl_Peticiones1 = new GroupLayout(Peticiones1);
-		gl_Peticiones1.setHorizontalGroup(
-			gl_Peticiones1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_Peticiones1.createSequentialGroup()
-					.addGroup(gl_Peticiones1.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_Peticiones1.createSequentialGroup()
-							.addGap(65)
-							.addComponent(table, GroupLayout.PREFERRED_SIZE, 408, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_Peticiones1.createSequentialGroup()
-							.addGap(38)
-							.addComponent(lblPeticiones)))
-					.addContainerGap(97, Short.MAX_VALUE))
-		);
-		gl_Peticiones1.setVerticalGroup(
-			gl_Peticiones1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_Peticiones1.createSequentialGroup()
-					.addGap(30)
-					.addComponent(lblPeticiones)
-					.addGap(18)
-					.addComponent(table, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(329, Short.MAX_VALUE))
-		);
-		Peticiones1.setLayout(gl_Peticiones1);
-		return Peticiones1;
-	}
-	
-	private Panel setLayout() {
-		Peticiones = new Panel();
-		lblBaja_2 = new JLabel("Por favor, ingrese el DNI del paciente para obtener sus peticiones o deje el campo vacio.");
+		JLabel lblObtenerPeticiones = new JLabel("Por favor, ingrese el DNI del paciente para obtener sus peticiones.");
 		
-		lbldni_1 = new JLabel("DNI");
+		JCheckBox chckbxPeticionesPendientes = new JCheckBox("Peticiones pendientes.");
+		chckbxPeticionesPendientes.setBackground(Color.WHITE);
+		
+		JCheckBox chckbxPeticionesCompletas = new JCheckBox("Peticiones completas");
+		chckbxPeticionesCompletas.setBackground(Color.WHITE);
+		
+		JCheckBox chckbxPeticionesCriticas = new JCheckBox("Peticiones con resultados criticos. ");
+		chckbxPeticionesCriticas.setBackground(Color.WHITE);
 		
 		tDNIPeticiones = new JTextField();
 		tDNIPeticiones.setColumns(10);
 		
-		JCheckBox chckbxPeticionesPendientes = new JCheckBox("Solo peticiones completas");
-		chckbxPeticionesPendientes.setBackground(Color.WHITE);
-		
-		chckbxPeticionesCompletas = new JCheckBox("Solo peticiones pendientes");
-		chckbxPeticionesCompletas.setBackground(Color.WHITE);
+		JLabel lbldni_1 = new JLabel("DNI");
 		
 		btnObtenerPeticiones = new Button("Obtener peticiones");
-
-		btnObtenerPeticiones.setForeground(Color.WHITE);
 		btnObtenerPeticiones.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnObtenerPeticiones.setForeground(Color.WHITE);
 		btnObtenerPeticiones.setBackground(new Color(133, 189, 212));
+		btnObtenerPeticiones.setBounds(230, 174, 150, 27);
 		
-		chckbxPeticionesCriticas = new JCheckBox("Solo peticiones con resultados criticos");
-		chckbxPeticionesCriticas.setBackground(Color.WHITE);
+		GroupLayout gl_Peticiones1 = new GroupLayout(Peticiones1);
+		gl_Peticiones1.setHorizontalGroup(
+			gl_Peticiones1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_Peticiones1.createSequentialGroup()
+					.addGap(31)
+					.addGroup(gl_Peticiones1.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_Peticiones1.createSequentialGroup()
+								.addComponent(btnObtenerPeticiones, GroupLayout.PREFERRED_SIZE, 147, GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+								.addGroup(gl_Peticiones1.createParallelGroup(Alignment.LEADING)
+									.addComponent(chckbxPeticionesCriticas)
+									.addComponent(chckbxPeticionesCompletas)
+									.addComponent(chckbxPeticionesPendientes))
+								.addGap(146))
+							.addGroup(gl_Peticiones1.createSequentialGroup()
+									.addGroup(gl_Peticiones1.createParallelGroup(Alignment.LEADING)
+											.addComponent(tDNIPeticiones, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+											.addComponent(lblObtenerPeticiones)
+											.addComponent(lbldni_1))
+										.addContainerGap(209, Short.MAX_VALUE))))
+					);
+					gl_Peticiones1.setVerticalGroup(
+						gl_Peticiones1.createParallelGroup(Alignment.LEADING)
+							.addGroup(gl_Peticiones1.createSequentialGroup()
+									.addGap(32)
+									.addComponent(lblObtenerPeticiones)
+									.addGroup(gl_Peticiones1.createParallelGroup(Alignment.LEADING)
+										.addGroup(gl_Peticiones1.createSequentialGroup()
+											.addGap(18)
+											.addComponent(chckbxPeticionesPendientes)
+											.addGap(18)
+											.addComponent(chckbxPeticionesCompletas)
+											.addGap(18)
+											.addComponent(chckbxPeticionesCriticas))
+										.addGroup(gl_Peticiones1.createSequentialGroup()
+											.addGap(15)
+											.addComponent(lbldni_1)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(tDNIPeticiones, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+											.addGap(26)
+											.addComponent(btnObtenerPeticiones, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)))
+									.addContainerGap(302, Short.MAX_VALUE))
+						);
+						Peticiones1.setLayout(gl_Peticiones1);
+			return Peticiones1;
+
+	}
+	
+	private Panel setAltaPeticiones() {
+		AltaPeticiones = new Panel();
+		btnAddPet = new Button("Agregar Petición");
+		btnAddPet.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnAddPet.setForeground(Color.WHITE);
+		btnAddPet.setBackground(new Color(133, 189, 212));
+		btnAddPet.setBounds(230, 174, 150, 27);
 		
+		lblDNI = new JLabel("DNI DEL PACIENTE");
+		
+		tDNI = new JTextField();
+		tDNI.setColumns(10);
+		
+		lblOB = new JLabel("OBRA SOCIAL");
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		
+		lblPracticas = new JLabel("PRACTICAS ASOCIADAS");
+btnAddPractica = new JButton("Agregar Práctica");
+		
+		
+		GroupLayout gl_AltaPeticiones = new GroupLayout(AltaPeticiones);
+		gl_AltaPeticiones.setHorizontalGroup(
+			gl_AltaPeticiones.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_AltaPeticiones.createSequentialGroup()
+					.addGroup(gl_AltaPeticiones.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_AltaPeticiones.createSequentialGroup()
+							.addGap(35)
+							.addGroup(gl_AltaPeticiones.createParallelGroup(Alignment.LEADING)
+								.addComponent(tDNI, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblDNI)
+								.addComponent(lblOB)
+								.addComponent(textField, GroupLayout.PREFERRED_SIZE, 237, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblPracticas)
+								.addComponent(btnAddPractica, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)))
+						.addGroup(gl_AltaPeticiones.createSequentialGroup()
+							.addGap(176)
+							.addComponent(btnAddPet, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(198, Short.MAX_VALUE))
+		);
+		gl_AltaPeticiones.setVerticalGroup(
+			gl_AltaPeticiones.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_AltaPeticiones.createSequentialGroup()
+					.addGap(27)
+					.addComponent(btnAddPet)
+					.addGap(30)
+					.addComponent(lblDNI)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(tDNI, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(lblOB)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(lblPracticas)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(btnAddPractica)
+					.addContainerGap(227, Short.MAX_VALUE))
+		);
+		AltaPeticiones.setLayout(gl_AltaPeticiones);
+		
+		return AltaPeticiones;
+	}
+	
+	private Panel setBajaPeticiones() {
+		BajaPeticiones = new Panel();
+		
+		JLabel lblBaja = new JLabel("Por favor, ingrese el ID de la petición que desea eliminar.");
+		
+		lblID = new JLabel("ID");
+		
+		tID = new JTextField();
+		tID.setColumns(10);
+		
+		btnDeletePet = new Button("Eliminar petición");
+		btnDeletePet.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnDeletePet.setForeground(Color.WHITE);
+		btnDeletePet.setBackground(Color.RED);
+		btnDeletePet.setBounds(230, 174, 50, 27);
+		
+		GroupLayout gl_BajaPeticiones = new GroupLayout(BajaPeticiones);
+		gl_BajaPeticiones.setHorizontalGroup(
+			gl_BajaPeticiones.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_BajaPeticiones.createSequentialGroup()
+					.addGap(35)
+					.addGroup(gl_BajaPeticiones.createParallelGroup(Alignment.LEADING)
+						.addComponent(tID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblID)
+						.addComponent(lblBaja)
+						.addComponent(btnDeletePet, GroupLayout.PREFERRED_SIZE, 118, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(251, Short.MAX_VALUE))
+		);
+		gl_BajaPeticiones.setVerticalGroup(
+			gl_BajaPeticiones.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_BajaPeticiones.createSequentialGroup()
+					.addGap(33)
+					.addComponent(lblBaja)
+					.addGap(18)
+					.addComponent(lblID)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(tID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(btnDeletePet, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(325, Short.MAX_VALUE))
+		);
+		BajaPeticiones.setLayout(gl_BajaPeticiones);
+		
+		return BajaPeticiones;
+	}
+	
+	private Panel setNotificar() {
+		MasPeticiones = new Panel();
+				
 		btnEnviarNot = new JButton("Enviar notificaci\u00F3n");
 
 		lblNotificar = new JLabel("Notificar a aquellos pacientes que deben retirar sus resultados con valores reservados por sucursal.");
-		
-		GroupLayout gl_Peticiones = new GroupLayout(Peticiones);
-		gl_Peticiones.setHorizontalGroup(
-			gl_Peticiones.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_Peticiones.createSequentialGroup()
-					.addGap(35)
-					.addGroup(gl_Peticiones.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_Peticiones.createSequentialGroup()
-							.addComponent(lblNotificar)
-							.addContainerGap())
-						.addGroup(gl_Peticiones.createParallelGroup(Alignment.LEADING)
-							.addGroup(gl_Peticiones.createSequentialGroup()
-								.addComponent(btnEnviarNot)
-								.addContainerGap())
-							.addGroup(gl_Peticiones.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_Peticiones.createSequentialGroup()
-									.addComponent(btnObtenerPeticiones, GroupLayout.PREFERRED_SIZE, 152, GroupLayout.PREFERRED_SIZE)
-									.addContainerGap())
-								.addGroup(gl_Peticiones.createParallelGroup(Alignment.LEADING)
-									.addGroup(gl_Peticiones.createSequentialGroup()
-										.addComponent(lblBaja_2, GroupLayout.PREFERRED_SIZE, 474, GroupLayout.PREFERRED_SIZE)
-										.addContainerGap())
-									.addGroup(gl_Peticiones.createSequentialGroup()
-										.addGroup(gl_Peticiones.createParallelGroup(Alignment.LEADING)
-											.addComponent(lbldni_1)
-											.addComponent(tDNIPeticiones, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE))
-										.addPreferredGap(ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
-										.addGroup(gl_Peticiones.createParallelGroup(Alignment.LEADING)
-											.addComponent(chckbxPeticionesPendientes)
-											.addComponent(chckbxPeticionesCriticas)
-											.addComponent(chckbxPeticionesCompletas))
-										.addContainerGap(79, Short.MAX_VALUE)))))))
+		GroupLayout gl_MasPeticiones = new GroupLayout(MasPeticiones);
+		gl_MasPeticiones.setHorizontalGroup(
+			gl_MasPeticiones.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_MasPeticiones.createSequentialGroup()
+					.addGap(27)
+					.addGroup(gl_MasPeticiones.createParallelGroup(Alignment.LEADING)
+						.addComponent(btnEnviarNot)
+						.addComponent(lblNotificar))
+					.addContainerGap(54, Short.MAX_VALUE))
 		);
-		gl_Peticiones.setVerticalGroup(
-			gl_Peticiones.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_Peticiones.createSequentialGroup()
-					.addGap(16)
-					.addComponent(lblBaja_2, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
-					.addGap(11)
-					.addGroup(gl_Peticiones.createParallelGroup(Alignment.TRAILING)
-						.addComponent(lbldni_1)
-						.addComponent(chckbxPeticionesPendientes))
-					.addGroup(gl_Peticiones.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_Peticiones.createSequentialGroup()
-							.addGap(18)
-							.addComponent(chckbxPeticionesCompletas)
-							.addGap(11)
-							.addComponent(chckbxPeticionesCriticas))
-						.addGroup(gl_Peticiones.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(tDNIPeticiones, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-					.addGap(16)
-					.addComponent(btnObtenerPeticiones, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(56)
-					.addComponent(lblNotificar)
-					.addGap(18)
-					.addComponent(btnEnviarNot)
-					.addContainerGap(133, Short.MAX_VALUE))
-		);
-		Peticiones.setLayout(gl_Peticiones);
 		
-		return Peticiones;
+		gl_MasPeticiones.setVerticalGroup(
+				gl_MasPeticiones.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_MasPeticiones.createSequentialGroup()
+						.addGap(25)
+						.addComponent(lblNotificar)
+						.addGap(18)
+						.addComponent(btnEnviarNot)
+						.addContainerGap(391, Short.MAX_VALUE))
+				);
+		MasPeticiones.setLayout(gl_MasPeticiones);
+		return MasPeticiones;
 	}
 	
+	
 	private void asociarEventos() {
-		btnObtenerPeticiones.addActionListener(new ActionListener() {
+		btnEnviarNot.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(tabbedPane_2, "Hola?", "Informaci�n",
+				JOptionPane.showMessageDialog(tabbedPane_5, "Se notific� correctamente", "Informaci�n",
 						JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		
-		btnEnviarNot.addActionListener(new ActionListener() {
+		btnDeletePet.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(tabbedPane_2, "Se notific� correctamente", "Informaci�n",
-						JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(tabbedPane_5, "Esta peticón no se pudo eliminar.", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+			}
+		});
+		
+		btnAddPractica.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		
+		btnObtenerPeticiones.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
 			}
 		});
 		

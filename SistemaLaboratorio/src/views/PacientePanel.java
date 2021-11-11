@@ -35,12 +35,8 @@ public class PacientePanel{
     	tabbedPane_1 = new JTabbedPane(JTabbedPane.LEFT);
     	tabbedPane_1.setBackground(Color.WHITE);
     	tabbedPane_1.setBounds(100, 100, 629, 476);
-        tabbedPane_1.add(setAltaPaciente());
-        tabbedPane_1.add(setBajaPaciente());
-        tabbedPane_1.setEnabledAt(0, true);
-        tabbedPane_1.setTitleAt(0, "Alta");
-        tabbedPane_1.setEnabledAt(1, true);
-        tabbedPane_1.setTitleAt(1, "Baja");
+        tabbedPane_1.add("Alta", setAltaPaciente());
+        tabbedPane_1.add("Baja", setBajaPaciente());
 
         asociarEventos();
         
