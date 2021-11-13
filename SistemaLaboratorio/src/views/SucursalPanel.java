@@ -3,6 +3,15 @@ package views;
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import controllers.SucursalController;
+import controllers.UsuarioController;
+import domains.Usuario;
+import dtos.SucursalDTO;
+import dtos.UsuarioDTO;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,13 +26,24 @@ public class SucursalPanel {
 	private JTextField tDireccion;
 	private JTextField tResponsableTecnico;
 	private JLabel lblNumero;
-	private Button btnAddSuc;
-	private Button btnUpdateSuc;
+	private JButton btnAddSuc;
 	private Panel Baja_1;
 	private JLabel lblNum;
 	private JLabel lblBaja;
 	private JTextField tNum;
 	private Button btnDeleteSuc;
+	private Panel Modificacion;
+	private JButton btnUpdateSuc;
+	private Button btnObtenerSuc;
+	private JLabel lblNewLabel;
+	private JLabel lblNumeroMod;
+	private JLabel lblDireccionMod;
+	private JLabel lblResponsableTecnicoMod;
+	private JButton btnLimpiarForm;
+	private JTextField tDireccionMod;
+	private JTextField tNumMod;
+	private JTextField tResponsableTecnicoMod;
+	
 	
 	/**
 	 * @wbp.parser.entryPoint
@@ -34,10 +54,114 @@ public class SucursalPanel {
 		tabbedPane_3.setBounds(100, 100, 629, 476);
 		tabbedPane_3.add("Alta", setAltaSucursal());
 		tabbedPane_3.add("Baja", setBajaSucursal());
-		
+		tabbedPane_3.add("Modificación", setModificacionSucursal());
+
 		asociarEventos();
 		
 		return tabbedPane_3;
+	}
+	
+	private Panel setModificacionSucursal() {
+		Modificacion = new Panel();
+		
+		btnUpdateSuc = new JButton("Modificar sucursal");
+		btnUpdateSuc.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnUpdateSuc.setForeground(Color.BLACK);
+		btnUpdateSuc.setBackground(new Color(133, 189, 212));
+		btnUpdateSuc.setBounds(230, 174, 150, 27);
+		btnUpdateSuc.setEnabled(false);
+		
+		btnObtenerSuc = new Button("Obtener sucursal");
+		btnObtenerSuc.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnObtenerSuc.setForeground(Color.WHITE);
+		btnObtenerSuc.setBackground(SystemColor.activeCaption);
+		btnObtenerSuc.setBounds(230, 174, 50, 27);
+		
+		lblNewLabel = new JLabel("Para obtener una sucursal ingrese su número:");
+		
+		lblNumeroMod = new JLabel("NUMERO");
+		
+		lblDireccionMod = new JLabel("DIRECCION");
+		
+		lblResponsableTecnicoMod = new JLabel("DNI DEL RESPONSABLE TECNICO");
+		
+		btnLimpiarForm = new JButton("Limpiar formulario");
+		
+		tDireccionMod = new JTextField();
+		tDireccionMod.setColumns(10);
+		
+		tNumMod = new JTextField();
+		tNumMod.setText("");
+		tNumMod.setColumns(10);
+		
+		tResponsableTecnicoMod = new JTextField();
+		tResponsableTecnicoMod.setColumns(10);
+		GroupLayout gl_Modificacion = new GroupLayout(Modificacion);
+		gl_Modificacion.setHorizontalGroup(
+			gl_Modificacion.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_Modificacion.createSequentialGroup()
+					.addGap(50)
+					.addGroup(gl_Modificacion.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_Modificacion.createSequentialGroup()
+							.addComponent(btnLimpiarForm)
+							.addContainerGap())
+						.addGroup(gl_Modificacion.createParallelGroup(Alignment.LEADING)
+							.addGroup(gl_Modificacion.createSequentialGroup()
+								.addComponent(tResponsableTecnicoMod, GroupLayout.PREFERRED_SIZE, 137, GroupLayout.PREFERRED_SIZE)
+								.addContainerGap())
+							.addGroup(gl_Modificacion.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_Modificacion.createSequentialGroup()
+									.addComponent(lblDireccionMod)
+									.addContainerGap())
+								.addGroup(gl_Modificacion.createParallelGroup(Alignment.LEADING)
+									.addGroup(gl_Modificacion.createSequentialGroup()
+										.addComponent(tNumMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addContainerGap())
+									.addGroup(gl_Modificacion.createSequentialGroup()
+										.addComponent(lblResponsableTecnicoMod)
+										.addContainerGap())
+									.addGroup(gl_Modificacion.createSequentialGroup()
+										.addComponent(lblNumeroMod)
+										.addContainerGap())
+									.addGroup(gl_Modificacion.createSequentialGroup()
+										.addComponent(lblNewLabel)
+										.addContainerGap())
+									.addGroup(Alignment.TRAILING, gl_Modificacion.createSequentialGroup()
+										.addComponent(btnObtenerSuc, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
+										.addComponent(btnUpdateSuc)
+										.addGap(133))
+									.addGroup(gl_Modificacion.createSequentialGroup()
+										.addComponent(tDireccionMod, GroupLayout.PREFERRED_SIZE, 309, GroupLayout.PREFERRED_SIZE)
+										.addContainerGap()))))))
+		);
+		gl_Modificacion.setVerticalGroup(
+			gl_Modificacion.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_Modificacion.createSequentialGroup()
+					.addGap(40)
+					.addComponent(lblNewLabel)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(lblNumeroMod)
+					.addGap(4)
+					.addComponent(tNumMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_Modificacion.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnObtenerSuc, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnUpdateSuc))
+					.addGap(33)
+					.addComponent(lblDireccionMod)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(tDireccionMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(13)
+					.addComponent(lblResponsableTecnicoMod)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(tResponsableTecnicoMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(36)
+					.addComponent(btnLimpiarForm)
+					.addContainerGap(144, Short.MAX_VALUE))
+		);
+		Modificacion.setLayout(gl_Modificacion);
+		return Modificacion;
 	}
 
 	private Panel setBajaSucursal() {
@@ -87,7 +211,7 @@ public class SucursalPanel {
 
 		lblDireccion = new JLabel("DIRECCION");
 
-		lblResponsableTecnico = new JLabel("RESPONSABLE TECNICO");
+		lblResponsableTecnico = new JLabel("DNI DEL RESPONSABLE TECNICO");
 
 		tNumero = new JTextField();
 		tNumero.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -102,58 +226,47 @@ public class SucursalPanel {
 		lblNumero.setForeground(Color.BLACK);
 		lblNumero.setFont(new Font("Tahoma", Font.PLAIN, 11));
 
-		btnAddSuc = new Button("Agregar sucursal");
-		btnAddSuc.setForeground(Color.WHITE);
+		btnAddSuc = new JButton("Agregar sucursal");
+		btnAddSuc.setForeground(Color.BLACK);
 		btnAddSuc.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnAddSuc.setBackground(new Color(133, 189, 212));
 		btnAddSuc.setBounds(230, 174, 150, 27);
-
-		btnUpdateSuc = new Button("Modificar sucursal");
-		btnUpdateSuc.setForeground(Color.WHITE);
-		btnUpdateSuc.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnUpdateSuc.setBackground(new Color(133, 189, 212));
-		btnUpdateSuc.setBounds(230, 174, 150, 27);
 		
 		//layout
 		GroupLayout gl_Alta_1 = new GroupLayout(Alta_1);
 		gl_Alta_1.setHorizontalGroup(
 			gl_Alta_1.createParallelGroup(Alignment.LEADING)
-				.addGap(0, 587, Short.MAX_VALUE)
-				.addGap(0, 587, Short.MAX_VALUE)
 				.addGroup(gl_Alta_1.createSequentialGroup()
-					.addGap(31)
 					.addGroup(gl_Alta_1.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblResponsableTecnico)
-						.addComponent(lblDireccion)
-						.addGroup(Alignment.TRAILING, gl_Alta_1.createSequentialGroup()
-							.addComponent(btnAddSuc, GroupLayout.PREFERRED_SIZE, 228, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnUpdateSuc, GroupLayout.PREFERRED_SIZE, 213, GroupLayout.PREFERRED_SIZE)
-							.addGap(140))
-						.addGroup(gl_Alta_1.createParallelGroup(Alignment.TRAILING, false)
-							.addComponent(tDireccion, Alignment.LEADING)
-							.addComponent(tResponsableTecnico, Alignment.LEADING, 484, 484, Short.MAX_VALUE))
-						.addGroup(gl_Alta_1.createParallelGroup(Alignment.TRAILING, false)
-							.addComponent(tNumero, Alignment.LEADING)
-							.addComponent(lblNumero, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)))
-					.addContainerGap())
+						.addGroup(gl_Alta_1.createSequentialGroup()
+							.addGap(23)
+							.addGroup(gl_Alta_1.createParallelGroup(Alignment.LEADING)
+								.addComponent(tNumero, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblNumero, GroupLayout.PREFERRED_SIZE, 79, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblDireccion)
+								.addComponent(tDireccion, 449, 449, 449)
+								.addGroup(gl_Alta_1.createParallelGroup(Alignment.TRAILING, false)
+									.addComponent(tResponsableTecnico, Alignment.LEADING)
+									.addComponent(lblResponsableTecnico, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+						.addGroup(gl_Alta_1.createSequentialGroup()
+							.addGap(168)
+							.addComponent(btnAddSuc, GroupLayout.PREFERRED_SIZE, 228, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(78, Short.MAX_VALUE))
 		);
 		gl_Alta_1.setVerticalGroup(
 			gl_Alta_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_Alta_1.createSequentialGroup()
-					.addGap(30)
-					.addGroup(gl_Alta_1.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnAddSuc, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnUpdateSuc, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(31)
+					.addGap(34)
+					.addComponent(btnAddSuc)
+					.addGap(26)
 					.addComponent(lblNumero)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(tNumero, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGap(11)
 					.addComponent(lblDireccion)
-					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGap(7)
 					.addComponent(tDireccion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGap(11)
 					.addComponent(lblResponsableTecnico)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(tResponsableTecnico, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -164,30 +277,137 @@ public class SucursalPanel {
 	}
 	
 	private void asociarEventos() {
+		SucursalController sucursalController = SucursalController.getInstance();
+		
         btnAddSuc.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {			
-				JOptionPane.showMessageDialog(tabbedPane_3, "Se agreg� correctamente.", "Informaci�n",
-						JOptionPane.INFORMATION_MESSAGE);
+            public void actionPerformed(ActionEvent e) {
+            	String num = tNumero.getText();
+            	String dir = tDireccion.getText();
+            	String rt = tResponsableTecnico.getText();
+            	
+            	if(!num.isBlank() && !dir.isBlank() && !rt.isBlank()) {
+                	SucursalDTO s = new SucursalDTO();
+                	s.id = Integer.parseInt(num);
+                	s.numero = Integer.parseInt(num);
+                	s.direccion = dir;
+                	UsuarioDTO u = UsuarioController.getInstance().ObtenerUsuario(Integer.parseInt(rt)); //quizas se podria guardar solo el dni del responsable
+
+					if (u != null) {
+						s = sucursalController.AltaSucursal(s, u);
+
+						if(String.valueOf(s.id).isEmpty()) {
+							alert("No se pudo agregar", "Error", JOptionPane.ERROR_MESSAGE);
+						}
+						else {
+							limpiarFormulario();
+							alert("Se agregó correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
+						}
+					}else {
+						alert("No se reconoce el DNI.", "Error", JOptionPane.ERROR_MESSAGE);
+					}
+            	}
+            	else {
+            		alert("Falta información.", "Error", JOptionPane.ERROR_MESSAGE);
+            	}           	           
             }
         });
         
         btnDeleteSuc.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		String num = tNum.getText();
         		
-        		//if error
-        		if(true) {
-                    JOptionPane.showMessageDialog(tabbedPane_3, "La sucursal no se puede eliminar.", "Error",
-                            JOptionPane.ERROR_MESSAGE);
+        		if(!num.isBlank()) {
+        			SucursalDTO s = new SucursalDTO();
+        			s = sucursalController.ObtenerSucursal(Integer.parseInt(num));
+        			
+        			if(sucursalController.BajaSucursal(s)) {
+						limpiarFormulario();
+        				alert("Se borró correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
+        			}else {
+        				alert("No se pudo eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
+        			}
+
         		}
         	}
         });
         
-        btnUpdateSuc.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
+		btnObtenerSuc.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+        		String num = tNumMod.getText();
         		
-				JOptionPane.showMessageDialog(tabbedPane_3, "Se modific� correctamente.", "Informaci�n",
-						JOptionPane.INFORMATION_MESSAGE);
-        	}
-        });
+        		if(!num.isBlank()) {
+        			SucursalDTO s = new SucursalDTO();
+        			s = sucursalController.ObtenerSucursal(Integer.parseInt(num));
+        			
+        			tDireccionMod.setText(s.direccion);
+        			tResponsableTecnicoMod.setText(s.responsableTecnico.dni);
+        			btnUpdateSuc.setEnabled(true);
+        			tNumMod.setEnabled(false);
+        			btnObtenerSuc.setEnabled(false);
+        		}
+			}
+		});
+		
+		btnUpdateSuc.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+        		String num = tNumMod.getText();
+        		String dir = tDireccionMod.getText();
+        		String rt = tResponsableTecnicoMod.getText();
+        		
+        		if (!rt.isBlank()) {
+            		SucursalDTO s = new SucursalDTO();
+					UsuarioDTO u = UsuarioController.getInstance().ObtenerUsuario(Integer.parseInt(rt));
+            		s.id = Integer.parseInt(num);
+            		s.numero = Integer.parseInt(num);
+            		s.direccion = dir;
+            		s.responsableTecnico = u;
+            		
+            		if(sucursalController.ModificarSucursal(s)) {
+            			limpiarFormulario();
+                		btnUpdateSuc.setEnabled(false);
+                		tNumMod.setEnabled(true);
+                		btnObtenerSuc.setEnabled(true);
+                		alert("Se modificó correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
+            		}
+            		else {
+            			alert("No se pudo modificar.", "Error", JOptionPane.ERROR_MESSAGE);
+            		}
+            			
+				}else {
+					alert("No se reconoce el DNI.", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+        		        		
+        		
+			}
+		});
+        
+		btnLimpiarForm.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+    			btnUpdateSuc.setEnabled(false);
+    			tNumMod.setEnabled(true);
+    			btnObtenerSuc.setEnabled(true);
+    			limpiarFormulario();
+			}
+		});
+        
+		tabbedPane_3.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				limpiarFormulario();
+			}
+		});
 	}
+	
+    private void alert(String msg, String type, int pane) {
+        JOptionPane.showMessageDialog(tabbedPane_3, msg, type, pane);
+    }
+	
+    private void limpiarFormulario() {
+		tNumero.setText("");
+		tDireccion.setText("");
+		tResponsableTecnico.setText("");
+		tNum.setText("");
+		tDireccionMod.setText("");
+		tResponsableTecnicoMod.setText("");
+		tNumMod.setText("");
+    }
 }
