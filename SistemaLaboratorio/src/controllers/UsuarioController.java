@@ -61,13 +61,12 @@ public class UsuarioController {
         return u;
     }
 
-    public boolean BajaUsuario(UsuarioDTO u) {
+    public boolean BajaUsuario(int id) {
         try {
             UsuarioDAO usuarioDAO = new UsuarioDAO();
-            boolean fueBorrado = usuarioDAO.BorrarUsuario(u.id);
+            boolean fueBorrado = usuarioDAO.BorrarUsuario(id);
 
             if (!fueBorrado) {
-                //Do something
                 return false;
             }
         } catch (Exception e) {

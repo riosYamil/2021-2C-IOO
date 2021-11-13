@@ -19,10 +19,10 @@ public class UsuarioTest {
         usuarioDTO.id = 37340001;
         usuarioDTO.nombre = "GABRIEL";
         usuarioDTO.email = "GYRB@mail.com";
-        usuarioDTO.password = "pass";
+        usuarioDTO.password = "1";
         usuarioDTO.nombreCompleto = "GABRIEL RIOS";
         usuarioDTO.domicilio = "CALLE FALSA 1234";
-        usuarioDTO.dni = "37340001";
+        usuarioDTO.dni = "1";
         usuarioDTO.fechaDeNacimiento = new Date();
         usuarioController.AltaLaboratista(usuarioDTO);
 
@@ -31,7 +31,7 @@ public class UsuarioTest {
         assertFalse(u.EsRecepcionista());
         assertTrue(u.EsLaboratista());
 
-        assertTrue(usuarioController.BajaUsuario(usuarioDTO));
+        assertTrue(usuarioController.BajaUsuario(usuarioDTO.id));
     }
 
     @Test
@@ -54,7 +54,7 @@ public class UsuarioTest {
         assertTrue(u.EsRecepcionista());
         assertFalse(u.EsLaboratista());
 
-        assertTrue(usuarioController.BajaUsuario(usuarioDTO));
+        assertTrue(usuarioController.BajaUsuario(usuarioDTO.id));
     }
 
     @Test
@@ -77,7 +77,7 @@ public class UsuarioTest {
         assertFalse(u.EsRecepcionista());
         assertFalse(u.EsLaboratista());
 
-        assertTrue(usuarioController.BajaUsuario(usuarioDTO));
+        assertTrue(usuarioController.BajaUsuario(usuarioDTO.id));
     }
 
     @Test
@@ -99,11 +99,11 @@ public class UsuarioTest {
 
         //ID inexistente
         usuarioDTOParaTest.id = 1;
-        assertFalse(usuarioController.BajaUsuario(usuarioDTOParaTest));
+        assertFalse(usuarioController.BajaUsuario(usuarioDTOParaTest.id));
 
         //ID existente
         usuarioDTOParaTest.id = usuarioDTO.id;
-        assertTrue(usuarioController.BajaUsuario(usuarioDTOParaTest));
+        assertTrue(usuarioController.BajaUsuario(usuarioDTOParaTest.id));
     }
 
     @Test
@@ -130,7 +130,7 @@ public class UsuarioTest {
         assertFalse(u.EsRecepcionista());
         assertFalse(u.EsLaboratista());
 
-        assertTrue(usuarioController.BajaUsuario(usuarioDTO));
+        assertTrue(usuarioController.BajaUsuario(usuarioDTO.id));
     }
 
     @Test
@@ -155,7 +155,7 @@ public class UsuarioTest {
         //ID existente
         assertNotNull(usuarioController.ObtenerUsuario(usuario.id));
 
-        assertTrue(usuarioController.BajaUsuario(usuario));
+        assertTrue(usuarioController.BajaUsuario(usuario.id));
     }
 
     @Test
@@ -177,7 +177,7 @@ public class UsuarioTest {
         assertFalse(usuarioController.Autenticador(usuarioDTO.id, "contraseña_invalida"));
         assertTrue(usuarioController.Autenticador(usuarioDTO.id, "pass"));
 
-        assertTrue(usuarioController.BajaUsuario(usuario));
+        assertTrue(usuarioController.BajaUsuario(usuario.id));
     }
 
     @Test
@@ -198,6 +198,6 @@ public class UsuarioTest {
 
         UsuarioDTO laboratista = usuarioController.BuscarUnLaboratista();
         assertEquals(usuarioDTO, laboratista);
-        assertTrue(usuarioController.BajaUsuario(usuario));
+        assertTrue(usuarioController.BajaUsuario(usuario.id));
     }
 }

@@ -3,15 +3,28 @@ package views;
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import controllers.UsuarioController;
+import dtos.UsuarioDTO;
+import enums.Rol;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;  
 
 public class UsuarioPanel {
 	
 	private JTabbedPane tabbedPane_4;
     private Button btnAddUs;
-    private Button btnUpdateUs;
+    private Button btnObtenerUs;
     private JLabel lblDNI;
     private JTextField tdni;
     private JTextField tNombre;
@@ -28,7 +41,12 @@ public class UsuarioPanel {
     private JTextField tNomUs;
     private JTextField tDia;
     private JTextField tMes;
-    private JTextField tAo;
+    private JTextField tYear;
+    private JButton btnUpdateUs;
+    private JButton btnLimpiar;
+    private JRadioButton rdbtnAdmin;
+    private JRadioButton rdbtnRecep;
+    private JRadioButton rdbtnLab;
 
 	/**
 	 * @wbp.parser.entryPoint
@@ -93,11 +111,11 @@ public class UsuarioPanel {
 	        btnAddUs.setBackground(new Color(133, 189, 212));
 	        btnAddUs.setBounds(230, 174, 150, 27);
 
-	        btnUpdateUs = new Button("Modificar usuario");
-	        btnUpdateUs.setFont(new Font("Tahoma", Font.BOLD, 12));
-	        btnUpdateUs.setForeground(Color.WHITE);
-	        btnUpdateUs.setBackground(new Color(133, 189, 212));
-	        btnUpdateUs.setBounds(230, 174, 150, 27);
+	        btnObtenerUs = new Button("Obtener usuario");
+	        btnObtenerUs.setFont(new Font("Tahoma", Font.BOLD, 12));
+	        btnObtenerUs.setForeground(Color.WHITE);
+	        btnObtenerUs.setBackground(new Color(133, 189, 212));
+	        btnObtenerUs.setBounds(230, 174, 150, 27);
 
 	        tdni = new JTextField();
 	        tdni.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -148,22 +166,29 @@ public class UsuarioPanel {
 	        tMes.setText("MES");
 	        tMes.setColumns(10);
 	        
-	        tAo = new JTextField();
-	        tAo.setForeground(Color.LIGHT_GRAY);
-	        tAo.setText("A\u00D1O");
-	        tAo.setHorizontalAlignment(SwingConstants.CENTER);
-	        tAo.setColumns(10);
+	        tYear = new JTextField();
+	        tYear.setForeground(Color.LIGHT_GRAY);
+	        tYear.setText("A\u00D1O");
+	        tYear.setHorizontalAlignment(SwingConstants.CENTER);
+	        tYear.setColumns(10);
 	        
-	        JRadioButton rdbtnAdmin = new JRadioButton("Administrador");
+	        rdbtnAdmin = new JRadioButton("Administrador");
 	        rdbtnAdmin.setBackground(Color.WHITE);
 	        
 	        JLabel lblRol = new JLabel("ELIJA EL ROL:");
 	        
-	        JRadioButton rdbtnRecep = new JRadioButton("Recepcionista");
+	        rdbtnRecep = new JRadioButton("Recepcionista");
 	        rdbtnRecep.setBackground(Color.WHITE);
 	        
-	        JRadioButton rdbtnLab = new JRadioButton("Laboratorista");
+	        rdbtnLab = new JRadioButton("Laboratorista");
 	        rdbtnLab.setBackground(Color.WHITE);
+	        
+	        JLabel lblNewLabel = new JLabel("Para obtener y modificar un usuario, solo ingrese el DNI y clickee en \"Obtener usuario\".");
+	        
+	        btnUpdateUs = new JButton("Modificar Usuario");
+	        btnUpdateUs.setEnabled(false);
+	        
+	        btnLimpiar = new JButton("Limpiar formulario");
 
 	        // Layout
 	        GroupLayout gl_Alta = new GroupLayout(Alta);
@@ -172,6 +197,11 @@ public class UsuarioPanel {
 	        		.addGroup(gl_Alta.createSequentialGroup()
 	        			.addGap(31)
 	        			.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
+	        				.addGroup(gl_Alta.createSequentialGroup()
+	        					.addComponent(btnUpdateUs)
+	        					.addPreferredGap(ComponentPlacement.RELATED)
+	        					.addComponent(btnLimpiar))
+	        				.addComponent(lblNewLabel)
 	        				.addGroup(gl_Alta.createSequentialGroup()
 	        					.addComponent(rdbtnAdmin)
 	        					.addGap(18)
@@ -187,19 +217,17 @@ public class UsuarioPanel {
 	        						.addGap(18)
 	        						.addComponent(tMail))
 	        					.addComponent(tNombre, GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
-	        					.addGroup(gl_Alta.createSequentialGroup()
-	        						.addPreferredGap(ComponentPlacement.RELATED)
-	        						.addGroup(gl_Alta.createParallelGroup(Alignment.TRAILING)
-	        							.addGroup(gl_Alta.createSequentialGroup()
-	        								.addComponent(lblDNI, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
-	        								.addGap(147)
-	        								.addComponent(lblMail)
-	        								.addGap(64))
-	        							.addGroup(gl_Alta.createSequentialGroup()
-	        								.addComponent(btnAddUs, GroupLayout.PREFERRED_SIZE, 229, GroupLayout.PREFERRED_SIZE)
-	        								.addPreferredGap(ComponentPlacement.RELATED)
-	        								.addComponent(btnUpdateUs, GroupLayout.PREFERRED_SIZE, 227, GroupLayout.PREFERRED_SIZE)
-	        								.addPreferredGap(ComponentPlacement.RELATED))))
+	        					.addGroup(gl_Alta.createParallelGroup(Alignment.TRAILING)
+	        						.addGroup(gl_Alta.createSequentialGroup()
+	        							.addComponent(lblDNI, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+	        							.addGap(145)
+	        							.addComponent(lblMail, GroupLayout.PREFERRED_SIZE, 222, GroupLayout.PREFERRED_SIZE)
+	        							.addGap(64))
+	        						.addGroup(gl_Alta.createSequentialGroup()
+	        							.addComponent(btnAddUs, GroupLayout.PREFERRED_SIZE, 229, GroupLayout.PREFERRED_SIZE)
+	        							.addPreferredGap(ComponentPlacement.RELATED)
+	        							.addComponent(btnObtenerUs, GroupLayout.PREFERRED_SIZE, 227, GroupLayout.PREFERRED_SIZE)
+	        							.addPreferredGap(ComponentPlacement.RELATED)))
 	        					.addGroup(gl_Alta.createSequentialGroup()
 	        						.addGroup(gl_Alta.createParallelGroup(Alignment.TRAILING, false)
 	        							.addComponent(tNomUs, Alignment.LEADING)
@@ -218,7 +246,7 @@ public class UsuarioPanel {
 	        												.addPreferredGap(ComponentPlacement.RELATED)
 	        												.addComponent(tMes, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)))
 	        										.addPreferredGap(ComponentPlacement.RELATED)
-	        										.addComponent(tAo, 0, 0, Short.MAX_VALUE)))
+	        										.addComponent(tYear, 0, 0, Short.MAX_VALUE)))
 	        								.addGap(90))
 	        							.addGroup(gl_Alta.createSequentialGroup()
 	        								.addGap(18)
@@ -231,11 +259,13 @@ public class UsuarioPanel {
 	        			.addGap(30)
 	        			.addGroup(gl_Alta.createParallelGroup(Alignment.BASELINE)
 	        				.addComponent(btnAddUs, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-	        				.addComponent(btnUpdateUs, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-	        			.addGap(36)
+	        				.addComponent(btnObtenerUs, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+	        			.addPreferredGap(ComponentPlacement.UNRELATED)
+	        			.addComponent(lblNewLabel)
+	        			.addGap(10)
 	        			.addGroup(gl_Alta.createParallelGroup(Alignment.BASELINE)
-	        				.addComponent(lblDNI)
-	        				.addComponent(lblMail))
+	        				.addComponent(lblMail)
+	        				.addComponent(lblDNI))
 	        			.addPreferredGap(ComponentPlacement.RELATED)
 	        			.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
 	        				.addGroup(gl_Alta.createSequentialGroup()
@@ -254,7 +284,7 @@ public class UsuarioPanel {
 	        				.addComponent(tDomicilio, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 	        				.addComponent(tDia, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 	        				.addComponent(tMes, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-	        				.addComponent(tAo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+	        				.addComponent(tYear, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 	        			.addGap(18)
 	        			.addGroup(gl_Alta.createParallelGroup(Alignment.BASELINE)
 	        				.addComponent(lblNomUs)
@@ -270,7 +300,11 @@ public class UsuarioPanel {
 	        				.addComponent(rdbtnAdmin)
 	        				.addComponent(rdbtnRecep)
 	        				.addComponent(rdbtnLab))
-	        			.addContainerGap(129, Short.MAX_VALUE))
+	        			.addGap(18)
+	        			.addGroup(gl_Alta.createParallelGroup(Alignment.BASELINE)
+	        				.addComponent(btnUpdateUs)
+	        				.addComponent(btnLimpiar))
+	        			.addContainerGap(90, Short.MAX_VALUE))
 	        );
 	        Alta.setLayout(gl_Alta);
 
@@ -279,26 +313,204 @@ public class UsuarioPanel {
 	    }
 	    
 	    private void asociarEventos() {
+	    	UsuarioController usuarioController = UsuarioController.getInstance();
+	    	
 	        btnAddUs.addActionListener(new ActionListener() {
 	        	public void actionPerformed(ActionEvent e) {
-                    JOptionPane.showMessageDialog(tabbedPane_4, "Se creó correctamente", "Información",
-                            JOptionPane.INFORMATION_MESSAGE);
+	        		String dni = tdni.getText();
+	        		String nombre = tNombre.getText();
+	        		String domicilio = tDomicilio.getText();
+	        		String mail = tMail.getText();
+	        		String nombreDeUsuario = tNomUs.getText();
+	        		String pass = tPass.getText();
+	        		String dia = tDia.getText();
+	        		String mes = tMes.getText();
+	        		String year = tYear.getText();
+	        		String fecha = String.join("-", dia, mes, year);
+	        		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+	        		Date fechaDeNacimiento = null;
+	        		
+					try {
+						fechaDeNacimiento = dateFormat.parse(fecha);
+					} catch (ParseException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+	        		UsuarioDTO u = new UsuarioDTO();
+	        			        		
+	        		if(!dni.isBlank() && !pass.isBlank() && (rdbtnAdmin.isSelected() || rdbtnLab.isSelected() || rdbtnRecep.isSelected())) {
+		        		if(rdbtnAdmin.isSelected()) {
+		        			u.rol = Rol.Administrador;
+		        		}
+		        		
+		        		if(rdbtnLab.isSelected()) {
+		        			u.rol = Rol.Laboratista;
+		        		}
+		        		
+		        		if(rdbtnRecep.isSelected()) {
+		        			u.rol = Rol.Recepcion;
+		        		}
+		        		
+		        		u.id = Integer.parseInt(dni);
+		        		u.dni = dni;
+		        		u.nombre = nombreDeUsuario;
+		        		u.nombreCompleto = nombre;
+		        		u.domicilio = domicilio;
+		        		u.fechaDeNacimiento = fechaDeNacimiento;
+		        		u.password = pass;
+		        		u.email = mail;
+		        		
+	        			usuarioController.AltaUsuario(u);
+	        			limpiarFormulario();
+	        			alert("Se creó correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+	        		}else {
+	        			alert("Este usuario no se pudo crear.", "Error", JOptionPane.ERROR_MESSAGE);
+	        		}
+	        		
+                    
 	        	}
 	        });
 	        
-	        btnUpdateUs.addActionListener(new ActionListener() {
+	        btnObtenerUs.addActionListener(new ActionListener() {
 	        	public void actionPerformed(ActionEvent e) {
-                    JOptionPane.showMessageDialog(tabbedPane_4, "Se modific� correctamente", "Informaci�n",
-                            JOptionPane.INFORMATION_MESSAGE);
+	        		String dni = tdni.getText();
+	        		
+	        		if(!dni.isBlank()) {
+	        			UsuarioDTO u = new UsuarioDTO();
+	        			u = usuarioController.ObtenerUsuario(Integer.parseInt(dni));
+	        			
+	        			if(u != null) {
+	        				tNombre.setText(u.nombreCompleto);
+	        				tDomicilio.setText(u.domicilio);
+	        				tMail.setText(u.email);
+	        	    		tNomUs.setText(u.nombre);
+	        	    		tPass.setText(u.password);
+        	    		
+	        	    		//arreglar date
+	        	    		tDia.setText("");
+	        	    		tMes.setText("");
+	        	    		tYear.setText("");
+	        	    		
+	        	    		
+	        				tdni.setEnabled(false);
+	        				btnAddUs.setEnabled(false);
+	        				btnUpdateUs.setEnabled(true);
+	        			}
+	        		}
+	        		
 	        	}
 	        });
 	    	
 	        btnDeleteUs.addActionListener(new ActionListener() {
 	        	public void actionPerformed(ActionEvent e) {
-                    JOptionPane.showMessageDialog(tabbedPane_4, "Este usuario no se pudo eliminar.", "Error",
-                            JOptionPane.ERROR_MESSAGE);
+	        		String dni = tDNI.getText();
+	        		
+
+	        			if(usuarioController.BajaUsuario(Integer.parseInt(dni))) {
+	        				limpiarFormulario();
+		        			alert("Se eliminó correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+	        			}
+	        			else {
+	        				 alert("Este usuario no se pudo eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
+	        			}
+
+
 	        	}
 	        });
+	        
+	        btnUpdateUs.addActionListener(new ActionListener() {
+	        	public void actionPerformed(ActionEvent e) {
+	        		String dni = tdni.getText();
+	        		String nombre = tNombre.getText();
+	        		String domicilio = tDomicilio.getText();
+	        		String mail = tMail.getText();
+	        		String nombreDeUsuario = tNomUs.getText();
+	        		String pass = tPass.getText();
+	        		String dia = tDia.getText();
+	        		String mes = tMes.getText();
+	        		String year = tYear.getText();
+	        		String fecha = String.join("-", dia, mes, year);
+	        		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+	        		Date fechaDeNacimiento = null;
+	        		
+					try {
+						fechaDeNacimiento = dateFormat.parse(fecha);
+					} catch (ParseException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+	        		UsuarioDTO u = new UsuarioDTO();
+	        			        		
+	        		if(!pass.isBlank() && (rdbtnAdmin.isSelected() || rdbtnLab.isSelected() || rdbtnRecep.isSelected())) {
+		        		if(rdbtnAdmin.isSelected()) {
+		        			u.rol = Rol.Administrador;
+		        		}
+		        		
+		        		if(rdbtnLab.isSelected()) {
+		        			u.rol = Rol.Laboratista;
+		        		}
+		        		
+		        		if(rdbtnRecep.isSelected()) {
+		        			u.rol = Rol.Recepcion;
+		        		}
+		        		
+		        		u.id = Integer.parseInt(dni);
+		        		u.dni = dni;
+		        		u.nombre = nombreDeUsuario;
+		        		u.nombreCompleto = nombre;
+		        		u.domicilio = domicilio;
+		        		u.fechaDeNacimiento = fechaDeNacimiento;
+		        		u.password = pass;
+		        		u.email = mail;
+		        		
+	        			usuarioController.ModificarUsuario(u);
+	    				tdni.setEnabled(true);
+	    				btnAddUs.setEnabled(true);
+	    				btnUpdateUs.setEnabled(false);
+	        			limpiarFormulario();
+	        			alert("Se modificó correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+	        		}else {
+	        			alert("Este usuario no se pudo modificar.", "Error", JOptionPane.ERROR_MESSAGE);
+	        		}
+	        		
+                    
+	        	}
+	        });
+	        
+	        btnLimpiar.addActionListener(new ActionListener() {
+	        	public void actionPerformed(ActionEvent e) {
+	        		limpiarFormulario();
+    				tdni.setEnabled(true);
+    				btnAddUs.setEnabled(true);
+    				btnUpdateUs.setEnabled(false);
+	        	}
+	        });
+	        
+			tabbedPane_4.addChangeListener(new ChangeListener() {
+				public void stateChanged(ChangeEvent e) {
+					limpiarFormulario();
+				}
+			});
 
 	    }
+	    
+	    private void limpiarFormulario() {
+			tdni.setText("");
+			tNombre.setText("");
+			tDomicilio.setText("");
+			tMail.setText("");
+    		tNomUs.setText("");
+    		tPass.setText("");
+    		tDia.setText("");
+    		tMes.setText("");
+    		tYear.setText("");
+    		tDNI.setText("");
+	    }
+	    
+	    private void alert(String msg, String type, int pane) {
+	        JOptionPane.showMessageDialog(tabbedPane_4, msg, type, pane);
+	    }
+	    
 	}
