@@ -88,7 +88,7 @@ public class FrmPrincipal extends JFrame {
 		JLabel lblPassword = new JLabel("CONTRASEÑA");
 		lblPassword.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblPassword.setForeground(Color.DARK_GRAY);
-		lblPassword.setBounds(273, 202, 109, 14);
+		lblPassword.setBounds(267, 202, 84, 14);
 		pnlIntro.add(lblPassword);
 		
 		tPassword = new JTextField();

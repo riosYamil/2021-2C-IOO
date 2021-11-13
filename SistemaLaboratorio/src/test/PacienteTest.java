@@ -26,7 +26,7 @@ public class PacienteTest {
 
         PacienteDTO paciente = pacienteController.AltaPaciente(pacienteDTO);
         assertNotNull(paciente);
-        pacienteController.BajaPaciente(paciente);
+        pacienteController.BajaPaciente(paciente.id);
     }
 
     @Test
@@ -50,11 +50,11 @@ public class PacienteTest {
 
         //ID inexistente
         pacienteDTOParaTest.id = 123456;
-        assertFalse(pacienteController.BajaPaciente(pacienteDTOParaTest));
+        assertFalse(pacienteController.BajaPaciente(pacienteDTOParaTest.id));
 
         //ID existente
         pacienteDTOParaTest.id = paciente.id;
-        assertTrue(pacienteController.BajaPaciente(pacienteDTOParaTest));
+        assertTrue(pacienteController.BajaPaciente(pacienteDTOParaTest.id));
     }
 
     @Test
@@ -82,7 +82,7 @@ public class PacienteTest {
         assertEquals("GABRIEL YAMIL", paciente.nombre);
         assertEquals("CALLE VERDADERA 1234", paciente.domicilio);
 
-        assertTrue(pacienteController.BajaPaciente(paciente));
+        assertTrue(pacienteController.BajaPaciente(paciente.id));
     }
 
     @Test
@@ -108,6 +108,6 @@ public class PacienteTest {
         //ID existente
         assertNotNull(pacienteController.ObtenerPaciente(paciente.id));
 
-        assertTrue(pacienteController.BajaPaciente(paciente));
+        assertTrue(pacienteController.BajaPaciente(paciente.id));
     }
 }

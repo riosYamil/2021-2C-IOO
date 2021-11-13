@@ -26,10 +26,10 @@ public class PacienteController {
         return p;
     }
 
-    public boolean BajaPaciente(PacienteDTO p) {
+    public boolean BajaPaciente(int id) {
         try {
             PacienteDAO pacienteDAO = new PacienteDAO();
-            boolean fueBorrado = pacienteDAO.BorrarPaciente(p.id);
+            boolean fueBorrado = pacienteDAO.BorrarPaciente(id);
 
             if (!fueBorrado) {
                 //Do something
@@ -46,7 +46,6 @@ public class PacienteController {
             PacienteDAO pacienteDAO = new PacienteDAO();
             boolean fueActualizado = pacienteDAO.ActualizarPaciente(p);
             if (!fueActualizado) {
-                //Do something
                 return false;
             }
         } catch (Exception e) {

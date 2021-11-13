@@ -1,18 +1,27 @@
 package views;
 
 import controllers.PacienteController;
+import domains.Paciente;
 import dtos.PacienteDTO;
+import dtos.PeticionDTO;
+import enums.EstadoPaciente;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 public class PacientePanel{
 	
     private JTabbedPane tabbedPane_1;
-    private Button btnAddPac;
-    private Button btnUpdatePac;
+    private JButton btnAddPac;
     private JLabel lblDNI;
     private JTextField tdni;
     private JTextField tNombre;
@@ -21,13 +30,32 @@ public class PacientePanel{
     private JLabel lblEdad;
     private JTextField tEdad;
     private Panel Baja;
+    private Panel Modificar;
     private Button btnDeletePac;
+    private Button btnObtenerPac;
     private JTextField tDNI;
+    private JTextField tDNIMod;
     private JLabel lbldni;
     private JLabel lblBaja;
     private JTextField tMail;
     private JTextField tSexo;
+    private JPanel Alta;
+	private JLabel lblNombre;
+	private JTextField tNombreMod;
+	private JTextField tSexoMod;
+	private JTextField tMailMod;
+	private JTextField tEdadMod;
+	private JTextField tDomicilioMod;
+	private JButton btnUpdatePac;
+	private JCheckBox chckbxActivo;
+	private JLabel lblSexo;
+	private JLabel lblPeticionesCompletas;
+	private JLabel lblPeticionesPendientes;
+	private JButton btnLimpiar;
 
+	private List<PeticionDTO> peticionesCompletas;
+	private List<PeticionDTO> peticionesPendientes;
+	
     /**
      * @wbp.parser.entryPoint
      */
@@ -37,10 +65,179 @@ public class PacientePanel{
     	tabbedPane_1.setBounds(100, 100, 629, 476);
         tabbedPane_1.add("Alta", setAltaPaciente());
         tabbedPane_1.add("Baja", setBajaPaciente());
+        tabbedPane_1.add("Modificar", setModificarPaciente());
 
         asociarEventos();
         
         return tabbedPane_1;
+    }
+    
+    private Panel setModificarPaciente() {
+        Modificar = new Panel();
+
+        btnObtenerPac = new Button("Obtener Paciente");
+        btnObtenerPac.setFont(new Font("Tahoma", Font.BOLD, 12));
+        btnObtenerPac.setForeground(Color.WHITE);
+        btnObtenerPac.setBackground(SystemColor.activeCaption);
+        btnObtenerPac.setBounds(230, 174, 50, 27);
+
+        tDNIMod = new JTextField();
+        tDNIMod.setColumns(10);
+
+        lbldni = new JLabel("DNI");
+
+        lblBaja = new JLabel("Por favor, ingrese el DNI del paciente que desea modificar");
+        
+        lblNombre = new JLabel("NOMBRE");
+        
+        tNombreMod = new JTextField();
+        tNombreMod.setColumns(10);
+        
+        lblSexo = new JLabel("SEXO");
+        
+        tSexoMod = new JTextField();
+        tSexoMod.setColumns(10);
+        
+        tMailMod = new JTextField();
+        tMailMod.setColumns(10);
+        
+        JLabel lblMail = new JLabel("MAIL");
+        
+        JLabel lblEstado = new JLabel("ESTADO");
+        
+        JLabel lblEdadMod = new JLabel("EDAD");
+        
+        tEdadMod = new JTextField();
+        tEdadMod.setColumns(10);
+        
+        JLabel lbldomicilio = new JLabel("DOMICILIO");
+        
+        tDomicilioMod = new JTextField();
+        tDomicilioMod.setColumns(10);
+        
+        JLabel lblPeticiones = new JLabel("PETICIONES");
+        
+        JLabel lblCompletas = new JLabel("N° de peticiones completas:");
+        
+        JLabel lblPendientes = new JLabel("N° de peticiones pendientes:");
+        
+        lblPeticionesCompletas = new JLabel("N/A");
+        
+        lblPeticionesPendientes = new JLabel("N/A");
+        
+        btnUpdatePac = new JButton("Modificar paciente");
+        btnUpdatePac.setEnabled(false);
+        
+        chckbxActivo = new JCheckBox("Activo");
+        chckbxActivo.setBackground(Color.WHITE);
+        
+        btnLimpiar = new JButton("Limpiar formulario");
+
+
+        //Layout
+        GroupLayout gl_Modificar = new GroupLayout(Modificar);
+        gl_Modificar.setHorizontalGroup(
+        	gl_Modificar.createParallelGroup(Alignment.LEADING)
+        		.addGroup(gl_Modificar.createSequentialGroup()
+        			.addGroup(gl_Modificar.createParallelGroup(Alignment.LEADING)
+        				.addGroup(gl_Modificar.createSequentialGroup()
+        					.addGap(35)
+        					.addGroup(gl_Modificar.createParallelGroup(Alignment.LEADING)
+        						.addGroup(gl_Modificar.createSequentialGroup()
+        							.addGroup(gl_Modificar.createParallelGroup(Alignment.LEADING)
+        								.addComponent(lblEstado)
+        								.addComponent(chckbxActivo))
+        							.addGap(25)
+        							.addGroup(gl_Modificar.createParallelGroup(Alignment.LEADING)
+        								.addComponent(lblPeticiones)
+        								.addGroup(gl_Modificar.createSequentialGroup()
+        									.addGroup(gl_Modificar.createParallelGroup(Alignment.LEADING)
+        										.addComponent(lblPendientes)
+        										.addComponent(lblCompletas))
+        									.addGap(18)
+        									.addGroup(gl_Modificar.createParallelGroup(Alignment.LEADING, false)
+        										.addComponent(lblPeticionesPendientes, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        										.addComponent(lblPeticionesCompletas, GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)))))
+        						.addGroup(gl_Modificar.createSequentialGroup()
+        							.addGroup(gl_Modificar.createParallelGroup(Alignment.LEADING)
+        								.addGroup(gl_Modificar.createParallelGroup(Alignment.TRAILING, false)
+        									.addComponent(tMailMod, Alignment.LEADING)
+        									.addComponent(tNombreMod, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE))
+        								.addComponent(lblNombre)
+        								.addComponent(lblBaja)
+        								.addComponent(lbldni)
+        								.addComponent(tDNIMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        								.addComponent(lblMail)
+        								.addComponent(btnObtenerPac, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE))
+        							.addPreferredGap(ComponentPlacement.RELATED)
+        							.addGroup(gl_Modificar.createParallelGroup(Alignment.LEADING, false)
+        								.addGroup(gl_Modificar.createSequentialGroup()
+        									.addGroup(gl_Modificar.createParallelGroup(Alignment.LEADING)
+        										.addComponent(tEdadMod, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
+        										.addComponent(lblEdadMod))
+        									.addGap(18)
+        									.addGroup(gl_Modificar.createParallelGroup(Alignment.LEADING)
+        										.addComponent(lblSexo)
+        										.addComponent(tSexoMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+        								.addComponent(lbldomicilio)
+        								.addComponent(btnUpdatePac, GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
+        								.addComponent(tDomicilioMod)))))
+        				.addGroup(gl_Modificar.createSequentialGroup()
+        					.addGap(26)
+        					.addComponent(btnLimpiar)))
+        			.addContainerGap(56, Short.MAX_VALUE))
+        );
+        gl_Modificar.setVerticalGroup(
+        	gl_Modificar.createParallelGroup(Alignment.LEADING)
+        		.addGroup(gl_Modificar.createSequentialGroup()
+        			.addGap(22)
+        			.addComponent(lblBaja)
+        			.addPreferredGap(ComponentPlacement.UNRELATED)
+        			.addComponent(lbldni)
+        			.addGap(4)
+        			.addComponent(tDNIMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.UNRELATED)
+        			.addGroup(gl_Modificar.createParallelGroup(Alignment.LEADING)
+        				.addComponent(btnObtenerPac, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(btnUpdatePac))
+        			.addGap(23)
+        			.addGroup(gl_Modificar.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(lblNombre)
+        				.addComponent(lbldomicilio))
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(gl_Modificar.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(tNombreMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(tDomicilioMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        			.addPreferredGap(ComponentPlacement.UNRELATED)
+        			.addGroup(gl_Modificar.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(lblMail)
+        				.addComponent(lblEdadMod)
+        				.addComponent(lblSexo))
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(gl_Modificar.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(tMailMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(tEdadMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(tSexoMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        			.addGap(18)
+        			.addGroup(gl_Modificar.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(lblEstado)
+        				.addComponent(lblPeticiones))
+        			.addPreferredGap(ComponentPlacement.UNRELATED)
+        			.addGroup(gl_Modificar.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(lblCompletas)
+        				.addComponent(lblPeticionesCompletas)
+        				.addComponent(chckbxActivo))
+        			.addGap(1)
+        			.addGroup(gl_Modificar.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(lblPendientes)
+        				.addComponent(lblPeticionesPendientes))
+        			.addGap(29)
+        			.addComponent(btnLimpiar)
+        			.addContainerGap(107, Short.MAX_VALUE))
+        );
+        Modificar.setLayout(gl_Modificar);
+
+        return Modificar;
     }
 
     private Panel setBajaPaciente() {
@@ -81,20 +278,14 @@ public class PacientePanel{
     }
 
     private JPanel setAltaPaciente() {
-        JPanel Alta = new JPanel(false);
+        Alta = new JPanel(false);
         Alta.setBackground(Color.WHITE);
 
-        btnAddPac = new Button("Agregar paciente");
+        btnAddPac = new JButton("Agregar paciente");
         btnAddPac.setFont(new Font("Tahoma", Font.BOLD, 12));
-        btnAddPac.setForeground(Color.WHITE);
+        btnAddPac.setForeground(Color.BLACK);
         btnAddPac.setBackground(new Color(133, 189, 212));
         btnAddPac.setBounds(230, 174, 150, 27);
-
-        btnUpdatePac = new Button("Modificar paciente");
-        btnUpdatePac.setFont(new Font("Tahoma", Font.BOLD, 12));
-        btnUpdatePac.setForeground(Color.WHITE);
-        btnUpdatePac.setBackground(new Color(133, 189, 212));
-        btnUpdatePac.setBounds(230, 174, 150, 27);
 
         tdni = new JTextField();
         tdni.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -133,64 +324,99 @@ public class PacientePanel{
 
         // Layout
         GroupLayout gl_Alta = new GroupLayout(Alta);
-        gl_Alta.setHorizontalGroup(gl_Alta.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(gl_Alta
-                .createSequentialGroup().addGap(31)
-                .addGroup(gl_Alta.createParallelGroup(GroupLayout.Alignment.LEADING, false).addComponent(lblNombre)
-                        .addComponent(lblDomicilio)
-                        .addGroup(gl_Alta.createSequentialGroup()
-                                .addGroup(gl_Alta.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(lblEdad)
-                                        .addComponent(tEdad, GroupLayout.PREFERRED_SIZE, 34,
-                                                GroupLayout.PREFERRED_SIZE))
-                                .addGap(33)
-                                .addGroup(gl_Alta.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                        .addComponent(tSexo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-                                                GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(lblSexo)))
-                        .addGroup(gl_Alta.createSequentialGroup()
-                                .addComponent(tdni, GroupLayout.PREFERRED_SIZE, 162, GroupLayout.PREFERRED_SIZE)
-                                .addGap(18).addComponent(tMail))
-                        .addComponent(tNombre, GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE).addComponent(tDomicilio)
-                        .addGroup(gl_Alta.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                .addGroup(gl_Alta.createSequentialGroup()
-                                        .addComponent(lblDNI, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
-                                        .addGap(147).addComponent(lblMail).addGap(64))
-                                .addGroup(GroupLayout.Alignment.TRAILING,
-                                        gl_Alta.createSequentialGroup().addComponent(btnAddPac).addGap(18)
-                                                .addComponent(btnUpdatePac)
-                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED))))
-                .addContainerGap(70, Short.MAX_VALUE)));
-        gl_Alta.setVerticalGroup(gl_Alta.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(gl_Alta.createSequentialGroup()
-                .addGap(30)
-                .addGroup(gl_Alta.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(btnAddPac)
-                        .addComponent(btnUpdatePac))
-                .addGap(36)
-                .addGroup(gl_Alta.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(lblDNI).addComponent(lblMail))
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(gl_Alta.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addGroup(gl_Alta.createSequentialGroup()
-                                .addComponent(tdni, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED).addComponent(lblNombre))
-                        .addComponent(tMail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-                                GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED).addComponent(lblDomicilio)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tDomicilio, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-                        GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(gl_Alta.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(lblEdad).addComponent(lblSexo))
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(gl_Alta.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(tEdad, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-                                GroupLayout.PREFERRED_SIZE)
-                        .addComponent(tSexo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-                                GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(165, Short.MAX_VALUE)));
+        gl_Alta.setHorizontalGroup(
+        	gl_Alta.createParallelGroup(Alignment.LEADING)
+        		.addGroup(gl_Alta.createSequentialGroup()
+        			.addGap(171)
+        			.addComponent(btnAddPac, GroupLayout.PREFERRED_SIZE, 206, GroupLayout.PREFERRED_SIZE)
+        			.addContainerGap(188, Short.MAX_VALUE))
+        		.addGroup(gl_Alta.createSequentialGroup()
+        			.addGap(31)
+        			.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
+        				.addComponent(tDomicilio, 481, 481, 481)
+        				.addComponent(lblDomicilio)
+        				.addGroup(gl_Alta.createSequentialGroup()
+        					.addComponent(lblNombre)
+        					.addPreferredGap(ComponentPlacement.RELATED))
+        				.addGroup(gl_Alta.createSequentialGroup()
+        					.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
+        						.addGroup(gl_Alta.createSequentialGroup()
+        							.addComponent(lblDNI, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+        							.addGap(145)
+        							.addComponent(lblMail))
+        						.addGroup(gl_Alta.createParallelGroup(Alignment.TRAILING, false)
+        							.addComponent(tNombre, Alignment.LEADING)
+        							.addGroup(Alignment.LEADING, gl_Alta.createSequentialGroup()
+        								.addComponent(tdni, GroupLayout.PREFERRED_SIZE, 162, GroupLayout.PREFERRED_SIZE)
+        								.addGap(18)
+        								.addComponent(tMail, 301, 301, 301)))
+        						.addGroup(gl_Alta.createSequentialGroup()
+        							.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
+        								.addComponent(lblEdad)
+        								.addComponent(tEdad, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE))
+        							.addGap(33)
+        							.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
+        								.addComponent(tSexo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        								.addComponent(lblSexo))))
+        					.addGap(106)))
+        			.addGap(53))
+        );
+        gl_Alta.setVerticalGroup(
+        	gl_Alta.createParallelGroup(Alignment.LEADING)
+        		.addGroup(gl_Alta.createSequentialGroup()
+        			.addGap(28)
+        			.addComponent(btnAddPac, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
+        			.addGap(20)
+        			.addGroup(gl_Alta.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(lblDNI)
+        				.addComponent(lblMail))
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
+        				.addGroup(gl_Alta.createSequentialGroup()
+        					.addComponent(tdni, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(lblNombre))
+        				.addComponent(tMail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(tNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.UNRELATED)
+        			.addComponent(lblDomicilio)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(tDomicilio, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.UNRELATED)
+        			.addGroup(gl_Alta.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(lblEdad)
+        				.addComponent(lblSexo))
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(gl_Alta.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(tEdad, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(tSexo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        			.addContainerGap(160, Short.MAX_VALUE))
+        );
         Alta.setLayout(gl_Alta);
 
         Alta.setVisible(true);
         return Alta;
+    }
+    
+    private void alert(String msg, String type, int pane) {
+        JOptionPane.showMessageDialog(tabbedPane_1, msg, type, pane);
+    }
+    
+    private void limpiarFormulario() {
+		tdni.setText("");
+		tNombre.setText("");;
+		tDomicilio.setText("");
+		tEdad.setText("");
+		tSexo.setText("");
+		tMail.setText("");
+		tDNI.setText("");
+		tDNIMod.setText("");
+		tNombreMod.setText("");
+		tEdadMod.setText("");
+		tDomicilioMod.setText("");
+		tSexoMod.setText("");
+		tMailMod.setText("");
     }
     
     private void asociarEventos() {
@@ -205,29 +431,124 @@ public class PacientePanel{
 				p.edad = Integer.parseInt(tEdad.getText());
 				p.sexo = tSexo.getText();
 				p.mail = tMail.getText();
-				pacienteController.AltaPaciente(p);
+				p.id = Integer.parseInt(tdni.getText());
+				p.estado = EstadoPaciente.Activo;
 				
-				JOptionPane.showMessageDialog(tabbedPane_1, "Se agregó correctamente.", "Información",
-						JOptionPane.INFORMATION_MESSAGE);
+				if(!p.dni.isBlank() && !p.nombre.isBlank() && !p.mail.isBlank() && !p.domicilio.isBlank() && !p.sexo.isBlank()) {
+					p = pacienteController.AltaPaciente(p);
+					if(!p.dni.isBlank()) {
+						limpiarFormulario();
+						alert("Se creó correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+					}
+					else {
+						alert("Hubo un error al intentar crear el paciente", "Error", JOptionPane.ERROR_MESSAGE);
+					}
+				}else {
+					alert("Falta información.", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+				
+				
             }
         });
         
-        btnDeletePac.addActionListener(new ActionListener() {
+        btnUpdatePac.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+				PacienteDTO p = new PacienteDTO();
+				p.dni = tDNIMod.getText();
+				p.nombre = tNombreMod.getText();
+				p.domicilio = tDomicilioMod.getText();
+				p.edad = Integer.parseInt(tEdadMod.getText());
+				p.sexo = tSexoMod.getText();
+				p.mail = tMailMod.getText();
+				p.id = Integer.parseInt(p.dni);
+				p.peticionesCompletas = peticionesCompletas;
+				p.peticionePendientes = peticionesPendientes;
+
+				if(chckbxActivo.isSelected()) {
+					p.estado = EstadoPaciente.Activo;
+				}else {
+					p.estado = EstadoPaciente.Inactivo;
+				}
+
+				if(pacienteController.ModificarPaciente(p)) {
+					limpiarFormulario();
+					tDNIMod.setEnabled(true);
+					btnObtenerPac.setEnabled(true);
+					btnUpdatePac.setEnabled(false);
+					chckbxActivo.setSelected(false);
+				    alert("Se modificó correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+				}else {
+					alert("No se pudo modificar.", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+				
+				
+            }
+        });
+        
+        btnObtenerPac.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		int id = Integer.parseInt(tDNIMod.getText());
         		
-        		//if error
-        		if(true) {
-                    JOptionPane.showMessageDialog(tabbedPane_1, "Este paciente no se puede eliminar.", "Error",
-                            JOptionPane.ERROR_MESSAGE);
+        		if(!tDNIMod.getText().isBlank()) {
+        			PacienteDTO p = pacienteController.ObtenerPaciente(id);
+        			tNombreMod.setText(p.nombre);
+        			tEdadMod.setText(String.valueOf(p.edad));
+        			tDomicilioMod.setText(p.domicilio);
+        			tSexoMod.setText(p.sexo);
+					tMailMod.setText(p.mail);
+
+					if (p.peticionesCompletas!= null){
+						peticionesCompletas = p.peticionesCompletas;
+						lblPeticionesCompletas.setText(String.valueOf(p.peticionesCompletas.size()));
+					}
+
+					if(p.peticionePendientes != null){
+						peticionesPendientes = p.peticionePendientes;
+        				lblPeticionesPendientes.setText(String.valueOf(p.peticionePendientes.size()));
+					}
+        			
+        			if(p.estado.toString().equals("Activo")) {
+        				chckbxActivo.setSelected(true);
+        			}else {
+        				chckbxActivo.setSelected(false);
+        			}
+
+					tDNIMod.setEnabled(false);
+					btnObtenerPac.setEnabled(false);
+					btnUpdatePac.setEnabled(true);
+        			
+        		}else {
+        			alert("No se pudo encontrar el DNI.", "Error", JOptionPane.ERROR_MESSAGE);
         		}
         	}
         });
         
-        btnUpdatePac.addActionListener(new ActionListener() {
+        btnDeletePac.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		int dni = Integer.parseInt(tDNI.getText());
         		
-				JOptionPane.showMessageDialog(tabbedPane_1, "Se modific� correctamente.", "Informaci�n",
-						JOptionPane.INFORMATION_MESSAGE);
+        		if(pacienteController.BajaPaciente(dni)) {
+        			limpiarFormulario();
+    				alert("El paciente se borró correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+        		}
+        		else {
+                    alert("Este paciente no se puede eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
+        		}
+        	}
+        });
+
+		tabbedPane_1.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				limpiarFormulario();
+			}
+		});
+		
+        btnLimpiar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		tDNIMod.setEnabled(true);
+        		limpiarFormulario();
+				btnObtenerPac.setEnabled(true);
+				btnUpdatePac.setEnabled(false);
         	}
         });
     }
