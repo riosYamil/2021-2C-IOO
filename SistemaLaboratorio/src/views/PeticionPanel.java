@@ -1,18 +1,16 @@
 package views;
 
-import javax.swing.*;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
-
 import controllers.PacienteController;
 import controllers.PeticionController;
-import domains.PracticaAsociada;
 import dtos.PacienteDTO;
 import dtos.PeticionDTO;
 import dtos.PracticaAsociadaDTO;
 import dtos.PracticaDTO;
 import enums.EstadoPeticion;
 
+import javax.swing.*;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

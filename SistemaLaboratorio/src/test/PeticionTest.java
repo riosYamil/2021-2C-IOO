@@ -1,12 +1,10 @@
 package test;
 
-import controllers.PacienteController;
 import controllers.PeticionController;
 import dtos.PacienteDTO;
 import dtos.PeticionDTO;
 import dtos.PracticaAsociadaDTO;
 import dtos.PracticaDTO;
-import enums.EstadoPaciente;
 import enums.EstadoPeticion;
 import enums.EstadoPractica;
 import enums.EstadoResultadoPractica;

@@ -69,9 +69,6 @@ public class PeticionController {
         return p;
     }
 
-
-
-
     public static List<PeticionDTO> ObtenerPeticionesCompletasPorPaciente(PacienteDTO p) {
         List<PeticionDTO> peticiones = new ArrayList<PeticionDTO>();
         return peticiones;

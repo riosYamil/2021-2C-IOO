@@ -1,18 +1,15 @@
 package views;
 
+import controllers.SucursalController;
+import controllers.UsuarioController;
+import dtos.SucursalDTO;
+import dtos.UsuarioDTO;
+
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-
-import controllers.SucursalController;
-import controllers.UsuarioController;
-import domains.Usuario;
-import dtos.SucursalDTO;
-import dtos.UsuarioDTO;
-import enums.Rol;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

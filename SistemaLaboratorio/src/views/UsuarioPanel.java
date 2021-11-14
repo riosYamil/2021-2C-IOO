@@ -1,23 +1,20 @@
 package views;
 
+import controllers.UsuarioController;
+import dtos.UsuarioDTO;
+import enums.Rol;
+
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-
-import controllers.UsuarioController;
-import dtos.UsuarioDTO;
-import enums.Rol;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.Calendar;
 import java.util.Date;  
 
 public class UsuarioPanel {

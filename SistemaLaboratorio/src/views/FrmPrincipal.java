@@ -2,7 +2,6 @@ package views;
 
 
 import controllers.UsuarioController;
-import dtos.UsuarioDTO;
 
 import javax.swing.*;
 import java.awt.*;

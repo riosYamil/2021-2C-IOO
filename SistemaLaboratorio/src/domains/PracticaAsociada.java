@@ -2,7 +2,6 @@ package domains;
 
 import dtos.PracticaAsociadaDTO;
 import dtos.PracticaDTO;
-import dtos.UsuarioDTO;
 import enums.EstadoResultadoPractica;
 
 public class PracticaAsociada {
