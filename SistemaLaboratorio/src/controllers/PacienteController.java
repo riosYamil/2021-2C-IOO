@@ -2,6 +2,7 @@ package controllers;
 
 import dao.PacienteDAO;
 import dtos.PacienteDTO;
+import services.PacienteService;
 
 public class PacienteController {
     static PacienteController instance=null;
@@ -29,11 +30,17 @@ public class PacienteController {
     public boolean BajaPaciente(int id) {
         try {
             PacienteDAO pacienteDAO = new PacienteDAO();
+            PacienteService pacienteService = new PacienteService();
+
+            if (!pacienteService.PuedeSerEliminado(id)) {
+                throw new Exception("El paciente no puede ser eliminado");
+            }
+
             boolean fueBorrado = pacienteDAO.BorrarPaciente(id);
 
             if (!fueBorrado) {
-                //Do something
                 return false;
+
             }
         } catch (Exception e) {
             e.printStackTrace();

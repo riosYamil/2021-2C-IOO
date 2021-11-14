@@ -78,4 +78,9 @@ public class PeticionController {
         List<PeticionDTO> peticiones = new ArrayList<PeticionDTO>();
         return peticiones;
     }
+
+    public static List<PeticionDTO> ObtenerPeticionesDelPaciente(int pacienteID) {
+        List<PeticionDTO> peticiones = new ArrayList<PeticionDTO>();
+        return peticiones;
+    }
 }
