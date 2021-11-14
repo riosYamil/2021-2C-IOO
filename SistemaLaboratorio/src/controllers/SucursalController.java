@@ -27,6 +27,7 @@ public class SucursalController {
         try {
             SucursalDAO sucursalDAO = new SucursalDAO();
             s.responsableTecnico = u;
+            s.id = sucursalDAO.getLastInsertId() + 1;
             sucursalDAO.CrearSucursal(s);
         } catch (Exception e) {
             e.printStackTrace();

@@ -3,11 +3,9 @@ package views;
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.table.DefaultTableModel;
 
 import controllers.PacienteController;
 import controllers.PeticionController;
-import controllers.SucursalController;
 import domains.PracticaAsociada;
 import dtos.PacienteDTO;
 import dtos.PeticionDTO;
@@ -52,7 +50,7 @@ public class PeticionPanel {
 	private JLabel lblGrupoPractica;
 	private JTextField tGrupoPractica;
 	
-	private List<PracticaAsociadaDTO> practicasAsociadas = new ArrayList<>();
+	private List<PracticaAsociadaDTO> practicasAsociadas = new ArrayList<PracticaAsociadaDTO>();
 	private JTextField tNumSucursal;
 	private JLabel lblNumeroSucursal;
 
@@ -391,7 +389,7 @@ public class PeticionPanel {
 					PeticionDTO peticion = new PeticionDTO();
 					peticion.estadoPeticion = EstadoPeticion.Activa;
 					peticion.fechaDeCarga = new Date();
-					peticion.pacienteDNI = dni;
+					peticion.pacienteID = Integer.parseInt(dni);
 					peticion.practicasAsociadas = practicasAsociadas;
 					peticion.sucursalID = Integer.parseInt(numSucursal);
 					
@@ -412,12 +410,12 @@ public class PeticionPanel {
 				String grupo = tGrupoPractica.getText();
 
 				if(!nombre.isBlank() && !grupo.isBlank()) {
-					PracticaAsociadaDTO pa = new PracticaAsociadaDTO();
+					dtos.PracticaAsociadaDTO pa = new dtos.PracticaAsociadaDTO();
 					PracticaDTO p = new PracticaDTO();
 					p.nombre = nombre;
 					p.grupo = grupo;
 					p.id = practicasAsociadas.size() + 1;
-					pa.practica = p;
+					pa.practicaDTO = p;
 					practicasAsociadas.add(pa);
 					limpiarPracticas();
 				}

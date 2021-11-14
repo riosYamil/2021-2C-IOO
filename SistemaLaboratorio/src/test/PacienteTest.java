@@ -51,7 +51,6 @@ public class PacienteTest {
         //ID inexistente
         pacienteDTOParaTest.id = 123456;
         assertFalse(pacienteController.BajaPaciente(pacienteDTOParaTest.id));
-
         //ID existente
         pacienteDTOParaTest.id = paciente.id;
         assertTrue(pacienteController.BajaPaciente(pacienteDTOParaTest.id));

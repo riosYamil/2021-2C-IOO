@@ -129,7 +129,6 @@ public class SucursalTest {
 
         //ID inexistente
         assertNull(sucursalController.ObtenerSucursal(123456789));
-
         //ID existente
         assertNotNull(sucursalController.ObtenerSucursal(sucursal.id));
 
@@ -140,7 +139,6 @@ public class SucursalTest {
     public void ObtenerSucursalesPorUsuario() {
         SucursalController sucursalController = SucursalController.getInstance();
 
-
         //Sucursal 1
         SucursalDTO sucursalDTO1 = new SucursalDTO();
         sucursalDTO1.numero = 1;
@@ -148,7 +146,8 @@ public class SucursalTest {
 
         UsuarioDTO usuarioDTO1 = new UsuarioDTO();
         usuarioDTO1.dni = "37340001";
-        assertNotNull(sucursalController.AltaSucursal(sucursalDTO1, usuarioDTO1));
+        sucursalDTO1 = sucursalController.AltaSucursal(sucursalDTO1, usuarioDTO1);
+        assertNotNull(sucursalDTO1);
 
         //Sucursal 2
         SucursalDTO sucursalDTO2 = new SucursalDTO();
@@ -157,7 +156,8 @@ public class SucursalTest {
 
         UsuarioDTO usuarioDTO2 = new UsuarioDTO();
         usuarioDTO2.dni = "37340002";
-        assertNotNull(sucursalController.AltaSucursal(sucursalDTO2, usuarioDTO2));
+        sucursalDTO2 = sucursalController.AltaSucursal(sucursalDTO2, usuarioDTO2);
+        assertNotNull(sucursalDTO2);
 
         //Sucursal 3
         SucursalDTO sucursalDTO3 = new SucursalDTO();
@@ -166,7 +166,8 @@ public class SucursalTest {
 
         UsuarioDTO usuarioDTO3 = new UsuarioDTO();
         usuarioDTO3.dni = "37340003";
-        assertNotNull(sucursalController.AltaSucursal(sucursalDTO3, usuarioDTO3));
+        sucursalDTO3 = sucursalController.AltaSucursal(sucursalDTO3, usuarioDTO3);
+        assertNotNull(sucursalDTO3);
 
         //Sucursal 4
         SucursalDTO sucursalDTO4 = new SucursalDTO();
@@ -175,7 +176,8 @@ public class SucursalTest {
 
         UsuarioDTO usuarioDTO4 = new UsuarioDTO();
         usuarioDTO4.dni = "37340004";
-        assertNotNull(sucursalController.AltaSucursal(sucursalDTO4, usuarioDTO4));
+        sucursalDTO4 = sucursalController.AltaSucursal(sucursalDTO4, usuarioDTO4);
+        assertNotNull(sucursalDTO4);
 
         //Sucursal 5
         SucursalDTO sucursalDTO5 = new SucursalDTO();
@@ -184,7 +186,8 @@ public class SucursalTest {
 
         UsuarioDTO usuarioDTO5 = new UsuarioDTO();
         usuarioDTO5.dni = "37340001";
-        assertNotNull(sucursalController.AltaSucursal(sucursalDTO5, usuarioDTO5));
+        sucursalDTO5 = sucursalController.AltaSucursal(sucursalDTO5, usuarioDTO5);
+        assertNotNull(sucursalDTO5);
 
         List<SucursalDTO> sucursalDTOs = sucursalController.ObtenerSurcursalesPorUsuario(usuarioDTO5);
         assertEquals(2, sucursalDTOs.size());

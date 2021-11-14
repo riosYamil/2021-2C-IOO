@@ -52,7 +52,6 @@ public class PracticaTest {
         //ID inexistente
         practicaDTOParaTest.id = 123456;
         assertFalse(practicaController.BajaPractica(practicaDTOParaTest));
-
         //ID existente
         practicaDTOParaTest.id = practica.id;
         assertTrue(practicaController.BajaPractica(practicaDTOParaTest));
@@ -107,7 +106,6 @@ public class PracticaTest {
 
         //ID inexistente
         assertNull(practicaController.ObtenerPractica(123456789));
-
         //ID existente
         assertNotNull(practicaController.ObtenerPractica(practica.id));
 

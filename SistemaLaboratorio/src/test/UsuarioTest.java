@@ -151,7 +151,6 @@ public class UsuarioTest {
 
         //ID inexistente
         assertNull(usuarioController.ObtenerUsuario(123456789));
-
         //ID existente
         assertNotNull(usuarioController.ObtenerUsuario(usuario.id));
 

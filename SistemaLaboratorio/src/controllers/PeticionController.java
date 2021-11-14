@@ -1,9 +1,11 @@
 package controllers;
 
-import dao.PacienteDAO;
 import dao.PeticionDAO;
 import dtos.PacienteDTO;
 import dtos.PeticionDTO;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PeticionController {
     static PeticionController instance=null;
@@ -57,13 +59,26 @@ public class PeticionController {
     }
 
     public PeticionDTO ObtenerPeticion(int PeticionID) {
-    	PeticionDTO p = new PeticionDTO();
+        PeticionDTO p = new PeticionDTO();
         try {
-        	PeticionDAO peticionDAO = new PeticionDAO();
+            PeticionDAO peticionDAO = new PeticionDAO();
             p = peticionDAO.ObtenerPeticion(PeticionID);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return p;
+    }
+
+
+
+
+    public static List<PeticionDTO> ObtenerPeticionesCompletasPorPaciente(PacienteDTO p) {
+        List<PeticionDTO> peticiones = new ArrayList<PeticionDTO>();
+        return peticiones;
+    }
+
+    public static List<PeticionDTO> ObtenerPeticionesPendientesPorPaciente(PacienteDTO p) {
+        List<PeticionDTO> peticiones = new ArrayList<PeticionDTO>();
+        return peticiones;
     }
 }

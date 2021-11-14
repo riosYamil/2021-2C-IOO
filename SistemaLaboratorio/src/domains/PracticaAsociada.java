@@ -1,12 +1,20 @@
 package domains;
 
+import dtos.PracticaAsociadaDTO;
 import dtos.PracticaDTO;
+import dtos.UsuarioDTO;
 import enums.EstadoResultadoPractica;
 
 public class PracticaAsociada {
     private Practica practica;
     private EstadoResultadoPractica resultadoPractica;
     private int resultado;
+
+    public PracticaAsociada(PracticaAsociadaDTO practicaAsociadaDTO) {
+        this.practica = new Practica(practicaAsociadaDTO.practicaDTO);
+        this.resultadoPractica = practicaAsociadaDTO.resultadoPractica;
+        this.resultado = practicaAsociadaDTO.resultado;
+    }
 
     public PracticaAsociada(PracticaDTO p){
         this.practica = new Practica(p);

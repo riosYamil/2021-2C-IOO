@@ -23,12 +23,7 @@ public class PacienteDTO {
         }
 
         PacienteDTO other = (PacienteDTO) obj;
-
-        if ((!this.dni.equals(other.dni)) && (!this.dni.equals(other.dni))) {
-            return false;
-        }
-
-        return true;
+        return this.dni.equals(other.dni);
     }
 }
 

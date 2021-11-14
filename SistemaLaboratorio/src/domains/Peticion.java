@@ -1,5 +1,6 @@
 package domains;
 
+import controllers.PacienteController;
 import dtos.PacienteDTO;
 import dtos.PeticionDTO;
 import dtos.PracticaAsociadaDTO;
@@ -14,22 +15,31 @@ public class Peticion {
     private String obraSocial;
     private Date fechaDeCarga;
     private Date fechaDeEntrega;
-    private List<PracticaAsociadaDTO> practicasAsociadasDTO;
-    private List<PracticaAsociada> practicasAsociadas;
+    private List<PracticaAsociadaDTO> practicasAsociadas;
     private enums.EstadoPeticion estadoPeticion;
     private int sucursalID;
-    
-    //Eliminar?
-    private PacienteDTO paciente;
+
+    public Peticion(PeticionDTO p) {
+        this.pacienteID = p.id;
+        this.obraSocial = p.obraSocial;
+        this.fechaDeCarga = p.fechaDeCarga;
+        this.fechaDeEntrega = p.fechaDeEntrega;
+        this.practicasAsociadas = p.practicasAsociadas;
+        this.estadoPeticion = p.estadoPeticion;
+        this.sucursalID = p.sucursalID;
+    }
 
     public int ObtenerSucursalID() {
         return this.sucursalID;
     }
-    
+
     public PacienteDTO ObtenerPaciente() {
-        return this.paciente;
+
+        PacienteController pacienteController = PacienteController.getInstance();
+        PacienteDTO p = pacienteController.ObtenerPaciente(this.pacienteID);
+        return p;
     }
-    
+
     public boolean EstaActiva() {
         return estadoPeticion.equals(EstadoPeticion.Activa);
     }
@@ -38,11 +48,21 @@ public class Peticion {
         return estadoPeticion.equals(EstadoPeticion.Finalizada);
     }
 
+    public void CambiarEstado(EstadoPeticion estadoPeticion) {
+        this.estadoPeticion = estadoPeticion;
+    }
 
-    public List<PracticaAsociada> obtenerPracticasFinalizadas() {
+    public boolean EsPeticionParaElPaciente(PacienteDTO pacienteDTO) {
+        PacienteController pacienteController = PacienteController.getInstance();
+        PacienteDTO p = pacienteController.ObtenerPaciente(this.pacienteID);
+        return p.equals(pacienteDTO);
+    }
+
+    public List<PracticaAsociada> ObtenerPracticasFinalizadas() {
         List<PracticaAsociada> pas = new ArrayList<PracticaAsociada>();
 
-        for (PracticaAsociada pa : this.practicasAsociadas) {
+        for (PracticaAsociadaDTO paDTO : this.practicasAsociadas) {
+            PracticaAsociada pa = new PracticaAsociada(paDTO);
             if (!pa.TieneResultadoPendiente()) {
                 pas.add(pa);
             }
@@ -53,24 +73,14 @@ public class Peticion {
     public List<PracticaAsociada> ObtenerPracticasPendientes() {
         List<PracticaAsociada> pas = new ArrayList<PracticaAsociada>();
 
-        for (PracticaAsociada pa : this.practicasAsociadas) {
+        for (PracticaAsociadaDTO paDTO : this.practicasAsociadas) {
+
+            PracticaAsociada pa = new PracticaAsociada(paDTO);
             if (pa.TieneResultadoPendiente()) {
                 pas.add(pa);
             }
         }
         return pas;
-    } 
-
-    public boolean EsPeticionParaElPaciente(PacienteDTO pacienteDTO) {
-        return this.paciente.equals(pacienteDTO);
-    }
-    
-
-    public void CambiarEstado(EstadoPeticion estadoPeticion) {
-        this.estadoPeticion = estadoPeticion;
     }
 
-    public static void ModificarPeticion(PeticionDTO peticion) {
-        //TODO: Hacerlo via DAO
-    }
 }
