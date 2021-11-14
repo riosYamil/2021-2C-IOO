@@ -16,19 +16,21 @@ public class InternalPanel extends JTabbedPane {
 		UsuarioPanel pnlUsuario = new UsuarioPanel();
 		PracticasPanel pnlPractica = new PracticasPanel();
 
-		if (rol == Rol.Recepcion.toString() || rol == Rol.Administrador.toString()) {
-			this.addTab("Pacientes", pnlPaciente.setPanelPaciente()); //Recep: recibe pacientes
-			this.addTab("Peticiones", pnlPeticion.setPeticionesTab()); //Recep: carga peticiones y consulta
-		}
-
-		if (rol == Rol.Laboratista.toString() || rol == Rol.Administrador.toString()) {
-			this.addTab("Prácticas", pnlPractica.setPracticasTab()); //carga resultados de practicas
-		}
-
 		if (rol == Rol.Administrador.toString()) {
-			this.addTab("Sucursales", pnlSucursal.setSucursalTab());
 			this.addTab("Usuarios", pnlUsuario.setUsuarioTab());
+			this.addTab("Sucursales", pnlSucursal.setSucursalTab());
 		}
+
+		if (rol == Rol.Recepcion.toString() || rol == Rol.Administrador.toString()) {
+			this.addTab("Pacientes", pnlPaciente.setPanelPaciente());
+			this.addTab("Peticiones", pnlPeticion.setPeticionesTab(rol)); //Recep: carga peticiones y consulta
+		}
+		
+		if (rol == Rol.Laboratista.toString() || rol == Rol.Administrador.toString()) {
+			//Lab solo carga resultados de practicas
+			this.addTab("Prácticas", pnlPractica.setPracticasTab(rol));
+		}
+
 	}
 
 

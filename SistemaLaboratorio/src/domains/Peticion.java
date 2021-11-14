@@ -2,6 +2,7 @@ package domains;
 
 import dtos.PacienteDTO;
 import dtos.PeticionDTO;
+import dtos.PracticaAsociadaDTO;
 import enums.EstadoPeticion;
 
 import java.util.ArrayList;
@@ -9,18 +10,26 @@ import java.util.Date;
 import java.util.List;
 
 public class Peticion {
-    private PacienteDTO paciente;
+    private int pacienteID;
     private String obraSocial;
     private Date fechaDeCarga;
     private Date fechaDeEntrega;
+    private List<PracticaAsociadaDTO> practicasAsociadasDTO;
     private List<PracticaAsociada> practicasAsociadas;
     private enums.EstadoPeticion estadoPeticion;
     private int sucursalID;
+    
+    //Eliminar?
+    private PacienteDTO paciente;
 
     public int ObtenerSucursalID() {
         return this.sucursalID;
     }
-
+    
+    public PacienteDTO ObtenerPaciente() {
+        return this.paciente;
+    }
+    
     public boolean EstaActiva() {
         return estadoPeticion.equals(EstadoPeticion.Activa);
     }
@@ -29,9 +38,6 @@ public class Peticion {
         return estadoPeticion.equals(EstadoPeticion.Finalizada);
     }
 
-    public PacienteDTO ObtenerPaciente() {
-        return this.paciente;
-    }
 
     public List<PracticaAsociada> obtenerPracticasFinalizadas() {
         List<PracticaAsociada> pas = new ArrayList<PracticaAsociada>();
@@ -53,11 +59,12 @@ public class Peticion {
             }
         }
         return pas;
-    }
+    } 
 
     public boolean EsPeticionParaElPaciente(PacienteDTO pacienteDTO) {
         return this.paciente.equals(pacienteDTO);
     }
+    
 
     public void CambiarEstado(EstadoPeticion estadoPeticion) {
         this.estadoPeticion = estadoPeticion;

@@ -23,30 +23,33 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 public class PracticasPanel {
 
 	private JTabbedPane tabbedPane_4;
-    private Button btnAddUs;
-    private Button btnUpdateUs;
-    private JLabel lblDNI;
+    private Button btnAddPractica;
+    private Button btnUpdatePractica;
+    private JLabel lblID;
     private JTextField tdni;
     private JTextField tNombre;
-    private JTextField tDomicilio;
-    private JLabel lblDomicilio;
-    private JLabel lblPass;
-    private JTextField tPass;
+    private JTextField tValCriticoMax;
+    private JLabel lblValCriticoMax;
     private Panel Baja;
-    private Button btnDeleteUs;
+    private Button btnDelete;
     private JTextField tDNI;
     private JLabel lbldni;
     private JLabel lblBaja;
-    private JTextField tMail;
-    private JTextField tNomUs;
-    private JTextField tDia;
-    private JTextField tMes;
-    private JTextField tAo;
+    private JTextField tValCriticoMin;
+    private JTextField tValReservadoMax;
+    private JTextField tValReservadoMin;
+    private JLabel lblPractica;
+    private JLabel lblValReservadoMax;
+    private JLabel lblValReservadoMin;
+    private JLabel lblGrupo;
+    private JTextField tGrupo;
+    private JLabel lblTiempoEstimado;
+    private JLabel lblTiempo;
 
 	/**
 	 * @wbp.parser.entryPoint
 	 */
-	public JTabbedPane setPracticasTab() {	
+	public JTabbedPane setPracticasTab(String rol) {	
 		tabbedPane_4 = new JTabbedPane(JTabbedPane.LEFT);
 		tabbedPane_4.setBackground(Color.WHITE);
 		tabbedPane_4.setBounds(100, 100, 629, 476);
@@ -65,26 +68,26 @@ public class PracticasPanel {
 	 private Panel setBajaPractica() {
 	        Baja = new Panel();
 
-	        btnDeleteUs = new Button("Eliminar Usuario");
-	        btnDeleteUs.setActionCommand("Eliminar Usuario");
-	        btnDeleteUs.setFont(new Font("Tahoma", Font.BOLD, 12));
-	        btnDeleteUs.setForeground(Color.WHITE);
-	        btnDeleteUs.setBackground(Color.RED);
-	        btnDeleteUs.setBounds(230, 174, 50, 27);
+	        btnDelete = new Button("Eliminar Práctica");
+	        btnDelete.setActionCommand("Eliminar Usuario");
+	        btnDelete.setFont(new Font("Tahoma", Font.BOLD, 12));
+	        btnDelete.setForeground(Color.WHITE);
+	        btnDelete.setBackground(Color.RED);
+	        btnDelete.setBounds(230, 174, 50, 27);
 
 	        tDNI = new JTextField();
 	        tDNI.setColumns(10);
 
 	        lbldni = new JLabel("DNI");
 
-	        lblBaja = new JLabel("Por favor, ingrese el DNI del usuario que desea eliminar.");
+	        lblBaja = new JLabel("Por favor, ingrese el ID de la práctica que desea eliminar.");
 
 	        //Layout
 	        GroupLayout gl_Baja = new GroupLayout(Baja);
 	        gl_Baja.setHorizontalGroup(gl_Baja.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(gl_Baja
 	                .createSequentialGroup().addGap(35)
 	                .addGroup(gl_Baja.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(lblBaja)
-	                        .addComponent(btnDeleteUs, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
+	                        .addComponent(btnDelete, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
 	                        .addComponent(lbldni).addComponent(tDNI, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 	                                GroupLayout.PREFERRED_SIZE))
 	                .addContainerGap(271, Short.MAX_VALUE)));
@@ -93,7 +96,7 @@ public class PracticasPanel {
 	                .addGap(4)
 	                .addComponent(tDNI, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 	                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-	                .addComponent(btnDeleteUs, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+	                .addComponent(btnDelete, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
 	                .addContainerGap(323, Short.MAX_VALUE)));
 	        Baja.setLayout(gl_Baja);
 
@@ -104,83 +107,73 @@ public class PracticasPanel {
 	        JPanel Alta = new JPanel(false);
 	        Alta.setBackground(Color.WHITE);
 
-	        btnAddUs = new Button("Agregar usuario");
-	        btnAddUs.setFont(new Font("Tahoma", Font.BOLD, 12));
-	        btnAddUs.setForeground(Color.WHITE);
-	        btnAddUs.setBackground(new Color(133, 189, 212));
-	        btnAddUs.setBounds(230, 174, 150, 27);
+	        btnAddPractica = new Button("Agregar Practica");
+	        btnAddPractica.setFont(new Font("Tahoma", Font.BOLD, 12));
+	        btnAddPractica.setForeground(Color.WHITE);
+	        btnAddPractica.setBackground(new Color(133, 189, 212));
+	        btnAddPractica.setBounds(230, 174, 150, 27);
 
-	        btnUpdateUs = new Button("Modificar usuario");
-	        btnUpdateUs.setFont(new Font("Tahoma", Font.BOLD, 12));
-	        btnUpdateUs.setForeground(Color.WHITE);
-	        btnUpdateUs.setBackground(new Color(133, 189, 212));
-	        btnUpdateUs.setBounds(230, 174, 150, 27);
+	        btnUpdatePractica = new Button("Modificar Practica");
+	        btnUpdatePractica.setEnabled(false);
+	        btnUpdatePractica.setFont(new Font("Tahoma", Font.BOLD, 12));
+	        btnUpdatePractica.setForeground(Color.BLACK);
+	        btnUpdatePractica.setBackground(new Color(133, 189, 212));
+	        btnUpdatePractica.setBounds(230, 174, 150, 27);
 
 	        tdni = new JTextField();
 	        tdni.setFont(new Font("Arial", Font.PLAIN, 15));
 	        tdni.setSize(190, 20);
 	        tdni.setLocation(200, 100);
 
-	        lblDNI = new JLabel("DNI");
-	        lblDNI.setForeground(SystemColor.windowText);
-	        lblDNI.setFont(new Font("Tahoma", Font.PLAIN, 11));
+	        lblID = new JLabel("ID");
+	        lblID.setForeground(SystemColor.windowText);
+	        lblID.setFont(new Font("Tahoma", Font.PLAIN, 11));
 
-	        JLabel lblNombre = new JLabel("NOMBRE COMPLETO");
+	        JLabel lblNombre = new JLabel("NOMBRE");
 
 	        tNombre = new JTextField();
 	        tNombre.setColumns(10);
 
-	        tDomicilio = new JTextField();
-	        tDomicilio.setColumns(10);
+	        tValCriticoMax = new JTextField();
+	        tValCriticoMax.setColumns(10);
 
-	        lblDomicilio = new JLabel("DOMICILIO");
+	        lblValCriticoMax = new JLabel("VALOR CRITICO MAX");
 
-	        lblPass = new JLabel("CONTRASE\u00D1A");
+	        JLabel lblValCriticoMin = new JLabel("VALOR CRITICO MIN");
 
-	        tPass = new JTextField();
-	        tPass.setColumns(10);
-
-	        JLabel lblMail = new JLabel("MAIL");
-
-	        tMail = new JTextField();
-	        tMail.setColumns(10);
-
-	        JLabel lblNomUs = new JLabel("NOMBRE DE USUARIO");
-
-	        tNomUs = new JTextField();
-	        tNomUs.setText("");
-	        tNomUs.setColumns(10);
+	        tValCriticoMin = new JTextField();
+	        tValCriticoMin.setText("");
+	        tValCriticoMin.setColumns(10);
 	        
-	        JLabel lblFechaDeNacimiento = new JLabel("FECHA DE NACIMIENTO");
+	        tValReservadoMax = new JTextField();
+	        tValReservadoMax.setHorizontalAlignment(SwingConstants.CENTER);
+	        tValReservadoMax.setForeground(Color.LIGHT_GRAY);
+	        tValReservadoMax.setColumns(10);
 	        
-	        tDia = new JTextField();
-	        tDia.setHorizontalAlignment(SwingConstants.CENTER);
-	        tDia.setForeground(Color.LIGHT_GRAY);
-	        tDia.setText("DIA");
-	        tDia.setColumns(10);
+	        tValReservadoMin = new JTextField();
+	        tValReservadoMin.setHorizontalAlignment(SwingConstants.CENTER);
+	        tValReservadoMin.setForeground(Color.LIGHT_GRAY);
+	        tValReservadoMin.setColumns(10);
 	        
-	        tMes = new JTextField();
-	        tMes.setHorizontalAlignment(SwingConstants.CENTER);
-	        tMes.setForeground(Color.LIGHT_GRAY);
-	        tMes.setText("MES");
-	        tMes.setColumns(10);
-	        
-	        tAo = new JTextField();
-	        tAo.setForeground(Color.LIGHT_GRAY);
-	        tAo.setText("A\u00D1O");
-	        tAo.setHorizontalAlignment(SwingConstants.CENTER);
-	        tAo.setColumns(10);
-	        
-	        JRadioButton rdbtnAdmin = new JRadioButton("Administrador");
+	        JRadioButton rdbtnAdmin = new JRadioButton("Habilitada");
 	        rdbtnAdmin.setBackground(Color.WHITE);
 	        
-	        JLabel lblRol = new JLabel("ELIJA EL ROL:");
+	        JLabel lblRol = new JLabel("ESTADO DE LA PRACTICA");
 	        
-	        JRadioButton rdbtnRecep = new JRadioButton("Recepcionista");
-	        rdbtnRecep.setBackground(Color.WHITE);
+	        lblPractica = new JLabel("Ingrese solo el ID de la practica para modificarla");
 	        
-	        JRadioButton rdbtnLab = new JRadioButton("Laboratorista");
-	        rdbtnLab.setBackground(Color.WHITE);
+	        lblValReservadoMax = new JLabel("VALOR RESERVADO MAX");
+	        
+	        lblValReservadoMin = new JLabel("VALOR RESERVADO MIN");
+	        
+	        lblGrupo = new JLabel("GRUPO");
+	        
+	        tGrupo = new JTextField();
+	        tGrupo.setColumns(10);
+	        
+	        lblTiempoEstimado = new JLabel("TIEMPO ESTIMADO");
+	        
+	        lblTiempo = new JLabel("N/A");
 
 	        // Layout
 	        GroupLayout gl_Alta = new GroupLayout(Alta);
@@ -191,103 +184,101 @@ public class PracticasPanel {
 	        			.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
 	        				.addGroup(gl_Alta.createSequentialGroup()
 	        					.addComponent(rdbtnAdmin)
-	        					.addGap(18)
-	        					.addComponent(rdbtnRecep)
-	        					.addGap(18)
-	        					.addComponent(rdbtnLab))
-	        				.addComponent(lblRol)
-	        				.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING, false)
-	        					.addComponent(lblNomUs)
-	        					.addComponent(lblNombre)
+	        					.addContainerGap())
+	        				.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
 	        					.addGroup(gl_Alta.createSequentialGroup()
-	        						.addComponent(tdni, GroupLayout.PREFERRED_SIZE, 162, GroupLayout.PREFERRED_SIZE)
-	        						.addGap(18)
-	        						.addComponent(tMail))
-	        					.addComponent(tNombre, GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
+	        						.addComponent(lblRol)
+	        						.addContainerGap())
 	        					.addGroup(gl_Alta.createSequentialGroup()
-	        						.addPreferredGap(ComponentPlacement.RELATED)
-	        						.addGroup(gl_Alta.createParallelGroup(Alignment.TRAILING)
-	        							.addGroup(gl_Alta.createSequentialGroup()
-	        								.addComponent(lblDNI, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
-	        								.addGap(147)
-	        								.addComponent(lblMail)
-	        								.addGap(64))
-	        							.addGroup(gl_Alta.createSequentialGroup()
-	        								.addComponent(btnAddUs, GroupLayout.PREFERRED_SIZE, 229, GroupLayout.PREFERRED_SIZE)
-	        								.addPreferredGap(ComponentPlacement.RELATED)
-	        								.addComponent(btnUpdateUs, GroupLayout.PREFERRED_SIZE, 227, GroupLayout.PREFERRED_SIZE)
-	        								.addPreferredGap(ComponentPlacement.RELATED))))
-	        					.addGroup(gl_Alta.createSequentialGroup()
-	        						.addGroup(gl_Alta.createParallelGroup(Alignment.TRAILING, false)
-	        							.addComponent(tNomUs, Alignment.LEADING)
-	        							.addComponent(lblDomicilio, Alignment.LEADING)
-	        							.addComponent(tDomicilio, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE))
-	        						.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING, false)
-	        							.addGroup(gl_Alta.createSequentialGroup()
-	        								.addGap(37)
-	        								.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING, false)
-	        									.addComponent(lblFechaDeNacimiento)
-	        									.addGroup(gl_Alta.createSequentialGroup()
-	        										.addGroup(gl_Alta.createParallelGroup(Alignment.TRAILING)
-	        											.addComponent(lblPass)
-	        											.addGroup(gl_Alta.createSequentialGroup()
-	        												.addComponent(tDia, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
-	        												.addPreferredGap(ComponentPlacement.RELATED)
-	        												.addComponent(tMes, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)))
-	        										.addPreferredGap(ComponentPlacement.RELATED)
-	        										.addComponent(tAo, 0, 0, Short.MAX_VALUE)))
-	        								.addGap(90))
-	        							.addGroup(gl_Alta.createSequentialGroup()
-	        								.addGap(18)
-	        								.addComponent(tPass))))))
-	        			.addContainerGap(75, Short.MAX_VALUE))
+	        						.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
+	        							.addComponent(lblPractica)
+	        							.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
+	        								.addGroup(gl_Alta.createSequentialGroup()
+	        									.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
+	        										.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
+	        											.addGroup(Alignment.TRAILING, gl_Alta.createSequentialGroup()
+	        												.addComponent(btnAddPractica, GroupLayout.PREFERRED_SIZE, 229, GroupLayout.PREFERRED_SIZE)
+	        												.addPreferredGap(ComponentPlacement.RELATED))
+	        											.addGroup(Alignment.TRAILING, gl_Alta.createSequentialGroup()
+	        												.addComponent(lblID, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+	        												.addGap(204)))
+	        										.addComponent(tdni, GroupLayout.PREFERRED_SIZE, 162, GroupLayout.PREFERRED_SIZE))
+	        									.addGap(10)
+	        									.addComponent(btnUpdatePractica, GroupLayout.PREFERRED_SIZE, 227, GroupLayout.PREFERRED_SIZE))
+	        								.addGroup(Alignment.TRAILING, gl_Alta.createSequentialGroup()
+	        									.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
+	        										.addGroup(gl_Alta.createSequentialGroup()
+	        											.addGroup(gl_Alta.createParallelGroup(Alignment.TRAILING)
+	        												.addComponent(tNombre, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
+	        												.addGroup(gl_Alta.createSequentialGroup()
+	        													.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING, false)
+	        														.addComponent(lblValCriticoMax, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+	        														.addComponent(tValCriticoMax)
+	        														.addComponent(lblValReservadoMax, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+	        														.addComponent(tValReservadoMax))
+	        													.addGap(18)
+	        													.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
+	        														.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
+	        															.addComponent(tValCriticoMin, GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+	        															.addComponent(lblValCriticoMin, GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+	        															.addComponent(tValReservadoMin, GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE))
+	        														.addComponent(lblValReservadoMin))))
+	        											.addGap(18))
+	        										.addGroup(gl_Alta.createSequentialGroup()
+	        											.addComponent(lblNombre)
+	        											.addGap(232)))
+	        									.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
+	        										.addComponent(lblGrupo)
+	        										.addComponent(tGrupo, GroupLayout.PREFERRED_SIZE, 176, GroupLayout.PREFERRED_SIZE)
+	        										.addComponent(lblTiempoEstimado)
+	        										.addComponent(lblTiempo))
+	        									.addGap(53))))
+	        						.addGap(75)))))
 	        );
 	        gl_Alta.setVerticalGroup(
 	        	gl_Alta.createParallelGroup(Alignment.LEADING)
 	        		.addGroup(gl_Alta.createSequentialGroup()
 	        			.addGap(30)
 	        			.addGroup(gl_Alta.createParallelGroup(Alignment.BASELINE)
-	        				.addComponent(btnAddUs, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-	        				.addComponent(btnUpdateUs, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-	        			.addGap(36)
+	        				.addComponent(btnAddPractica, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+	        				.addComponent(btnUpdatePractica, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+	        			.addGap(11)
+	        			.addComponent(lblPractica)
+	        			.addPreferredGap(ComponentPlacement.RELATED)
+	        			.addComponent(lblID)
+	        			.addGap(11)
+	        			.addComponent(tdni, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+	        			.addPreferredGap(ComponentPlacement.RELATED)
 	        			.addGroup(gl_Alta.createParallelGroup(Alignment.BASELINE)
-	        				.addComponent(lblDNI)
-	        				.addComponent(lblMail))
+	        				.addComponent(lblNombre)
+	        				.addComponent(lblGrupo))
 	        			.addPreferredGap(ComponentPlacement.RELATED)
-	        			.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
-	        				.addGroup(gl_Alta.createSequentialGroup()
-	        					.addComponent(tdni, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
-	        					.addPreferredGap(ComponentPlacement.RELATED)
-	        					.addComponent(lblNombre))
-	        				.addComponent(tMail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-	        			.addPreferredGap(ComponentPlacement.RELATED)
-	        			.addComponent(tNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+	        			.addGroup(gl_Alta.createParallelGroup(Alignment.BASELINE)
+	        				.addComponent(tNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+	        				.addComponent(tGrupo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 	        			.addPreferredGap(ComponentPlacement.UNRELATED)
 	        			.addGroup(gl_Alta.createParallelGroup(Alignment.BASELINE)
-	        				.addComponent(lblDomicilio)
-	        				.addComponent(lblFechaDeNacimiento))
+	        				.addComponent(lblValCriticoMax)
+	        				.addComponent(lblValCriticoMin)
+	        				.addComponent(lblTiempoEstimado))
 	        			.addPreferredGap(ComponentPlacement.RELATED)
 	        			.addGroup(gl_Alta.createParallelGroup(Alignment.BASELINE)
-	        				.addComponent(tDomicilio, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-	        				.addComponent(tDia, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-	        				.addComponent(tMes, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-	        				.addComponent(tAo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-	        			.addGap(18)
+	        				.addComponent(tValCriticoMax, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+	        				.addComponent(tValCriticoMin, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+	        				.addComponent(lblTiempo))
+	        			.addGap(14)
 	        			.addGroup(gl_Alta.createParallelGroup(Alignment.BASELINE)
-	        				.addComponent(lblNomUs)
-	        				.addComponent(lblPass))
+	        				.addComponent(lblValReservadoMax)
+	        				.addComponent(lblValReservadoMin))
 	        			.addPreferredGap(ComponentPlacement.RELATED)
 	        			.addGroup(gl_Alta.createParallelGroup(Alignment.BASELINE)
-	        				.addComponent(tNomUs, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-	        				.addComponent(tPass, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+	        				.addComponent(tValReservadoMax, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+	        				.addComponent(tValReservadoMin, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 	        			.addGap(18)
 	        			.addComponent(lblRol)
-	        			.addPreferredGap(ComponentPlacement.RELATED)
-	        			.addGroup(gl_Alta.createParallelGroup(Alignment.BASELINE)
-	        				.addComponent(rdbtnAdmin)
-	        				.addComponent(rdbtnRecep)
-	        				.addComponent(rdbtnLab))
-	        			.addContainerGap(129, Short.MAX_VALUE))
+	        			.addPreferredGap(ComponentPlacement.UNRELATED)
+	        			.addComponent(rdbtnAdmin)
+	        			.addContainerGap(128, Short.MAX_VALUE))
 	        );
 	        Alta.setLayout(gl_Alta);
 
@@ -296,21 +287,21 @@ public class PracticasPanel {
 	    }
 	    
 	    private void asociarEventos() {
-	        btnAddUs.addActionListener(new ActionListener() {
+	        btnAddPractica.addActionListener(new ActionListener() {
 	        	public void actionPerformed(ActionEvent e) {
                     JOptionPane.showMessageDialog(tabbedPane_4, "Se creó correctamente", "Información",
                             JOptionPane.INFORMATION_MESSAGE);
 	        	}
 	        });
 	        
-	        btnUpdateUs.addActionListener(new ActionListener() {
+	        btnUpdatePractica.addActionListener(new ActionListener() {
 	        	public void actionPerformed(ActionEvent e) {
                     JOptionPane.showMessageDialog(tabbedPane_4, "Se modific� correctamente", "Informaci�n",
                             JOptionPane.INFORMATION_MESSAGE);
 	        	}
 	        });
 	    	
-	        btnDeleteUs.addActionListener(new ActionListener() {
+	        btnDelete.addActionListener(new ActionListener() {
 	        	public void actionPerformed(ActionEvent e) {
                     JOptionPane.showMessageDialog(tabbedPane_4, "Este práctica no se pudo eliminar.", "Error",
                             JOptionPane.ERROR_MESSAGE);

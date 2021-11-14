@@ -26,7 +26,6 @@ public class SucursalController {
     public SucursalDTO AltaSucursal(SucursalDTO s, UsuarioDTO u) {
         try {
             SucursalDAO sucursalDAO = new SucursalDAO();
-            //s.id = sucursalDAO.getLastInsertId() + 1;
             s.responsableTecnico = u;
             sucursalDAO.CrearSucursal(s);
         } catch (Exception e) {

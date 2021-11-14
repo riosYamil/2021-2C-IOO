@@ -11,6 +11,7 @@ import controllers.UsuarioController;
 import domains.Usuario;
 import dtos.SucursalDTO;
 import dtos.UsuarioDTO;
+import enums.Rol;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -43,7 +44,7 @@ public class SucursalPanel {
 	private JTextField tDireccionMod;
 	private JTextField tNumMod;
 	private JTextField tResponsableTecnicoMod;
-	
+		
 	
 	/**
 	 * @wbp.parser.entryPoint
@@ -52,9 +53,11 @@ public class SucursalPanel {
 		tabbedPane_3 = new JTabbedPane(JTabbedPane.LEFT);
 		tabbedPane_3.setBackground(Color.white);
 		tabbedPane_3.setBounds(100, 100, 629, 476);
+		
 		tabbedPane_3.add("Alta", setAltaSucursal());
 		tabbedPane_3.add("Baja", setBajaSucursal());
 		tabbedPane_3.add("Modificación", setModificacionSucursal());
+
 
 		asociarEventos();
 		

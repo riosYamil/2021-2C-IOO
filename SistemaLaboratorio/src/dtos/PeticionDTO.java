@@ -8,11 +8,11 @@ import java.util.List;
 
 public class PeticionDTO {
     public Integer id;
-    public PacienteDTO paciente;
+    public String pacienteDNI;
     public String obraSocial;
     public Date fechaDeCarga;
     public Date fechaDeEntrega;
-    public List<PracticaAsociada> practicasAsociadas;
+    public List<PracticaAsociadaDTO> practicasAsociadas;
     public EstadoPeticion estadoPeticion;
     public int sucursalID;
 }
