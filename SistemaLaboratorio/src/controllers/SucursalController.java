@@ -4,8 +4,10 @@ import dao.PeticionDAO;
 import dao.SucursalDAO;
 import domains.Peticion;
 import dtos.PacienteDTO;
+import dtos.PeticionDTO;
 import dtos.SucursalDTO;
 import dtos.UsuarioDTO;
+import services.PacienteService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,10 +37,17 @@ public class SucursalController {
         return s;
     }
 
-    public boolean BajaSucursal(SucursalDTO s) {
+    public boolean BajaSucursal(int sucursalID) {
         try {
             SucursalDAO sucursalDAO = new SucursalDAO();
-            boolean fueBorrado = sucursalDAO.BorrarSucursal(s.id);
+
+            PacienteService pacienteService = new PacienteService();
+
+            if (!pacienteService.PuedeSerEliminado(sucursalID)) {
+                throw new Exception("El paciente no puede ser eliminado");
+            }
+
+            boolean fueBorrado = sucursalDAO.BorrarSucursal(sucursalID);
 
             if (!fueBorrado) {
                 return false;
@@ -78,10 +87,11 @@ public class SucursalController {
         List<Peticion> ps = new ArrayList<Peticion>();
         try {
             PeticionDAO peticionDAO = new PeticionDAO();
-            List<Peticion> peticiones = peticionDAO.ObtenerPeticionesDeSurcursal(s.id);
-            for (Peticion p : peticiones) {
-                if (p.EstaActiva()) {
-                    ps.add(p);
+            List<PeticionDTO> peticiones = peticionDAO.ObtenerPeticionesDeSurcursal(s.id);
+            for (PeticionDTO peticionDTO : peticiones) {
+                Peticion peticion = new Peticion(peticionDTO);
+                if (peticion.EstaActiva()) {
+                    ps.add(peticion);
                 }
             }
         } catch (Exception e) {
@@ -95,10 +105,11 @@ public class SucursalController {
 
         try {
             PeticionDAO peticionDAO = new PeticionDAO();
-            List<Peticion> peticiones = peticionDAO.ObtenerPeticionesDeSurcursal(s.id);
-            for (Peticion p : peticiones) {
-                if (p.EstaFinalizadas()) {
-                    ps.add(p);
+            List<PeticionDTO> peticiones = peticionDAO.ObtenerPeticionesDeSurcursal(s.id);
+            for (PeticionDTO peticionDTO : peticiones) {
+                Peticion peticion = new Peticion(peticionDTO);
+                if (peticion.EstaFinalizadas()) {
+                    ps.add(peticion);
                 }
             }
         } catch (Exception e) {
@@ -120,8 +131,9 @@ public class SucursalController {
 
         try {
             PeticionDAO peticionDAO = new PeticionDAO();
-            List<Peticion> peticiones = peticionDAO.ObtenerPeticionesDeSurcursal(s.id);
-            for (Peticion peticion : peticiones) {
+            List<PeticionDTO> peticiones = peticionDAO.ObtenerPeticionesDeSurcursal(s.id);
+            for (PeticionDTO peticionDTO : peticiones) {
+                Peticion peticion = new Peticion(peticionDTO);
                 if (peticion.ObtenerPaciente().equals(paciente)) {
                     ps.add(peticion);
                 }

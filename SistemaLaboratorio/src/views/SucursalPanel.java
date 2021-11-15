@@ -345,7 +345,7 @@ public class SucursalPanel {
         			SucursalDTO s = new SucursalDTO();
         			s = sucursalController.ObtenerSucursal(Integer.parseInt(num));
         			
-        			if(sucursalController.BajaSucursal(s)) {
+        			if(sucursalController.BajaSucursal(s.id)) {
 						limpiarFormulario();
         				alert("Se borró correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
         			}else {

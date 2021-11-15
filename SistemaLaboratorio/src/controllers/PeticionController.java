@@ -1,8 +1,10 @@
 package controllers;
 
 import dao.PeticionDAO;
-import dtos.PacienteDTO;
+import domains.Practica;
 import dtos.PeticionDTO;
+import dtos.PracticaAsociadaDTO;
+import enums.EstadoPeticion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +47,7 @@ public class PeticionController {
         return true;
     }
 
-    public boolean ModificarPeticione(PeticionDTO p) {
+    public boolean ModificarPeticion(PeticionDTO p) {
         try {
         	PeticionDAO peticionDAO = new PeticionDAO();
             boolean fueActualizado = peticionDAO.ActualizarPeticion(p);
@@ -68,30 +70,73 @@ public class PeticionController {
         }
         return p;
     }
-    
-    public static void EnviarNotificacion() {
-    	//TODO: notifica que hay que retirar por sucursal, podria reemplazarse por obtner peticiones criticas
+
+    public void EnviarNotificacion() {
+        System.out.println("notificación enviada");
     }
-    
-    public static List<PeticionDTO> ObtenerPeticionesCriticasPorPaciente(PacienteDTO p) {
-        List<PeticionDTO> peticiones = new ArrayList<PeticionDTO>();
+
+    public List<PeticionDTO> ObtenerPeticionesDeSucursal(int sucursalID) {
+        List<PeticionDTO> peticiones = new ArrayList<>();
+        try {
+            PeticionDAO peticionDAO = new PeticionDAO();
+            peticiones = peticionDAO.ObtenerPeticionesDeSurcursal(sucursalID);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return peticiones;
     }
 
-    public static List<PeticionDTO> ObtenerPeticionesCompletasPorPaciente(PacienteDTO p) {
-        List<PeticionDTO> peticiones = new ArrayList<PeticionDTO>();
+    public List<PeticionDTO> ObtenerPeticionesDelPaciente(int pacienteID) {
+        List<PeticionDTO> peticiones = new ArrayList<>();
+
+        try {
+            PeticionDAO peticionDAO = new PeticionDAO();
+            peticiones = peticionDAO.ObtenerPeticionesDePaciente(pacienteID);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return peticiones;
     }
 
-    public static List<PeticionDTO> ObtenerPeticionesPendientesPorPaciente(PacienteDTO p) throws Exception {
-        List<PeticionDTO> peticiones = new ArrayList<PeticionDTO>();
-        PeticionDAO peticionDAO = new PeticionDAO();
-        peticiones = peticionDAO.ObtenerPeticionesPendientesDePaciente(p.id);
-        return peticiones;
+    public List<PeticionDTO> ObtenerPeticionesPendientesPorPaciente(int pacienteID) {
+        List<PeticionDTO> peticiones = ObtenerPeticionesDelPaciente(pacienteID);
+        List<PeticionDTO> resultado = new ArrayList<>();
+
+        for (PeticionDTO p : peticiones) {
+            if (p.estadoPeticion == EstadoPeticion.Activa) {
+                resultado.add(p);
+            }
+        }
+        return resultado;
     }
 
-    public static List<PeticionDTO> ObtenerPeticionesDelPaciente(int pacienteID) {
-        List<PeticionDTO> peticiones = new ArrayList<PeticionDTO>();
-        return peticiones;
+    public List<PeticionDTO> ObtenerPeticionesCompletasPorPaciente(int pacienteID) {
+        List<PeticionDTO> peticiones = ObtenerPeticionesDelPaciente(pacienteID);
+        List<PeticionDTO> resultado = new ArrayList<>();
+
+        for (PeticionDTO p : peticiones) {
+            if (p.estadoPeticion == EstadoPeticion.Finalizada) {
+                resultado.add(p);
+            }
+        }
+        return resultado;
     }
+
+    public List<PeticionDTO> ObtenerPeticionesCriticasPorPaciente(int pacienteID) {
+        List<PeticionDTO> peticiones = ObtenerPeticionesDelPaciente(pacienteID);
+        List<PeticionDTO> resultado = new ArrayList<>();
+
+        for (PeticionDTO p : peticiones) {
+            for (PracticaAsociadaDTO paDTO : p.practicasAsociadas) {
+                Practica practica = new Practica(paDTO.practicaDTO);
+
+                if (practica.EsUnValorCritico(paDTO.resultado)) {
+                    resultado.add(p);
+                }
+            }
+        }
+        return resultado;
+    }
+
 }

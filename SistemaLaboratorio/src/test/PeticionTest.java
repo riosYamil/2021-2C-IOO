@@ -112,7 +112,7 @@ public class PeticionTest {
         peticionDTO.practicasAsociadas = new ArrayList<PracticaAsociadaDTO>();
         peticionDTO.practicasAsociadas.add(practicaAsociadaDTO);
 
-        assertTrue(peticionController.ModificarPeticione(peticionDTO));
+        assertTrue(peticionController.ModificarPeticion(peticionDTO));
         peticionDTO = peticionController.ObtenerPeticion(peticionDTO.id);
         assertEquals(1, peticionDTO.practicasAsociadas.size());
 

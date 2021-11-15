@@ -34,7 +34,7 @@ public class SucursalTest {
         SucursalDTO sucursal = sucursalController.AltaSucursal(sucursalDTO, usuarioDTO);
         assertNotNull(sucursal);
 
-        assertTrue(sucursalController.BajaSucursal(sucursal));
+        assertTrue(sucursalController.BajaSucursal(sucursal.id));
     }
 
     @Test
@@ -62,11 +62,11 @@ public class SucursalTest {
 
         //ID inexistente
         sucursalDTOParaTest.id = 123456;
-        assertFalse(sucursalController.BajaSucursal(sucursalDTOParaTest));
+        assertFalse(sucursalController.BajaSucursal(sucursalDTOParaTest.id));
 
         //ID existente
         sucursalDTOParaTest.id = sucursal.id;
-        assertTrue(sucursalController.BajaSucursal(sucursalDTOParaTest));
+        assertTrue(sucursalController.BajaSucursal(sucursalDTOParaTest.id));
     }
 
     @Test
@@ -102,7 +102,7 @@ public class SucursalTest {
 
         sucursal.responsableTecnico = usuarioDTO;
         assertTrue(sucursalController.ModificarSucursal(sucursal));
-        assertTrue(sucursalController.BajaSucursal(sucursal));
+        assertTrue(sucursalController.BajaSucursal(sucursal.id));
     }
 
 
@@ -132,7 +132,7 @@ public class SucursalTest {
         //ID existente
         assertNotNull(sucursalController.ObtenerSucursal(sucursal.id));
 
-        assertTrue(sucursalController.BajaSucursal(sucursal));
+        assertTrue(sucursalController.BajaSucursal(sucursal.id));
     }
 
     @Test
@@ -192,10 +192,10 @@ public class SucursalTest {
         List<SucursalDTO> sucursalDTOs = sucursalController.ObtenerSurcursalesPorUsuario(usuarioDTO5);
         assertEquals(2, sucursalDTOs.size());
 
-        assertTrue(sucursalController.BajaSucursal(sucursalDTO1));
-        assertTrue(sucursalController.BajaSucursal(sucursalDTO2));
-        assertTrue(sucursalController.BajaSucursal(sucursalDTO3));
-        assertTrue(sucursalController.BajaSucursal(sucursalDTO4));
-        assertTrue(sucursalController.BajaSucursal(sucursalDTO5));
+        assertTrue(sucursalController.BajaSucursal(sucursalDTO1.id));
+        assertTrue(sucursalController.BajaSucursal(sucursalDTO2.id));
+        assertTrue(sucursalController.BajaSucursal(sucursalDTO3.id));
+        assertTrue(sucursalController.BajaSucursal(sucursalDTO4.id));
+        assertTrue(sucursalController.BajaSucursal(sucursalDTO5.id));
     }
 }

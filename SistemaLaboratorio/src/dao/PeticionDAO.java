@@ -51,8 +51,38 @@ public class PeticionDAO extends utils.GenericDAO {
         }
         return peticionDTO;
     }
-    
-    public List<PeticionDTO> ObtenerPeticionesPendientesDePaciente(int id) throws Exception {
+
+    public List<PeticionDTO> ObtenerPeticiones() throws Exception {
+        List<PeticionDTO> peticiones = new ArrayList<PeticionDTO>();
+        try {
+            peticiones = (List<PeticionDTO>) this.getAll();
+        } catch (Exception e) {
+            throw (e);
+        }
+
+        return peticiones;
+    }
+
+    public List<PeticionDTO> ObtenerPeticionesDePaciente(int pacienteID) throws Exception {
+        List<PeticionDTO> peticiones = new ArrayList<PeticionDTO>();
+        try {
+            peticiones = (List<PeticionDTO>) this.getAll();
+        } catch (Exception e) {
+            throw (e);
+        }
+
+        List<PeticionDTO> peticionesDePaciente = new ArrayList<PeticionDTO>();
+
+        for (PeticionDTO p : peticiones) {
+            if (p.pacienteID == pacienteID) {
+                peticionesDePaciente.add(p);
+            }
+        }
+
+        return peticionesDePaciente;
+    }
+
+    public List<PeticionDTO> ObtenerPeticionesDeSurcursal(int sucursalID) throws Exception {
         List<PeticionDTO> peticiones = new ArrayList<PeticionDTO>();
         try {
             peticiones = (List<PeticionDTO>) this.getAll();
@@ -63,25 +93,7 @@ public class PeticionDAO extends utils.GenericDAO {
         List<PeticionDTO> peticionesDeSucursal = new ArrayList<PeticionDTO>();
 
         for (PeticionDTO p : peticiones) {
-            if (p.estadoPeticion == EstadoPeticion.Activa) {
-                peticionesDeSucursal.add(p);
-            }
-        }
-        return peticiones;
-    }
-    
-    public List<Peticion> ObtenerPeticionesDeSurcursal(int sucursalID) throws Exception {
-        List<Peticion> peticiones = new ArrayList<Peticion>();
-        try {
-            peticiones = (List<Peticion>) this.getAll();
-        } catch (Exception e) {
-            throw (e);
-        }
-
-        List<Peticion> peticionesDeSucursal = new ArrayList<Peticion>();
-
-        for (Peticion p : peticiones) {
-            if (p.ObtenerSucursalID() == sucursalID) {
+            if (p.sucursalID == sucursalID) {
                 peticionesDeSucursal.add(p);
             }
         }

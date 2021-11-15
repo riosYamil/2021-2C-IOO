@@ -452,19 +452,19 @@ public class PeticionPanel {
 					PacienteDTO p = pc.ObtenerPaciente(Integer.parseInt(dni));
 					
 					if(peticionesCompletas) {
-						listPeticionesCompletas = peticionController.ObtenerPeticionesCompletasPorPaciente(p); //Enum: finalizada
+						listPeticionesCompletas = peticionController.ObtenerPeticionesCompletasPorPaciente(p.id); //Enum: finalizada
 					}
 					
 					if(peticionesPendientes) {
 						try {
-							listPeticionesPendientes = peticionController.ObtenerPeticionesPendientesPorPaciente(p); //Enum: activas
+							listPeticionesPendientes = peticionController.ObtenerPeticionesPendientesPorPaciente(p.id); //Enum: activas
 						} catch (Exception e1) {
 							e1.printStackTrace();
 						}
 					}
 					
 					if(peticionesCriticas) {
-						listPeticionesCriticas = peticionController.ObtenerPeticionesCriticasPorPaciente(p); //Enum: RetirarPorSucursal
+						listPeticionesCriticas = peticionController.ObtenerPeticionesCriticasPorPaciente(p.id); //Enum: RetirarPorSucursal
 					}
 
 					mostrarPeticionesYPracticas(listPeticionesPendientes); //combinar listas
