@@ -21,7 +21,11 @@ public class UsuarioController {
     public UsuarioDTO AltaUsuario(UsuarioDTO u) {
         try {
             UsuarioDAO usuarioDAO = new UsuarioDAO();
-            usuarioDAO.CrearUsuario(u);
+            if(!verificarSiUsuarioExiste(u.id)) {
+                usuarioDAO.CrearUsuario(u);
+            } else {
+                u = null;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -109,6 +113,15 @@ public class UsuarioController {
             e.printStackTrace();
         }
         return u;
+    }
+    
+    public boolean verificarSiUsuarioExiste(int id) {
+    	boolean existe = false;
+    	UsuarioDTO u = ObtenerUsuario(id);
+        if(u != null){
+            existe = true;
+        }
+    	return existe;
     }
 
     public boolean Autenticador(int id, String password) {

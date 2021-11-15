@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;  
@@ -46,6 +47,7 @@ public class UsuarioPanel {
     private JRadioButton rdbtnAdmin;
     private JRadioButton rdbtnRecep;
     private JRadioButton rdbtnLab;
+    private JLabel lblNewLabel_1;
 
 	/**
 	 * @wbp.parser.entryPoint
@@ -155,19 +157,16 @@ public class UsuarioPanel {
 	        
 	        tDia = new JTextField();
 	        tDia.setHorizontalAlignment(SwingConstants.CENTER);
-	        tDia.setForeground(Color.LIGHT_GRAY);
-	        tDia.setText("DIA");
+	        tDia.setForeground(Color.BLACK);
 	        tDia.setColumns(10);
 	        
 	        tMes = new JTextField();
 	        tMes.setHorizontalAlignment(SwingConstants.CENTER);
-	        tMes.setForeground(Color.LIGHT_GRAY);
-	        tMes.setText("MES");
+	        tMes.setForeground(Color.BLACK);
 	        tMes.setColumns(10);
 	        
 	        tYear = new JTextField();
-	        tYear.setForeground(Color.LIGHT_GRAY);
-	        tYear.setText("A\u00D1O");
+	        tYear.setForeground(Color.BLACK);
 	        tYear.setHorizontalAlignment(SwingConstants.CENTER);
 	        tYear.setColumns(10);
 	        
@@ -188,6 +187,9 @@ public class UsuarioPanel {
 	        btnUpdateUs.setEnabled(false);
 	        
 	        btnLimpiar = new JButton("Limpiar formulario");
+	        
+	        lblNewLabel_1 = new JLabel("DIA/MES/AÑO");
+	        lblNewLabel_1.setFont(new Font("Tahoma", Font.ITALIC, 8));
 
 	        // Layout
 	        GroupLayout gl_Alta = new GroupLayout(Alta);
@@ -246,7 +248,8 @@ public class UsuarioPanel {
 	        												.addComponent(tMes, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)))
 	        										.addPreferredGap(ComponentPlacement.RELATED)
 	        										.addComponent(tYear, 0, 0, Short.MAX_VALUE)))
-	        								.addGap(90))
+	        								.addPreferredGap(ComponentPlacement.UNRELATED)
+	        								.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE))
 	        							.addGroup(gl_Alta.createSequentialGroup()
 	        								.addGap(18)
 	        								.addComponent(tPass))))))
@@ -283,7 +286,8 @@ public class UsuarioPanel {
 	        				.addComponent(tDomicilio, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 	        				.addComponent(tDia, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 	        				.addComponent(tMes, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-	        				.addComponent(tYear, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+	        				.addComponent(tYear, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+	        				.addComponent(lblNewLabel_1))
 	        			.addGap(18)
 	        			.addGroup(gl_Alta.createParallelGroup(Alignment.BASELINE)
 	        				.addComponent(lblNomUs)
@@ -322,22 +326,9 @@ public class UsuarioPanel {
 	        		String mail = tMail.getText();
 	        		String nombreDeUsuario = tNomUs.getText();
 	        		String pass = tPass.getText();
-	        		String dia = tDia.getText();
-	        		String mes = tMes.getText();
-	        		String year = tYear.getText();
-	        		String fecha = String.join("-", dia, mes, year);
-	        		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-	        		Date fechaDeNacimiento = null;
-	        		
-					try {
-						fechaDeNacimiento = dateFormat.parse(fecha);
-					} catch (ParseException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					
+					Date d = obtenerFecha();
 	        		UsuarioDTO u = new UsuarioDTO();
-	        			        		
+
 	        		if(!dni.isBlank() && !pass.isBlank() && (rdbtnAdmin.isSelected() || rdbtnLab.isSelected() || rdbtnRecep.isSelected())) {
 		        		if(rdbtnAdmin.isSelected()) {
 		        			u.rol = Rol.Administrador;
@@ -356,15 +347,20 @@ public class UsuarioPanel {
 		        		u.nombre = nombreDeUsuario;
 		        		u.nombreCompleto = nombre;
 		        		u.domicilio = domicilio;
-		        		u.fechaDeNacimiento = fechaDeNacimiento;
+		        		u.fechaDeNacimiento = d;
 		        		u.password = pass;
 		        		u.email = mail;
 		        		
-	        			usuarioController.AltaUsuario(u);
-	        			limpiarFormulario();
-	        			alert("Se creó correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+	        			u = usuarioController.AltaUsuario(u);
+	        			
+	        			if(u != null) {
+		        			limpiarFormulario();
+		        			alert("Se creó correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+	        			} else {
+	        				alert("Este usuario ya está creado.", "Error", JOptionPane.ERROR_MESSAGE);
+	        			}
 	        		}else {
-	        			alert("Este usuario no se pudo crear.", "Error", JOptionPane.ERROR_MESSAGE);
+	        			alert("Faltan datos.", "Error", JOptionPane.ERROR_MESSAGE);
 	        		}
 	        		
                     
@@ -385,17 +381,29 @@ public class UsuarioPanel {
 	        				tMail.setText(u.email);
 	        	    		tNomUs.setText(u.nombre);
 	        	    		tPass.setText(u.password);
-        	    		
-	        	    		//arreglar date
-	        	    		tDia.setText("");
-	        	    		tMes.setText("");
-	        	    		tYear.setText("");
 	        	    		
-	        	    		
+			        		if(u.rol == Rol.Administrador) {
+			        			rdbtnAdmin.setSelected(true);
+			        		}
+			        		
+			        		if(u.rol == Rol.Laboratista) {
+			        			rdbtnLab.setSelected(true);
+			        		}
+			        		
+			        		if(u.rol == Rol.Recepcion) {
+			        			rdbtnRecep.setSelected(true);
+			        		}
+
+	        	    		tDia.setText(String.valueOf(u.fechaDeNacimiento.getDay()));
+	        	    		tMes.setText(String.valueOf(u.fechaDeNacimiento.getMonth()));
+	        	    		tYear.setText(String.valueOf(u.fechaDeNacimiento.getYear()));
+
 	        				tdni.setEnabled(false);
 	        				btnAddUs.setEnabled(false);
 	        				btnUpdateUs.setEnabled(true);
-	        			}
+	        			} else{
+							alert("Este usuario no se pudo obtener.", "Error", JOptionPane.ERROR_MESSAGE);
+						}
 	        		}
 	        		
 	        	}
@@ -426,20 +434,8 @@ public class UsuarioPanel {
 	        		String mail = tMail.getText();
 	        		String nombreDeUsuario = tNomUs.getText();
 	        		String pass = tPass.getText();
-	        		String dia = tDia.getText();
-	        		String mes = tMes.getText();
-	        		String year = tYear.getText();
-	        		String fecha = String.join("-", dia, mes, year);
-	        		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-	        		Date fechaDeNacimiento = null;
-	        		
-					try {
-						fechaDeNacimiento = dateFormat.parse(fecha);
-					} catch (ParseException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					
+					Date d = obtenerFecha();
+
 	        		UsuarioDTO u = new UsuarioDTO();
 	        			        		
 	        		if(!pass.isBlank() && (rdbtnAdmin.isSelected() || rdbtnLab.isSelected() || rdbtnRecep.isSelected())) {
@@ -460,7 +456,7 @@ public class UsuarioPanel {
 		        		u.nombre = nombreDeUsuario;
 		        		u.nombreCompleto = nombre;
 		        		u.domicilio = domicilio;
-		        		u.fechaDeNacimiento = fechaDeNacimiento;
+		        		u.fechaDeNacimiento = d;
 		        		u.password = pass;
 		        		u.email = mail;
 		        		
@@ -521,6 +517,21 @@ public class UsuarioPanel {
 			});
 
 	    }
+
+		private Date obtenerFecha() {
+			Date d = new Date();
+			if(!tDia.getText().isEmpty() || !tMes.getText().isEmpty() || !tYear.getText().isEmpty()){
+				Integer dia = Integer.parseInt(tDia.getText());
+				Integer mes = Integer.parseInt(tMes.getText());
+				Integer year = Integer.parseInt(tYear.getText());
+				d.setDate(dia);
+				d.setMonth(mes);
+				d.setYear(year);
+			}else {
+				d = null;
+			}
+			return d;
+		}
 	    
 	    private void limpiarFormulario() {
 			tdni.setText("");
@@ -533,6 +544,11 @@ public class UsuarioPanel {
     		tMes.setText("");
     		tYear.setText("");
     		tDNI.setText("");
+			rdbtnAdmin.setSelected(false);
+			rdbtnLab.setSelected(false);
+			rdbtnRecep.setSelected(false);
+			btnAddUs.setEnabled(true);
+			btnUpdateUs.setEnabled(false);
 	    }
 	    
 	    private void alert(String msg, String type, int pane) {
