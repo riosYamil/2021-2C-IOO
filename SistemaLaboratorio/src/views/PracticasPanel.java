@@ -42,6 +42,9 @@ public class PracticasPanel {
     private JRadioButton rdbtnAdmin;
     private JButton btnUpdatePractica;
     private JButton btnLimpiar;
+    private JTextField tPeticionID;
+    private JTextField tIDPeticion;
+    private JLabel lblNewLabel;
 
 	/**
 	 * @wbp.parser.entryPoint
@@ -76,24 +79,49 @@ public class PracticasPanel {
 
 	        lbldni = new JLabel("ID");
 
-	        lblBaja = new JLabel("Por favor, ingrese el ID de la práctica que desea eliminar.");
+	        lblBaja = new JLabel("Por favor, ingrese el ID de la peticón y su practica asociada que desea eliminar.");
+	        
+	        tIDPeticion = new JTextField();
+	        tIDPeticion.setColumns(10);
+	        
+	        lblNewLabel = new JLabel("ID PETICION");
 
 	        //Layout
 	        GroupLayout gl_Baja = new GroupLayout(Baja);
-	        gl_Baja.setHorizontalGroup(gl_Baja.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(gl_Baja
-	                .createSequentialGroup().addGap(35)
-	                .addGroup(gl_Baja.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(lblBaja)
-	                        .addComponent(btnDelete, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
-	                        .addComponent(lbldni).addComponent(tID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-	                                GroupLayout.PREFERRED_SIZE))
-	                .addContainerGap(271, Short.MAX_VALUE)));
-	        gl_Baja.setVerticalGroup(gl_Baja.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(gl_Baja.createSequentialGroup()
-	                .addGap(22).addComponent(lblBaja).addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED).addComponent(lbldni)
-	                .addGap(4)
-	                .addComponent(tID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-	                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-	                .addComponent(btnDelete, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-	                .addContainerGap(323, Short.MAX_VALUE)));
+	        gl_Baja.setHorizontalGroup(
+	        	gl_Baja.createParallelGroup(Alignment.LEADING)
+	        		.addGroup(gl_Baja.createSequentialGroup()
+	        			.addGap(35)
+	        			.addGroup(gl_Baja.createParallelGroup(Alignment.LEADING)
+	        				.addComponent(lblBaja)
+	        				.addComponent(btnDelete, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
+	        				.addGroup(gl_Baja.createSequentialGroup()
+	        					.addGroup(gl_Baja.createParallelGroup(Alignment.LEADING)
+	        						.addComponent(tID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+	        						.addComponent(lbldni))
+	        					.addGap(46)
+	        					.addGroup(gl_Baja.createParallelGroup(Alignment.LEADING)
+	        						.addComponent(lblNewLabel)
+	        						.addComponent(tIDPeticion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+	        			.addContainerGap(277, Short.MAX_VALUE))
+	        );
+	        gl_Baja.setVerticalGroup(
+	        	gl_Baja.createParallelGroup(Alignment.LEADING)
+	        		.addGroup(gl_Baja.createSequentialGroup()
+	        			.addGap(22)
+	        			.addComponent(lblBaja)
+	        			.addPreferredGap(ComponentPlacement.UNRELATED)
+	        			.addGroup(gl_Baja.createParallelGroup(Alignment.BASELINE)
+	        				.addComponent(lbldni)
+	        				.addComponent(lblNewLabel))
+	        			.addGap(4)
+	        			.addGroup(gl_Baja.createParallelGroup(Alignment.BASELINE)
+	        				.addComponent(tID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+	        				.addComponent(tIDPeticion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+	        			.addPreferredGap(ComponentPlacement.UNRELATED)
+	        			.addComponent(btnDelete, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+	        			.addContainerGap(351, Short.MAX_VALUE))
+	        );
 	        Baja.setLayout(gl_Baja);
 
 	        return Baja;
@@ -139,14 +167,14 @@ public class PracticasPanel {
 	        
 	        tValReservadoMax = new JTextField();
 	        tValReservadoMax.setEditable(false);
-	        tValReservadoMax.setHorizontalAlignment(SwingConstants.CENTER);
-	        tValReservadoMax.setForeground(Color.LIGHT_GRAY);
+	        tValReservadoMax.setHorizontalAlignment(SwingConstants.LEFT);
+	        tValReservadoMax.setForeground(Color.BLACK);
 	        tValReservadoMax.setColumns(10);
 	        
 	        tValReservadoMin = new JTextField();
 	        tValReservadoMin.setEditable(false);
-	        tValReservadoMin.setHorizontalAlignment(SwingConstants.CENTER);
-	        tValReservadoMin.setForeground(Color.LIGHT_GRAY);
+	        tValReservadoMin.setHorizontalAlignment(SwingConstants.LEFT);
+	        tValReservadoMin.setForeground(Color.BLACK);
 	        tValReservadoMin.setColumns(10);
 	        
 	        rdbtnAdmin = new JRadioButton("Habilitada");
@@ -155,7 +183,7 @@ public class PracticasPanel {
 	        
 	        JLabel lblRol = new JLabel("ESTADO DE LA PRACTICA:");
 	        
-	        lblPractica = new JLabel("Ingrese el ID de la practica para obtener una practica y modificarla");
+	        lblPractica = new JLabel("Ingrese el ID de la peticion y de la practica para obtener una practica y modificarla");
 	        
 	        lblValReservadoMax = new JLabel("VALOR RESERVADO MAX");
 	        
@@ -176,6 +204,11 @@ public class PracticasPanel {
 	        btnUpdatePractica.setEnabled(false);
 	        
 	        btnLimpiar = new JButton("Limpiar formulario");
+	        
+	        tPeticionID = new JTextField();
+	        tPeticionID.setColumns(10);
+	        
+	        JLabel lblPeticion = new JLabel("ID PETICION");
 
 	        // Layout
 	        GroupLayout gl_Alta = new GroupLayout(Alta);
@@ -191,54 +224,55 @@ public class PracticasPanel {
 	        					.addGap(372))
 	        				.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
 	        					.addGroup(gl_Alta.createSequentialGroup()
-	        						.addComponent(lblID, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
-	        						.addContainerGap())
-	        					.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
-	        						.addGroup(gl_Alta.createSequentialGroup()
-	        							.addComponent(tid, GroupLayout.PREFERRED_SIZE, 162, GroupLayout.PREFERRED_SIZE)
-	        							.addContainerGap())
+	        						.addComponent(lblRol)
+	        						.addGap(18)
+	        						.addComponent(rdbtnAdmin)
+	        						.addGap(362))
+	        					.addGroup(gl_Alta.createSequentialGroup()
 	        						.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
-	        							.addGroup(gl_Alta.createSequentialGroup()
-	        								.addComponent(lblRol)
-	        								.addGap(18)
-	        								.addComponent(rdbtnAdmin)
-	        								.addGap(362))
+	        							.addComponent(lblPractica)
 	        							.addGroup(gl_Alta.createSequentialGroup()
 	        								.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
-	        									.addComponent(lblPractica)
 	        									.addGroup(gl_Alta.createSequentialGroup()
-	        										.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
+	        										.addGroup(gl_Alta.createParallelGroup(Alignment.TRAILING)
+	        											.addComponent(tNombre, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
 	        											.addGroup(gl_Alta.createSequentialGroup()
-	        												.addGroup(gl_Alta.createParallelGroup(Alignment.TRAILING)
-	        													.addComponent(tNombre, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
-	        													.addGroup(gl_Alta.createSequentialGroup()
-	        														.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING, false)
-	        															.addComponent(lblValCriticoMax, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-	        															.addComponent(tValCriticoMax)
-	        															.addComponent(lblValReservadoMax, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-	        															.addComponent(tValReservadoMax))
-	        														.addGap(18)
-	        														.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
-	        															.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
-	        																.addComponent(tValCriticoMin, GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
-	        																.addComponent(lblValCriticoMin, GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
-	        																.addComponent(tValReservadoMin, GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE))
-	        															.addComponent(lblValReservadoMin))))
-	        												.addGap(18))
-	        											.addGroup(gl_Alta.createSequentialGroup()
-	        												.addComponent(lblNombre)
-	        												.addGap(232)))
-	        										.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
-	        											.addComponent(lblGrupo)
-	        											.addComponent(tGrupo, GroupLayout.PREFERRED_SIZE, 176, GroupLayout.PREFERRED_SIZE)
-	        											.addComponent(lblTiempoEstimado)
-	        											.addComponent(lblTiempo))
-	        										.addGap(53)))
-	        								.addGap(75)))))))
+	        												.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING, false)
+	        													.addComponent(lblValCriticoMax, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+	        													.addComponent(tValCriticoMax)
+	        													.addComponent(lblValReservadoMax, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+	        													.addComponent(tValReservadoMax))
+	        												.addGap(18)
+	        												.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
+	        													.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
+	        														.addComponent(tValCriticoMin, GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+	        														.addComponent(lblValCriticoMin, GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+	        														.addComponent(tValReservadoMin, GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
+	        													.addComponent(lblValReservadoMin))))
+	        										.addGap(18))
+	        									.addGroup(gl_Alta.createSequentialGroup()
+	        										.addComponent(lblNombre)
+	        										.addGap(232)))
+	        								.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
+	        									.addComponent(lblGrupo)
+	        									.addComponent(tGrupo, GroupLayout.PREFERRED_SIZE, 176, GroupLayout.PREFERRED_SIZE)
+	        									.addComponent(lblTiempoEstimado)
+	        									.addComponent(lblTiempo))
+	        								.addGap(53)))
+	        						.addGap(75))
+	        					.addGroup(gl_Alta.createSequentialGroup()
+	        						.addGroup(gl_Alta.createParallelGroup(Alignment.TRAILING)
+	        							.addComponent(tid, GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+	        							.addComponent(lblID, GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
+	        						.addGap(18)
+	        						.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
+	        							.addComponent(tPeticionID, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
+	        							.addComponent(lblPeticion))
+	        						.addGap(495)))))
 	        		.addGroup(gl_Alta.createSequentialGroup()
 	        			.addGap(160)
 	        			.addComponent(btnObtenerPractica, GroupLayout.PREFERRED_SIZE, 227, GroupLayout.PREFERRED_SIZE)
-	        			.addContainerGap(226, Short.MAX_VALUE))
+	        			.addContainerGap(254, Short.MAX_VALUE))
 	        );
 	        gl_Alta.setVerticalGroup(
 	        	gl_Alta.createParallelGroup(Alignment.LEADING)
@@ -248,9 +282,13 @@ public class PracticasPanel {
 	        			.addGap(18)
 	        			.addComponent(lblPractica)
 	        			.addPreferredGap(ComponentPlacement.RELATED)
-	        			.addComponent(lblID)
-	        			.addGap(11)
-	        			.addComponent(tid, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+	        			.addGroup(gl_Alta.createParallelGroup(Alignment.BASELINE)
+	        				.addComponent(lblPeticion)
+	        				.addComponent(lblID))
+	        			.addPreferredGap(ComponentPlacement.RELATED)
+	        			.addGroup(gl_Alta.createParallelGroup(Alignment.BASELINE)
+	        				.addComponent(tid, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+	        				.addComponent(tPeticionID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 	        			.addPreferredGap(ComponentPlacement.RELATED)
 	        			.addGroup(gl_Alta.createParallelGroup(Alignment.BASELINE)
 	        				.addComponent(lblNombre)
@@ -299,8 +337,9 @@ public class PracticasPanel {
 	        btnObtenerPractica.addActionListener(new ActionListener() {
 	        	public void actionPerformed(ActionEvent e) {
 	        		String id = tid.getText();
+	        		String idPeticion = tPeticionID.getText();
 	        		
-	        		if(!id.isBlank()) {
+	        		if(!id.isBlank() && !idPeticion.isBlank()) {
 	        			PracticaDTO p = pc.ObtenerPractica(Integer.parseInt(id));
 						tNombre.setText(p.nombre);
 						tGrupo.setText(p.grupo);
@@ -313,6 +352,7 @@ public class PracticasPanel {
 							rdbtnAdmin.setSelected(true);
 						}
 						tid.setEnabled(false);
+						tPeticionID.setEditable(false);
 						tValCriticoMax.setEditable(true);
 						tValCriticoMin.setEditable(true);
 						tValReservadoMax.setEditable(true);
@@ -329,8 +369,9 @@ public class PracticasPanel {
 		        btnDelete.addActionListener(new ActionListener() {
 		        	public void actionPerformed(ActionEvent e) {
 		        		String id = tID.getText();
+		        		String idPeticion = tIDPeticion.getText();
 		        		
-		        		if(!id.isBlank()) {
+		        		if(!id.isBlank() && !idPeticion.isBlank()) {
 		        			if(pc.BajaPractica(Integer.parseInt(id))) {
 		        				limpiarFormulario();
 		        				 alert("Se eliminó correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
@@ -402,6 +443,7 @@ public class PracticasPanel {
 	    private void limpiarFormulario() {
 	    	if(tID != null) {
 		    	tID.setText("");
+		    	tIDPeticion.setText("");
 	    	}
 			tNombre.setText("");
 			tGrupo.setText("");
@@ -410,6 +452,7 @@ public class PracticasPanel {
 			tValReservadoMax.setText("");
 			tValReservadoMin.setText("");
 			tid.setEnabled(true);
+			tPeticionID.setEditable(true);
 			tValCriticoMax.setEditable(false);
 			tValCriticoMin.setEditable(false);
 			tValReservadoMax.setEditable(false);

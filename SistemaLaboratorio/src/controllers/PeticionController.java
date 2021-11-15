@@ -23,7 +23,7 @@ public class PeticionController {
     public PeticionDTO AltaPeticion(PeticionDTO p) {
         try {
             PeticionDAO peticionDAO = new PeticionDAO();
-            p.id =  p.pacienteID; //peticionDAO.getLastInsertId() + 1; 
+            p.id =  peticionDAO.getLastInsertId() + 1; 
             peticionDAO.CrearPeticion(p);
         } catch (Exception e) {
             e.printStackTrace();
