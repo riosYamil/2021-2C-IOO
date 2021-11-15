@@ -2,6 +2,7 @@ package dao;
 
 import domains.Peticion;
 import dtos.PeticionDTO;
+import enums.EstadoPeticion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +51,25 @@ public class PeticionDAO extends utils.GenericDAO {
         }
         return peticionDTO;
     }
+    
+    public List<PeticionDTO> ObtenerPeticionesPendientesDePaciente(int id) throws Exception {
+        List<PeticionDTO> peticiones = new ArrayList<PeticionDTO>();
+        try {
+            peticiones = (List<PeticionDTO>) this.getAll();
+        } catch (Exception e) {
+            throw (e);
+        }
 
+        List<PeticionDTO> peticionesDeSucursal = new ArrayList<PeticionDTO>();
+
+        for (PeticionDTO p : peticiones) {
+            if (p.estadoPeticion == EstadoPeticion.Activa) {
+                peticionesDeSucursal.add(p);
+            }
+        }
+        return peticiones;
+    }
+    
     public List<Peticion> ObtenerPeticionesDeSurcursal(int sucursalID) throws Exception {
         List<Peticion> peticiones = new ArrayList<Peticion>();
         try {

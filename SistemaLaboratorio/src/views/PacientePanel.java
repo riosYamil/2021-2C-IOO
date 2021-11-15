@@ -18,7 +18,7 @@ import java.util.List;
 public class PacientePanel{
 	
     private JTabbedPane tabbedPane_1;
-    private JButton btnAddPac;
+    private Button btnAddPac;
     private JLabel lblDNI;
     private JTextField tdni;
     private JTextField tNombre;
@@ -278,9 +278,9 @@ public class PacientePanel{
         Alta = new JPanel(false);
         Alta.setBackground(Color.WHITE);
 
-        btnAddPac = new JButton("Agregar paciente");
+        btnAddPac = new Button("Agregar paciente");
         btnAddPac.setFont(new Font("Tahoma", Font.BOLD, 12));
-        btnAddPac.setForeground(Color.BLACK);
+        btnAddPac.setForeground(Color.WHITE);
         btnAddPac.setBackground(new Color(133, 189, 212));
         btnAddPac.setBounds(230, 174, 150, 27);
 
@@ -324,26 +324,20 @@ public class PacientePanel{
         gl_Alta.setHorizontalGroup(
         	gl_Alta.createParallelGroup(Alignment.LEADING)
         		.addGroup(gl_Alta.createSequentialGroup()
-        			.addGap(171)
-        			.addComponent(btnAddPac, GroupLayout.PREFERRED_SIZE, 206, GroupLayout.PREFERRED_SIZE)
-        			.addContainerGap(188, Short.MAX_VALUE))
-        		.addGroup(gl_Alta.createSequentialGroup()
-        			.addGap(31)
         			.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
-        				.addComponent(tDomicilio, 481, 481, 481)
-        				.addComponent(lblDomicilio)
         				.addGroup(gl_Alta.createSequentialGroup()
-        					.addComponent(lblNombre)
-        					.addPreferredGap(ComponentPlacement.RELATED))
-        				.addGroup(gl_Alta.createSequentialGroup()
+        					.addGap(31)
         					.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
+        						.addComponent(tDomicilio, 481, 481, 481)
+        						.addComponent(lblDomicilio)
+        						.addComponent(lblNombre)
         						.addGroup(gl_Alta.createSequentialGroup()
         							.addComponent(lblDNI, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
         							.addGap(145)
         							.addComponent(lblMail))
-        						.addGroup(gl_Alta.createParallelGroup(Alignment.TRAILING, false)
-        							.addComponent(tNombre, Alignment.LEADING)
-        							.addGroup(Alignment.LEADING, gl_Alta.createSequentialGroup()
+        						.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING, false)
+        							.addComponent(tNombre)
+        							.addGroup(gl_Alta.createSequentialGroup()
         								.addComponent(tdni, GroupLayout.PREFERRED_SIZE, 162, GroupLayout.PREFERRED_SIZE)
         								.addGap(18)
         								.addComponent(tMail, 301, 301, 301)))
@@ -354,16 +348,18 @@ public class PacientePanel{
         							.addGap(33)
         							.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
         								.addComponent(tSexo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        								.addComponent(lblSexo))))
-        					.addGap(106)))
-        			.addGap(53))
+        								.addComponent(lblSexo)))))
+        				.addGroup(gl_Alta.createSequentialGroup()
+        					.addGap(171)
+        					.addComponent(btnAddPac, GroupLayout.PREFERRED_SIZE, 206, GroupLayout.PREFERRED_SIZE)))
+        			.addContainerGap(53, Short.MAX_VALUE))
         );
         gl_Alta.setVerticalGroup(
         	gl_Alta.createParallelGroup(Alignment.LEADING)
         		.addGroup(gl_Alta.createSequentialGroup()
         			.addGap(28)
-        			.addComponent(btnAddPac, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
-        			.addGap(20)
+        			.addComponent(btnAddPac, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+        			.addGap(28)
         			.addGroup(gl_Alta.createParallelGroup(Alignment.BASELINE)
         				.addComponent(lblDNI)
         				.addComponent(lblMail))
@@ -388,7 +384,7 @@ public class PacientePanel{
         			.addGroup(gl_Alta.createParallelGroup(Alignment.BASELINE)
         				.addComponent(tEdad, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
         				.addComponent(tSexo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-        			.addContainerGap(160, Short.MAX_VALUE))
+        			.addContainerGap(203, Short.MAX_VALUE))
         );
         Alta.setLayout(gl_Alta);
 

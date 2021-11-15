@@ -26,7 +26,7 @@ public class PracticaTest {
 
         PracticaDTO practica = practicaController.AltaPractica(practicaDTO);
         assertNotNull(practica);
-        practicaController.BajaPractica(practica);
+        practicaController.BajaPractica(practica.id);
     }
 
     @Test
@@ -51,10 +51,10 @@ public class PracticaTest {
 
         //ID inexistente
         practicaDTOParaTest.id = 123456;
-        assertFalse(practicaController.BajaPractica(practicaDTOParaTest));
+        assertFalse(practicaController.BajaPractica(practicaDTOParaTest.id));
         //ID existente
         practicaDTOParaTest.id = practica.id;
-        assertTrue(practicaController.BajaPractica(practicaDTOParaTest));
+        assertTrue(practicaController.BajaPractica(practicaDTOParaTest.id));
     }
 
     @Test
@@ -83,7 +83,7 @@ public class PracticaTest {
         assertEquals("asd", practica.nombre);
         assertEquals("abc", practica.grupo);
 
-        assertTrue(practicaController.BajaPractica(practica));
+        assertTrue(practicaController.BajaPractica(practica.id));
     }
 
     @Test
@@ -109,6 +109,6 @@ public class PracticaTest {
         //ID existente
         assertNotNull(practicaController.ObtenerPractica(practica.id));
 
-        assertTrue(practicaController.BajaPractica(practica));
+        assertTrue(practicaController.BajaPractica(practica.id));
     }
 }

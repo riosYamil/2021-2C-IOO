@@ -23,7 +23,7 @@ public class PeticionController {
     public PeticionDTO AltaPeticion(PeticionDTO p) {
         try {
             PeticionDAO peticionDAO = new PeticionDAO();
-            p.id = peticionDAO.getLastInsertId() + 1;
+            p.id =  p.pacienteID; //peticionDAO.getLastInsertId() + 1; 
             peticionDAO.CrearPeticion(p);
         } catch (Exception e) {
             e.printStackTrace();
@@ -68,14 +68,25 @@ public class PeticionController {
         }
         return p;
     }
+    
+    public static void EnviarNotificacion() {
+    	//TODO: notifica que hay que retirar por sucursal, podria reemplazarse por obtner peticiones criticas
+    }
+    
+    public static List<PeticionDTO> ObtenerPeticionesCriticasPorPaciente(PacienteDTO p) {
+        List<PeticionDTO> peticiones = new ArrayList<PeticionDTO>();
+        return peticiones;
+    }
 
     public static List<PeticionDTO> ObtenerPeticionesCompletasPorPaciente(PacienteDTO p) {
         List<PeticionDTO> peticiones = new ArrayList<PeticionDTO>();
         return peticiones;
     }
 
-    public static List<PeticionDTO> ObtenerPeticionesPendientesPorPaciente(PacienteDTO p) {
+    public static List<PeticionDTO> ObtenerPeticionesPendientesPorPaciente(PacienteDTO p) throws Exception {
         List<PeticionDTO> peticiones = new ArrayList<PeticionDTO>();
+        PeticionDAO peticionDAO = new PeticionDAO();
+        peticiones = peticionDAO.ObtenerPeticionesPendientesDePaciente(p.id);
         return peticiones;
     }
 

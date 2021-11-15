@@ -24,7 +24,7 @@ public class SucursalPanel {
 	private JTextField tDireccion;
 	private JTextField tResponsableTecnico;
 	private JLabel lblNumero;
-	private JButton btnAddSuc;
+	private Button btnAddSuc;
 	private Panel Baja_1;
 	private JLabel lblNum;
 	private JLabel lblBaja;
@@ -41,6 +41,7 @@ public class SucursalPanel {
 	private JTextField tDireccionMod;
 	private JTextField tNumMod;
 	private JTextField tResponsableTecnicoMod;
+	private JTextField tNuevaSucursal;
 		
 	
 	/**
@@ -170,7 +171,7 @@ public class SucursalPanel {
 
 		lblNum = new JLabel("NUMERO");
 
-		lblBaja = new JLabel("Por favor, ingrese el NUMERO de la sucursal que desea eliminar.");
+		lblBaja = new JLabel("Por favor, ingrese el NUMERO de la sucursal que desea eliminar y el NUMERO de la nueva sucursal.");
 
 		tNum = new JTextField();
 		tNum.setColumns(10);
@@ -180,25 +181,48 @@ public class SucursalPanel {
 		btnDeleteSuc.setForeground(Color.WHITE);
 		btnDeleteSuc.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnDeleteSuc.setBackground(Color.RED);
+		
+		JLabel lblNuevaSucursal = new JLabel("NUMERO DE NUEVA SUCURSAL");
+		
+		tNuevaSucursal = new JTextField();
+		tNuevaSucursal.setColumns(10);
 		GroupLayout gl_Baja_1 = new GroupLayout(Baja_1);
-		gl_Baja_1.setHorizontalGroup(gl_Baja_1.createParallelGroup(Alignment.LEADING).addGap(0, 563, Short.MAX_VALUE)
-				.addGap(0, 582, Short.MAX_VALUE)
-				.addGroup(gl_Baja_1.createSequentialGroup().addGap(35)
-						.addGroup(gl_Baja_1.createParallelGroup(Alignment.LEADING).addComponent(lblBaja)
-								.addComponent(btnDeleteSuc, GroupLayout.PREFERRED_SIZE, 140,
-										GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblNum).addComponent(tNum, GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addContainerGap(271, Short.MAX_VALUE)));
-		gl_Baja_1.setVerticalGroup(gl_Baja_1.createParallelGroup(Alignment.LEADING).addGap(0, 443, Short.MAX_VALUE)
-				.addGap(0, 443, Short.MAX_VALUE)
-				.addGroup(gl_Baja_1.createSequentialGroup().addGap(22).addComponent(lblBaja)
-						.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(lblNum).addGap(4)
-						.addComponent(tNum, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addComponent(btnDeleteSuc, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap(323, Short.MAX_VALUE)));
+		gl_Baja_1.setHorizontalGroup(
+			gl_Baja_1.createParallelGroup(Alignment.LEADING)
+				.addGap(0, 550, Short.MAX_VALUE)
+				.addGroup(gl_Baja_1.createSequentialGroup()
+					.addGap(35)
+					.addGroup(gl_Baja_1.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblBaja)
+						.addComponent(btnDeleteSuc, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_Baja_1.createSequentialGroup()
+							.addGroup(gl_Baja_1.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblNum)
+								.addComponent(tNum, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(83)
+							.addGroup(gl_Baja_1.createParallelGroup(Alignment.LEADING)
+								.addComponent(tNuevaSucursal, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblNuevaSucursal))))
+					.addContainerGap(207, Short.MAX_VALUE))
+		);
+		gl_Baja_1.setVerticalGroup(
+			gl_Baja_1.createParallelGroup(Alignment.LEADING)
+				.addGap(0, 471, Short.MAX_VALUE)
+				.addGroup(gl_Baja_1.createSequentialGroup()
+					.addGap(22)
+					.addComponent(lblBaja)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_Baja_1.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNum)
+						.addComponent(lblNuevaSucursal))
+					.addGap(4)
+					.addGroup(gl_Baja_1.createParallelGroup(Alignment.BASELINE)
+						.addComponent(tNum, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(tNuevaSucursal, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(btnDeleteSuc, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(351, Short.MAX_VALUE))
+		);
 		Baja_1.setLayout(gl_Baja_1);
 
 		return Baja_1;
@@ -226,8 +250,8 @@ public class SucursalPanel {
 		lblNumero.setForeground(Color.BLACK);
 		lblNumero.setFont(new Font("Tahoma", Font.PLAIN, 11));
 
-		btnAddSuc = new JButton("Agregar sucursal");
-		btnAddSuc.setForeground(Color.BLACK);
+		btnAddSuc = new Button("Agregar sucursal");
+		btnAddSuc.setForeground(Color.WHITE);
 		btnAddSuc.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnAddSuc.setBackground(new Color(133, 189, 212));
 		btnAddSuc.setBounds(230, 174, 150, 27);
@@ -315,8 +339,9 @@ public class SucursalPanel {
         btnDeleteSuc.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		String num = tNum.getText();
+        		String numNuevo = tNuevaSucursal.getText();
         		
-        		if(!num.isBlank()) {
+        		if(!num.isBlank() && !numNuevo.isBlank()) {
         			SucursalDTO s = new SucursalDTO();
         			s = sucursalController.ObtenerSucursal(Integer.parseInt(num));
         			

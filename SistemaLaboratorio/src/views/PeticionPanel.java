@@ -2,15 +2,21 @@ package views;
 
 import controllers.PacienteController;
 import controllers.PeticionController;
+import controllers.PracticaController;
 import dtos.PacienteDTO;
 import dtos.PeticionDTO;
 import dtos.PracticaAsociadaDTO;
 import dtos.PracticaDTO;
 import enums.EstadoPeticion;
+import enums.EstadoPractica;
+import enums.EstadoResultadoPractica;
 
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -39,7 +45,6 @@ public class PeticionPanel {
 	private Panel BajaPeticiones;
 	private Button btnObtenerPeticiones;
 	private JTextField tDNIPeticiones;
-	private JTextArea tPracticas;
 	private JCheckBox chckbxPeticionesPendientes;
 	private JCheckBox chckbxPeticionesCompletas;
 	private JCheckBox chckbxPeticionesCriticas;
@@ -47,10 +52,14 @@ public class PeticionPanel {
 	private JTextField tNombrePractica;
 	private JLabel lblGrupoPractica;
 	private JTextField tGrupoPractica;
-	
-	private List<PracticaAsociadaDTO> practicasAsociadas = new ArrayList<PracticaAsociadaDTO>();
 	private JTextField tNumSucursal;
 	private JLabel lblNumeroSucursal;
+	
+	private List<PracticaAsociadaDTO> practicasAsociadas = new ArrayList<PracticaAsociadaDTO>();
+	private List<PeticionDTO> listPeticionesCompletas = new ArrayList<PeticionDTO>();
+	private List<PeticionDTO> listPeticionesPendientes = new ArrayList<PeticionDTO>();
+	private List<PeticionDTO> listPeticionesCriticas = new ArrayList<PeticionDTO>();
+
 
 	/**
 	 * @wbp.parser.entryPoint
@@ -204,12 +213,7 @@ public class PeticionPanel {
 		btnObtenerPeticiones.setForeground(Color.WHITE);
 		btnObtenerPeticiones.setBackground(new Color(133, 189, 212));
 		btnObtenerPeticiones.setBounds(230, 174, 150, 27);
-		
-		tPracticas = new JTextArea();
-		tPracticas.setBackground(SystemColor.control);
-		
-		JLabel lblPracticasAsoc = new JLabel("PRACTICAS ASOCIADAS");
-		
+
 		GroupLayout gl_Peticiones1 = new GroupLayout(Peticiones1);
 		gl_Peticiones1.setHorizontalGroup(
 			gl_Peticiones1.createParallelGroup(Alignment.LEADING)
@@ -217,25 +221,19 @@ public class PeticionPanel {
 					.addGap(31)
 					.addGroup(gl_Peticiones1.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_Peticiones1.createSequentialGroup()
-							.addComponent(tPracticas, GroupLayout.PREFERRED_SIZE, 483, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap())
-						.addGroup(gl_Peticiones1.createParallelGroup(Alignment.LEADING)
-							.addGroup(gl_Peticiones1.createSequentialGroup()
-								.addGroup(gl_Peticiones1.createParallelGroup(Alignment.LEADING)
-									.addComponent(tDNIPeticiones, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addComponent(lblObtenerPeticiones)
-									.addComponent(lbldni_1))
-								.addContainerGap(209, Short.MAX_VALUE))
-							.addGroup(gl_Peticiones1.createSequentialGroup()
-								.addGroup(gl_Peticiones1.createParallelGroup(Alignment.TRAILING, false)
-									.addComponent(lblPracticasAsoc, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(btnObtenerPeticiones, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE))
-								.addPreferredGap(ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-								.addGroup(gl_Peticiones1.createParallelGroup(Alignment.LEADING)
-									.addComponent(chckbxPeticionesCriticas)
-									.addComponent(chckbxPeticionesCompletas)
-									.addComponent(chckbxPeticionesPendientes))
-								.addGap(146)))))
+							.addGroup(gl_Peticiones1.createParallelGroup(Alignment.LEADING)
+								.addComponent(tDNIPeticiones, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblObtenerPeticiones)
+								.addComponent(lbldni_1))
+							.addContainerGap(209, Short.MAX_VALUE))
+						.addGroup(gl_Peticiones1.createSequentialGroup()
+							.addComponent(btnObtenerPeticiones, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+							.addGroup(gl_Peticiones1.createParallelGroup(Alignment.LEADING)
+								.addComponent(chckbxPeticionesCriticas)
+								.addComponent(chckbxPeticionesCompletas)
+								.addComponent(chckbxPeticionesPendientes))
+							.addGap(146))))
 		);
 		gl_Peticiones1.setVerticalGroup(
 			gl_Peticiones1.createParallelGroup(Alignment.LEADING)
@@ -257,11 +255,7 @@ public class PeticionPanel {
 							.addComponent(tDNIPeticiones, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addGap(26)
 							.addComponent(btnObtenerPeticiones, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)))
-					.addGap(6)
-					.addComponent(lblPracticasAsoc)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(tPracticas, GroupLayout.PREFERRED_SIZE, 181, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(95, Short.MAX_VALUE))
+					.addContainerGap(302, Short.MAX_VALUE))
 		);
 						Peticiones1.setLayout(gl_Peticiones1);
 			return Peticiones1;
@@ -348,9 +342,11 @@ public class PeticionPanel {
 	
 	private void asociarEventos() {
 		PeticionController peticionController = PeticionController.getInstance();
+		PracticaController practicasController = PracticaController.getInstance();
 		
 		btnEnviarNot.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				JOptionPane.showMessageDialog(tabbedPane_5, "Se notific� correctamente", "Informaci�n",
 						JOptionPane.INFORMATION_MESSAGE);
 			}
@@ -364,6 +360,7 @@ public class PeticionPanel {
 					boolean borrada = peticionController.BajaPeticion(Integer.parseInt(id));
 					
 					if(borrada) {
+						limpiarPracticas();
 						alert("La peticón se borró correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
 					}
 					else {
@@ -380,6 +377,7 @@ public class PeticionPanel {
 			public void actionPerformed(ActionEvent e) {
 				String dni = tDNI.getText();
 				String numSucursal = tNumSucursal.getText();
+				String ob = tOB.getText();
 				
 				if(!dni.isBlank() && !numSucursal.isBlank()) {
 					PacienteController pc = PacienteController.getInstance();
@@ -390,6 +388,7 @@ public class PeticionPanel {
 					peticion.pacienteID = Integer.parseInt(dni);
 					peticion.practicasAsociadas = practicasAsociadas;
 					peticion.sucursalID = Integer.parseInt(numSucursal);
+					peticion.obraSocial = ob;
 					
 					if(!p.dni.isBlank()) {						
 						peticionController.AltaPeticion(peticion);
@@ -413,9 +412,19 @@ public class PeticionPanel {
 					p.nombre = nombre;
 					p.grupo = grupo;
 					p.id = practicasAsociadas.size() + 1;
-					pa.practicaDTO = p;
-					practicasAsociadas.add(pa);
-					limpiarPracticas();
+					p.estadoPractica = EstadoPractica.Habilitado;
+					
+					p = practicasController.AltaPractica(p);
+					
+	        		if(!p.nombre.isBlank()) {
+						pa.practicaDTO = p;
+						practicasAsociadas.add(pa);
+						limpiarPracticas();
+	        			alert("La práctica creó correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+	        		}else {
+	        			alert("Este práctica no se pudo modificar.", "Error", JOptionPane.ERROR_MESSAGE);
+	        		}
+					
 				}
 			}
 		});
@@ -428,13 +437,45 @@ public class PeticionPanel {
 				boolean peticionesCriticas = chckbxPeticionesCriticas.isSelected();
 				
 				if(!dni.isBlank()) {
+					PacienteController pc = PacienteController.getInstance();
+					PacienteDTO p = pc.ObtenerPaciente(Integer.parseInt(dni));
 					
+					if(peticionesCompletas) {
+						listPeticionesCompletas = peticionController.ObtenerPeticionesCompletasPorPaciente(p); //Enum: finalizada
+					}
+					
+					if(peticionesPendientes) {
+						try {
+							listPeticionesPendientes = peticionController.ObtenerPeticionesPendientesPorPaciente(p); //Enum: activas
+						} catch (Exception e1) {
+							e1.printStackTrace();
+						}
+					}
+					
+					if(peticionesCriticas) {
+						listPeticionesCriticas = peticionController.ObtenerPeticionesCriticasPorPaciente(p); //Enum: RetirarPorSucursal
+					}
+
+					mostrarPeticionesYPracticas(listPeticionesPendientes); //combinar listas
 				}
 			}
 		});
 		
+		tabbedPane_5.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				limpiarPracticas();
+				limpiarFormulario();
+			}
+		});
+		
 	}
-	
+
+	private void mostrarPeticionesYPracticas(List<PeticionDTO> list){
+		PeticionesYPracticas f = new PeticionesYPracticas(list);
+		f.setVisible(true);
+	}
+
+
     private void alert(String msg, String type, int pane) {
         JOptionPane.showMessageDialog(tabbedPane_5, msg, type, pane);
     }
@@ -448,5 +489,6 @@ public class PeticionPanel {
     	tDNI.setText("");
     	tNumSucursal.setText("");
     	tOB.setText("");
+    	tID.setText("");
     }
 }

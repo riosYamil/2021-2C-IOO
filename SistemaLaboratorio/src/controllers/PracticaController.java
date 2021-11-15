@@ -26,10 +26,10 @@ public class PracticaController {
         return p;
     }
 
-    public boolean BajaPractica(PracticaDTO p) {
+    public boolean BajaPractica(int id) {
         try {
             PracticaDAO practicaDAO = new PracticaDAO();
-            boolean fueBorrado = practicaDAO.BorrarPractica(p.id);
+            boolean fueBorrado = practicaDAO.BorrarPractica(id);
 
             if (!fueBorrado) {
                 //Do something
