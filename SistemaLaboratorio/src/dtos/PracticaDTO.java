@@ -2,6 +2,7 @@ package dtos;
 
 public class PracticaDTO {
     public int id;
+    public int peticionID;
     public String nombre;
     public String grupo;
     public int valorCriticoMin;

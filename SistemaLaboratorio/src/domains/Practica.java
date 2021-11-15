@@ -4,6 +4,7 @@ import dtos.PracticaDTO;
 
 public class Practica {
     private Integer id;
+    private int peticionID;
     private String nombre;
     private String grupo;
     private int valorCriticoMin;

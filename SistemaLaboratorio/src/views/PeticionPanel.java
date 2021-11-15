@@ -414,12 +414,14 @@ public class PeticionPanel {
 			public void actionPerformed(ActionEvent e) {
 				String nombre = tNombrePractica.getText();
 				String grupo = tGrupoPractica.getText();
+				String dni = tDNI.getText();
 
-				if(!nombre.isBlank() && !grupo.isBlank()) {
+				if(!nombre.isBlank() && !grupo.isBlank() && !dni.isBlank()) {
 					dtos.PracticaAsociadaDTO pa = new dtos.PracticaAsociadaDTO();
 					PracticaDTO p = new PracticaDTO();
 					p.nombre = nombre;
 					p.grupo = grupo;
+					p.peticionID  = Integer.parseInt(dni);
 					p.id = practicasAsociadas.size() + 1;
 					p.estadoPractica = EstadoPractica.Habilitado;
 					
