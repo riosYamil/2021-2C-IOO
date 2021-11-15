@@ -10,6 +10,7 @@ import dtos.PracticaDTO;
 import enums.EstadoPeticion;
 import enums.EstadoPractica;
 import enums.EstadoResultadoPractica;
+import enums.Rol;
 
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
@@ -70,9 +71,12 @@ public class PeticionPanel {
 		tabbedPane_5.setBounds(100, 100, 629, 476);
 		tabbedPane_5.add("Peticiones", setObtenerPeticiones());
 		tabbedPane_5.add("Alta", setAltaPeticiones());
-		tabbedPane_5.add("Baja", setBajaPeticiones());
-		tabbedPane_5.add("+", setNotificar());
 		
+		if (rol != Rol.Recepcion.toString()) {
+			tabbedPane_5.add("Baja", setBajaPeticiones());
+			tabbedPane_5.add("+", setNotificar());
+		}
+				
 		asociarEventos();
 		
 		return tabbedPane_5;
@@ -344,35 +348,40 @@ public class PeticionPanel {
 		PeticionController peticionController = PeticionController.getInstance();
 		PracticaController practicasController = PracticaController.getInstance();
 		
-		btnEnviarNot.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				JOptionPane.showMessageDialog(tabbedPane_5, "Se notific� correctamente", "Informaci�n",
-						JOptionPane.INFORMATION_MESSAGE);
-			}
-		});
-		
-		btnDeletePet.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String id = tID.getText();
-				
-				if(!id.isBlank()) {
-					boolean borrada = peticionController.BajaPeticion(Integer.parseInt(id));
+		if(btnEnviarNot != null) {
+			btnEnviarNot.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
 					
-					if(borrada) {
-						limpiarPracticas();
-						alert("La peticón se borró correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
-					}
-					else {
-						alert("No se pudo eliminar", "Error", JOptionPane.ERROR_MESSAGE);
-					}
-					
-				} else {
-					alert("No se reconocen ciertos datos.", "Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(tabbedPane_5, "Se notific� correctamente", "Informaci�n",
+							JOptionPane.INFORMATION_MESSAGE);
 				}
-			}
-		});
+			});
+		}
 		
+		if(btnDeletePet != null) {
+			btnDeletePet.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					String id = tID.getText();
+					
+					if(!id.isBlank()) {
+						boolean borrada = peticionController.BajaPeticion(Integer.parseInt(id));
+						
+						if(borrada) {
+							limpiarPracticas();
+							alert("La peticón se borró correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
+						}
+						else {
+							alert("No se pudo eliminar", "Error", JOptionPane.ERROR_MESSAGE);
+						}
+						
+					} else {
+						alert("No se reconocen ciertos datos.", "Error", JOptionPane.ERROR_MESSAGE);
+					}
+				}
+			});
+		}
+
+				
 		btnAddPet.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String dni = tDNI.getText();
@@ -489,6 +498,9 @@ public class PeticionPanel {
     	tDNI.setText("");
     	tNumSucursal.setText("");
     	tOB.setText("");
-    	tID.setText("");
+    	
+    	if(tID != null) {
+        	tID.setText("");
+    	}
     }
 }

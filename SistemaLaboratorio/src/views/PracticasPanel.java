@@ -9,6 +9,7 @@ import javax.swing.event.ChangeListener;
 import controllers.PracticaController;
 import dtos.PracticaDTO;
 import enums.EstadoPractica;
+import enums.Rol;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -49,12 +50,11 @@ public class PracticasPanel {
 		tabbedPane_4 = new JTabbedPane(JTabbedPane.LEFT);
 		tabbedPane_4.setBackground(Color.WHITE);
 		tabbedPane_4.setBounds(100, 100, 629, 476);
-		tabbedPane_4.add(setAltaPractica());
-		tabbedPane_4.add(setBajaPractica());
-		tabbedPane_4.setEnabledAt(0, true);
-		tabbedPane_4.setTitleAt(0, "Alta");
-		tabbedPane_4.setEnabledAt(1, true);
-		tabbedPane_4.setTitleAt(1, "Baja");
+		tabbedPane_4.add("Alta", setAltaPractica());
+
+		if(rol != Rol.Laboratista.toString()) {
+			tabbedPane_4.add("Baja", setBajaPractica());
+		}
 		
 		asociarEventos();
 		
@@ -325,25 +325,28 @@ public class PracticasPanel {
 	        	}
 	        });
 	    	
-	        btnDelete.addActionListener(new ActionListener() {
-	        	public void actionPerformed(ActionEvent e) {
-	        		String id = tID.getText();
-	        		
-	        		if(!id.isBlank()) {
-	        			if(pc.BajaPractica(Integer.parseInt(id))) {
-	        				limpiarFormulario();
-	        				 alert("Se eliminó correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
-	        			}
-	        			else {
-	        				alert("Este práctica no se pudo eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
-	        			}
-	        		}else {
-	                    alert("No se reconoce ese ID.", "Error", JOptionPane.ERROR_MESSAGE);
-	        		}
-	        		
+	        if(btnDelete != null) {
+		        btnDelete.addActionListener(new ActionListener() {
+		        	public void actionPerformed(ActionEvent e) {
+		        		String id = tID.getText();
+		        		
+		        		if(!id.isBlank()) {
+		        			if(pc.BajaPractica(Integer.parseInt(id))) {
+		        				limpiarFormulario();
+		        				 alert("Se eliminó correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+		        			}
+		        			else {
+		        				alert("Este práctica no se pudo eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
+		        			}
+		        		}else {
+		                    alert("No se reconoce ese ID.", "Error", JOptionPane.ERROR_MESSAGE);
+		        		}
+		        		
 
-	        	}
-	        });
+		        	}
+		        });
+	        }
+	        
 	        
 	        btnUpdatePractica.addActionListener(new ActionListener() {
 	        	public void actionPerformed(ActionEvent e) {
@@ -397,7 +400,9 @@ public class PracticasPanel {
 	    }
 	    
 	    private void limpiarFormulario() {
-	    	tID.setText("");
+	    	if(tID != null) {
+		    	tID.setText("");
+	    	}
 			tNombre.setText("");
 			tGrupo.setText("");
 			tValCriticoMax.setText("");

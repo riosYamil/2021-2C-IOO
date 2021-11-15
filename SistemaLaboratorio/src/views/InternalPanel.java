@@ -23,11 +23,10 @@ public class InternalPanel extends JTabbedPane {
 
 		if (rol == Rol.Recepcion.toString() || rol == Rol.Administrador.toString()) {
 			this.addTab("Pacientes", pnlPaciente.setPanelPaciente());
-			this.addTab("Peticiones", pnlPeticion.setPeticionesTab(rol)); //Recep: carga peticiones y consulta
+			this.addTab("Peticiones", pnlPeticion.setPeticionesTab(rol));
 		}
 		
 		if (rol == Rol.Laboratista.toString() || rol == Rol.Administrador.toString()) {
-			//Lab solo carga resultados de practicas
 			this.addTab("Prácticas", pnlPractica.setPracticasTab(rol));
 		}
 

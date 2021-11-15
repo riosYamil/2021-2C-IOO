@@ -15,7 +15,9 @@ import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;  
+import java.util.Date;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;  
 
 public class UsuarioPanel {
 	
@@ -482,6 +484,33 @@ public class UsuarioPanel {
     				tdni.setEnabled(true);
     				btnAddUs.setEnabled(true);
     				btnUpdateUs.setEnabled(false);
+	        	}
+	        });
+	        
+	        rdbtnAdmin.addPropertyChangeListener(new PropertyChangeListener() {
+	        	public void propertyChange(PropertyChangeEvent evt) {
+	        		if(rdbtnAdmin.isSelected()) {
+	        			rdbtnLab.setSelected(false);
+	        			rdbtnRecep.setSelected(false);
+	        		}
+	        	}
+	        });
+	        
+	        rdbtnLab.addPropertyChangeListener(new PropertyChangeListener() {
+	        	public void propertyChange(PropertyChangeEvent evt) {
+	        		if(rdbtnLab.isSelected()) {
+	        			rdbtnAdmin.setSelected(false);
+	        			rdbtnRecep.setSelected(false);
+	        		}
+	        	}
+	        });
+	        
+	        rdbtnRecep.addPropertyChangeListener(new PropertyChangeListener() {
+	        	public void propertyChange(PropertyChangeEvent evt) {
+	        		if(rdbtnRecep.isSelected()) {
+	        			rdbtnAdmin.setSelected(false);
+	        			rdbtnLab.setSelected(false);
+	        		}
 	        	}
 	        });
 	        
