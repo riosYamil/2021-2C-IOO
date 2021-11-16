@@ -418,23 +418,29 @@ public class PacientePanel{
         btnAddPac.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 				PacienteDTO p = new PacienteDTO();
-				p.dni = tdni.getText();
-				p.nombre = tNombre.getText();
-				p.domicilio = tDomicilio.getText();
-				p.edad = Integer.parseInt(tEdad.getText());
-				p.sexo = tSexo.getText();
-				p.mail = tMail.getText();
-				p.id = Integer.parseInt(tdni.getText());
-				p.estado = EstadoPaciente.Activo;
-				
-				if(!p.dni.isBlank() && !p.nombre.isBlank() && !p.mail.isBlank() && !p.domicilio.isBlank() && !p.sexo.isBlank()) {
+				String dni = tdni.getText();
+				String nombre = tNombre.getText();
+				String domicilio = tDomicilio.getText();
+				String edad = tEdad.getText();
+				String sexo = tSexo.getText();
+				String mail = tMail.getText();
+
+				if(!dni.isBlank() && !nombre.isBlank() && !mail.isBlank() && !domicilio.isBlank() && !sexo.isBlank() && !edad.isBlank()) {
+					p.dni = dni;
+					p.nombre = nombre;
+					p.domicilio = domicilio;
+					p.edad = Integer.parseInt(edad);
+					p.sexo = sexo;
+					p.mail = mail;
+					p.id = Integer.parseInt(dni);
+					p.estado = EstadoPaciente.Activo;
 					p = pacienteController.AltaPaciente(p);
-					if(!p.dni.isBlank()) {
+					if(p != null) {
 						limpiarFormulario();
 						alert("Se creó correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
 					}
 					else {
-						alert("Hubo un error al intentar crear el paciente", "Error", JOptionPane.ERROR_MESSAGE);
+						alert("El paciente ya existe.", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				}else {
 					alert("Falta información.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -525,7 +531,7 @@ public class PacientePanel{
     				alert("El paciente se borró correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
         		}
         		else {
-                    alert("Este paciente no se puede eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
+                    alert("Este paciente tiene peticiones finalizadas y no se puede eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
         		}
         	}
         });

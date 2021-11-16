@@ -349,7 +349,7 @@ public class SucursalPanel {
 						limpiarFormulario();
         				alert("Se borró correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
         			}else {
-        				alert("La sucursal no se puede eliminar, tiene peticiones pendientes.", "Error", JOptionPane.ERROR_MESSAGE);
+        				alert("La sucursal no se puede eliminar, tiene peticiones finalizadas.", "Error", JOptionPane.ERROR_MESSAGE);
         			}
 
         		}

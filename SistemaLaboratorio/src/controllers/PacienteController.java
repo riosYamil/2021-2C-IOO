@@ -2,6 +2,7 @@ package controllers;
 
 import dao.PacienteDAO;
 import dtos.PacienteDTO;
+import dtos.SucursalDTO;
 import services.PacienteService;
 
 public class PacienteController {
@@ -20,7 +21,12 @@ public class PacienteController {
     public PacienteDTO AltaPaciente(PacienteDTO p) {
         try {
             PacienteDAO pacienteDAO = new PacienteDAO();
-            pacienteDAO.CrearPaciente(p);
+            if(!verificarSiSucursalExiste(p.id)) { 
+                pacienteDAO.CrearPaciente(p);
+            }
+            else {
+            	p = null;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -70,5 +76,14 @@ public class PacienteController {
             e.printStackTrace();
         }
         return p;
+    }
+    
+    public boolean verificarSiSucursalExiste(int id) {
+    	boolean existe = false;
+    	PacienteDTO p = ObtenerPaciente(id);
+        if(p != null){
+            existe = true;
+        }
+    	return existe;
     }
 }
