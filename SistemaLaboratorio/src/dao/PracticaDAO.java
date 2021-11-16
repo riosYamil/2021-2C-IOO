@@ -12,7 +12,7 @@ public class PracticaDAO extends utils.GenericDAO {
 
     public void CrearPractica(PracticaDTO p) throws Exception {
         try {
-            if (!Objects.isNull(this.search(p.id))){
+            if (!Objects.isNull(ObtenerPractica(p.id))){
                 throw new Exception("Practica ya existente");
             }
             this.save(p);

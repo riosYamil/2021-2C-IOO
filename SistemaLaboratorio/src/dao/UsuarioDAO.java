@@ -15,7 +15,7 @@ public class UsuarioDAO extends utils.GenericDAO {
 
     public void CrearUsuario(UsuarioDTO u) throws Exception {
         try {
-            if (!Objects.isNull(this.search(u.id))){
+            if (!Objects.isNull(ObtenerUsuario(u.id))){
                 throw new Exception("Usuario ya existente");
             }
 

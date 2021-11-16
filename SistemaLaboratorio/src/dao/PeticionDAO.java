@@ -14,7 +14,7 @@ public class PeticionDAO extends utils.GenericDAO {
 
     public void CrearPeticion(PeticionDTO p) throws Exception {
         try {
-            if (!Objects.isNull(this.search(p.id))){
+            if (!Objects.isNull(ObtenerPeticion(p.id))){
                 throw new Exception("Petición ya existente");
             }
             this.save(p);

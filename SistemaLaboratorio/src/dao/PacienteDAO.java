@@ -13,7 +13,7 @@ public class PacienteDAO extends utils.GenericDAO {
 
     public void CrearPaciente(PacienteDTO p) throws Exception {
         try {
-            if (!Objects.isNull(this.search(p.id))){
+            if (!Objects.isNull(ObtenerPaciente(p.id))){
                 throw new Exception("Paciente ya existente");
             }
             this.save(p);
