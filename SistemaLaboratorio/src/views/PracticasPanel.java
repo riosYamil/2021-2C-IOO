@@ -412,18 +412,15 @@ public class PracticasPanel {
 
 							if (pc.EstaHabilitada(estado, Integer.parseInt(id))) {
 								lblHabliticacion_1.setText("SI");
+								setearFormulario(true);
+							}
+							else {
+								setearFormulario(false);
 							}
 							setearEstados();
 
 							tid.setEnabled(false);
 							tPeticionID.setEnabled(false);
-							tResultado.setEditable(true);
-							tValCriticoMax.setEditable(true);
-							tValCriticoMin.setEditable(true);
-							tValReservadoMax.setEditable(true);
-							tValReservadoMin.setEditable(true);
-							rdbtnPendiente.setEnabled(true);
-							btnUpdatePractica.setEnabled(true);
 						}
 					} catch (Exception ex) {
 						alert("No se pudo obtener la practica ingresada (" + ex.getMessage() + ").", "Error", JOptionPane.ERROR_MESSAGE);
@@ -597,6 +594,19 @@ public class PracticasPanel {
 
 	}
 
+	private void setearFormulario(boolean set){
+		tResultado.setEditable(set);
+		tValCriticoMax.setEditable(set);
+		tValCriticoMin.setEditable(set);
+		tValReservadoMax.setEditable(set);
+		tValReservadoMin.setEditable(set);
+		rdbtnPendiente.setEnabled(set);
+		rdbtnCritico.setEnabled(set);
+		rdbtnNormal.setEnabled(set);
+		rdbtnReservado.setEnabled(set);
+		btnUpdatePractica.setEnabled(set);
+	}
+
 	private void setearEstados() {
 		if (estado == EstadoResultadoPractica.Pendiente) {
 			rdbtnPendiente.setSelected(true);
@@ -631,7 +641,7 @@ public class PracticasPanel {
 		tValReservadoMin.setText("");
 		tResultado.setText("");
 		tid.setEnabled(true);
-		tPeticionID.setEditable(true);
+		tPeticionID.setEnabled(true);
 		tValCriticoMax.setEditable(false);
 		tValCriticoMin.setEditable(false);
 		tValReservadoMax.setEditable(false);
