@@ -56,6 +56,7 @@ public class PracticasPanel {
 	private JLabel lblHabilitacion;
 	private JLabel lblHabliticacion_1;
 	private EstadoResultadoPractica estado;
+	private JTextField tResultado;
 
 	/**
 	 * @wbp.parser.entryPoint
@@ -232,137 +233,148 @@ public class PracticasPanel {
 		lblHabilitacion = new JLabel("Está habilitada: ");
 
 		lblHabliticacion_1 = new JLabel("NO");
+		
+		JLabel lblResultado = new JLabel("RESULTADO DE LA PRACTICA");
+		
+		tResultado = new JTextField();
+		tResultado.setEditable(false);
+		tResultado.setColumns(10);
 
 		// Layout
 		GroupLayout gl_Alta = new GroupLayout(Alta);
 		gl_Alta.setHorizontalGroup(
-				gl_Alta.createParallelGroup(Alignment.LEADING)
+			gl_Alta.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_Alta.createSequentialGroup()
+					.addGap(31)
+					.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_Alta.createSequentialGroup()
-								.addGap(31)
+							.addComponent(btnUpdatePractica)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnLimpiar)
+							.addGap(372))
+						.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
+							.addGroup(gl_Alta.createSequentialGroup()
+								.addComponent(lblRol)
+								.addGap(18)
+								.addComponent(rdbtnPendiente)
+								.addPreferredGap(ComponentPlacement.UNRELATED)
+								.addComponent(rdbtnNormal)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(rdbtnCritico)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(rdbtnReservado)
+								.addGap(165))
+							.addGroup(gl_Alta.createSequentialGroup()
 								.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
-										.addGroup(gl_Alta.createSequentialGroup()
-												.addComponent(btnUpdatePractica)
-												.addPreferredGap(ComponentPlacement.RELATED)
-												.addComponent(btnLimpiar)
-												.addGap(372))
+									.addComponent(lblPractica)
+									.addGroup(gl_Alta.createSequentialGroup()
 										.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
-												.addGroup(gl_Alta.createSequentialGroup()
-														.addComponent(lblRol)
-														.addGap(18)
-														.addComponent(rdbtnPendiente)
-														.addPreferredGap(ComponentPlacement.UNRELATED)
-														.addComponent(rdbtnNormal)
-														.addPreferredGap(ComponentPlacement.RELATED)
-														.addComponent(rdbtnCritico)
-														.addPreferredGap(ComponentPlacement.RELATED)
-														.addComponent(rdbtnReservado)
-														.addGap(165))
-												.addGroup(gl_Alta.createSequentialGroup()
-														.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
-																.addComponent(lblPractica)
-																.addGroup(gl_Alta.createSequentialGroup()
-																		.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
-																				.addGroup(gl_Alta.createSequentialGroup()
-																						.addGroup(gl_Alta.createParallelGroup(Alignment.TRAILING)
-																								.addComponent(tNombre, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
-																								.addGroup(gl_Alta.createSequentialGroup()
-																										.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING, false)
-																												.addComponent(lblValCriticoMax, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-																												.addComponent(tValCriticoMax)
-																												.addComponent(lblValReservadoMax, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-																												.addComponent(tValReservadoMax))
-																										.addGap(18)
-																										.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
-																												.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
-																														.addComponent(tValCriticoMin, GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-																														.addComponent(lblValCriticoMin, GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-																														.addComponent(tValReservadoMin, GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
-																												.addComponent(lblValReservadoMin))))
-																						.addGap(18))
-																				.addGroup(gl_Alta.createSequentialGroup()
-																						.addComponent(lblNombre)
-																						.addGap(232)))
-																		.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
-																				.addComponent(lblGrupo)
-																				.addComponent(tGrupo, GroupLayout.PREFERRED_SIZE, 176, GroupLayout.PREFERRED_SIZE)
-																				.addComponent(lblTiempoEstimado)
-																				.addComponent(lblTiempo)
-																				.addGroup(gl_Alta.createSequentialGroup()
-																						.addGap(13)
-																						.addComponent(lblHabilitacion)
-																						.addPreferredGap(ComponentPlacement.RELATED)
-																						.addComponent(lblHabliticacion_1)))
-																		.addGap(53)))
-														.addGap(75))
-												.addGroup(gl_Alta.createSequentialGroup()
-														.addGroup(gl_Alta.createParallelGroup(Alignment.TRAILING)
-																.addComponent(tid, GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-																.addComponent(lblID, GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
+											.addGroup(gl_Alta.createSequentialGroup()
+												.addGroup(gl_Alta.createParallelGroup(Alignment.TRAILING)
+													.addComponent(tNombre, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+													.addGroup(gl_Alta.createSequentialGroup()
+														.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING, false)
+															.addComponent(lblValCriticoMax, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+															.addComponent(tValCriticoMax)
+															.addComponent(lblValReservadoMax, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+															.addComponent(tValReservadoMax))
 														.addGap(18)
 														.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
-																.addComponent(tPeticionID, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
-																.addComponent(lblPeticion))
-														.addGap(495)))))
-						.addGroup(gl_Alta.createSequentialGroup()
-								.addGap(160)
-								.addComponent(btnObtenerPractica, GroupLayout.PREFERRED_SIZE, 227, GroupLayout.PREFERRED_SIZE)
-								.addContainerGap(254, Short.MAX_VALUE))
+															.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
+																.addComponent(tValCriticoMin, GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+																.addComponent(lblValCriticoMin, GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+																.addComponent(tValReservadoMin, GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
+															.addComponent(lblValReservadoMin))))
+												.addGap(18))
+											.addGroup(gl_Alta.createSequentialGroup()
+												.addComponent(lblNombre)
+												.addGap(232)))
+										.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING, false)
+											.addComponent(lblGrupo)
+											.addComponent(tGrupo, GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+											.addGroup(gl_Alta.createSequentialGroup()
+												.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
+													.addComponent(lblTiempoEstimado)
+													.addComponent(lblHabilitacion))
+												.addPreferredGap(ComponentPlacement.UNRELATED)
+												.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
+													.addComponent(lblHabliticacion_1)
+													.addComponent(lblTiempo)))
+											.addComponent(lblResultado)
+											.addComponent(tResultado))
+										.addGap(53)))
+								.addGap(75))
+							.addGroup(gl_Alta.createSequentialGroup()
+								.addGroup(gl_Alta.createParallelGroup(Alignment.TRAILING)
+									.addComponent(tid, GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+									.addComponent(lblID, GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
+								.addGap(18)
+								.addGroup(gl_Alta.createParallelGroup(Alignment.LEADING)
+									.addComponent(tPeticionID, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
+									.addComponent(lblPeticion))
+								.addGap(495)))))
+				.addGroup(gl_Alta.createSequentialGroup()
+					.addGap(160)
+					.addComponent(btnObtenerPractica, GroupLayout.PREFERRED_SIZE, 227, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(254, Short.MAX_VALUE))
 		);
 		gl_Alta.setVerticalGroup(
-				gl_Alta.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_Alta.createSequentialGroup()
-								.addGap(23)
-								.addComponent(btnObtenerPractica, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addGap(18)
-								.addComponent(lblPractica)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addGroup(gl_Alta.createParallelGroup(Alignment.BASELINE)
-										.addComponent(lblPeticion)
-										.addComponent(lblID))
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addGroup(gl_Alta.createParallelGroup(Alignment.BASELINE)
-										.addComponent(tid, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
-										.addComponent(tPeticionID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addGroup(gl_Alta.createParallelGroup(Alignment.BASELINE)
-										.addComponent(lblNombre)
-										.addComponent(lblGrupo))
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addGroup(gl_Alta.createParallelGroup(Alignment.BASELINE)
-										.addComponent(tNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(tGrupo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addPreferredGap(ComponentPlacement.UNRELATED)
-								.addGroup(gl_Alta.createParallelGroup(Alignment.BASELINE)
-										.addComponent(lblValCriticoMax)
-										.addComponent(lblValCriticoMin)
-										.addComponent(lblTiempoEstimado))
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addGroup(gl_Alta.createParallelGroup(Alignment.BASELINE)
-										.addComponent(tValCriticoMax, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(tValCriticoMin, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblTiempo))
-								.addGap(14)
-								.addGroup(gl_Alta.createParallelGroup(Alignment.BASELINE)
-										.addComponent(lblValReservadoMax)
-										.addComponent(lblValReservadoMin))
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addGroup(gl_Alta.createParallelGroup(Alignment.BASELINE)
-										.addComponent(tValReservadoMax, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(tValReservadoMin, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblHabilitacion)
-										.addComponent(lblHabliticacion_1))
-								.addGap(18)
-								.addGroup(gl_Alta.createParallelGroup(Alignment.BASELINE)
-										.addComponent(lblRol)
-										.addComponent(rdbtnPendiente)
-										.addComponent(rdbtnNormal)
-										.addComponent(rdbtnCritico)
-										.addComponent(rdbtnReservado))
-								.addPreferredGap(ComponentPlacement.UNRELATED)
-								.addGroup(gl_Alta.createParallelGroup(Alignment.BASELINE)
-										.addComponent(btnUpdatePractica)
-										.addComponent(btnLimpiar))
-								.addContainerGap(123, Short.MAX_VALUE))
+			gl_Alta.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_Alta.createSequentialGroup()
+					.addGap(23)
+					.addComponent(btnObtenerPractica, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(lblPractica)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_Alta.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblPeticion)
+						.addComponent(lblID))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_Alta.createParallelGroup(Alignment.BASELINE)
+						.addComponent(tid, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+						.addComponent(tPeticionID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_Alta.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNombre)
+						.addComponent(lblGrupo))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_Alta.createParallelGroup(Alignment.BASELINE)
+						.addComponent(tNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(tGrupo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_Alta.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblValCriticoMax)
+						.addComponent(lblValCriticoMin)
+						.addComponent(lblTiempoEstimado)
+						.addComponent(lblTiempo))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_Alta.createParallelGroup(Alignment.BASELINE)
+						.addComponent(tValCriticoMax, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(tValCriticoMin, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblHabilitacion)
+						.addComponent(lblHabliticacion_1))
+					.addGap(14)
+					.addGroup(gl_Alta.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblValReservadoMax)
+						.addComponent(lblValReservadoMin)
+						.addComponent(lblResultado))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_Alta.createParallelGroup(Alignment.BASELINE)
+						.addComponent(tValReservadoMax, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(tValReservadoMin, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(tResultado, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addGroup(gl_Alta.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblRol)
+						.addComponent(rdbtnPendiente)
+						.addComponent(rdbtnNormal)
+						.addComponent(rdbtnCritico)
+						.addComponent(rdbtnReservado))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_Alta.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnUpdatePractica)
+						.addComponent(btnLimpiar))
+					.addContainerGap(124, Short.MAX_VALUE))
 		);
 		Alta.setLayout(gl_Alta);
 
@@ -382,35 +394,40 @@ public class PracticasPanel {
 				if (!id.isBlank() && !idPeticion.isBlank()) {
 					PracticaDTO practica = new PracticaDTO();
 					PeticionDTO peticion = new PeticionDTO();
+
 					try {
-						peticion = peticionController.ObtenerPeticion(Integer.parseInt(idPeticion));
-						practica = pc.ObtenerPractica(Integer.parseInt(id));
+						if(peticionController.ExistePeticion(Integer.parseInt(idPeticion))) {
+							peticion = peticionController.ObtenerPeticion(Integer.parseInt(idPeticion));
+							practica = pc.ObtenerPractica(Integer.parseInt(id));
+
+							tNombre.setText(practica.nombre);
+							tGrupo.setText(practica.grupo);
+							tValCriticoMax.setText(String.valueOf(practica.valorCriticoMax));
+							tValCriticoMin.setText(String.valueOf(practica.valorCriticoMin));
+							tValReservadoMax.setText(String.valueOf(practica.valorReservadoMax));
+							tValReservadoMin.setText(String.valueOf(practica.valorReservadoMin));
+							PracticaAsociadaDTO pa = pc.ObtenerPracticaAsocidada(peticion.practicasAsociadas, Integer.parseInt(id));
+							estado = pa.resultadoPractica;
+							tResultado.setText(String.valueOf(pa.resultado));
+
+							if (pc.EstaHabilitada(estado, Integer.parseInt(id))) {
+								lblHabliticacion_1.setText("SI");
+							}
+							setearEstados();
+
+							tid.setEnabled(false);
+							tPeticionID.setEnabled(false);
+							tResultado.setEditable(true);
+							tValCriticoMax.setEditable(true);
+							tValCriticoMin.setEditable(true);
+							tValReservadoMax.setEditable(true);
+							tValReservadoMin.setEditable(true);
+							rdbtnPendiente.setEnabled(true);
+							btnUpdatePractica.setEnabled(true);
+						}
 					} catch (Exception ex) {
 						alert("No se pudo obtener la practica ingresada (" + ex.getMessage() + ").", "Error", JOptionPane.ERROR_MESSAGE);
 					}
-					tNombre.setText(practica.nombre);
-					tGrupo.setText(practica.grupo);
-					tValCriticoMax.setText(String.valueOf(practica.valorCriticoMax));
-					tValCriticoMin.setText(String.valueOf(practica.valorCriticoMin));
-					tValReservadoMax.setText(String.valueOf(practica.valorReservadoMax));
-					tValReservadoMin.setText(String.valueOf(practica.valorReservadoMin));
-					estado = pc.ObtenerEstadoResultadoPractica(peticion.practicasAsociadas, Integer.parseInt(id));
-
-					if (pc.EstaHabilitada(estado, Integer.parseInt(id))) {
-						lblHabliticacion_1.setText("SI");
-					}
-					;
-
-					setearEstados();
-
-					tid.setEnabled(false);
-					tPeticionID.setEditable(false);
-					tValCriticoMax.setEditable(true);
-					tValCriticoMin.setEditable(true);
-					tValReservadoMax.setEditable(true);
-					tValReservadoMin.setEditable(true);
-					rdbtnPendiente.setEnabled(true);
-					btnUpdatePractica.setEnabled(true);
 				} else {
 					alert("No se reconoce ese ID.", "Error", JOptionPane.ERROR_MESSAGE);
 				}
@@ -462,6 +479,7 @@ public class PracticasPanel {
 				String valorReservadoMin = tValReservadoMin.getText();
 				String valorCriticoMax = tValCriticoMax.getText();
 				String valorCriticoMin = tValCriticoMin.getText();
+				String resultado = tResultado.getText();
 
 				PracticaDTO p = new PracticaDTO();
 				p.id = Integer.parseInt(id);
@@ -494,19 +512,21 @@ public class PracticasPanel {
 					p.estadoPractica = EstadoPractica.Inhabilidado;
 				}
 
-				if (p.valorCriticoMax > p.valorCriticoMin && p.valorReservadoMax > p.valorReservadoMin) {
+				if (p.valorCriticoMax > p.valorCriticoMin && p.valorReservadoMax > p.valorReservadoMin && !resultado.isBlank()) {
 
 					try {
 						PeticionDTO peticion = peticionController.ObtenerPeticion(Integer.parseInt(idPeticion));
 						for (PracticaAsociadaDTO practicasAsociada : peticion.practicasAsociadas) {
 							if (practicasAsociada.practicaID == p.id) {
 								practicasAsociada.resultadoPractica = estado;
+								practicasAsociada.resultado = Integer.parseInt(resultado);
 							}
 
 						}
 						peticionController.ModificarPeticion(peticion);
 
 						if (pc.ModificarPractica(p)) {
+							limpiarFormulario();
 							alert("Se modificó correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
 						} else {
 							alert("Esta práctica no se pudo modificar.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -609,6 +629,7 @@ public class PracticasPanel {
 		tValCriticoMin.setText("");
 		tValReservadoMax.setText("");
 		tValReservadoMin.setText("");
+		tResultado.setText("");
 		tid.setEnabled(true);
 		tPeticionID.setEditable(true);
 		tValCriticoMax.setEditable(false);

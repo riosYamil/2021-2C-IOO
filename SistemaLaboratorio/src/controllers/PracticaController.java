@@ -71,15 +71,15 @@ public class PracticaController {
         return pdto;
     }
     
-    public EstadoResultadoPractica ObtenerEstadoResultadoPractica(List<PracticaAsociadaDTO> pa, int id) {
-    	EstadoResultadoPractica estado = null;
+    public PracticaAsociadaDTO ObtenerPracticaAsocidada(List<PracticaAsociadaDTO> pa, int id) {
+    	PracticaAsociadaDTO p = null;
     	for (PracticaAsociadaDTO practicasAsociada : pa) {
         	if(practicasAsociada.practicaID == id) {
-        		estado = practicasAsociada.resultadoPractica;
+        		p = practicasAsociada;
         	}
 
         }
-		return estado;
+		return p;
     }
     
     public boolean EstaHabilitada(EstadoResultadoPractica e, int id) {

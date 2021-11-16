@@ -12,6 +12,7 @@ import services.PeticionService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class PeticionController {
     static PeticionController instance=null;
@@ -62,7 +63,7 @@ public class PeticionController {
         try {
             PeticionDAO peticionDAO = new PeticionDAO();
             PeticionService peticionService = new PeticionService();
-            p.estadoPeticion = peticionService.DeterminarEstado(p);
+            //p.estadoPeticion =  peticionService.DeterminarEstado(p); VER
 
             boolean fueActualizado = peticionDAO.ActualizarPeticion(p);
             if (!fueActualizado) {
@@ -83,6 +84,14 @@ public class PeticionController {
             throw e;
         }
         return p;
+    }
+
+    public boolean ExistePeticion(int id) throws Exception {
+        boolean existe = true;
+        if (Objects.isNull(ObtenerPeticion(id))){
+            throw new Exception("Petición no existe");
+        }
+        return existe;
     }
 
     public void EnviarNotificacion() {

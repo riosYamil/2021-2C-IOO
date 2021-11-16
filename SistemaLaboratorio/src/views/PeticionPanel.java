@@ -56,9 +56,7 @@ public class PeticionPanel {
 	private JLabel lblNumeroSucursal;
 	
 	private List<PracticaAsociadaDTO> practicasAsociadas = new ArrayList<PracticaAsociadaDTO>();
-	private List<PeticionDTO> listPeticionesCompletas = new ArrayList<PeticionDTO>();
-	private List<PeticionDTO> listPeticionesPendientes = new ArrayList<PeticionDTO>();
-	private List<PeticionDTO> listPeticionesCriticas = new ArrayList<PeticionDTO>();
+	private List<PeticionDTO> listPeticiones = new ArrayList<PeticionDTO>();
 
 
 	/**
@@ -403,6 +401,7 @@ public class PeticionPanel {
 						if(!p.dni.isBlank()) {
 							peticionController.AltaPeticion(peticion);
 							limpiarFormulario();
+							limpiarListas();
 							alert("Se agregó correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
 						}
 					} catch (Exception ex){
@@ -427,13 +426,17 @@ public class PeticionPanel {
 					p.grupo = grupo;
 					p.peticionID  = Integer.parseInt(dni);
 					p.id = practicasAsociadas.size() + 1;
+					p.valorCriticoMax = 0;
+					p.valorCriticoMin = 0;
+					p.valorReservadoMax = 0;
+					p.valorReservadoMin = 0;
 					p.estadoPractica = EstadoPractica.Habilitado;
 
 					try {
 						p = practicasController.AltaPractica(p);
 						pa.practicaID = p.id;
 						pa.resultadoPractica = EstadoResultadoPractica.Pendiente;
-						pa.resultado = null;
+						pa.resultado = 0;
 						practicasAsociadas.add(pa);
 						limpiarPracticas();
 						alert("La práctica creó correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
@@ -458,25 +461,25 @@ public class PeticionPanel {
 						PacienteDTO p = pc.ObtenerPaciente(Integer.parseInt(dni));
 
 						if (peticionesCompletas) {
-							listPeticionesCompletas = peticionController.ObtenerPeticionesCompletasPorPaciente(p.id); //Enum: finalizada
+							listPeticiones.addAll(peticionController.ObtenerPeticionesCompletasPorPaciente(p.id)); //Enum: finalizada
 						}
 
 						if (peticionesPendientes) {
 							try {
-								listPeticionesPendientes = peticionController.ObtenerPeticionesPendientesPorPaciente(p.id); //Enum: activas
+								listPeticiones.addAll(peticionController.ObtenerPeticionesPendientesPorPaciente(p.id)); //Enum: activas
 							} catch (Exception e1) {
 								e1.printStackTrace();
 							}
 						}
 
 						if (peticionesCriticas) {
-							listPeticionesCriticas = peticionController.ObtenerPeticionesCriticasPorPaciente(p.id); //Enum: RetirarPorSucursal
+							listPeticiones.addAll(peticionController.ObtenerPeticionesCriticasPorPaciente(p.id)); //Enum: RetirarPorSucursal
 						}
 					} catch (Exception ex){
 						alert("No fue posible obtener la petición (" + ex.getMessage() + ").", "Error", JOptionPane.ERROR_MESSAGE);
 
 					}
-					mostrarPeticionesYPracticas(listPeticionesPendientes); //combinar listas
+					mostrarPeticionesYPracticas(listPeticiones);
 
 				}
 			}
