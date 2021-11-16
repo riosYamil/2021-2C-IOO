@@ -27,16 +27,24 @@ public class PracticaAsociada {
 
     public boolean TieneValoresReservados() {
         PracticaController practicaController = PracticaController.getInstance();
-        PracticaDTO practicaDTO = practicaController.ObtenerPractica(this.practicaID);
-
+        PracticaDTO practicaDTO = new PracticaDTO();
+        try {
+            practicaDTO = practicaController.ObtenerPractica(this.practicaID);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         Practica practica = new Practica(practicaDTO);
         return practica.EsUnValorReservado(resultado);
     }
 
     public boolean TieneValoresCriticos() {
         PracticaController practicaController = PracticaController.getInstance();
-        PracticaDTO practicaDTO = practicaController.ObtenerPractica(this.practicaID);
-
+        PracticaDTO practicaDTO = new PracticaDTO();
+        try {
+            practicaDTO = practicaController.ObtenerPractica(this.practicaID);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         Practica practica = new Practica(practicaDTO);
         return practica.EsUnValorCritico(resultado);
     }

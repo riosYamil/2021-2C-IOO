@@ -3,9 +3,6 @@ package services;
 import controllers.PeticionController;
 import domains.Peticion;
 import dtos.PeticionDTO;
-import dtos.PracticaAsociadaDTO;
-import enums.EstadoPeticion;
-import enums.EstadoResultadoPractica;
 
 import java.util.List;
 

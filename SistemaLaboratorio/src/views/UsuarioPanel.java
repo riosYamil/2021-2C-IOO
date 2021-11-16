@@ -12,13 +12,9 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Date;
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;  
+import java.util.Date;
 
 public class UsuarioPanel {
 	
@@ -411,17 +407,17 @@ public class UsuarioPanel {
 	        btnDeleteUs.addActionListener(new ActionListener() {
 	        	public void actionPerformed(ActionEvent e) {
 	        		String dni = tDNI.getText();
-	        		
 
-	        			if(usuarioController.BajaUsuario(Integer.parseInt(dni))) {
-	        				limpiarFormulario();
-		        			alert("Se eliminó correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
-	        			}
-	        			else {
-	        				 alert("Este usuario no se pudo eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
-	        			}
-
-
+					try {
+						if (usuarioController.BajaUsuario(Integer.parseInt(dni))) {
+							limpiarFormulario();
+							alert("Se eliminó correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+						} else {
+							alert("Este usuario no se pudo eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
+						}
+					} catch (Exception ex) {
+						alert("Este usuario no se pudo eliminar (" + ex.getMessage() + ").", "Error", JOptionPane.ERROR_MESSAGE);
+					}
 	        	}
 	        });
 	        

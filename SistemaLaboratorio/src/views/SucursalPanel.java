@@ -318,16 +318,14 @@ public class SucursalPanel {
                 	UsuarioDTO u = UsuarioController.getInstance().ObtenerUsuario(Integer.parseInt(rt));
 
 					if (u != null) {
-						s = sucursalController.AltaSucursal(s);
-
-						if(s == null) {
-							alert("Ya existe.", "Error", JOptionPane.ERROR_MESSAGE);
-						}
-						else {
+						try {
+							sucursalController.AltaSucursal(s);
 							limpiarFormulario();
 							alert("Se agregó correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
+						} catch (Exception ex) {
+							alert("No se pudo dar de alta la sucursal (" + ex.getMessage() + ").", "Error", JOptionPane.ERROR_MESSAGE);
 						}
-					}else {
+					} else {
 						alert("No se reconoce el DNI.", "Error", JOptionPane.ERROR_MESSAGE);
 					}
             	}
@@ -344,15 +342,18 @@ public class SucursalPanel {
         		
         		if(!num.isBlank() && !numNuevo.isBlank()) {
         			SucursalDTO s = new SucursalDTO();
-        			s = sucursalController.ObtenerSucursal(Integer.parseInt(num));
-        			
-        			if(sucursalController.BajaSucursal(s.id)) {
-						limpiarFormulario();
-        				alert("Se borró correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
-        			}else {
-        				alert("La sucursal no se puede eliminar, tiene peticiones finalizadas.", "Error", JOptionPane.ERROR_MESSAGE);
-        			}
 
+        			try {
+						s = sucursalController.ObtenerSucursal(Integer.parseInt(num));
+						if(sucursalController.BajaSucursal(s.id)) {
+							limpiarFormulario();
+							alert("Se borró correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
+						}else {
+							alert("La sucursal no se puede eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
+						}
+					} catch (Exception ex){
+						alert("La sucursal no se puede eliminar (" + ex.getMessage() + ").", "Error", JOptionPane.ERROR_MESSAGE);
+					}
         		}
         	}
         });
@@ -360,19 +361,22 @@ public class SucursalPanel {
 		btnObtenerSuc.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
         		String num = tNumMod.getText();
-        		
-        		if(!num.isBlank()) {
-        			SucursalDTO s = new SucursalDTO();
-        			s = sucursalController.ObtenerSucursal(Integer.parseInt(num));
-        			
-        			tDireccionMod.setText(s.direccion);
-        			tResponsableTecnicoMod.setText(String.valueOf(s.responsableTecnicoDNI));
-        			btnUpdateSuc.setEnabled(true);
-        			tNumMod.setEnabled(false);
-        			btnObtenerSuc.setEnabled(false);
-        		} else {
-        			alert("No se pudo obtener sucursal.", "Error", JOptionPane.ERROR_MESSAGE);
-        		}
+
+        		try {
+					if (!num.isBlank()) {
+						SucursalDTO s = sucursalController.ObtenerSucursal(Integer.parseInt(num));
+
+						tDireccionMod.setText(s.direccion);
+						tResponsableTecnicoMod.setText(String.valueOf(s.responsableTecnicoDNI));
+						btnUpdateSuc.setEnabled(true);
+						tNumMod.setEnabled(false);
+						btnObtenerSuc.setEnabled(false);
+					} else {
+						alert("No se pudo obtener sucursal.", "Error", JOptionPane.ERROR_MESSAGE);
+					}
+				}catch (Exception ex){
+					alert("No se pudo obtener sucursal (" + ex.getMessage() + ").", "Error", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		
@@ -392,15 +396,18 @@ public class SucursalPanel {
 						s.direccion = dir;
 						s.responsableTecnicoDNI = Integer.parseInt(rt);
 
-						if(sucursalController.ModificarSucursal(s)) {
-							limpiarFormulario();
-							btnUpdateSuc.setEnabled(false);
-							tNumMod.setEnabled(true);
-							btnObtenerSuc.setEnabled(true);
-							alert("Se modificó correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
-						}
-						else {
-							alert("No se pudo modificar.", "Error", JOptionPane.ERROR_MESSAGE);
+						try {
+							if (sucursalController.ModificarSucursal(s)) {
+								limpiarFormulario();
+								btnUpdateSuc.setEnabled(false);
+								tNumMod.setEnabled(true);
+								btnObtenerSuc.setEnabled(true);
+								alert("Se modificó correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
+							} else {
+								alert("No se pudo modificar.", "Error", JOptionPane.ERROR_MESSAGE);
+							}
+						} catch (Exception ex){
+							alert("No se pudo modificar (" + ex.getMessage() + ").", "Error", JOptionPane.ERROR_MESSAGE);
 						}
 					} else {
 						alert("No se reconoce ese usuario.", "Error", JOptionPane.ERROR_MESSAGE);

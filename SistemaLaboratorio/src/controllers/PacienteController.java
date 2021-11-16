@@ -2,7 +2,6 @@ package controllers;
 
 import dao.PacienteDAO;
 import dtos.PacienteDTO;
-import dtos.SucursalDTO;
 import services.PacienteService;
 
 public class PacienteController {
@@ -29,13 +28,13 @@ public class PacienteController {
         return p;
     }
 
-    public boolean BajaPaciente(int id) {
+    public boolean BajaPaciente(int id) throws Exception {
         try {
             PacienteDAO pacienteDAO = new PacienteDAO();
             PacienteService pacienteService = new PacienteService();
 
             if (!pacienteService.PuedeSerEliminado(id)) {
-                throw new Exception("El paciente no puede ser eliminado");
+                throw new Exception("El paciente tiene peticiones finalizadas");
             }
 
             boolean fueBorrado = pacienteDAO.BorrarPaciente(id);
@@ -45,12 +44,12 @@ public class PacienteController {
 
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         }
         return true;
     }
 
-    public boolean ModificarPaciente(PacienteDTO p) {
+    public boolean ModificarPaciente(PacienteDTO p) throws Exception {
         try {
             PacienteDAO pacienteDAO = new PacienteDAO();
             boolean fueActualizado = pacienteDAO.ActualizarPaciente(p);
@@ -58,18 +57,18 @@ public class PacienteController {
                 return false;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         }
         return true;
     }
 
-    public PacienteDTO ObtenerPaciente(int pacienteID) {
+    public PacienteDTO ObtenerPaciente(int pacienteID) throws Exception {
         PacienteDTO p = new PacienteDTO();
         try {
             PacienteDAO pacienteDAO = new PacienteDAO();
             p = pacienteDAO.ObtenerPaciente(pacienteID);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         }
         return p;
     }

@@ -1,16 +1,15 @@
 package views;
 
-import javax.swing.*;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
 import controllers.PracticaController;
 import dtos.PracticaDTO;
 import enums.EstadoPractica;
 import enums.Rol;
 
+import javax.swing.*;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -340,7 +339,12 @@ public class PracticasPanel {
 	        		String idPeticion = tPeticionID.getText();
 	        		
 	        		if(!id.isBlank() && !idPeticion.isBlank()) {
-	        			PracticaDTO p = pc.ObtenerPractica(Integer.parseInt(id));
+						PracticaDTO p = new PracticaDTO();
+						try {
+							p = pc.ObtenerPractica(Integer.parseInt(id));
+						} catch (Exception ex) {
+							alert("No se pudo obtener la practica ingresada (" + ex.getMessage() + ").", "Error", JOptionPane.ERROR_MESSAGE);
+						}
 						tNombre.setText(p.nombre);
 						tGrupo.setText(p.grupo);
 						tValCriticoMax.setText(String.valueOf(p.valorCriticoMax));
@@ -348,7 +352,7 @@ public class PracticasPanel {
 						tValReservadoMax.setText(String.valueOf(p.valorReservadoMax));
 						tValReservadoMin.setText(String.valueOf(p.valorReservadoMin));
 
-						if(p.estadoPractica == EstadoPractica.Habilitado){
+						if (p.estadoPractica == EstadoPractica.Habilitado) {
 							rdbtnAdmin.setSelected(true);
 						}
 						tid.setEnabled(false);
@@ -368,60 +372,67 @@ public class PracticasPanel {
 	        if(btnDelete != null) {
 		        btnDelete.addActionListener(new ActionListener() {
 		        	public void actionPerformed(ActionEvent e) {
-		        		String id = tID.getText();
-		        		String idPeticion = tIDPeticion.getText();
-		        		
-		        		if(!id.isBlank() && !idPeticion.isBlank()) {
-		        			if(pc.BajaPractica(Integer.parseInt(id))) {
-		        				limpiarFormulario();
-		        				 alert("Se eliminó correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
-		        			}
-		        			else {
-		        				alert("Este práctica no se pudo eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
-		        			}
-		        		}else {
-		                    alert("No se reconoce ese ID.", "Error", JOptionPane.ERROR_MESSAGE);
-		        		}
-		        		
+						String id = tID.getText();
+						String idPeticion = tIDPeticion.getText();
 
-		        	}
+						if (!id.isBlank() && !idPeticion.isBlank()) {
+							try {
+								if (pc.BajaPractica(Integer.parseInt(id))) {
+									limpiarFormulario();
+									alert("Se eliminó correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+								} else {
+									alert("Este práctica no se pudo eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
+								}
+							} catch (Exception ex) {
+								alert("Este práctica no se pudo eliminar (" + ex.getMessage() + ").", "Error", JOptionPane.ERROR_MESSAGE);
+							}
+						} else {
+							alert("No se reconoce ese ID.", "Error", JOptionPane.ERROR_MESSAGE);
+						}
+
+
+					}
 		        });
 	        }
 	        
 	        
 	        btnUpdatePractica.addActionListener(new ActionListener() {
 	        	public void actionPerformed(ActionEvent e) {
-	        		String id = tid.getText();
-	        		String nombre = tNombre.getText();
-	        		String grupo = tGrupo.getText();
-	        		String valorReservadoMax = tValReservadoMax.getText();
-	        		String valorReservadoMin = tValReservadoMin.getText();
-	        		String valorCriticoMax = tValCriticoMax.getText();
-	        		String valorCriticoMin = tValCriticoMin.getText();
-	        		boolean habilitado = rdbtnAdmin.isSelected();
-	        		
-	        		PracticaDTO p = new PracticaDTO();
-	        		p.id = Integer.parseInt(id);
-	        		p.nombre = nombre;
-	        		p.grupo = grupo;
-	        		p.valorCriticoMax = Integer.parseInt(valorCriticoMax);
-	        		p.valorCriticoMin = Integer.parseInt(valorCriticoMin);
-	        		p.valorReservadoMax = Integer.parseInt(valorReservadoMax);
-	        		p.valorReservadoMin = Integer.parseInt(valorReservadoMin);
-	        		//p.horasEsperaResultado = calcular
-	        		
-	        		if(habilitado) {
-	        			p.estadoPractica = EstadoPractica.Habilitado;
-	        		}else {
-	        			p.estadoPractica = EstadoPractica.Inhabilidado;
-	        		}
-	        		
-	        		if(pc.ModificarPractica(p)) {
-	        			alert("Se modificó correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
-	        		}else {
-	        			alert("Este práctica no se pudo modificar.", "Error", JOptionPane.ERROR_MESSAGE);
-	        		}
-	        	}
+					String id = tid.getText();
+					String nombre = tNombre.getText();
+					String grupo = tGrupo.getText();
+					String valorReservadoMax = tValReservadoMax.getText();
+					String valorReservadoMin = tValReservadoMin.getText();
+					String valorCriticoMax = tValCriticoMax.getText();
+					String valorCriticoMin = tValCriticoMin.getText();
+					boolean habilitado = rdbtnAdmin.isSelected();
+
+					PracticaDTO p = new PracticaDTO();
+					p.id = Integer.parseInt(id);
+					p.nombre = nombre;
+					p.grupo = grupo;
+					p.valorCriticoMax = Integer.parseInt(valorCriticoMax);
+					p.valorCriticoMin = Integer.parseInt(valorCriticoMin);
+					p.valorReservadoMax = Integer.parseInt(valorReservadoMax);
+					p.valorReservadoMin = Integer.parseInt(valorReservadoMin);
+					//p.horasEsperaResultado = calcular
+
+					if (habilitado) {
+						p.estadoPractica = EstadoPractica.Habilitado;
+					} else {
+						p.estadoPractica = EstadoPractica.Inhabilidado;
+					}
+					try {
+						if (pc.ModificarPractica(p)) {
+							alert("Se modificó correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+						} else {
+							alert("Este práctica no se pudo modificar.", "Error", JOptionPane.ERROR_MESSAGE);
+						}
+					} catch (Exception ex) {
+						alert("Este práctica no se pudo modificar (" + ex.getMessage() + ").", "Error", JOptionPane.ERROR_MESSAGE);
+					}
+
+				}
 	        });
 	        
 	        btnLimpiar.addActionListener(new ActionListener() {

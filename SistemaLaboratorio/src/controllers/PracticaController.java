@@ -16,53 +16,51 @@ public class PracticaController {
         return instance;
     }
 
-    public PracticaDTO AltaPractica(PracticaDTO p) {
+    public PracticaDTO AltaPractica(PracticaDTO p) throws Exception {
         try {
             PracticaDAO practicaDAO = new PracticaDAO();
             p.id = practicaDAO.getLastInsertId() + 1;
             practicaDAO.CrearPractica(p);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         }
         return p;
     }
 
-    public boolean BajaPractica(int id) {
+    public boolean BajaPractica(int id) throws Exception {
         try {
             PracticaDAO practicaDAO = new PracticaDAO();
             boolean fueBorrado = practicaDAO.BorrarPractica(id);
 
             if (!fueBorrado) {
-                //Do something
                 return false;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         }
         return true;
     }
 
-    public boolean ModificarPractica(PracticaDTO p) {
+    public boolean ModificarPractica(PracticaDTO p) throws Exception {
         try {
             PracticaDAO practicaDAO = new PracticaDAO();
             boolean fueActualizado = practicaDAO.ActualizarPractica(p);
             if (!fueActualizado) {
-                //Do something
                 return false;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         }
         return true;
     }
 
-    public PracticaDTO ObtenerPractica(int practicaID) {
+    public PracticaDTO ObtenerPractica(int practicaID) throws Exception {
         PracticaDTO pdto = new PracticaDTO();
         try {
             PracticaDAO practicaDAO = new PracticaDAO();
             pdto = practicaDAO.ObtenerPractica(practicaID);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         }
         return pdto;
     }

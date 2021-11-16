@@ -1,6 +1,7 @@
 package views;
 
 import controllers.PacienteController;
+import controllers.PeticionController;
 import dtos.PacienteDTO;
 import dtos.PeticionDTO;
 import enums.EstadoPaciente;
@@ -461,24 +462,23 @@ public class PacientePanel{
 				p.sexo = tSexoMod.getText();
 				p.mail = tMailMod.getText();
 				p.id = Integer.parseInt(p.dni);
-				p.peticionesCompletas = peticionesCompletas;
-				p.peticionePendientes = peticionesPendientes;
 
-				if(chckbxActivo.isSelected()) {
+				if (chckbxActivo.isSelected()) {
 					p.estado = EstadoPaciente.Activo;
-				}else {
+				} else {
 					p.estado = EstadoPaciente.Inactivo;
 				}
 
-				if(pacienteController.ModificarPaciente(p)) {
+				try {
+					pacienteController.ModificarPaciente(p);
 					limpiarFormulario();
 					tDNIMod.setEnabled(true);
 					btnObtenerPac.setEnabled(true);
 					btnUpdatePac.setEnabled(false);
 					chckbxActivo.setSelected(false);
-				    alert("Se modificó correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
-				}else {
-					alert("No se pudo modificar.", "Error", JOptionPane.ERROR_MESSAGE);
+					alert("Se modificó correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+				} catch (Exception ex) {
+					alert("No se pudo modificar.(" + ex.getMessage() + ")", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 				
 				
@@ -487,54 +487,53 @@ public class PacientePanel{
         
         btnObtenerPac.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		int id = Integer.parseInt(tDNIMod.getText());
-        		
-        		if(!tDNIMod.getText().isBlank()) {
-        			PacienteDTO p = pacienteController.ObtenerPaciente(id);
-        			tNombreMod.setText(p.nombre);
-        			tEdadMod.setText(String.valueOf(p.edad));
-        			tDomicilioMod.setText(p.domicilio);
-        			tSexoMod.setText(p.sexo);
-					tMailMod.setText(p.mail);
 
-					if (p.peticionesCompletas!= null){
-						peticionesCompletas = p.peticionesCompletas;
-						lblPeticionesCompletas.setText(String.valueOf(p.peticionesCompletas.size()));
+				PeticionController peticionController = PeticionController.getInstance();
+
+				int id = Integer.parseInt(tDNIMod.getText());
+
+				if (!tDNIMod.getText().isBlank()) {
+
+					try {
+						PacienteDTO p = pacienteController.ObtenerPaciente(id);
+						tNombreMod.setText(p.nombre);
+						tEdadMod.setText(String.valueOf(p.edad));
+						tDomicilioMod.setText(p.domicilio);
+						tSexoMod.setText(p.sexo);
+						tMailMod.setText(p.mail);
+
+						lblPeticionesCompletas.setText(String.valueOf(peticionController.ObtenerPeticionesCompletasPorPaciente(p.id).size()));
+						lblPeticionesPendientes.setText(String.valueOf(peticionController.ObtenerPeticionesPendientesPorPaciente(p.id).size()));
+
+						if (p.estado.toString().equals("Activo")) {
+							chckbxActivo.setSelected(true);
+						} else {
+							chckbxActivo.setSelected(false);
+						}
+
+						tDNIMod.setEnabled(false);
+						btnObtenerPac.setEnabled(false);
+						btnUpdatePac.setEnabled(true);
+					} catch (Exception ex) {
+						alert("No se pudo encontrar el DNI. (" + ex.getMessage() + ")", "Error", JOptionPane.ERROR_MESSAGE);
+
 					}
-
-					if(p.peticionePendientes != null){
-						peticionesPendientes = p.peticionePendientes;
-        				lblPeticionesPendientes.setText(String.valueOf(p.peticionePendientes.size()));
-					}
-        			
-        			if(p.estado.toString().equals("Activo")) {
-        				chckbxActivo.setSelected(true);
-        			}else {
-        				chckbxActivo.setSelected(false);
-        			}
-
-					tDNIMod.setEnabled(false);
-					btnObtenerPac.setEnabled(false);
-					btnUpdatePac.setEnabled(true);
-        			
-        		}else {
-        			alert("No se pudo encontrar el DNI.", "Error", JOptionPane.ERROR_MESSAGE);
         		}
         	}
         });
         
         btnDeletePac.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		int dni = Integer.parseInt(tDNI.getText());
-        		
-        		if(pacienteController.BajaPaciente(dni)) {
-        			limpiarFormulario();
-    				alert("El paciente se borró correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
-        		}
-        		else {
-                    alert("El paciente no se puede eliminar, tiene peticiones finalizadas.", "Error", JOptionPane.ERROR_MESSAGE);
-        		}
-        	}
+				int dni = Integer.parseInt(tDNI.getText());
+
+				try {
+					pacienteController.BajaPaciente(dni);
+					limpiarFormulario();
+					alert("El paciente se borró correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+				} catch (Exception ex) {
+					alert("El paciente no pudo ser eliminado (" + ex.getMessage() + ")", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
         });
 
 		tabbedPane_1.addChangeListener(new ChangeListener() {

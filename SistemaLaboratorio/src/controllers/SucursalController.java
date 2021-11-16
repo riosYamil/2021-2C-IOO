@@ -3,11 +3,9 @@ package controllers;
 import dao.PeticionDAO;
 import dao.SucursalDAO;
 import domains.Peticion;
-import dtos.PacienteDTO;
 import dtos.PeticionDTO;
 import dtos.SucursalDTO;
 import dtos.UsuarioDTO;
-import services.PacienteService;
 import services.SucursalService;
 
 import java.util.ArrayList;
@@ -26,29 +24,25 @@ public class SucursalController {
         return instance;
     }
 
-    public SucursalDTO AltaSucursal(SucursalDTO s) {
+    public SucursalDTO AltaSucursal(SucursalDTO s) throws Exception {
         try {
-        	if(!verificarSiSucursalExiste(s.id)) {
-        		SucursalDAO sucursalDAO = new SucursalDAO();
-        		s.id = sucursalDAO.getLastInsertId() + 1;
-        		sucursalDAO.CrearSucursal(s);
-        	} else {
-        		s = null;
-        	}
+            SucursalDAO sucursalDAO = new SucursalDAO();
+            s.id = sucursalDAO.getLastInsertId() + 1;
+            sucursalDAO.CrearSucursal(s);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         }
         return s;
     }
 
-    public boolean BajaSucursal(int sucursalID) {
+    public boolean BajaSucursal(int sucursalID) throws Exception {
         try {
             SucursalDAO sucursalDAO = new SucursalDAO();
 
             SucursalService sucursalService = new SucursalService();
 
             if (!sucursalService.PuedeSerEliminado(sucursalID)) {
-                throw new Exception("La sucursal no se puede eliminar, tiene peticiones finalizadas.");
+                throw new Exception("La sucursal tiene peticiones finalizadas.");
             }
 
             boolean fueBorrado = sucursalDAO.BorrarSucursal(sucursalID);
@@ -57,43 +51,33 @@ public class SucursalController {
                 return false;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         }
         return true;
     }
 
-    public boolean ModificarSucursal(SucursalDTO s) {
+    public boolean ModificarSucursal(SucursalDTO s) throws Exception {
         try {
             SucursalDAO sucursalDAO = new SucursalDAO();
             boolean fueActualizado = sucursalDAO.ActualizarSucursal(s);
             if (!fueActualizado) {
-                //Do something
                 return false;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         }
         return true;
     }
 
-    public SucursalDTO ObtenerSucursal(int sucursalID) {
+    public SucursalDTO ObtenerSucursal(int sucursalID) throws Exception {
         SucursalDTO s = new SucursalDTO();
         try {
             SucursalDAO sucursalDAO = new SucursalDAO();
             s = sucursalDAO.ObtenerSucursal(sucursalID);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         }
         return s;
-    }
-    
-    public boolean verificarSiSucursalExiste(int id) {
-    	boolean existe = false;
-    	SucursalDTO s = ObtenerSucursal(id);
-        if(s != null){
-            existe = true;
-        }
-    	return existe;
     }
 
     public List<Peticion> ObtenerPeticionesActivas(SucursalDTO s) {
@@ -104,50 +88,6 @@ public class SucursalController {
             for (PeticionDTO peticionDTO : peticiones) {
                 Peticion peticion = new Peticion(peticionDTO);
                 if (peticion.EstaActiva()) {
-                    ps.add(peticion);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return ps;
-    }
-
-    public List<Peticion> ObtenerPeticionesFinalizadas(SucursalDTO s) {
-        List<Peticion> ps = new ArrayList<Peticion>();
-
-        try {
-            PeticionDAO peticionDAO = new PeticionDAO();
-            List<PeticionDTO> peticiones = peticionDAO.ObtenerPeticionesDeSurcursal(s.id);
-            for (PeticionDTO peticionDTO : peticiones) {
-                Peticion peticion = new Peticion(peticionDTO);
-                if (peticion.EstaFinalizadas()) {
-                    ps.add(peticion);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return ps;
-    }
-
-    public boolean TienePeticionesActivas(SucursalDTO s) {
-        return ObtenerPeticionesActivas(s).size() > 1;
-    }
-
-    public boolean TienePeticionesFinalizadas(SucursalDTO s) {
-        return ObtenerPeticionesFinalizadas(s).size() > 1;
-    }
-
-    public List<Peticion> BuscarPeticionesPorPaciente(SucursalDTO s, PacienteDTO paciente) {
-        List<Peticion> ps = new ArrayList<Peticion>();
-
-        try {
-            PeticionDAO peticionDAO = new PeticionDAO();
-            List<PeticionDTO> peticiones = peticionDAO.ObtenerPeticionesDeSurcursal(s.id);
-            for (PeticionDTO peticionDTO : peticiones) {
-                Peticion peticion = new Peticion(peticionDTO);
-                if (peticion.ObtenerPaciente().equals(paciente)) {
                     ps.add(peticion);
                 }
             }

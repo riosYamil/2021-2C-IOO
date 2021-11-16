@@ -101,13 +101,13 @@ public class ReglasDeNegocioTest {
         try {
             pacienteController.BajaPaciente(paciente.id);
         } catch (Exception e) {
-            assertEquals("El paciente no puede ser eliminado", e.getMessage());
+            assertEquals("El paciente tiene peticiones finalizadas", e.getMessage());
         }
 
         try {
             sucursalController.BajaSucursal(sucursal.id);
         } catch (Exception e) {
-            assertEquals("La sucursal no se puede eliminar, tiene peticiones finalizadas.", e.getMessage());
+            assertEquals("La sucursal tiene peticiones finalizadas.", e.getMessage());
         }
 
         assertTrue(usuarioController.BajaUsuario(usuario.id));

@@ -2,8 +2,6 @@ package dtos;
 
 import enums.EstadoPaciente;
 
-import java.util.List;
-
 public class PacienteDTO {
     public Integer id;
     public String dni;
@@ -12,8 +10,6 @@ public class PacienteDTO {
     public String mail;
     public String sexo;
     public int edad;
-    public List<PeticionDTO> peticionesCompletas;
-    public List<PeticionDTO> peticionePendientes;
     public EstadoPaciente estado;
 
     @Override

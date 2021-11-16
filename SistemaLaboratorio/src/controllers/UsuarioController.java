@@ -29,43 +29,43 @@ public class UsuarioController {
         return u;
     }
 
-    public UsuarioDTO AltaLaboratista(UsuarioDTO u) {
+    public UsuarioDTO AltaLaboratista(UsuarioDTO u) throws Exception {
         try {
             UsuarioDAO usuarioDAO = new UsuarioDAO();
             u.rol = Rol.Laboratista;
             u.id = Integer.parseInt(u.dni);
             usuarioDAO.CrearUsuario(u);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         }
         return u;
     }
 
-    public UsuarioDTO AltaRecepcion(UsuarioDTO u) {
+    public UsuarioDTO AltaRecepcion(UsuarioDTO u) throws Exception {
         try {
             UsuarioDAO usuarioDAO = new UsuarioDAO();
             u.rol = Rol.Recepcion;
             u.id = Integer.parseInt(u.dni);
             usuarioDAO.CrearUsuario(u);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         }
         return u;
     }
 
-    public UsuarioDTO AltaAdministrador(UsuarioDTO u) {
+    public UsuarioDTO AltaAdministrador(UsuarioDTO u) throws Exception {
         try {
             UsuarioDAO usuarioDAO = new UsuarioDAO();
             u.rol = Rol.Administrador;
             u.id = Integer.parseInt(u.dni);
             usuarioDAO.CrearUsuario(u);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         }
         return u;
     }
 
-    public boolean BajaUsuario(int id) {
+    public boolean BajaUsuario(int id) throws Exception {
         try {
             UsuarioDAO usuarioDAO = new UsuarioDAO();
             boolean fueBorrado = usuarioDAO.BorrarUsuario(id);
@@ -74,7 +74,7 @@ public class UsuarioController {
                 return false;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         }
         return true;
     }
@@ -84,7 +84,6 @@ public class UsuarioController {
             UsuarioDAO usuarioDAO = new UsuarioDAO();
             boolean fueActualizado = usuarioDAO.ActualizarUsuario(u);
             if (!fueActualizado) {
-                //Do something
                 return false;
             }
         } catch (Exception e) {

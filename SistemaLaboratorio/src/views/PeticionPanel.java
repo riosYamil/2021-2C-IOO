@@ -9,7 +9,6 @@ import dtos.PracticaAsociadaDTO;
 import dtos.PracticaDTO;
 import enums.EstadoPeticion;
 import enums.EstadoPractica;
-import enums.EstadoResultadoPractica;
 import enums.Rol;
 
 import javax.swing.*;
@@ -17,7 +16,6 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -352,7 +350,7 @@ public class PeticionPanel {
 			btnEnviarNot.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					
-					JOptionPane.showMessageDialog(tabbedPane_5, "Se notific� correctamente", "Informaci�n",
+					JOptionPane.showMessageDialog(tabbedPane_5, "Se notificó correctamente", "Informaci�n",
 							JOptionPane.INFORMATION_MESSAGE);
 				}
 			});
@@ -364,14 +362,17 @@ public class PeticionPanel {
 					String id = tID.getText();
 					
 					if(!id.isBlank()) {
-						boolean borrada = peticionController.BajaPeticion(Integer.parseInt(id));
-						
-						if(borrada) {
-							limpiarPracticas();
-							alert("La peticón se borró correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
-						}
-						else {
-							alert("No se pudo eliminar", "Error", JOptionPane.ERROR_MESSAGE);
+						try {
+							boolean borrada = peticionController.BajaPeticion(Integer.parseInt(id));
+
+							if (borrada) {
+								limpiarPracticas();
+								alert("La petición se borró correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
+							} else {
+								alert("La petición no se pudo eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
+							}
+						} catch (Exception ex) {
+							alert("La petición no se pudo eliminar (" + ex.getMessage() + ").", "Error", JOptionPane.ERROR_MESSAGE);
 						}
 						
 					} else {
@@ -389,20 +390,24 @@ public class PeticionPanel {
 				String ob = tOB.getText();
 				
 				if(!dni.isBlank() && !numSucursal.isBlank()) {
-					PacienteController pc = PacienteController.getInstance();
-					PacienteDTO p = pc.ObtenerPaciente(Integer.parseInt(dni));
-					PeticionDTO peticion = new PeticionDTO();
-					peticion.estadoPeticion = EstadoPeticion.Activa;
-					peticion.fechaDeCarga = new Date();
-					peticion.pacienteID = Integer.parseInt(dni);
-					peticion.practicasAsociadas = practicasAsociadas;
-					peticion.sucursalID = Integer.parseInt(numSucursal);
-					peticion.obraSocial = ob;
-					
-					if(!p.dni.isBlank()) {						
-						peticionController.AltaPeticion(peticion);
-						limpiarFormulario();
-						alert("Se agregó correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
+					try {
+						PacienteController pc = PacienteController.getInstance();
+						PacienteDTO p = pc.ObtenerPaciente(Integer.parseInt(dni));
+						PeticionDTO peticion = new PeticionDTO();
+						peticion.estadoPeticion = EstadoPeticion.Activa;
+						peticion.fechaDeCarga = new Date();
+						peticion.pacienteID = Integer.parseInt(dni);
+						peticion.practicasAsociadas = practicasAsociadas;
+						peticion.sucursalID = Integer.parseInt(numSucursal);
+						peticion.obraSocial = ob;
+
+						if(!p.dni.isBlank()) {
+							peticionController.AltaPeticion(peticion);
+							limpiarFormulario();
+							alert("Se agregó correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
+						}
+					} catch (Exception ex){
+						alert("No se reconocen ciertos datos (" + ex.getMessage() + ").", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				} else {
 					alert("No se reconocen ciertos datos.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -424,17 +429,16 @@ public class PeticionPanel {
 					p.peticionID  = Integer.parseInt(dni);
 					p.id = practicasAsociadas.size() + 1;
 					p.estadoPractica = EstadoPractica.Habilitado;
-					
-					p = practicasController.AltaPractica(p);
-					
-	        		if(!p.nombre.isBlank()) {
+
+					try {
+						p = practicasController.AltaPractica(p);
 						pa.practicaID = p.id;
 						practicasAsociadas.add(pa);
 						limpiarPracticas();
-	        			alert("La práctica creó correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
-	        		}else {
-	        			alert("Este práctica no se pudo modificar.", "Error", JOptionPane.ERROR_MESSAGE);
-	        		}
+						alert("La práctica creó correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+					} catch (Exception ex) {
+						alert("Este práctica no se pudo modificar.", "Error", JOptionPane.ERROR_MESSAGE);
+					}
 					
 				}
 			}
@@ -448,26 +452,31 @@ public class PeticionPanel {
 				boolean peticionesCriticas = chckbxPeticionesCriticas.isSelected();
 				
 				if(!dni.isBlank()) {
-					PacienteController pc = PacienteController.getInstance();
-					PacienteDTO p = pc.ObtenerPaciente(Integer.parseInt(dni));
-					
-					if(peticionesCompletas) {
-						listPeticionesCompletas = peticionController.ObtenerPeticionesCompletasPorPaciente(p.id); //Enum: finalizada
-					}
-					
-					if(peticionesPendientes) {
-						try {
-							listPeticionesPendientes = peticionController.ObtenerPeticionesPendientesPorPaciente(p.id); //Enum: activas
-						} catch (Exception e1) {
-							e1.printStackTrace();
-						}
-					}
-					
-					if(peticionesCriticas) {
-						listPeticionesCriticas = peticionController.ObtenerPeticionesCriticasPorPaciente(p.id); //Enum: RetirarPorSucursal
-					}
+					try {
+						PacienteController pc = PacienteController.getInstance();
+						PacienteDTO p = pc.ObtenerPaciente(Integer.parseInt(dni));
 
+						if (peticionesCompletas) {
+							listPeticionesCompletas = peticionController.ObtenerPeticionesCompletasPorPaciente(p.id); //Enum: finalizada
+						}
+
+						if (peticionesPendientes) {
+							try {
+								listPeticionesPendientes = peticionController.ObtenerPeticionesPendientesPorPaciente(p.id); //Enum: activas
+							} catch (Exception e1) {
+								e1.printStackTrace();
+							}
+						}
+
+						if (peticionesCriticas) {
+							listPeticionesCriticas = peticionController.ObtenerPeticionesCriticasPorPaciente(p.id); //Enum: RetirarPorSucursal
+						}
+					} catch (Exception ex){
+						alert("No fue posible obtener la petición (" + ex.getMessage() + ").", "Error", JOptionPane.ERROR_MESSAGE);
+
+					}
 					mostrarPeticionesYPracticas(listPeticionesPendientes); //combinar listas
+
 				}
 			}
 		});

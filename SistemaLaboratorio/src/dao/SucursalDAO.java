@@ -68,7 +68,6 @@ public class SucursalDAO extends utils.GenericDAO {
 
         List<SucursalDTO> surcursalesDelUsuario = new ArrayList<SucursalDTO>();
 
-        SucursalDTO sucursalDTO = new SucursalDTO();
         for (SucursalDTO s : sucursalDTOs) {
             if (s.responsableTecnicoDNI == usuarioDTO.id) {
                 surcursalesDelUsuario.add(s);

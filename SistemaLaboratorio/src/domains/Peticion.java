@@ -33,10 +33,14 @@ public class Peticion {
         return this.sucursalID;
     }
 
-    public PacienteDTO ObtenerPaciente() {
-
+    public PacienteDTO ObtenerPaciente() throws Exception {
+        PacienteDTO p = new PacienteDTO();
         PacienteController pacienteController = PacienteController.getInstance();
-        PacienteDTO p = pacienteController.ObtenerPaciente(this.pacienteID);
+        try {
+            p = pacienteController.ObtenerPaciente(this.pacienteID);
+        } catch (Exception e) {
+            throw e;
+        }
         return p;
     }
 
@@ -46,16 +50,6 @@ public class Peticion {
 
     public boolean EstaFinalizadas() {
         return estadoPeticion.equals(EstadoPeticion.Finalizada);
-    }
-
-    public void CambiarEstado(EstadoPeticion estadoPeticion) {
-        this.estadoPeticion = estadoPeticion;
-    }
-
-    public boolean EsPeticionParaElPaciente(PacienteDTO pacienteDTO) {
-        PacienteController pacienteController = PacienteController.getInstance();
-        PacienteDTO p = pacienteController.ObtenerPaciente(this.pacienteID);
-        return p.equals(pacienteDTO);
     }
 
     public List<PracticaAsociada> ObtenerPracticasFinalizadas() {

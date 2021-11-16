@@ -1,9 +1,11 @@
 package controllers;
 
 import dao.PeticionDAO;
+import domains.Peticion;
 import domains.Practica;
 import dtos.PeticionDTO;
 import dtos.PracticaAsociadaDTO;
+import dtos.SucursalDTO;
 import enums.EstadoPeticion;
 import services.PeticionService;
 
@@ -23,36 +25,39 @@ public class PeticionController {
         return instance;
     }
 
-    public PeticionDTO AltaPeticion(PeticionDTO p) {
+    public PeticionDTO AltaPeticion(PeticionDTO p) throws Exception {
         try {
             PeticionDAO peticionDAO = new PeticionDAO();
+            PacienteController pacienteController = PacienteController.getInstance();
             PeticionService peticionService = new PeticionService();
+
+            pacienteController.ObtenerPaciente(p.pacienteID);
 
             p.id = peticionDAO.getLastInsertId() + 1;
             p.estadoPeticion = peticionService.DeterminarEstado(p);
 
             peticionDAO.CrearPeticion(p);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         }
         return p;
     }
 
-    public boolean BajaPeticion(int id) {
+    public boolean BajaPeticion(int id) throws Exception {
         try {
-        	PeticionDAO peticionDAO = new PeticionDAO();
+            PeticionDAO peticionDAO = new PeticionDAO();
             boolean fueBorrado = peticionDAO.BorrarPeticion(id);
 
             if (!fueBorrado) {
                 return false;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         }
         return true;
     }
 
-    public boolean ModificarPeticion(PeticionDTO p) {
+    public boolean ModificarPeticion(PeticionDTO p) throws Exception {
         try {
             PeticionDAO peticionDAO = new PeticionDAO();
             PeticionService peticionService = new PeticionService();
@@ -63,18 +68,18 @@ public class PeticionController {
                 return false;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         }
         return true;
     }
 
-    public PeticionDTO ObtenerPeticion(int PeticionID) {
+    public PeticionDTO ObtenerPeticion(int PeticionID) throws Exception {
         PeticionDTO p = new PeticionDTO();
         try {
             PeticionDAO peticionDAO = new PeticionDAO();
             p = peticionDAO.ObtenerPeticion(PeticionID);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         }
         return p;
     }
@@ -157,14 +162,37 @@ public class PeticionController {
             for (PracticaAsociadaDTO paDTO : p.practicasAsociadas) {
 
                 PracticaController practicaController = PracticaController.getInstance();
-                Practica practica = new Practica(practicaController.ObtenerPractica(paDTO.practicaID));
 
-                if (practica.EsUnValorCritico(paDTO.resultado)) {
-                    resultado.add(p);
+                try {
+                    Practica practica = new Practica(practicaController.ObtenerPractica(paDTO.practicaID));
+
+                    if (practica.EsUnValorCritico(paDTO.resultado)) {
+                        resultado.add(p);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         }
         return resultado;
+    }
+
+    public List<Peticion> ObtenerPeticionesFinalizadas(SucursalDTO s) {
+        List<Peticion> ps = new ArrayList<>();
+
+        try {
+            PeticionDAO peticionDAO = new PeticionDAO();
+            List<PeticionDTO> peticiones = peticionDAO.ObtenerPeticionesDeSurcursal(s.id);
+            for (PeticionDTO peticionDTO : peticiones) {
+                Peticion peticion = new Peticion(peticionDTO);
+                if (peticion.EstaFinalizadas()) {
+                    ps.add(peticion);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ps;
     }
 
 }
