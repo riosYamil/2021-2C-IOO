@@ -26,11 +26,10 @@ public class SucursalController {
         return instance;
     }
 
-    public SucursalDTO AltaSucursal(SucursalDTO s, UsuarioDTO u) {
+    public SucursalDTO AltaSucursal(SucursalDTO s) {
         try {
         	if(!verificarSiSucursalExiste(s.id)) {
         		SucursalDAO sucursalDAO = new SucursalDAO();
-        		s.responsableTecnico = u;
         		s.id = sucursalDAO.getLastInsertId() + 1;
         		sucursalDAO.CrearSucursal(s);
         	} else {

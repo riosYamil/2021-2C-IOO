@@ -350,15 +350,14 @@ public class UsuarioPanel {
 		        		u.fechaDeNacimiento = d;
 		        		u.password = pass;
 		        		u.email = mail;
-		        		
-	        			u = usuarioController.AltaUsuario(u);
-	        			
-	        			if(u != null) {
-		        			limpiarFormulario();
-		        			alert("Se creó correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
-	        			} else {
-	        				alert("Este usuario ya está creado.", "Error", JOptionPane.ERROR_MESSAGE);
-	        			}
+
+						try {
+							usuarioController.AltaUsuario(u);
+							limpiarFormulario();
+							alert("Se creó correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+						} catch (Exception ex) {
+							alert("Este usuario ya está creado.", "Error", JOptionPane.ERROR_MESSAGE);
+						}
 	        		}else {
 	        			alert("Faltan datos.", "Error", JOptionPane.ERROR_MESSAGE);
 	        		}

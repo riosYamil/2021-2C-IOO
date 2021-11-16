@@ -81,7 +81,7 @@ public class UsuarioTest {
     }
 
     @Test
-    public void BajaUsuario() {
+    public void BajaUsuario() throws Exception {
         UsuarioController usuarioController = UsuarioController.getInstance();
 
         UsuarioDTO usuarioDTO = new UsuarioDTO();
@@ -134,7 +134,7 @@ public class UsuarioTest {
     }
 
     @Test
-    public void ObtenerUsuario() {
+    public void ObtenerUsuario() throws Exception {
         UsuarioController usuarioController = UsuarioController.getInstance();
 
         UsuarioDTO usuarioDTO = new UsuarioDTO();
@@ -158,7 +158,7 @@ public class UsuarioTest {
     }
 
     @Test
-    public void AutentificarUsuario() {
+    public void AutentificarUsuario() throws Exception {
         UsuarioController usuarioController = UsuarioController.getInstance();
 
         UsuarioDTO usuarioDTO = new UsuarioDTO();

@@ -67,7 +67,8 @@ public class ReglasDeNegocioTest {
         SucursalDTO sucursal = new SucursalDTO();
         sucursal.numero = 12345;
         sucursal.direccion = "Calle Falsa 1234";
-        sucursal = sucursalController.AltaSucursal(sucursal, usuario);
+        sucursal.responsableTecnicoDNI = 37340001;
+        sucursal = sucursalController.AltaSucursal(sucursal);
         assertNotNull(sucursal);
 
         //Creo petición asociada al usuario

@@ -4,7 +4,7 @@ public class SucursalDTO {
     public int id;
     public int numero;
     public String direccion;
-    public UsuarioDTO responsableTecnico;
+    public int responsableTecnicoDNI;
 
     @Override
     public boolean equals(Object obj) {
