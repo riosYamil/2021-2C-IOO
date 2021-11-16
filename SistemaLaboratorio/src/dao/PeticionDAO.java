@@ -1,11 +1,10 @@
 package dao;
 
-import domains.Peticion;
 import dtos.PeticionDTO;
-import enums.EstadoPeticion;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class PeticionDAO extends utils.GenericDAO {
 
@@ -15,6 +14,9 @@ public class PeticionDAO extends utils.GenericDAO {
 
     public void CrearPeticion(PeticionDTO p) throws Exception {
         try {
+            if (!Objects.isNull(this.search(p.id))){
+                throw new Exception("Petición ya existente");
+            }
             this.save(p);
         } catch (Exception e) {
             throw (e);
@@ -53,7 +55,7 @@ public class PeticionDAO extends utils.GenericDAO {
     }
 
     public List<PeticionDTO> ObtenerPeticiones() throws Exception {
-        List<PeticionDTO> peticiones = new ArrayList<PeticionDTO>();
+        List<PeticionDTO> peticiones = new ArrayList<>();
         try {
             peticiones = (List<PeticionDTO>) this.getAll();
         } catch (Exception e) {
@@ -64,7 +66,7 @@ public class PeticionDAO extends utils.GenericDAO {
     }
 
     public List<PeticionDTO> ObtenerPeticionesDePaciente(int pacienteID) throws Exception {
-        List<PeticionDTO> peticiones = new ArrayList<PeticionDTO>();
+        List<PeticionDTO> peticiones = new ArrayList<>();
         try {
             peticiones = (List<PeticionDTO>) this.getAll();
         } catch (Exception e) {

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 public class PeticionTest {
     @Test
@@ -66,6 +67,7 @@ public class PeticionTest {
         peticionDTO.sucursalID = 12345;
 
         peticionDTO = peticionController.AltaPeticion(peticionDTO);
+        assertNotNull(peticionDTO);
 
         PacienteDTO pacienteDTOParaTest = new PacienteDTO();
         //ID inexistente

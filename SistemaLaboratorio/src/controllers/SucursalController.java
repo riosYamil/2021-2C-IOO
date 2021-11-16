@@ -8,6 +8,7 @@ import dtos.PeticionDTO;
 import dtos.SucursalDTO;
 import dtos.UsuarioDTO;
 import services.PacienteService;
+import services.SucursalService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,10 +42,10 @@ public class SucursalController {
         try {
             SucursalDAO sucursalDAO = new SucursalDAO();
 
-            PacienteService pacienteService = new PacienteService();
+            SucursalService sucursalService = new SucursalService();
 
-            if (!pacienteService.PuedeSerEliminado(sucursalID)) {
-                throw new Exception("El paciente no puede ser eliminado");
+            if (!sucursalService.PuedeSerEliminado(sucursalID)) {
+                throw new Exception("La surcursal no puede ser eliminada");
             }
 
             boolean fueBorrado = sucursalDAO.BorrarSucursal(sucursalID);

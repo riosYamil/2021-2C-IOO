@@ -3,12 +3,15 @@ package services;
 import controllers.PeticionController;
 import domains.Peticion;
 import dtos.PeticionDTO;
+import dtos.PracticaAsociadaDTO;
+import enums.EstadoPeticion;
+import enums.EstadoResultadoPractica;
 
 import java.util.List;
 
 public class PacienteService {
 
-    public boolean PuedeSerEliminado(int pacienteID) throws Exception {
+    public boolean PuedeSerEliminado(int pacienteID) {
         Boolean result = true;
         PeticionController peticionController = PeticionController.getInstance();
         List<PeticionDTO> peticiones = peticionController.ObtenerPeticionesDelPaciente(pacienteID);

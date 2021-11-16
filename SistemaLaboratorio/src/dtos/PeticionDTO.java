@@ -17,7 +17,7 @@ public class PeticionDTO {
     public int sucursalID;
 
     public PeticionDTO() {
-        this.practicasAsociadas = new ArrayList<PracticaAsociadaDTO>();
+        this.practicasAsociadas = new ArrayList<>();
     }
 
     @Override

@@ -19,6 +19,7 @@ public class PracticaController {
     public PracticaDTO AltaPractica(PracticaDTO p) {
         try {
             PracticaDAO practicaDAO = new PracticaDAO();
+            p.id = practicaDAO.getLastInsertId() + 1;
             practicaDAO.CrearPractica(p);
         } catch (Exception e) {
             e.printStackTrace();

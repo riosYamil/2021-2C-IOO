@@ -5,6 +5,7 @@ import domains.Practica;
 import dtos.PeticionDTO;
 import dtos.PracticaAsociadaDTO;
 import enums.EstadoPeticion;
+import services.PeticionService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,11 @@ public class PeticionController {
     public PeticionDTO AltaPeticion(PeticionDTO p) {
         try {
             PeticionDAO peticionDAO = new PeticionDAO();
-            p.id =  peticionDAO.getLastInsertId() + 1; 
+            PeticionService peticionService = new PeticionService();
+
+            p.id = peticionDAO.getLastInsertId() + 1;
+            p.estadoPeticion = peticionService.DeterminarEstado(p);
+
             peticionDAO.CrearPeticion(p);
         } catch (Exception e) {
             e.printStackTrace();
@@ -49,7 +54,10 @@ public class PeticionController {
 
     public boolean ModificarPeticion(PeticionDTO p) {
         try {
-        	PeticionDAO peticionDAO = new PeticionDAO();
+            PeticionDAO peticionDAO = new PeticionDAO();
+            PeticionService peticionService = new PeticionService();
+            p.estadoPeticion = peticionService.DeterminarEstado(p);
+
             boolean fueActualizado = peticionDAO.ActualizarPeticion(p);
             if (!fueActualizado) {
                 return false;
@@ -73,6 +81,19 @@ public class PeticionController {
 
     public void EnviarNotificacion() {
         System.out.println("notificación enviada");
+    }
+
+    public List<PeticionDTO> ObtenerPeticionesCriticas() {
+        List<PeticionDTO> peticiones = new ArrayList<>();
+
+        try {
+            PeticionDAO peticionDAO = new PeticionDAO();
+            peticiones = peticionDAO.ObtenerPeticiones();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return obtenerPeticionesCriticas(peticiones);
     }
 
     public List<PeticionDTO> ObtenerPeticionesDeSucursal(int sucursalID) {
@@ -125,6 +146,11 @@ public class PeticionController {
 
     public List<PeticionDTO> ObtenerPeticionesCriticasPorPaciente(int pacienteID) {
         List<PeticionDTO> peticiones = ObtenerPeticionesDelPaciente(pacienteID);
+
+        return obtenerPeticionesCriticas(peticiones);
+    }
+
+    private List<PeticionDTO> obtenerPeticionesCriticas(List<PeticionDTO> peticiones) {
         List<PeticionDTO> resultado = new ArrayList<>();
 
         for (PeticionDTO p : peticiones) {

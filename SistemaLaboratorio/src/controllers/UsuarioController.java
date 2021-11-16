@@ -21,6 +21,7 @@ public class UsuarioController {
     public UsuarioDTO AltaUsuario(UsuarioDTO u) {
         try {
             UsuarioDAO usuarioDAO = new UsuarioDAO();
+            u.id = Integer.parseInt(u.dni);
             usuarioDAO.CrearUsuario(u);
         } catch (Exception e) {
             e.printStackTrace();
@@ -32,6 +33,7 @@ public class UsuarioController {
         try {
             UsuarioDAO usuarioDAO = new UsuarioDAO();
             u.rol = Rol.Laboratista;
+            u.id = Integer.parseInt(u.dni);
             usuarioDAO.CrearUsuario(u);
         } catch (Exception e) {
             e.printStackTrace();
@@ -43,6 +45,7 @@ public class UsuarioController {
         try {
             UsuarioDAO usuarioDAO = new UsuarioDAO();
             u.rol = Rol.Recepcion;
+            u.id = Integer.parseInt(u.dni);
             usuarioDAO.CrearUsuario(u);
         } catch (Exception e) {
             e.printStackTrace();
@@ -54,6 +57,7 @@ public class UsuarioController {
         try {
             UsuarioDAO usuarioDAO = new UsuarioDAO();
             u.rol = Rol.Administrador;
+            u.id = Integer.parseInt(u.dni);
             usuarioDAO.CrearUsuario(u);
         } catch (Exception e) {
             e.printStackTrace();

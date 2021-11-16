@@ -2,6 +2,7 @@ package dao;
 
 import dtos.PracticaDTO;
 import java.io.FileNotFoundException;
+import java.util.Objects;
 
 public class PracticaDAO extends utils.GenericDAO {
 
@@ -11,6 +12,9 @@ public class PracticaDAO extends utils.GenericDAO {
 
     public void CrearPractica(PracticaDTO p) throws Exception {
         try {
+            if (!Objects.isNull(this.search(p.id))){
+                throw new Exception("Practica ya existente");
+            }
             this.save(p);
         } catch (Exception e) {
             throw (e);

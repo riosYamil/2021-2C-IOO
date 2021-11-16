@@ -1,25 +1,32 @@
 package services;
 
-import controllers.PeticionController;
-import domains.Peticion;
 import dtos.PeticionDTO;
-
-import java.util.List;
+import dtos.PracticaAsociadaDTO;
+import enums.EstadoPeticion;
+import enums.EstadoResultadoPractica;
 
 public class PeticionService {
 
-    public List<PeticionDTO> ObtenerPeticionesConResultadosCriticos(int pacienteID) {
-        Boolean result = true;
-        PeticionController peticionController = PeticionController.getInstance();
-        List<PeticionDTO> peticiones = peticionController.ObtenerPeticionesCriticasPorPaciente(pacienteID);
+    public EstadoPeticion DeterminarEstado(PeticionDTO peticionDTO) {
 
-        for (PeticionDTO peticionDTO : peticiones) {
-            Peticion peticion = new Peticion(peticionDTO);
-            if (!peticion.ObtenerPracticasFinalizadas().isEmpty()) {
-                result = false;
-                break;
-            }
+        boolean practicaPendiente = false;
+        boolean practicaReservada = false;
+
+        EstadoPeticion resultado = EstadoPeticion.Activa;
+
+        for (PracticaAsociadaDTO pa : peticionDTO.practicasAsociadas) {
+            practicaPendiente = practicaPendiente && (pa.resultadoPractica.equals(EstadoResultadoPractica.Pendiente));
+            practicaReservada = practicaReservada || (pa.resultadoPractica.equals(EstadoResultadoPractica.Reservado));
         }
-        return peticiones;
+
+        if (practicaPendiente) {
+            resultado = EstadoPeticion.Activa;
+        }
+
+        if (practicaReservada) {
+            resultado = EstadoPeticion.RetirarPorSucursal;
+        }
+
+        return resultado;
     }
 }

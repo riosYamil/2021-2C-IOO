@@ -3,6 +3,7 @@ package dao;
 import dtos.PacienteDTO;
 
 import java.io.FileNotFoundException;
+import java.util.Objects;
 
 public class PacienteDAO extends utils.GenericDAO {
 
@@ -12,6 +13,9 @@ public class PacienteDAO extends utils.GenericDAO {
 
     public void CrearPaciente(PacienteDTO p) throws Exception {
         try {
+            if (!Objects.isNull(this.search(p.id))){
+                throw new Exception("Paciente ya existente");
+            }
             this.save(p);
         } catch (Exception e) {
             throw (e);

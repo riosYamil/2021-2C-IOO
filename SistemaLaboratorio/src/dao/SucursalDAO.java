@@ -6,6 +6,7 @@ import dtos.UsuarioDTO;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class SucursalDAO extends utils.GenericDAO {
 
@@ -15,6 +16,9 @@ public class SucursalDAO extends utils.GenericDAO {
 
     public void CrearSucursal(SucursalDTO s) throws Exception {
         try {
+            if (!Objects.isNull(this.search(s.id))){
+                throw new Exception("Sucursal ya existente");
+            }
             this.save(s);
         } catch (Exception e) {
             throw (e);

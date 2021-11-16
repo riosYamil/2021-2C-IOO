@@ -5,6 +5,7 @@ import enums.Rol;
 
 import java.io.FileNotFoundException;
 import java.util.List;
+import java.util.Objects;
 
 public class UsuarioDAO extends utils.GenericDAO {
 
@@ -14,7 +15,10 @@ public class UsuarioDAO extends utils.GenericDAO {
 
     public void CrearUsuario(UsuarioDTO u) throws Exception {
         try {
-            u.id = Integer.parseInt(u.dni);
+            if (!Objects.isNull(this.search(u.id))){
+                throw new Exception("Usuario ya existente");
+            }
+
             this.save(u);
         } catch (Exception e) {
             throw (e);

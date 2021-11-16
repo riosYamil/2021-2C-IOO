@@ -19,6 +19,7 @@ public class PacienteController {
 
     public PacienteDTO AltaPaciente(PacienteDTO p) {
         try {
+            p.id = Integer.parseInt(p.dni);
             PacienteDAO pacienteDAO = new PacienteDAO();
             pacienteDAO.CrearPaciente(p);
         } catch (Exception e) {
