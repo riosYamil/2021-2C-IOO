@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 public class PacienteTest {
 
     @Test
-    public void AltaPaciente() {
+    public void AltaPaciente() throws Exception {
 
         PacienteController pacienteController = PacienteController.getInstance();
 
@@ -30,7 +30,7 @@ public class PacienteTest {
     }
 
     @Test
-    public void BajaPaciente() {
+    public void BajaPaciente() throws Exception {
         PacienteController pacienteController = PacienteController.getInstance();
 
         PacienteDTO pacienteDTO = new PacienteDTO();
@@ -57,7 +57,7 @@ public class PacienteTest {
     }
 
     @Test
-    public void ModificarPaciente() {
+    public void ModificarPaciente() throws Exception {
 
         PacienteController pacienteController = PacienteController.getInstance();
 
@@ -85,7 +85,7 @@ public class PacienteTest {
     }
 
     @Test
-    public void ObtenerPaciente() {
+    public void ObtenerPaciente() throws Exception {
         PacienteController pacienteController = PacienteController.getInstance();
 
         PacienteDTO pacienteDTO = new PacienteDTO();

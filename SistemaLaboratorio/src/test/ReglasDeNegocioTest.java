@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 public class ReglasDeNegocioTest {
 
     @Test
-    public void NoSePuedeEliminarPacienteOSucursalConPeticionesFinalizadas() {
+    public void NoSePuedeEliminarPacienteOSucursalConPeticionesFinalizadas() throws Exception {
 
         PacienteController pacienteController = PacienteController.getInstance();
         PracticaController practicaController = PracticaController.getInstance();
