@@ -70,7 +70,7 @@ public class SucursalDAO extends utils.GenericDAO {
 
         SucursalDTO sucursalDTO = new SucursalDTO();
         for (SucursalDTO s : sucursalDTOs) {
-            if (String.valueOf(s.responsableTecnicoDNI).equals(usuarioDTO.dni)) {
+            if (s.responsableTecnicoDNI == usuarioDTO.id) {
                 surcursalesDelUsuario.add(s);
             }
         }
