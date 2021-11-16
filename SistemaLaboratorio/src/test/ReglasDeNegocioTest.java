@@ -107,7 +107,7 @@ public class ReglasDeNegocioTest {
         try {
             sucursalController.BajaSucursal(sucursal.id);
         } catch (Exception e) {
-            assertEquals("La sucursal no puede ser eliminada", e.getMessage());
+            assertEquals("La sucursal no se puede eliminar, tiene peticiones finalizadas.", e.getMessage());
         }
 
         assertTrue(usuarioController.BajaUsuario(usuario.id));

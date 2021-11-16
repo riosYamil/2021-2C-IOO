@@ -48,7 +48,7 @@ public class SucursalController {
             SucursalService sucursalService = new SucursalService();
 
             if (!sucursalService.PuedeSerEliminado(sucursalID)) {
-                throw new Exception("La surcursal no puede ser eliminada");
+                throw new Exception("La sucursal no se puede eliminar, tiene peticiones finalizadas.");
             }
 
             boolean fueBorrado = sucursalDAO.BorrarSucursal(sucursalID);
