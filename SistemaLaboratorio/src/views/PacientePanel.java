@@ -531,7 +531,7 @@ public class PacientePanel{
     				alert("El paciente se borró correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
         		}
         		else {
-                    alert("Este paciente tiene peticiones finalizadas y no se puede eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
+                    alert("El paciente no se puede eliminar, tiene peticiones finalizadas.", "Error", JOptionPane.ERROR_MESSAGE);
         		}
         	}
         });
