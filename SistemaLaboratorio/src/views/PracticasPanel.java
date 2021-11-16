@@ -614,6 +614,7 @@ public class PracticasPanel {
 		tid.setText("");
 		tPeticionID.setText("");
 		lblHabliticacion_1.setText("NO");
+		lblTiempo.setText("N/A");
 		tNombre.setText("");
 		tGrupo.setText("");
 		tValCriticoMax.setText("");
@@ -633,6 +634,7 @@ public class PracticasPanel {
 		rdbtnReservado.setSelected(false);
 		btnUpdatePractica.setEnabled(false);
 		rdbtnPendiente.setSelected(false);
+		tResultado.setEditable(false);
 	}
 
 	private void alert(String msg, String type, int pane) {

@@ -207,7 +207,7 @@ public class PeticionPanel {
 		Peticiones1 = new Panel();
 		
 		JLabel lblPeticiones = new JLabel("Peticiones:");
-		JLabel lblObtenerPeticiones = new JLabel("Por favor, ingrese el DNI del paciente para obtener sus peticiones.");
+		JLabel lblObtenerPeticiones = new JLabel("Por favor, ingrese el DNI del paciente para obtener sus peticiones o deje el ID en blanco para obtener todas.");
 		
 		chckbxPeticionesPendientes = new JCheckBox("Peticiones pendientes.");
 		chckbxPeticionesPendientes.setBackground(Color.WHITE);
@@ -238,23 +238,27 @@ public class PeticionPanel {
 						.addGroup(gl_Peticiones1.createSequentialGroup()
 							.addGroup(gl_Peticiones1.createParallelGroup(Alignment.LEADING)
 								.addComponent(tDNIPeticiones, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblObtenerPeticiones)
 								.addComponent(lbldni_1))
-							.addContainerGap(209, Short.MAX_VALUE))
+							.addContainerGap(646, Short.MAX_VALUE))
 						.addGroup(gl_Peticiones1.createSequentialGroup()
 							.addComponent(btnObtenerPeticiones, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
 							.addGroup(gl_Peticiones1.createParallelGroup(Alignment.LEADING)
 								.addComponent(chckbxPeticionesCriticas)
 								.addComponent(chckbxPeticionesCompletas)
 								.addComponent(chckbxPeticionesPendientes))
 							.addGap(146))))
+				.addGroup(gl_Peticiones1.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblObtenerPeticiones)
+					.addContainerGap(27, Short.MAX_VALUE))
 		);
 		gl_Peticiones1.setVerticalGroup(
 			gl_Peticiones1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_Peticiones1.createSequentialGroup()
 					.addGap(32)
 					.addComponent(lblObtenerPeticiones)
+					.addGap(18)
 					.addGroup(gl_Peticiones1.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_Peticiones1.createSequentialGroup()
 							.addGap(18)
@@ -510,7 +514,18 @@ public class PeticionPanel {
 
 				}
 				else {
-					alert("Seleccione algun tipo de petición", "Error", JOptionPane.ERROR_MESSAGE);
+					listPeticiones.addAll(peticionController.ObtenerTodasLasPeticiones());
+					try {
+						if(listPeticiones.size() > 0) {
+							mostrarPeticionesYPracticas(listPeticiones);
+						}
+						else {
+							alert("No hay peticiones.", "Información", JOptionPane.INFORMATION_MESSAGE);
+						}
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			}
 		});
