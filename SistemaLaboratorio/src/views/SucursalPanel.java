@@ -314,10 +314,11 @@ public class SucursalPanel {
                 	s.id = Integer.parseInt(num);
                 	s.numero = Integer.parseInt(num);
                 	s.direccion = dir;
+					s.responsableTecnicoDNI = Integer.parseInt(rt);
                 	UsuarioDTO u = UsuarioController.getInstance().ObtenerUsuario(Integer.parseInt(rt));
 
 					if (u != null) {
-						s = sucursalController.AltaSucursal(s, u);
+						s = sucursalController.AltaSucursal(s);
 
 						if(s == null) {
 							alert("Ya existe.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -365,7 +366,7 @@ public class SucursalPanel {
         			s = sucursalController.ObtenerSucursal(Integer.parseInt(num));
         			
         			tDireccionMod.setText(s.direccion);
-        			tResponsableTecnicoMod.setText(s.responsableTecnico.dni);
+        			tResponsableTecnicoMod.setText(String.valueOf(s.responsableTecnicoDNI));
         			btnUpdateSuc.setEnabled(true);
         			tNumMod.setEnabled(false);
         			btnObtenerSuc.setEnabled(false);
@@ -384,22 +385,26 @@ public class SucursalPanel {
         		if (!rt.isBlank()) {
             		SucursalDTO s = new SucursalDTO();
 					UsuarioDTO u = UsuarioController.getInstance().ObtenerUsuario(Integer.parseInt(rt));
-            		s.id = Integer.parseInt(num);
-            		s.numero = Integer.parseInt(num);
-            		s.direccion = dir;
-            		s.responsableTecnico = u;
-            		
-            		if(sucursalController.ModificarSucursal(s)) {
-            			limpiarFormulario();
-                		btnUpdateSuc.setEnabled(false);
-                		tNumMod.setEnabled(true);
-                		btnObtenerSuc.setEnabled(true);
-                		alert("Se modificó correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
-            		}
-            		else {
-            			alert("No se pudo modificar.", "Error", JOptionPane.ERROR_MESSAGE);
-            		}
-            			
+
+					if(u != null) {
+						s.id = Integer.parseInt(num);
+						s.numero = Integer.parseInt(num);
+						s.direccion = dir;
+						s.responsableTecnicoDNI = Integer.parseInt(rt);
+
+						if(sucursalController.ModificarSucursal(s)) {
+							limpiarFormulario();
+							btnUpdateSuc.setEnabled(false);
+							tNumMod.setEnabled(true);
+							btnObtenerSuc.setEnabled(true);
+							alert("Se modificó correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
+						}
+						else {
+							alert("No se pudo modificar.", "Error", JOptionPane.ERROR_MESSAGE);
+						}
+					} else {
+						alert("No se reconoce ese usuario.", "Error", JOptionPane.ERROR_MESSAGE);
+					}
 				}else {
 					alert("No se reconoce el DNI.", "Error", JOptionPane.ERROR_MESSAGE);
 				}

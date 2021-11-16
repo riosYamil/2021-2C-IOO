@@ -18,13 +18,13 @@ public class UsuarioController {
         return instance;
     }
 
-    public UsuarioDTO AltaUsuario(UsuarioDTO u) {
+    public UsuarioDTO AltaUsuario(UsuarioDTO u) throws Exception {
         try {
             UsuarioDAO usuarioDAO = new UsuarioDAO();
             u.id = Integer.parseInt(u.dni);
             usuarioDAO.CrearUsuario(u);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         }
         return u;
     }

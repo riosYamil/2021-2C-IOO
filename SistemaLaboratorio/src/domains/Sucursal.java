@@ -6,15 +6,13 @@ public class Sucursal {
     private Integer id;
     private int numero;
     private String direccion;
-    private Usuario responsableTecnico;
+    private Integer responsableTecnico;
 
     public Sucursal(SucursalDTO sucursalDTO) {
         this.id = sucursalDTO.id;
         this.numero = sucursalDTO.numero;
         this.direccion = sucursalDTO.direccion;
-
-        Usuario u = new Usuario(sucursalDTO.responsableTecnico);
-        this.responsableTecnico = u;
+        this.responsableTecnico = sucursalDTO.responsableTecnicoDNI;
     }
 
     public SucursalDTO ToSucursalDTO() {
@@ -22,7 +20,7 @@ public class Sucursal {
         sucursalDTO.id = this.id;
         sucursalDTO.numero = this.numero;
         sucursalDTO.direccion = this.direccion;
-        sucursalDTO.responsableTecnico = this.responsableTecnico.ToUsuarioDTO();
+        sucursalDTO.responsableTecnicoDNI = this.responsableTecnico;
         return sucursalDTO;
     }
 
