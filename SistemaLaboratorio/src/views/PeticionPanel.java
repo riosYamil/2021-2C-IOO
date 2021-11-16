@@ -21,6 +21,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -57,6 +58,9 @@ public class PeticionPanel {
 	
 	private List<PracticaAsociadaDTO> practicasAsociadas = new ArrayList<PracticaAsociadaDTO>();
 	private List<PeticionDTO> listPeticiones = new ArrayList<PeticionDTO>();
+	private JLabel lblNewLabel;
+	private JTextField tHoras;
+	private int horasTotales;
 
 
 	/**
@@ -117,6 +121,11 @@ public class PeticionPanel {
 		
 		lblNumeroSucursal = new JLabel("NUMERO DE SUCURSAL");
 		
+		lblNewLabel = new JLabel("HORAS PARA OBTENER EL RESULTADO");
+		
+		tHoras = new JTextField();
+		tHoras.setColumns(10);
+		
 		
 		GroupLayout gl_AltaPeticiones = new GroupLayout(AltaPeticiones);
 		gl_AltaPeticiones.setHorizontalGroup(
@@ -134,19 +143,20 @@ public class PeticionPanel {
 									.addGroup(gl_AltaPeticiones.createParallelGroup(Alignment.LEADING)
 										.addComponent(tOB, GroupLayout.PREFERRED_SIZE, 237, GroupLayout.PREFERRED_SIZE)
 										.addComponent(lblOB)))
-								.addComponent(btnAddPractica, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
 								.addGroup(gl_AltaPeticiones.createSequentialGroup()
 									.addGroup(gl_AltaPeticiones.createParallelGroup(Alignment.LEADING)
 										.addComponent(tNombrePractica, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE)
 										.addComponent(lblNombrePractica)
 										.addComponent(lblPracticas)
 										.addComponent(tNumSucursal, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblNumeroSucursal))
+										.addComponent(lblNumeroSucursal)
+										.addComponent(btnAddPractica, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblNewLabel)
+										.addComponent(tHoras, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 									.addPreferredGap(ComponentPlacement.UNRELATED)
 									.addGroup(gl_AltaPeticiones.createParallelGroup(Alignment.LEADING)
 										.addComponent(lblGrupoPractica)
-										.addComponent(tGrupoPractica, GroupLayout.PREFERRED_SIZE, 197, GroupLayout.PREFERRED_SIZE))))
-							.addPreferredGap(ComponentPlacement.RELATED))
+										.addComponent(tGrupoPractica, GroupLayout.PREFERRED_SIZE, 197, GroupLayout.PREFERRED_SIZE)))))
 						.addGroup(gl_AltaPeticiones.createSequentialGroup()
 							.addGap(176)
 							.addComponent(btnAddPet, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)))
@@ -179,9 +189,13 @@ public class PeticionPanel {
 					.addGroup(gl_AltaPeticiones.createParallelGroup(Alignment.BASELINE)
 						.addComponent(tNombrePractica, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(tGrupoPractica, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(lblNewLabel)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(tHoras, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(9)
 					.addComponent(btnAddPractica)
-					.addContainerGap(169, Short.MAX_VALUE))
+					.addContainerGap(127, Short.MAX_VALUE))
 		);
 		AltaPeticiones.setLayout(gl_AltaPeticiones);
 		
@@ -363,7 +377,7 @@ public class PeticionPanel {
 					if(!id.isBlank()) {
 						try {
 							if (peticionController.BajaPeticion(Integer.parseInt(id))) {
-								limpiarPracticas();
+								tID.setText("");
 								alert("La petición se borró correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
 							} else {
 								alert("La petición no se pudo eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -397,6 +411,7 @@ public class PeticionPanel {
 						peticion.practicasAsociadas = practicasAsociadas;
 						peticion.sucursalID = Integer.parseInt(numSucursal);
 						peticion.obraSocial = ob;
+						peticion.fechaDeEntrega = calcularFechaDeEntrega(horasTotales);
 
 						if(!p.dni.isBlank()) {
 							peticionController.AltaPeticion(peticion);
@@ -418,6 +433,7 @@ public class PeticionPanel {
 				String nombre = tNombrePractica.getText();
 				String grupo = tGrupoPractica.getText();
 				String dni = tDNI.getText();
+				String horasResultado = tHoras.getText();
 
 				if(!nombre.isBlank() && !grupo.isBlank() && !dni.isBlank()) {
 					dtos.PracticaAsociadaDTO pa = new dtos.PracticaAsociadaDTO();
@@ -431,13 +447,14 @@ public class PeticionPanel {
 					p.valorReservadoMax = 0;
 					p.valorReservadoMin = 0;
 					p.estadoPractica = EstadoPractica.Habilitado;
+					p.horasEsperaResultado = Integer.parseInt(horasResultado);
 
 					try {
 						p = practicasController.AltaPractica(p);
 						pa.practicaID = p.id;
-						pa.resultadoPractica = EstadoResultadoPractica.Pendiente;
-						pa.resultado = 0;
+						pa.resultado = null;
 						practicasAsociadas.add(pa);
+						horasTotales += Integer.parseInt(horasResultado);
 						limpiarPracticas();
 						alert("La práctica creó correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
 					} catch (Exception ex) {
@@ -455,7 +472,7 @@ public class PeticionPanel {
 				boolean peticionesPendientes = chckbxPeticionesPendientes.isSelected();
 				boolean peticionesCriticas = chckbxPeticionesCriticas.isSelected();
 				
-				if(!dni.isBlank()) {
+				if(!dni.isBlank() && (peticionesCompletas || peticionesPendientes || peticionesCriticas)) {
 					try {
 						PacienteController pc = PacienteController.getInstance();
 						PacienteDTO p = pc.ObtenerPaciente(Integer.parseInt(dni));
@@ -492,6 +509,9 @@ public class PeticionPanel {
 					}
 
 				}
+				else {
+					alert("Seleccione algun tipo de petición", "Error", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		
@@ -508,6 +528,17 @@ public class PeticionPanel {
 		PeticionesYPracticas f = new PeticionesYPracticas(list);
 		f.setVisible(true);
 	}
+	
+	private Date calcularFechaDeEntrega(int h) {
+		Date d = new Date();
+		int dias = h / 12;
+		Calendar c = Calendar.getInstance();
+		
+		c.add(Calendar.DATE, dias);
+		d = c.getTime();
+	
+		return d;
+	}
 
 
     private void alert(String msg, String type, int pane) {
@@ -521,15 +552,12 @@ public class PeticionPanel {
     private void limpiarPracticas() {
     	tNombrePractica.setText("");
     	tGrupoPractica.setText("");
+    	tHoras.setText("");
     }
 	
     private void limpiarFormulario() {
     	tDNI.setText("");
     	tNumSucursal.setText("");
     	tOB.setText("");
-    	
-    	if(tID != null) {
-        	tID.setText("");
-    	}
     }
 }

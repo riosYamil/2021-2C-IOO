@@ -5,6 +5,7 @@ import domains.Peticion;
 import domains.Practica;
 import dtos.PeticionDTO;
 import dtos.PracticaAsociadaDTO;
+import dtos.PracticaDTO;
 import dtos.SucursalDTO;
 import enums.EstadoPeticion;
 import enums.EstadoResultadoPractica;
@@ -48,6 +49,8 @@ public class PeticionController {
     public boolean BajaPeticion(int id) throws Exception {
         try {
             PeticionDAO peticionDAO = new PeticionDAO();
+            BorrarPracticasAsociadas(id);
+            
             boolean fueBorrado = peticionDAO.BorrarPeticion(id);
 
             if (!fueBorrado) {
@@ -63,7 +66,7 @@ public class PeticionController {
         try {
             PeticionDAO peticionDAO = new PeticionDAO();
             PeticionService peticionService = new PeticionService();
-            //p.estadoPeticion =  peticionService.DeterminarEstado(p); VER
+            p.estadoPeticion =  peticionService.DeterminarEstado(p);
 
             boolean fueActualizado = peticionDAO.ActualizarPeticion(p);
             if (!fueActualizado) {
@@ -73,6 +76,15 @@ public class PeticionController {
             throw e;
         }
         return true;
+    }
+    
+    public void BorrarPracticasAsociadas(int id) throws Exception {
+    	PeticionDTO p = ObtenerPeticion(id);
+    	
+        for (PracticaAsociadaDTO pa : p.practicasAsociadas) {
+        	PracticaController practicaController = PracticaController.getInstance();
+        	practicaController.BajaPractica(pa.practicaID);
+        }
     }
 
     public PeticionDTO ObtenerPeticion(int PeticionID) throws Exception {
