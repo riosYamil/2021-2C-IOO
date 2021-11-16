@@ -1713,7 +1713,7 @@
 											"top": 535,
 											"width": 511,
 											"height": 13,
-											"text": "+ObtenerSurcursalID(): Int",
+											"text": "+obtener_sucursal(): Int",
 											"horizontalAlignment": 0
 										},
 										{
@@ -8294,7 +8294,7 @@
 											"top": 358,
 											"width": 306.72509765625,
 											"height": 13,
-											"text": "-practica: Practica",
+											"text": "-practicaID: Int",
 											"horizontalAlignment": 0
 										},
 										{
@@ -13547,7 +13547,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF7VojHU3fRhRQ="
 							},
-							"name": "ObtenerSurcursalID",
+							"name": "obtener_sucursal",
 							"parameters": [
 								{
 									"_type": "UMLParameter",
@@ -15468,9 +15468,9 @@
 							"_parent": {
 								"$ref": "AAAAAAF8bgMDncjAzGY="
 							},
-							"name": "practica",
+							"name": "practicaID",
 							"visibility": "private",
-							"type": "Practica"
+							"type": "Int"
 						},
 						{
 							"_type": "UMLAttribute",

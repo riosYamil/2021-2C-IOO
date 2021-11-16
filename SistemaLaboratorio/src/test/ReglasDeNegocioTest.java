@@ -80,7 +80,7 @@ public class ReglasDeNegocioTest {
 
         //Creo practica asociada a petición
         PracticaAsociadaDTO practicaAsociada = new PracticaAsociadaDTO();
-        practicaAsociada.practicaDTO = practica;
+        practicaAsociada.practicaID= practica.id;
         practicaAsociada.resultadoPractica = EstadoResultadoPractica.Pendiente;
         practicaAsociada.resultado = 0;
         peticion.practicasAsociadas = new ArrayList<PracticaAsociadaDTO>();

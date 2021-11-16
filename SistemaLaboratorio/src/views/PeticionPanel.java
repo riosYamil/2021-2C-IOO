@@ -428,7 +428,7 @@ public class PeticionPanel {
 					p = practicasController.AltaPractica(p);
 					
 	        		if(!p.nombre.isBlank()) {
-						pa.practicaDTO = p;
+						pa.practicaID = p.id;
 						practicasAsociadas.add(pa);
 						limpiarPracticas();
 	        			alert("La práctica creó correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);

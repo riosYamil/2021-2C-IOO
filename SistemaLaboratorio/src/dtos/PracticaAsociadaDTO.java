@@ -3,7 +3,7 @@ package dtos;
 import enums.EstadoResultadoPractica;
 
 public class PracticaAsociadaDTO {
-    public PracticaDTO practicaDTO;
+    public int practicaID;
     public EstadoResultadoPractica resultadoPractica;
     public Integer resultado;
 }

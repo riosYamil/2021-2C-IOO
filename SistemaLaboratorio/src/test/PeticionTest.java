@@ -40,7 +40,7 @@ public class PeticionTest {
         peticionDTO.fechaDeEntrega = new Date();
 
         PracticaAsociadaDTO practicaAsociadaDTO = new PracticaAsociadaDTO();
-        practicaAsociadaDTO.practicaDTO = practicaDTO;
+        practicaAsociadaDTO.practicaID = practicaDTO.id;
         practicaAsociadaDTO.resultadoPractica = EstadoResultadoPractica.Pendiente;
         practicaAsociadaDTO.resultado = 0;
 
@@ -107,7 +107,7 @@ public class PeticionTest {
         practicaDTO.estadoPractica = EstadoPractica.Habilitado;
 
         PracticaAsociadaDTO practicaAsociadaDTO = new PracticaAsociadaDTO();
-        practicaAsociadaDTO.practicaDTO = practicaDTO;
+        practicaAsociadaDTO.practicaID = practicaDTO.id;
         practicaAsociadaDTO.resultadoPractica = EstadoResultadoPractica.Pendiente;
         practicaAsociadaDTO.resultado = 0;
 

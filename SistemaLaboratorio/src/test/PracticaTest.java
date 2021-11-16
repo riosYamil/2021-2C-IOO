@@ -63,7 +63,6 @@ public class PracticaTest {
         PracticaController practicaController = PracticaController.getInstance();
 
         PracticaDTO practicaDTO = new PracticaDTO();
-        practicaDTO.id = 2020;
         practicaDTO.nombre = "pcr";
         practicaDTO.grupo = "covid19";
         practicaDTO.valorCriticoMin = 1;
@@ -73,13 +72,14 @@ public class PracticaTest {
         practicaDTO.horasEsperaResultado = 48;
         practicaDTO.estadoPractica = EstadoPractica.Habilitado;
 
-        assertNotNull(practicaController.AltaPractica(practicaDTO));
+        practicaDTO = practicaController.AltaPractica(practicaDTO);
+        assertNotNull(practicaDTO);
 
         practicaDTO.nombre = "asd";
         practicaDTO.grupo = "abc";
         assertTrue(practicaController.ModificarPractica(practicaDTO));
 
-        PracticaDTO practica = practicaController.ObtenerPractica(2020);
+        PracticaDTO practica = practicaController.ObtenerPractica(practicaDTO.id);
         assertEquals("asd", practica.nombre);
         assertEquals("abc", practica.grupo);
 

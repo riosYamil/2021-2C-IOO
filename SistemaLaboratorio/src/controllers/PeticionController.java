@@ -155,7 +155,9 @@ public class PeticionController {
 
         for (PeticionDTO p : peticiones) {
             for (PracticaAsociadaDTO paDTO : p.practicasAsociadas) {
-                Practica practica = new Practica(paDTO.practicaDTO);
+
+                PracticaController practicaController = PracticaController.getInstance();
+                Practica practica = new Practica(practicaController.ObtenerPractica(paDTO.practicaID));
 
                 if (practica.EsUnValorCritico(paDTO.resultado)) {
                     resultado.add(p);

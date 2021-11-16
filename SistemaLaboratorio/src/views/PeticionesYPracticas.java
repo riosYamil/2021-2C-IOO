@@ -52,7 +52,7 @@ public class PeticionesYPracticas extends JFrame {
 			//if(p.resultado ==  EstadoResultadoPractica.Normal || p.resultado ==  EstadoResultadoPractica.Pendiente) {
 
 			//}
-			lblpractica.setText("Practica ID: " + p.practicaDTO.id + " Resultado: " + p.resultado + " algo mas?");
+			lblpractica.setText("Practica ID: " + p.practicaID + " Resultado: " + p.resultado + " algo mas?");
 			frame.add(lblpractica);
 		}
 	}

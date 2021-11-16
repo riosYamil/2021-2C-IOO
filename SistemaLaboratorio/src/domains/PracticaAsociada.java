@@ -1,22 +1,23 @@
 package domains;
 
+import controllers.PracticaController;
 import dtos.PracticaAsociadaDTO;
 import dtos.PracticaDTO;
 import enums.EstadoResultadoPractica;
 
 public class PracticaAsociada {
-    private Practica practica;
+    private int practicaID;
     private EstadoResultadoPractica resultadoPractica;
     private int resultado;
 
     public PracticaAsociada(PracticaAsociadaDTO practicaAsociadaDTO) {
-        this.practica = new Practica(practicaAsociadaDTO.practicaDTO);
+        this.practicaID = practicaAsociadaDTO.practicaID;
         this.resultadoPractica = practicaAsociadaDTO.resultadoPractica;
         this.resultado = practicaAsociadaDTO.resultado;
     }
 
     public PracticaAsociada(PracticaDTO p){
-        this.practica = new Practica(p);
+        this.practicaID = p.id;
         this.resultadoPractica = EstadoResultadoPractica.Pendiente;
         this.resultado = 0;
     }
@@ -25,10 +26,18 @@ public class PracticaAsociada {
     }
 
     public boolean TieneValoresReservados() {
+        PracticaController practicaController = PracticaController.getInstance();
+        PracticaDTO practicaDTO = practicaController.ObtenerPractica(this.practicaID);
+
+        Practica practica = new Practica(practicaDTO);
         return practica.EsUnValorReservado(resultado);
     }
 
     public boolean TieneValoresCriticos() {
+        PracticaController practicaController = PracticaController.getInstance();
+        PracticaDTO practicaDTO = practicaController.ObtenerPractica(this.practicaID);
+
+        Practica practica = new Practica(practicaDTO);
         return practica.EsUnValorCritico(resultado);
     }
 
