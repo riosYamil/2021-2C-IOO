@@ -434,14 +434,15 @@ public class PacientePanel{
 					p.mail = mail;
 					p.id = Integer.parseInt(dni);
 					p.estado = EstadoPaciente.Activo;
-					p = pacienteController.AltaPaciente(p);
-					if(p != null) {
+
+					try {
+						p = pacienteController.AltaPaciente(p);
 						limpiarFormulario();
 						alert("Se creó correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
-					}
-					else {
+					} catch (Exception ex) {
 						alert("El paciente ya existe.", "Error", JOptionPane.ERROR_MESSAGE);
 					}
+
 				}else {
 					alert("Falta información.", "Error", JOptionPane.ERROR_MESSAGE);
 				}

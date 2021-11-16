@@ -18,18 +18,13 @@ public class PacienteController {
         return instance;
     }
 
-    public PacienteDTO AltaPaciente(PacienteDTO p) {
+    public PacienteDTO AltaPaciente(PacienteDTO p) throws Exception {
         try {
             p.id = Integer.parseInt(p.dni);
             PacienteDAO pacienteDAO = new PacienteDAO();
-            if(!verificarSiSucursalExiste(p.id)) { 
-                pacienteDAO.CrearPaciente(p);
-            }
-            else {
-            	p = null;
-            }
+            pacienteDAO.CrearPaciente(p);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         }
         return p;
     }
@@ -77,14 +72,5 @@ public class PacienteController {
             e.printStackTrace();
         }
         return p;
-    }
-    
-    public boolean verificarSiSucursalExiste(int id) {
-    	boolean existe = false;
-    	PacienteDTO p = ObtenerPaciente(id);
-        if(p != null){
-            existe = true;
-        }
-    	return existe;
     }
 }
