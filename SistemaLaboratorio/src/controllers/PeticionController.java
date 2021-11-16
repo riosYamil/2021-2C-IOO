@@ -52,6 +52,7 @@ public class PeticionController {
             //Valido que exista la petición
             PeticionDTO peticionDTO = ObtenerPeticion(peticionID);
 
+            BorrarPracticasAsociadas(peticionID);
             boolean fueBorrado = peticionDAO.BorrarPeticion(peticionID);
             if (!fueBorrado) {
                 return false;

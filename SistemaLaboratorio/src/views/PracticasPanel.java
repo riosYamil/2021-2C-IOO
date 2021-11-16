@@ -513,6 +513,12 @@ public class PracticasPanel {
 				p.valorReservadoMin = Integer.parseInt(valorReservadoMin);
 				p.horasEsperaResultado = Integer.parseInt(lblTiempo.getText());
 
+				if (p.valorCriticoMax > p.valorCriticoMin || p.valorReservadoMax > p.valorReservadoMin){
+					p.estadoPractica = EstadoPractica.Inhabilidado;
+				} else {
+					p.estadoPractica = EstadoPractica.Habilitado;
+				}
+
 				if ((p.valorCriticoMax > p.valorCriticoMin || p.valorReservadoMax > p.valorReservadoMin) && !resultado.isBlank()) {
 
 					try {
@@ -523,6 +529,7 @@ public class PracticasPanel {
 							}
 
 						}
+
 						if (pc.ModificarPractica(p)) {
 							peticionController.ModificarPeticion(peticion);
 							limpiarFormulario();
