@@ -37,7 +37,7 @@ public class PeticionesYPracticas extends JDialog {
 
 		for(int i = 0; i < l.size(); i++) {
 			PeticionDTO p = l.get(i);
-			JLabel lbl = new JLabel("Petición ID: " + p.id + " | Sucursal asociada: " + p.sucursalID + " | Estado de petición: " + p.estadoPeticion);
+			JLabel lbl = new JLabel("Petición ID: " + p.id + " | Sucursal asociada: " + p.sucursalID + " | Estado de petición: " + p.estadoPeticion + " | Día de entrega: " + p.fechaDeEntrega.toLocaleString());
 			lbl.setFont(new Font("Tahoma", Font.BOLD, 13));
 			this.getContentPane().add(lbl);
 			agregarPracticasAsociadas(p.practicasAsociadas);

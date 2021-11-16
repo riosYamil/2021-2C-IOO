@@ -190,6 +190,7 @@ public class PracticasPanel {
 		tValReservadoMin.setColumns(10);
 
 		rdbtnPendiente = new JRadioButton("Pendiente");
+		rdbtnPendiente.setEnabled(false);
 		rdbtnPendiente.setBackground(Color.WHITE);
 
 		JLabel lblRol = new JLabel("ESTADO DE LA PRACTICA:");
@@ -212,7 +213,7 @@ public class PracticasPanel {
 
 		btnUpdatePractica = new JButton("Modifcar práctica");
 
-		btnUpdatePractica.setEnabled(false);
+		btnUpdatePractica.setEnabled(true);
 
 		btnLimpiar = new JButton("Limpiar formulario");
 
@@ -222,12 +223,15 @@ public class PracticasPanel {
 		JLabel lblPeticion = new JLabel("ID PETICION");
 
 		rdbtnNormal = new JRadioButton("Normal");
+		rdbtnNormal.setEnabled(false);
 		rdbtnNormal.setBackground(Color.WHITE);
 
 		rdbtnCritico = new JRadioButton("Critico");
+		rdbtnCritico.setEnabled(false);
 		rdbtnCritico.setBackground(Color.WHITE);
 
 		rdbtnReservado = new JRadioButton("Reservado");
+		rdbtnReservado.setEnabled(false);
 		rdbtnReservado.setBackground(Color.WHITE);
 
 		lblHabilitacion = new JLabel("Está habilitada: ");
@@ -409,6 +413,7 @@ public class PracticasPanel {
 							PracticaAsociadaDTO pa = pc.ObtenerPracticaAsocidada(peticion.practicasAsociadas, Integer.parseInt(id));
 							estado = pa.resultadoPractica;
 							tResultado.setText(String.valueOf(pa.resultado));
+							lblTiempo.setText(String.valueOf(practica.horasEsperaResultado));
 
 							if (pc.EstaHabilitada(estado, Integer.parseInt(id))) {
 								lblHabliticacion_1.setText("SI");
@@ -450,7 +455,8 @@ public class PracticasPanel {
 							peticionController.ModificarPeticion(peticion);
 
 							if (pc.BajaPractica(Integer.parseInt(id))) {
-								limpiarFormulario();
+								tID.setText("");
+								tIDPeticion.setText("");
 								alert("Se eliminó correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
 							} else {
 								alert("Este práctica no se pudo eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -486,47 +492,22 @@ public class PracticasPanel {
 				p.valorCriticoMin = Integer.parseInt(valorCriticoMin);
 				p.valorReservadoMax = Integer.parseInt(valorReservadoMax);
 				p.valorReservadoMin = Integer.parseInt(valorReservadoMin);
+				p.horasEsperaResultado = Integer.parseInt(lblTiempo.getText());
 
-				//p.horasEsperaResultado = calcular
-
-				if (rdbtnPendiente.isSelected()) {
-					estado = EstadoResultadoPractica.Pendiente;
-					p.estadoPractica = EstadoPractica.Habilitado;
-				}
-
-				if (rdbtnCritico.isSelected()) {
-					estado = EstadoResultadoPractica.Critico;
-					p.estadoPractica = EstadoPractica.Inhabilidado;
-				}
-
-				if (rdbtnNormal.isSelected()) {
-					estado = EstadoResultadoPractica.Normal;
-					p.estadoPractica = EstadoPractica.Inhabilidado;
-				}
-
-				if (rdbtnReservado.isSelected()) {
-					estado = EstadoResultadoPractica.Reservado;
-					p.estadoPractica = EstadoPractica.Inhabilidado;
-				}
-
-				if (p.valorCriticoMax > p.valorCriticoMin && p.valorReservadoMax > p.valorReservadoMin && !resultado.isBlank()) {
+				if ((p.valorCriticoMax > p.valorCriticoMin || p.valorReservadoMax > p.valorReservadoMin) && !resultado.isBlank()) {
 
 					try {
 						PeticionDTO peticion = peticionController.ObtenerPeticion(Integer.parseInt(idPeticion));
 						for (PracticaAsociadaDTO practicasAsociada : peticion.practicasAsociadas) {
 							if (practicasAsociada.practicaID == p.id) {
-								practicasAsociada.resultadoPractica = estado;
 								practicasAsociada.resultado = Integer.parseInt(resultado);
 							}
 
 						}
-						peticionController.ModificarPeticion(peticion);
-
 						if (pc.ModificarPractica(p)) {
+							peticionController.ModificarPeticion(peticion);
 							limpiarFormulario();
 							alert("Se modificó correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
-						} else {
-							alert("Esta práctica no se pudo modificar.", "Error", JOptionPane.ERROR_MESSAGE);
 						}
 					} catch (Exception ex) {
 						alert("Esta práctica no se pudo modificar (" + ex.getMessage() + ").", "Error", JOptionPane.ERROR_MESSAGE);
@@ -536,46 +517,6 @@ public class PracticasPanel {
 					alert("Los valores está mal setados.", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 
-			}
-		});
-
-		rdbtnPendiente.addPropertyChangeListener(new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent evt) {
-				if (rdbtnPendiente.isSelected()) {
-					rdbtnCritico.setSelected(false);
-					rdbtnNormal.setSelected(false);
-					rdbtnReservado.setSelected(false);
-				}
-			}
-		});
-
-		rdbtnCritico.addPropertyChangeListener(new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent evt) {
-				if (rdbtnCritico.isSelected()) {
-					rdbtnPendiente.setSelected(false);
-					rdbtnNormal.setSelected(false);
-					rdbtnReservado.setSelected(false);
-				}
-			}
-		});
-
-		rdbtnNormal.addPropertyChangeListener(new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent evt) {
-				if (rdbtnNormal.isSelected()) {
-					rdbtnPendiente.setSelected(false);
-					rdbtnCritico.setSelected(false);
-					rdbtnReservado.setSelected(false);
-				}
-			}
-		});
-
-		rdbtnReservado.addPropertyChangeListener(new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent evt) {
-				if (rdbtnReservado.isSelected()) {
-					rdbtnPendiente.setSelected(false);
-					rdbtnCritico.setSelected(false);
-					rdbtnNormal.setSelected(false);
-				}
 			}
 		});
 
@@ -600,10 +541,6 @@ public class PracticasPanel {
 		tValCriticoMin.setEditable(set);
 		tValReservadoMax.setEditable(set);
 		tValReservadoMin.setEditable(set);
-		rdbtnPendiente.setEnabled(set);
-		rdbtnCritico.setEnabled(set);
-		rdbtnNormal.setEnabled(set);
-		rdbtnReservado.setEnabled(set);
 		btnUpdatePractica.setEnabled(set);
 	}
 
@@ -626,10 +563,6 @@ public class PracticasPanel {
 	}
 
 	private void limpiarFormulario() {
-		if (tID != null) {
-			tID.setText("");
-			tIDPeticion.setText("");
-		}
 		tid.setText("");
 		tPeticionID.setText("");
 		lblHabliticacion_1.setText("NO");

@@ -78,6 +78,15 @@ public class PeticionController {
         return true;
     }
 
+    public void BorrarPracticasAsociadas(int id) throws Exception {
+        PeticionDTO p = ObtenerPeticion(id);
+
+        for (PracticaAsociadaDTO pa : p.practicasAsociadas) {
+            PracticaController practicaController = PracticaController.getInstance();
+            practicaController.BajaPractica(pa.practicaID);
+        }
+    }
+
     public PeticionDTO ObtenerPeticion(int PeticionID) throws Exception {
         PeticionDTO p = new PeticionDTO();
         try {
