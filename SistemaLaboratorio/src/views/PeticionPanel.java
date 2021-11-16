@@ -479,7 +479,17 @@ public class PeticionPanel {
 						alert("No fue posible obtener la petición (" + ex.getMessage() + ").", "Error", JOptionPane.ERROR_MESSAGE);
 
 					}
-					mostrarPeticionesYPracticas(listPeticiones);
+
+					if(listPeticiones.size() > 0){
+						try {
+							mostrarPeticionesYPracticas(listPeticiones);
+						} catch (Exception ex) {
+							ex.printStackTrace();
+						}
+						listPeticiones.clear();
+					} else {
+						alert("Este paciente no tiene practicas asociadas", "Error", JOptionPane.ERROR_MESSAGE);
+					}
 
 				}
 			}
@@ -494,7 +504,7 @@ public class PeticionPanel {
 		
 	}
 
-	private void mostrarPeticionesYPracticas(List<PeticionDTO> list){
+	private void mostrarPeticionesYPracticas(List<PeticionDTO> list) throws Exception {
 		PeticionesYPracticas f = new PeticionesYPracticas(list);
 		f.setVisible(true);
 	}
