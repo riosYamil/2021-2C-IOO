@@ -2,15 +2,17 @@ package domains;
 
 import dtos.PracticaDTO;
 
+import java.util.Objects;
+
 public class Practica {
     private Integer id;
     private int peticionID;
     private String nombre;
     private String grupo;
-    private int valorCriticoMin;
-    private int valorCriticoMax;
-    private int valorReservadoMin;
-    private int valorReservadoMax;
+    private Integer valorCriticoMin;
+    private Integer valorCriticoMax;
+    private Integer valorReservadoMin;
+    private Integer valorReservadoMax;
     private int horasEsperaResultado;
     private enums.EstadoPractica estadoPractica;
 
@@ -18,19 +20,40 @@ public class Practica {
         this.id = practicaDTO.id;
         this.nombre = practicaDTO.nombre;
         this.grupo = practicaDTO.grupo;
-        this.valorCriticoMin = practicaDTO.valorCriticoMin;
-        this.valorCriticoMax = practicaDTO.valorCriticoMax;
-        this.valorReservadoMin = practicaDTO.valorReservadoMin;
-        this.valorReservadoMax = practicaDTO.valorReservadoMax;
+
+        if (!Objects.isNull(practicaDTO.valorCriticoMin)) {
+            this.valorCriticoMin = practicaDTO.valorCriticoMin;
+        } else {
+            this.valorCriticoMin = Integer.MIN_VALUE;
+        }
+
+        if (!Objects.isNull(practicaDTO.valorCriticoMax)) {
+            this.valorCriticoMax = practicaDTO.valorCriticoMax;
+        } else {
+            this.valorCriticoMax = Integer.MAX_VALUE;
+        }
+
+        if (!Objects.isNull(practicaDTO.valorReservadoMin)) {
+            this.valorReservadoMin = practicaDTO.valorReservadoMin;
+        } else {
+            this.valorReservadoMin = Integer.MIN_VALUE;
+        }
+
+        if (!Objects.isNull(practicaDTO.valorReservadoMax)) {
+            this.valorReservadoMax = practicaDTO.valorReservadoMax;
+        } else {
+            this.valorReservadoMax = Integer.MAX_VALUE;
+
+        }
         this.horasEsperaResultado = practicaDTO.horasEsperaResultado;
         this.estadoPractica = practicaDTO.estadoPractica;
     }
 
-    public boolean EsUnValorReservado(int resultado) {
-        return this.valorReservadoMin < resultado && resultado < this.valorReservadoMax;
+    public boolean EsUnValorReservado(Integer resultado) {
+        return !Objects.isNull(resultado) && this.valorReservadoMin < resultado && resultado < this.valorReservadoMax;
     }
 
-    public boolean EsUnValorCritico(int resultado) {
-        return this.valorCriticoMin < resultado && resultado < this.valorCriticoMax;
+    public boolean EsUnValorCritico(Integer resultado) {
+        return !Objects.isNull(resultado) && this.valorCriticoMin < resultado && resultado < this.valorCriticoMax;
     }
 }

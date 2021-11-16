@@ -7,6 +7,7 @@ import dtos.PeticionDTO;
 import dtos.PracticaAsociadaDTO;
 import dtos.SucursalDTO;
 import enums.EstadoPeticion;
+import enums.EstadoResultadoPractica;
 import services.PeticionService;
 
 import java.util.ArrayList;
@@ -160,13 +161,8 @@ public class PeticionController {
 
         for (PeticionDTO p : peticiones) {
             for (PracticaAsociadaDTO paDTO : p.practicasAsociadas) {
-
-                PracticaController practicaController = PracticaController.getInstance();
-
                 try {
-                    Practica practica = new Practica(practicaController.ObtenerPractica(paDTO.practicaID));
-
-                    if (practica.EsUnValorCritico(paDTO.resultado)) {
+                    if (paDTO.resultadoPractica.equals(EstadoResultadoPractica.Critico)) {
                         resultado.add(p);
                     }
                 } catch (Exception e) {
@@ -177,12 +173,12 @@ public class PeticionController {
         return resultado;
     }
 
-    public List<Peticion> ObtenerPeticionesFinalizadas(SucursalDTO s) {
+    public List<Peticion> ObtenerPeticionesFinalizadas() {
         List<Peticion> ps = new ArrayList<>();
 
         try {
             PeticionDAO peticionDAO = new PeticionDAO();
-            List<PeticionDTO> peticiones = peticionDAO.ObtenerPeticionesDeSurcursal(s.id);
+            List<PeticionDTO> peticiones = peticionDAO.ObtenerPeticiones();
             for (PeticionDTO peticionDTO : peticiones) {
                 Peticion peticion = new Peticion(peticionDTO);
                 if (peticion.EstaFinalizadas()) {

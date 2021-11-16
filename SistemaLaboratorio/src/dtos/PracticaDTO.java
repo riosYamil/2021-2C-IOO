@@ -5,10 +5,10 @@ public class PracticaDTO {
     public int peticionID;
     public String nombre;
     public String grupo;
-    public int valorCriticoMin;
-    public int valorCriticoMax;
-    public int valorReservadoMin;
-    public int valorReservadoMax;
+    public Integer valorCriticoMin;
+    public Integer valorCriticoMax;
+    public Integer valorReservadoMin;
+    public Integer valorReservadoMax;
     public int horasEsperaResultado;
     public enums.EstadoPractica estadoPractica;
 
