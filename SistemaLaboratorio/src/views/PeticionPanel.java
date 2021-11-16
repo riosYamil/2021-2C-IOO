@@ -9,6 +9,7 @@ import dtos.PracticaAsociadaDTO;
 import dtos.PracticaDTO;
 import enums.EstadoPeticion;
 import enums.EstadoPractica;
+import enums.EstadoResultadoPractica;
 import enums.Rol;
 
 import javax.swing.*;
@@ -363,9 +364,7 @@ public class PeticionPanel {
 					
 					if(!id.isBlank()) {
 						try {
-							boolean borrada = peticionController.BajaPeticion(Integer.parseInt(id));
-
-							if (borrada) {
+							if (peticionController.BajaPeticion(Integer.parseInt(id))) {
 								limpiarPracticas();
 								alert("La petición se borró correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
 							} else {
@@ -433,6 +432,8 @@ public class PeticionPanel {
 					try {
 						p = practicasController.AltaPractica(p);
 						pa.practicaID = p.id;
+						pa.resultadoPractica = EstadoResultadoPractica.Pendiente;
+						pa.resultado = null;
 						practicasAsociadas.add(pa);
 						limpiarPracticas();
 						alert("La práctica creó correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
@@ -499,6 +500,10 @@ public class PeticionPanel {
     private void alert(String msg, String type, int pane) {
         JOptionPane.showMessageDialog(tabbedPane_5, msg, type, pane);
     }
+
+	private void limpiarListas() {
+		practicasAsociadas.clear();
+	}
     
     private void limpiarPracticas() {
     	tNombrePractica.setText("");
