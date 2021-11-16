@@ -314,13 +314,13 @@ public class SucursalPanel {
                 	s.id = Integer.parseInt(num);
                 	s.numero = Integer.parseInt(num);
                 	s.direccion = dir;
-                	UsuarioDTO u = UsuarioController.getInstance().ObtenerUsuario(Integer.parseInt(rt)); //quizas se podria guardar solo el dni del responsable
+                	UsuarioDTO u = UsuarioController.getInstance().ObtenerUsuario(Integer.parseInt(rt));
 
 					if (u != null) {
 						s = sucursalController.AltaSucursal(s, u);
 
-						if(String.valueOf(s.id).isEmpty()) {
-							alert("No se pudo agregar", "Error", JOptionPane.ERROR_MESSAGE);
+						if(s == null) {
+							alert("Ya existe.", "Error", JOptionPane.ERROR_MESSAGE);
 						}
 						else {
 							limpiarFormulario();
@@ -349,7 +349,7 @@ public class SucursalPanel {
 						limpiarFormulario();
         				alert("Se borró correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
         			}else {
-        				alert("No se pudo eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
+        				alert("La sucursal no se puede eliminar, tiene peticiones pendientes.", "Error", JOptionPane.ERROR_MESSAGE);
         			}
 
         		}
@@ -369,6 +369,8 @@ public class SucursalPanel {
         			btnUpdateSuc.setEnabled(true);
         			tNumMod.setEnabled(false);
         			btnObtenerSuc.setEnabled(false);
+        		} else {
+        			alert("No se pudo obtener sucursal.", "Error", JOptionPane.ERROR_MESSAGE);
         		}
 			}
 		});
@@ -434,5 +436,6 @@ public class SucursalPanel {
 		tDireccionMod.setText("");
 		tResponsableTecnicoMod.setText("");
 		tNumMod.setText("");
+		tNuevaSucursal.setText("");
     }
 }
