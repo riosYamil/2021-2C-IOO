@@ -2,6 +2,7 @@ package views;
 
 import dtos.PeticionDTO;
 import dtos.PracticaAsociadaDTO;
+import enums.EstadoResultadoPractica;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -35,7 +36,7 @@ public class PeticionesYPracticas extends JFrame {
 
 		for(int i = 0; i < l.size(); i++) {
 			PeticionDTO p = l.get(i);
-			JLabel lbl = new JLabel("Petición ID: " + p.id + "| Obra social:" + p.obraSocial + " | Sucursal asociada: " + p.sucursalID);
+			JLabel lbl = new JLabel("Petición ID: " + p.id + " | Sucursal asociada: " + p.sucursalID);
 			lbl.setFont(new Font("Tahoma", Font.BOLD, 11));
 			frame.add(lbl);
 			agregarPracticas(p.practicasAsociadas);
@@ -49,10 +50,14 @@ public class PeticionesYPracticas extends JFrame {
 		for (final PracticaAsociadaDTO p : list) {
 			JLabel lblpractica = new JLabel();
 
-			//if(p.resultado ==  EstadoResultadoPractica.Normal || p.resultado ==  EstadoResultadoPractica.Pendiente) {
-
-			//}
-			lblpractica.setText("Practica ID: " + p.practicaID + " Resultado: " + p.resultado + " algo mas?");
+			/*if(p.resultadoPractica ==  EstadoResultadoPractica.Normal || p.resultadoPractica ==  EstadoResultadoPractica.Pendiente || p.resultadoPractica==  EstadoResultadoPractica.Critico) {
+				lblpractica.setText("Practica ID: " + p.practicaID + " Resultado: " + p.resultadoPractica);
+			}
+			else {
+				lblpractica.setText("Practica ID: " + p.practicaID + " Resultado: RETIRAR POR SUCURSAL");
+			}*/
+			
+			lblpractica.setText("Practica ID: " + p.practicaID + " Resultado: " + p.resultadoPractica);
 			frame.add(lblpractica);
 		}
 	}

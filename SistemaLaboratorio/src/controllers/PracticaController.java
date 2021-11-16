@@ -1,7 +1,13 @@
 package controllers;
 
+import java.util.List;
+
 import dao.PracticaDAO;
+import domains.Peticion;
+import dtos.PeticionDTO;
+import dtos.PracticaAsociadaDTO;
 import dtos.PracticaDTO;
+import enums.EstadoResultadoPractica;
 
 public class PracticaController {
     static PracticaController instance=null;
@@ -47,7 +53,6 @@ public class PracticaController {
             PracticaDAO practicaDAO = new PracticaDAO();
             boolean fueActualizado = practicaDAO.ActualizarPractica(p);
             if (!fueActualizado) {
-                //Do something
                 return false;
             }
         } catch (Exception e) {
@@ -65,5 +70,24 @@ public class PracticaController {
             e.printStackTrace();
         }
         return pdto;
+    }
+    
+    public EstadoResultadoPractica ObtenerEstadoResultadoPractica(List<PracticaAsociadaDTO> pa, int id) {
+    	EstadoResultadoPractica estado = null;
+    	for (PracticaAsociadaDTO practicasAsociada : pa) {
+        	if(practicasAsociada.practicaID == id) {
+        		estado = practicasAsociada.resultadoPractica;
+        	}
+
+        }
+		return estado;
+    }
+    
+    public boolean EstaHabilitada(EstadoResultadoPractica e, int id) {
+    	boolean habilidata = false;
+		if(e == EstadoResultadoPractica.Pendiente) {
+			habilidata = true;
+		}
+    	return habilidata;
     }
 }

@@ -364,11 +364,9 @@ public class PeticionPanel {
 					String id = tID.getText();
 					
 					if(!id.isBlank()) {
-						boolean borrada = peticionController.BajaPeticion(Integer.parseInt(id));
-						
-						if(borrada) {
-							limpiarPracticas();
-							alert("La peticón se borró correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
+						if(peticionController.BajaPeticion(Integer.parseInt(id))) {
+							limpiarFormulario();
+							alert("La petición se borró correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
 						}
 						else {
 							alert("No se pudo eliminar", "Error", JOptionPane.ERROR_MESSAGE);
@@ -402,6 +400,7 @@ public class PeticionPanel {
 					if(!p.dni.isBlank()) {						
 						peticionController.AltaPeticion(peticion);
 						limpiarFormulario();
+						limpiarListas();
 						alert("Se agregó correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
 					}
 				} else {
@@ -429,6 +428,8 @@ public class PeticionPanel {
 					
 	        		if(!p.nombre.isBlank()) {
 						pa.practicaID = p.id;
+						pa.resultadoPractica = EstadoResultadoPractica.Pendiente;
+						pa.resultado = null;
 						practicasAsociadas.add(pa);
 						limpiarPracticas();
 	        			alert("La práctica creó correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
@@ -490,6 +491,10 @@ public class PeticionPanel {
     private void alert(String msg, String type, int pane) {
         JOptionPane.showMessageDialog(tabbedPane_5, msg, type, pane);
     }
+
+	private void limpiarListas() {
+		practicasAsociadas.clear();
+	}
     
     private void limpiarPracticas() {
     	tNombrePractica.setText("");
