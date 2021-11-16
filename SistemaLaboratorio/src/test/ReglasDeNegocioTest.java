@@ -77,11 +77,11 @@ public class ReglasDeNegocioTest {
         peticion.obraSocial = "OSDE";
         peticion.fechaDeCarga = new Date();
         peticion.fechaDeEntrega = new Date();
-        peticion.sucursalID = 12345;
+        peticion.sucursalID = sucursal.id;
 
         //Creo practica asociada a petición
         PracticaAsociadaDTO practicaAsociada = new PracticaAsociadaDTO();
-        practicaAsociada.practicaID= practica.id;
+        practicaAsociada.practicaID = practica.id;
         peticion.practicasAsociadas = new ArrayList<PracticaAsociadaDTO>();
         peticion.practicasAsociadas.add(practicaAsociada);
         peticion = peticionController.AltaPeticion(peticion);
@@ -104,15 +104,14 @@ public class ReglasDeNegocioTest {
 
         try {
             sucursalController.BajaSucursal(sucursal.id);
+            assertTrue(usuarioController.BajaUsuario(usuario.id));
+            assertTrue(peticionController.BajaPeticion(peticion.id));
+            assertTrue(pacienteController.BajaPaciente(paciente.id));
+            assertTrue(sucursalController.BajaSucursal(sucursal.id));
+            assertTrue(practicaController.BajaPractica(practica.id));
         } catch (Exception e) {
             assertEquals("La sucursal tiene peticiones finalizadas.", e.getMessage());
         }
-
-        assertTrue(usuarioController.BajaUsuario(usuario.id));
-        assertTrue(peticionController.BajaPeticion(peticion.id));
-        assertTrue(pacienteController.BajaPaciente(paciente.id));
-        assertTrue(sucursalController.BajaSucursal(sucursal.id));
-        assertTrue(practicaController.BajaPractica(practica.id));
     }
 
     @Test

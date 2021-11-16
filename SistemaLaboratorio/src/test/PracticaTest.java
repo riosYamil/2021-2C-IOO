@@ -27,10 +27,9 @@ public class PracticaTest {
             PracticaDTO practica = practicaController.AltaPractica(practicaDTO);
             assertNotNull(practica);
             practicaController.BajaPractica(practica.id);
-        } catch (Exception ex) {
-
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
     }
 
     @Test
@@ -60,11 +59,9 @@ public class PracticaTest {
             //ID existente
             practicaDTOParaTest.id = practicaDTO.id;
             assertTrue(practicaController.BajaPractica(practicaDTOParaTest.id));
-        } catch (Exception ex) {
-
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-
     }
 
     @Test
@@ -95,8 +92,8 @@ public class PracticaTest {
             assertEquals("abc", practica.grupo);
 
             assertTrue(practicaController.BajaPractica(practica.id));
-        } catch (Exception ex) {
-
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -126,7 +123,7 @@ public class PracticaTest {
 
             assertTrue(practicaController.BajaPractica(practicaDTO.id));
         } catch (Exception e){
+            e.printStackTrace();
         }
-
     }
 }

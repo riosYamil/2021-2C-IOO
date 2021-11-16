@@ -2,10 +2,8 @@ package controllers;
 
 import dao.PeticionDAO;
 import domains.Peticion;
-import domains.Practica;
 import dtos.PeticionDTO;
 import dtos.PracticaAsociadaDTO;
-import dtos.SucursalDTO;
 import enums.EstadoPeticion;
 import enums.EstadoResultadoPractica;
 import services.PeticionService;
@@ -31,8 +29,10 @@ public class PeticionController {
         try {
             PeticionDAO peticionDAO = new PeticionDAO();
             PacienteController pacienteController = PacienteController.getInstance();
+            SucursalController sucursalController = SucursalController.getInstance();
             PeticionService peticionService = new PeticionService();
 
+            sucursalController.ObtenerSucursal(p.sucursalID);
             pacienteController.ObtenerPaciente(p.pacienteID);
 
             p.id = peticionDAO.getLastInsertId() + 1;
@@ -45,11 +45,14 @@ public class PeticionController {
         return p;
     }
 
-    public boolean BajaPeticion(int id) throws Exception {
+    public boolean BajaPeticion(int peticionID) throws Exception {
         try {
             PeticionDAO peticionDAO = new PeticionDAO();
-            boolean fueBorrado = peticionDAO.BorrarPeticion(id);
 
+            //Valido que exista la petición
+            PeticionDTO peticionDTO = ObtenerPeticion(peticionID);
+
+            boolean fueBorrado = peticionDAO.BorrarPeticion(peticionID);
             if (!fueBorrado) {
                 return false;
             }
@@ -63,7 +66,7 @@ public class PeticionController {
         try {
             PeticionDAO peticionDAO = new PeticionDAO();
             PeticionService peticionService = new PeticionService();
-            //p.estadoPeticion =  peticionService.DeterminarEstado(p); VER
+            p.estadoPeticion = peticionService.DeterminarEstado(p);
 
             boolean fueActualizado = peticionDAO.ActualizarPeticion(p);
             if (!fueActualizado) {
@@ -80,6 +83,9 @@ public class PeticionController {
         try {
             PeticionDAO peticionDAO = new PeticionDAO();
             p = peticionDAO.ObtenerPeticion(PeticionID);
+            if (Objects.isNull(p)) {
+                throw new Exception("La petición no existe");
+            }
         } catch (Exception e) {
             throw e;
         }
@@ -182,8 +188,8 @@ public class PeticionController {
         return resultado;
     }
 
-    public List<Peticion> ObtenerPeticionesFinalizadas() {
-        List<Peticion> ps = new ArrayList<>();
+    public List<PeticionDTO> ObtenerPeticionesFinalizadas() {
+        List<PeticionDTO> ps = new ArrayList<>();
 
         try {
             PeticionDAO peticionDAO = new PeticionDAO();
@@ -191,7 +197,7 @@ public class PeticionController {
             for (PeticionDTO peticionDTO : peticiones) {
                 Peticion peticion = new Peticion(peticionDTO);
                 if (peticion.EstaFinalizadas()) {
-                    ps.add(peticion);
+                    ps.add(peticionDTO);
                 }
             }
         } catch (Exception e) {
@@ -199,5 +205,16 @@ public class PeticionController {
         }
         return ps;
     }
+    
+    public List<PeticionDTO> ObtenerTodasLasPeticiones() {
+        List<PeticionDTO> ps = new ArrayList<>();
 
+        try {
+            PeticionDAO peticionDAO = new PeticionDAO();
+            ps = peticionDAO.ObtenerPeticiones();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ps;
+    }
 }

@@ -4,10 +4,13 @@ import dao.PacienteDAO;
 import dtos.PacienteDTO;
 import services.PacienteService;
 
-public class PacienteController {
-    static PacienteController instance=null;
+import java.io.FileNotFoundException;
+import java.util.Objects;
 
-    private PacienteController(){
+public class PacienteController {
+    static PacienteController instance = null;
+
+    private PacienteController() {
     }
 
     public static PacienteController getInstance() {
@@ -28,20 +31,21 @@ public class PacienteController {
         return p;
     }
 
-    public boolean BajaPaciente(int id) throws Exception {
+    public boolean BajaPaciente(int pacienteID) throws Exception {
         try {
             PacienteDAO pacienteDAO = new PacienteDAO();
             PacienteService pacienteService = new PacienteService();
 
-            if (!pacienteService.PuedeSerEliminado(id)) {
+            //Valida que exista el paciente
+            PacienteDTO pacienteDTO = ObtenerPaciente(pacienteID);
+
+            if (!pacienteService.PuedeSerEliminado(pacienteID)) {
                 throw new Exception("El paciente tiene peticiones finalizadas");
             }
 
-            boolean fueBorrado = pacienteDAO.BorrarPaciente(id);
-
+            boolean fueBorrado = pacienteDAO.BorrarPaciente(pacienteID);
             if (!fueBorrado) {
                 return false;
-
             }
         } catch (Exception e) {
             throw e;
@@ -67,6 +71,9 @@ public class PacienteController {
         try {
             PacienteDAO pacienteDAO = new PacienteDAO();
             p = pacienteDAO.ObtenerPaciente(pacienteID);
+            if (Objects.isNull(p)) {
+                throw new Exception("El paciente no existe");
+            }
         } catch (Exception e) {
             throw e;
         }

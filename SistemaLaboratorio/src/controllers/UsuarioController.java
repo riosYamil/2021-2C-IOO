@@ -4,6 +4,8 @@ import dao.UsuarioDAO;
 import dtos.UsuarioDTO;
 import enums.Rol;
 
+import java.util.Objects;
+
 public class UsuarioController {
 
     static UsuarioController instance = null;
@@ -65,11 +67,14 @@ public class UsuarioController {
         return u;
     }
 
-    public boolean BajaUsuario(int id) throws Exception {
+    public boolean BajaUsuario(int usuarioID) throws Exception {
         try {
             UsuarioDAO usuarioDAO = new UsuarioDAO();
-            boolean fueBorrado = usuarioDAO.BorrarUsuario(id);
 
+            //Valida que exista el usuario
+            UsuarioDTO usuarioDTO = ObtenerUsuario(usuarioID);
+
+            boolean fueBorrado = usuarioDAO.BorrarUsuario(usuarioID);
             if (!fueBorrado) {
                 return false;
             }
@@ -97,6 +102,9 @@ public class UsuarioController {
         try {
             UsuarioDAO usuarioDAO = new UsuarioDAO();
             u = usuarioDAO.ObtenerUsuario(usuarioID);
+            if (Objects.isNull(u)) {
+                throw new Exception("El usuario no existe");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

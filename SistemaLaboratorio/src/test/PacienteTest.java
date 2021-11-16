@@ -48,9 +48,13 @@ public class PacienteTest {
 
         PacienteDTO pacienteDTOParaTest = new PacienteDTO();
 
-        //ID inexistente
-        pacienteDTOParaTest.id = 123456;
-        assertFalse(pacienteController.BajaPaciente(pacienteDTOParaTest.id));
+        try {
+            //ID inexistente
+            pacienteDTOParaTest.id = 123456;
+            assertFalse(pacienteController.BajaPaciente(pacienteDTOParaTest.id));
+        } catch (Exception e) {
+            assertEquals("El paciente no existe", e.getMessage());
+        }
         //ID existente
         pacienteDTOParaTest.id = paciente.id;
         assertTrue(pacienteController.BajaPaciente(pacienteDTOParaTest.id));
@@ -78,6 +82,7 @@ public class PacienteTest {
         try {
             assertTrue(pacienteController.ModificarPaciente(pacienteDTO));
         } catch (Exception e) {
+            e.printStackTrace();
         }
 
         PacienteDTO paciente = pacienteController.ObtenerPaciente(37340794);
@@ -105,11 +110,14 @@ public class PacienteTest {
         assertNotNull(paciente);
 
         //ID inexistente
-        assertNull(pacienteController.ObtenerPaciente(123456789));
+        try {
+            assertNull(pacienteController.ObtenerPaciente(123456789));
+        } catch (Exception e) {
+            assertEquals("El paciente no existe", e.getMessage());
+        }
 
         //ID existente
         assertNotNull(pacienteController.ObtenerPaciente(paciente.id));
-
         assertTrue(pacienteController.BajaPaciente(paciente.id));
     }
 }

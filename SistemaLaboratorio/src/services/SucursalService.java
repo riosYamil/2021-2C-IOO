@@ -8,7 +8,7 @@ import java.util.List;
 
 public class SucursalService {
 
-    public boolean PuedeSerEliminado(int sucursalID) throws Exception {
+    public boolean PuedeSerEliminado(int sucursalID) {
         Boolean result = true;
         PeticionController peticionController = PeticionController.getInstance();
         List<PeticionDTO> peticiones = peticionController.ObtenerPeticionesDeSucursal(sucursalID);
@@ -22,6 +22,17 @@ public class SucursalService {
         }
 
         return result;
+    }
+
+    public void MigrarPeticiones(int fromSucursalID, int toSucursalID) throws Exception {
+        PeticionController peticionController = PeticionController.getInstance();
+        List<PeticionDTO> peticiones = peticionController.ObtenerPeticionesDeSucursal(fromSucursalID);
+
+        for (PeticionDTO peticionDTO : peticiones) {
+            peticionDTO.sucursalID = toSucursalID;
+            peticionController.ModificarPeticion(peticionDTO);
+        }
+        return;
     }
 
 }

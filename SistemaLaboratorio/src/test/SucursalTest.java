@@ -1,6 +1,7 @@
 package test;
 
 import controllers.SucursalController;
+import controllers.UsuarioController;
 import dtos.SucursalDTO;
 import dtos.UsuarioDTO;
 import org.junit.Test;
@@ -38,6 +39,7 @@ public class SucursalTest {
 
             assertTrue(sucursalController.BajaSucursal(sucursal.id));
         } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }
@@ -75,9 +77,8 @@ public class SucursalTest {
             sucursalDTOParaTest.id = sucursal.id;
             assertTrue(sucursalController.BajaSucursal(sucursalDTOParaTest.id));
         } catch (Exception e) {
+            e.printStackTrace();
         }
-
-
     }
 
     @Test
@@ -117,6 +118,7 @@ public class SucursalTest {
             assertTrue(sucursalController.ModificarSucursal(sucursal));
             assertTrue(sucursalController.BajaSucursal(sucursal.id));
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -151,12 +153,14 @@ public class SucursalTest {
 
             assertTrue(sucursalController.BajaSucursal(sucursal.id));
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     @Test
     public void ObtenerSucursalesPorUsuario() {
         SucursalController sucursalController = SucursalController.getInstance();
+        UsuarioController usuarioController = UsuarioController.getInstance();
 
         //Sucursal 1
         SucursalDTO sucursalDTO1 = new SucursalDTO();
@@ -169,9 +173,12 @@ public class SucursalTest {
         sucursalDTO1.responsableTecnicoDNI = usuarioDTO1.id;
 
         try {
+            usuarioDTO1 = usuarioController.AltaUsuario(usuarioDTO1);
+            assertNotNull(usuarioDTO1);
             sucursalDTO1 = sucursalController.AltaSucursal(sucursalDTO1);
             assertNotNull(sucursalDTO1);
         } catch (Exception e) {
+            e.printStackTrace();
         }
 
         //Sucursal 2
@@ -184,9 +191,13 @@ public class SucursalTest {
 
         sucursalDTO2.responsableTecnicoDNI = usuarioDTO2.id;
         try {
+            usuarioDTO2 = usuarioController.AltaUsuario(usuarioDTO2);
+            assertNotNull(usuarioDTO2);
+
             sucursalDTO2 = sucursalController.AltaSucursal(sucursalDTO2);
             assertNotNull(sucursalDTO2);
         } catch (Exception e) {
+            e.printStackTrace();
         }
 
         //Sucursal 3
@@ -199,9 +210,13 @@ public class SucursalTest {
 
         sucursalDTO3.responsableTecnicoDNI = usuarioDTO3.id;
         try {
+            usuarioDTO3 = usuarioController.AltaUsuario(usuarioDTO3);
+            assertNotNull(usuarioDTO3);
+
             sucursalDTO3 = sucursalController.AltaSucursal(sucursalDTO3);
             assertNotNull(sucursalDTO3);
         } catch (Exception e) {
+            e.printStackTrace();
         }
 
         //Sucursal 4
@@ -214,9 +229,13 @@ public class SucursalTest {
 
         sucursalDTO4.responsableTecnicoDNI = usuarioDTO4.id;
         try {
+            usuarioDTO4 = usuarioController.AltaUsuario(usuarioDTO4);
+            assertNotNull(usuarioDTO4);
+
             sucursalDTO4 = sucursalController.AltaSucursal(sucursalDTO4);
             assertNotNull(sucursalDTO4);
         } catch (Exception e) {
+            e.printStackTrace();
         }
 
         //Sucursal 5
@@ -229,6 +248,9 @@ public class SucursalTest {
 
         sucursalDTO5.responsableTecnicoDNI = usuarioDTO5.id;
         try {
+            usuarioDTO5 = usuarioController.AltaUsuario(usuarioDTO5);
+            assertNotNull(usuarioDTO5);
+
             sucursalDTO5 = sucursalController.AltaSucursal(sucursalDTO5);
             assertNotNull(sucursalDTO5);
 
@@ -241,6 +263,7 @@ public class SucursalTest {
             assertTrue(sucursalController.BajaSucursal(sucursalDTO4.id));
             assertTrue(sucursalController.BajaSucursal(sucursalDTO5.id));
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

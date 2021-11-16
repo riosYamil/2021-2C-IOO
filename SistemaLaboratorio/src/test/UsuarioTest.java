@@ -35,6 +35,7 @@ public class UsuarioTest {
 
             assertTrue(usuarioController.BajaUsuario(usuarioDTO.id));
         } catch (Exception e) {
+            e.printStackTrace();
         }
 
 
@@ -64,6 +65,7 @@ public class UsuarioTest {
 
             assertTrue(usuarioController.BajaUsuario(usuarioDTO.id));
         } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }
@@ -91,6 +93,7 @@ public class UsuarioTest {
 
             assertTrue(usuarioController.BajaUsuario(usuarioDTO.id));
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -148,6 +151,7 @@ public class UsuarioTest {
 
             assertTrue(usuarioController.BajaUsuario(usuarioDTO.id));
         } catch (Exception e) {
+            e.printStackTrace();
         }
 
 
@@ -221,6 +225,7 @@ public class UsuarioTest {
             assertEquals(usuarioDTO, laboratista);
             assertTrue(usuarioController.BajaUsuario(usuarioDTO.id));
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

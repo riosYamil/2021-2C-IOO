@@ -8,8 +8,10 @@ import dtos.SucursalDTO;
 import dtos.UsuarioDTO;
 import services.SucursalService;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class SucursalController {
     static SucursalController instance = null;
@@ -26,7 +28,10 @@ public class SucursalController {
 
     public SucursalDTO AltaSucursal(SucursalDTO s) throws Exception {
         try {
+            UsuarioController usuarioController = UsuarioController.getInstance();
             SucursalDAO sucursalDAO = new SucursalDAO();
+
+            usuarioController.ObtenerUsuario(s.responsableTecnicoDNI);
             s.id = sucursalDAO.getLastInsertId() + 1;
             sucursalDAO.CrearSucursal(s);
         } catch (Exception e) {
@@ -38,15 +43,42 @@ public class SucursalController {
     public boolean BajaSucursal(int sucursalID) throws Exception {
         try {
             SucursalDAO sucursalDAO = new SucursalDAO();
-
             SucursalService sucursalService = new SucursalService();
+
+            //Valida que exista la sucursal
+            SucursalDTO sucursalDTO = ObtenerSucursal(sucursalID);
 
             if (!sucursalService.PuedeSerEliminado(sucursalID)) {
                 throw new Exception("La sucursal tiene peticiones finalizadas.");
             }
 
             boolean fueBorrado = sucursalDAO.BorrarSucursal(sucursalID);
+            if (!fueBorrado) {
+                return false;
+            }
+        } catch (FileNotFoundException nfe) {
+            throw new Exception("La sucursal no existe");
+        } catch (Exception e) {
+            throw e;
+        }
+        return true;
+    }
 
+    public boolean BajaSucursal(int origenSucursalID, Integer destinoSucursalID) throws Exception {
+        try {
+            SucursalDAO sucursalDAO = new SucursalDAO();
+            SucursalService sucursalService = new SucursalService();
+
+            //Valida que existan las sucursales
+            SucursalDTO sucursalOrigen = ObtenerSucursal(origenSucursalID);
+            SucursalDTO sucursalDestino = ObtenerSucursal(destinoSucursalID);
+
+            if (!sucursalService.PuedeSerEliminado(origenSucursalID)) {
+                throw new Exception("La sucursal tiene peticiones finalizadas.");
+            }
+
+            sucursalService.MigrarPeticiones(origenSucursalID, destinoSucursalID);
+            boolean fueBorrado = sucursalDAO.BorrarSucursal(origenSucursalID);
             if (!fueBorrado) {
                 return false;
             }
@@ -74,6 +106,9 @@ public class SucursalController {
         try {
             SucursalDAO sucursalDAO = new SucursalDAO();
             s = sucursalDAO.ObtenerSucursal(sucursalID);
+            if (Objects.isNull(s)) {
+                throw new Exception("La surcusal no existe");
+            }
         } catch (Exception e) {
             throw e;
         }

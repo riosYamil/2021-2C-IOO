@@ -1,18 +1,18 @@
 package controllers;
 
-import java.util.List;
-
 import dao.PracticaDAO;
-import domains.Peticion;
-import dtos.PeticionDTO;
 import dtos.PracticaAsociadaDTO;
 import dtos.PracticaDTO;
 import enums.EstadoResultadoPractica;
 
-public class PracticaController {
-    static PracticaController instance=null;
+import java.io.FileNotFoundException;
+import java.util.List;
+import java.util.Objects;
 
-    private PracticaController(){
+public class PracticaController {
+    static PracticaController instance = null;
+
+    private PracticaController() {
     }
 
     public static PracticaController getInstance() {
@@ -33,11 +33,14 @@ public class PracticaController {
         return p;
     }
 
-    public boolean BajaPractica(int id) throws Exception {
+    public boolean BajaPractica(int practicaID) throws Exception {
         try {
             PracticaDAO practicaDAO = new PracticaDAO();
-            boolean fueBorrado = practicaDAO.BorrarPractica(id);
 
+            //Valida que exista la practica
+            PracticaDTO practicaDTO = ObtenerPractica(practicaID);
+
+            boolean fueBorrado = practicaDAO.BorrarPractica(practicaID);
             if (!fueBorrado) {
                 return false;
             }
@@ -61,14 +64,18 @@ public class PracticaController {
     }
 
     public PracticaDTO ObtenerPractica(int practicaID) throws Exception {
-        PracticaDTO pdto = new PracticaDTO();
+        PracticaDTO p = new PracticaDTO();
         try {
             PracticaDAO practicaDAO = new PracticaDAO();
-            pdto = practicaDAO.ObtenerPractica(practicaID);
+            p = practicaDAO.ObtenerPractica(practicaID);
+
+            if (Objects.isNull(p)) {
+                throw new Exception("La practica no existe");
+            }
         } catch (Exception e) {
             throw e;
         }
-        return pdto;
+        return p;
     }
     
     public PracticaAsociadaDTO ObtenerPracticaAsocidada(List<PracticaAsociadaDTO> pa, int id) {
