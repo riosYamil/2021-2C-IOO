@@ -28,10 +28,14 @@ public class SucursalController {
 
     public SucursalDTO AltaSucursal(SucursalDTO s, UsuarioDTO u) {
         try {
-            SucursalDAO sucursalDAO = new SucursalDAO();
-            s.responsableTecnico = u;
-            s.id = sucursalDAO.getLastInsertId() + 1;
-            sucursalDAO.CrearSucursal(s);
+        	if(!verificarSiSucursalExiste(s.id)) {
+        		SucursalDAO sucursalDAO = new SucursalDAO();
+        		s.responsableTecnico = u;
+        		s.id = sucursalDAO.getLastInsertId() + 1;
+        		sucursalDAO.CrearSucursal(s);
+        	} else {
+        		s = null;
+        	}
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -82,6 +86,15 @@ public class SucursalController {
             e.printStackTrace();
         }
         return s;
+    }
+    
+    public boolean verificarSiSucursalExiste(int id) {
+    	boolean existe = false;
+    	SucursalDTO s = ObtenerSucursal(id);
+        if(s != null){
+            existe = true;
+        }
+    	return existe;
     }
 
     public List<Peticion> ObtenerPeticionesActivas(SucursalDTO s) {
