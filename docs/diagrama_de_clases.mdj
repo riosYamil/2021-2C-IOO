@@ -717,7 +717,7 @@
 											"top": 779,
 											"width": 394.900390625,
 											"height": 13,
-											"text": "-responsable_tecnico: Usuario",
+											"text": "-responsable_tecnico_id: int",
 											"horizontalAlignment": 0
 										},
 										{
@@ -12382,11 +12382,9 @@
 							"_parent": {
 								"$ref": "AAAAAAF7VofGg3bVhWY="
 							},
-							"name": "responsable_tecnico",
+							"name": "responsable_tecnico_id",
 							"visibility": "private",
-							"type": {
-								"$ref": "AAAAAAF7VokQpnf8FnI="
-							}
+							"type": "int"
 						},
 						{
 							"_type": "UMLAttribute",
