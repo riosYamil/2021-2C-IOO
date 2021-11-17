@@ -17,27 +17,36 @@ public class SucursalTest {
     public void AltaSucursal() {
 
         SucursalController sucursalController = SucursalController.getInstance();
+        UsuarioController usuarioController = UsuarioController.getInstance();
 
         SucursalDTO sucursalDTO = new SucursalDTO();
-        sucursalDTO.numero = 12345;
-        sucursalDTO.direccion = "Calle Falsa 1234";
-
         UsuarioDTO usuarioDTO = new UsuarioDTO();
-        usuarioDTO.id = 37340001;
-        usuarioDTO.nombre = "GABRIEL";
-        usuarioDTO.email = "GYRB@mail.com";
-        usuarioDTO.password = "pass";
-        usuarioDTO.nombreCompleto = "GABRIEL RIOS";
-        usuarioDTO.domicilio = "CALLE FALSA 1234";
-        usuarioDTO.dni = "37340001";
-        usuarioDTO.fechaDeNacimiento = new Date();
 
-        SucursalDTO sucursal = new SucursalDTO();
         try {
-            sucursal = sucursalController.AltaSucursal(sucursalDTO);
-            assertNotNull(sucursal);
+            usuarioDTO.nombre = "GABRIEL";
+            usuarioDTO.email = "GYRB@mail.com";
+            usuarioDTO.password = "pass";
+            usuarioDTO.nombreCompleto = "GABRIEL RIOS";
+            usuarioDTO.domicilio = "CALLE FALSA 1234";
+            usuarioDTO.dni = "37340001";
+            usuarioDTO.fechaDeNacimiento = new Date();
+            usuarioDTO = usuarioController.AltaUsuario(usuarioDTO);
+            assertNotNull(usuarioDTO);
 
-            assertTrue(sucursalController.BajaSucursal(sucursal.id));
+
+            sucursalDTO.numero = 12345;
+            sucursalDTO.direccion = "Calle Falsa 1234";
+            sucursalDTO.responsableTecnicoDNI = usuarioDTO.id;
+            sucursalDTO = sucursalController.AltaSucursal(sucursalDTO);
+            assertNotNull(sucursalDTO);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            assertTrue(sucursalController.BajaSucursal(sucursalDTO.id));
+            assertTrue(usuarioController.BajaUsuario(usuarioDTO.id));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -47,35 +56,43 @@ public class SucursalTest {
     @Test
     public void BajaSucursal() {
         SucursalController sucursalController = SucursalController.getInstance();
+        UsuarioController usuarioController = UsuarioController.getInstance();
 
         SucursalDTO sucursalDTO = new SucursalDTO();
-        sucursalDTO.numero = 12345;
-        sucursalDTO.direccion = "Calle Falsa 1234";
-
         UsuarioDTO usuarioDTO = new UsuarioDTO();
-        usuarioDTO.id = 37340001;
-        usuarioDTO.nombre = "GABRIEL";
-        usuarioDTO.email = "GYRB@mail.com";
-        usuarioDTO.password = "pass";
-        usuarioDTO.nombreCompleto = "GABRIEL RIOS";
-        usuarioDTO.domicilio = "CALLE FALSA 1234";
-        usuarioDTO.dni = "37340001";
-        usuarioDTO.fechaDeNacimiento = new Date();
 
-        SucursalDTO sucursal = new SucursalDTO();
         try {
-            sucursal = sucursalController.AltaSucursal(sucursalDTO);
-            assertNotNull(sucursal);
+            usuarioDTO.nombre = "GABRIEL";
+            usuarioDTO.email = "GYRB@mail.com";
+            usuarioDTO.password = "pass";
+            usuarioDTO.nombreCompleto = "GABRIEL RIOS";
+            usuarioDTO.domicilio = "CALLE FALSA 1234";
+            usuarioDTO.dni = "37340001";
+            usuarioDTO.fechaDeNacimiento = new Date();
+            usuarioDTO = usuarioController.AltaUsuario(usuarioDTO);
+            assertNotNull(usuarioDTO);
 
-            SucursalDTO sucursalDTOParaTest = new SucursalDTO();
 
+            sucursalDTO.numero = 12345;
+            sucursalDTO.direccion = "Calle Falsa 1234";
+            sucursalDTO.responsableTecnicoDNI = usuarioDTO.id;
+            sucursalDTO = sucursalController.AltaSucursal(sucursalDTO);
+            assertNotNull(sucursalDTO);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
             //ID inexistente
-            sucursalDTOParaTest.id = 123456;
-            assertFalse(sucursalController.BajaSucursal(sucursalDTOParaTest.id));
-
+            assertFalse(sucursalController.BajaSucursal(123456));
+        } catch (Exception e) {
+            assertEquals("La sucursal no existe", e.getMessage());
+        }
+        try {
             //ID existente
-            sucursalDTOParaTest.id = sucursal.id;
-            assertTrue(sucursalController.BajaSucursal(sucursalDTOParaTest.id));
+            assertTrue(sucursalController.BajaSucursal(sucursalDTO.id));
+            assertTrue(usuarioController.BajaUsuario(usuarioDTO.id));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -84,75 +101,96 @@ public class SucursalTest {
     @Test
     public void ModificarSucursal() {
         SucursalController sucursalController = SucursalController.getInstance();
+        UsuarioController usuarioController = UsuarioController.getInstance();
 
-        SucursalDTO sucursalDTO = new SucursalDTO();
-        sucursalDTO.numero = 12345;
-        sucursalDTO.direccion = "Calle Falsa 1234";
 
         UsuarioDTO usuarioDTO = new UsuarioDTO();
-        usuarioDTO.id = 37340001;
-        usuarioDTO.nombre = "GABRIEL";
-        usuarioDTO.email = "GYRB@mail.com";
-        usuarioDTO.password = "pass";
-        usuarioDTO.nombreCompleto = "GABRIEL RIOS";
-        usuarioDTO.domicilio = "CALLE FALSA 1234";
-        usuarioDTO.dni = "37340001";
-        usuarioDTO.fechaDeNacimiento = new Date();
-
-        SucursalDTO sucursal = new SucursalDTO();
+        UsuarioDTO usuarioDTONuevo = new UsuarioDTO();
+        SucursalDTO sucursalDTO = new SucursalDTO();
         try {
-            sucursal = sucursalController.AltaSucursal(sucursalDTO);
-            assertNotNull(sucursal);
-
-            usuarioDTO = new UsuarioDTO();
-            usuarioDTO.id = 37340002;
-            usuarioDTO.nombre = "MAR";
-            usuarioDTO.email = "mas@mail.com";
-            usuarioDTO.password = "1234";
-            usuarioDTO.nombreCompleto = "MAR BENITEZ";
-            usuarioDTO.domicilio = "CALLE FALSA 1111";
-            usuarioDTO.dni = "37340002";
+            usuarioDTO.id = 37340001;
+            usuarioDTO.nombre = "GABRIEL";
+            usuarioDTO.email = "GYRB@mail.com";
+            usuarioDTO.password = "pass";
+            usuarioDTO.nombreCompleto = "GABRIEL RIOS";
+            usuarioDTO.domicilio = "CALLE FALSA 1234";
+            usuarioDTO.dni = "37340001";
             usuarioDTO.fechaDeNacimiento = new Date();
+            usuarioDTO = usuarioController.AltaUsuario(usuarioDTO);
+            assertNotNull(usuarioDTO);
 
-            sucursal.responsableTecnicoDNI = 37340002;
-            assertTrue(sucursalController.ModificarSucursal(sucursal));
-            assertTrue(sucursalController.BajaSucursal(sucursal.id));
+
+            sucursalDTO.numero = 12345;
+            sucursalDTO.direccion = "Calle Falsa 1234";
+            sucursalDTO.responsableTecnicoDNI = usuarioDTO.id;
+            sucursalDTO = sucursalController.AltaSucursal(sucursalDTO);
+            assertNotNull(sucursalDTO);
+
+            usuarioDTONuevo = new UsuarioDTO();
+            usuarioDTONuevo.id = 37340002;
+            usuarioDTONuevo.nombre = "MAR";
+            usuarioDTONuevo.email = "mas@mail.com";
+            usuarioDTONuevo.password = "1234";
+            usuarioDTONuevo.nombreCompleto = "MAR BENITEZ";
+            usuarioDTONuevo.domicilio = "CALLE FALSA 1111";
+            usuarioDTONuevo.dni = "37340002";
+            usuarioDTONuevo.fechaDeNacimiento = new Date();
+            usuarioDTONuevo = usuarioController.AltaUsuario(usuarioDTONuevo);
+            assertNotNull(usuarioDTONuevo);
+
+            sucursalDTO.responsableTecnicoDNI = usuarioDTONuevo.id;
+            assertTrue(sucursalController.ModificarSucursal(sucursalDTO));
+            assertTrue(sucursalController.BajaSucursal(sucursalDTO.id));
+            assertTrue(usuarioController.BajaUsuario(usuarioDTO.id));
+            assertTrue(usuarioController.BajaUsuario(usuarioDTONuevo.id));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-
     @Test
     public void ObtenerSucursal() {
         SucursalController sucursalController = SucursalController.getInstance();
-
-        SucursalDTO sucursalDTO = new SucursalDTO();
-        sucursalDTO.numero = 12345;
-        sucursalDTO.direccion = "Calle Falsa 1234";
+        UsuarioController usuarioController = UsuarioController.getInstance();
 
         UsuarioDTO usuarioDTO = new UsuarioDTO();
-        usuarioDTO.id = 37340001;
-        usuarioDTO.nombre = "GABRIEL";
-        usuarioDTO.email = "GYRB@mail.com";
-        usuarioDTO.password = "pass";
-        usuarioDTO.nombreCompleto = "GABRIEL RIOS";
-        usuarioDTO.domicilio = "CALLE FALSA 1234";
-        usuarioDTO.dni = "37340001";
-        usuarioDTO.fechaDeNacimiento = new Date();
-
-        SucursalDTO sucursal = new SucursalDTO();
+        SucursalDTO sucursalDTO = new SucursalDTO();
         try {
-            sucursal = sucursalController.AltaSucursal(sucursalDTO);
-            assertNotNull(sucursal);
+            usuarioDTO.id = 37340001;
+            usuarioDTO.nombre = "GABRIEL";
+            usuarioDTO.email = "GYRB@mail.com";
+            usuarioDTO.password = "pass";
+            usuarioDTO.nombreCompleto = "GABRIEL RIOS";
+            usuarioDTO.domicilio = "CALLE FALSA 1234";
+            usuarioDTO.dni = "37340001";
+            usuarioDTO.fechaDeNacimiento = new Date();
+            usuarioDTO = usuarioController.AltaUsuario(usuarioDTO);
+            assertNotNull(usuarioDTO);
 
+            sucursalDTO.numero = 12345;
+            sucursalDTO.direccion = "Calle Falsa 1234";
+            sucursalDTO.responsableTecnicoDNI = usuarioDTO.id;
+            sucursalDTO = sucursalController.AltaSucursal(sucursalDTO);
+            assertNotNull(sucursalDTO);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
             //ID inexistente
             assertNull(sucursalController.ObtenerSucursal(123456789));
-            //ID existente
-            assertNotNull(sucursalController.ObtenerSucursal(sucursal.id));
-
-            assertTrue(sucursalController.BajaSucursal(sucursal.id));
         } catch (Exception e) {
+            assertEquals("La sucursal no existe", e.getMessage());
+        }
+
+        try {
+            //ID existente
+            assertNotNull(sucursalController.ObtenerSucursal(sucursalDTO.id));
+
+            assertTrue(sucursalController.BajaSucursal(sucursalDTO.id));
+            assertTrue(usuarioController.BajaUsuario(usuarioDTO.id));
+        } catch (
+                Exception e) {
             e.printStackTrace();
         }
     }
@@ -162,99 +200,99 @@ public class SucursalTest {
         SucursalController sucursalController = SucursalController.getInstance();
         UsuarioController usuarioController = UsuarioController.getInstance();
 
-        //Sucursal 1
         SucursalDTO sucursalDTO1 = new SucursalDTO();
-        sucursalDTO1.numero = 1;
-        sucursalDTO1.direccion = "Calle Falsa 1";
+        SucursalDTO sucursalDTO2 = new SucursalDTO();
+        SucursalDTO sucursalDTO3 = new SucursalDTO();
+        SucursalDTO sucursalDTO4 = new SucursalDTO();
+        SucursalDTO sucursalDTO5 = new SucursalDTO();
 
         UsuarioDTO usuarioDTO1 = new UsuarioDTO();
-        usuarioDTO1.id = 37340001;
-
-        sucursalDTO1.responsableTecnicoDNI = usuarioDTO1.id;
+        UsuarioDTO usuarioDTO2 = new UsuarioDTO();
+        UsuarioDTO usuarioDTO3 = new UsuarioDTO();
+        UsuarioDTO usuarioDTO4 = new UsuarioDTO();
+        UsuarioDTO usuarioDTO5 = new UsuarioDTO();
 
         try {
+            //Sucursal 1
+            sucursalDTO1.numero = 1;
+            sucursalDTO1.direccion = "Calle Falsa 1";
+
+            usuarioDTO1.dni = "37340001";
+
             usuarioDTO1 = usuarioController.AltaUsuario(usuarioDTO1);
             assertNotNull(usuarioDTO1);
+
+            sucursalDTO1.responsableTecnicoDNI = usuarioDTO1.id;
             sucursalDTO1 = sucursalController.AltaSucursal(sucursalDTO1);
             assertNotNull(sucursalDTO1);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        //Sucursal 2
-        SucursalDTO sucursalDTO2 = new SucursalDTO();
-        sucursalDTO2.numero = 2;
-        sucursalDTO2.direccion = "Calle Falsa 2";
-
-        UsuarioDTO usuarioDTO2 = new UsuarioDTO();
-        usuarioDTO2.id = 37340002;
-
-        sucursalDTO2.responsableTecnicoDNI = usuarioDTO2.id;
         try {
+            //Sucursal 2
+            sucursalDTO2.numero = 2;
+            sucursalDTO2.direccion = "Calle Falsa 2";
+
+            usuarioDTO2.dni = "37340002";
+
             usuarioDTO2 = usuarioController.AltaUsuario(usuarioDTO2);
             assertNotNull(usuarioDTO2);
 
+            sucursalDTO2.responsableTecnicoDNI = usuarioDTO2.id;
             sucursalDTO2 = sucursalController.AltaSucursal(sucursalDTO2);
             assertNotNull(sucursalDTO2);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        //Sucursal 3
-        SucursalDTO sucursalDTO3 = new SucursalDTO();
-        sucursalDTO3.numero = 3;
-        sucursalDTO3.direccion = "Calle Falsa 2";
-
-        UsuarioDTO usuarioDTO3 = new UsuarioDTO();
-        usuarioDTO3.id = 37340003;
-
-        sucursalDTO3.responsableTecnicoDNI = usuarioDTO3.id;
         try {
+            //Sucursal 3
+            sucursalDTO3.numero = 3;
+            sucursalDTO3.direccion = "Calle Falsa 2";
+
+            usuarioDTO3.dni = "37340003";
+
             usuarioDTO3 = usuarioController.AltaUsuario(usuarioDTO3);
             assertNotNull(usuarioDTO3);
 
+            sucursalDTO3.responsableTecnicoDNI = usuarioDTO3.id;
             sucursalDTO3 = sucursalController.AltaSucursal(sucursalDTO3);
             assertNotNull(sucursalDTO3);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        //Sucursal 4
-        SucursalDTO sucursalDTO4 = new SucursalDTO();
-        sucursalDTO4.numero = 4;
-        sucursalDTO4.direccion = "Calle Falsa 2";
 
-        UsuarioDTO usuarioDTO4 = new UsuarioDTO();
-        usuarioDTO4.id = 37340004;
-
-        sucursalDTO4.responsableTecnicoDNI = usuarioDTO4.id;
         try {
+            //Sucursal 4
+            sucursalDTO4.numero = 4;
+            sucursalDTO4.direccion = "Calle Falsa 2";
+
+            usuarioDTO4.dni = "37340004";
+
             usuarioDTO4 = usuarioController.AltaUsuario(usuarioDTO4);
             assertNotNull(usuarioDTO4);
 
+            sucursalDTO4.responsableTecnicoDNI = usuarioDTO4.id;
             sucursalDTO4 = sucursalController.AltaSucursal(sucursalDTO4);
             assertNotNull(sucursalDTO4);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        //Sucursal 5
-        SucursalDTO sucursalDTO5 = new SucursalDTO();
-        sucursalDTO5.numero = 5;
-        sucursalDTO5.direccion = "Calle Falsa 2";
 
-        UsuarioDTO usuarioDTO5 = new UsuarioDTO();
-        usuarioDTO5.id = 37340001;
-
-        sucursalDTO5.responsableTecnicoDNI = usuarioDTO5.id;
         try {
-            usuarioDTO5 = usuarioController.AltaUsuario(usuarioDTO5);
-            assertNotNull(usuarioDTO5);
-
+            //Sucursal 5
+            sucursalDTO5.responsableTecnicoDNI = usuarioDTO1.id;
             sucursalDTO5 = sucursalController.AltaSucursal(sucursalDTO5);
             assertNotNull(sucursalDTO5);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
-            List<SucursalDTO> sucursalDTOs = sucursalController.ObtenerSurcursalesPorUsuario(usuarioDTO5);
+        try {
+            List<SucursalDTO> sucursalDTOs = sucursalController.ObtenerSurcursalesPorUsuario(usuarioDTO1);
             assertEquals(2, sucursalDTOs.size());
 
             assertTrue(sucursalController.BajaSucursal(sucursalDTO1.id));
@@ -262,6 +300,11 @@ public class SucursalTest {
             assertTrue(sucursalController.BajaSucursal(sucursalDTO3.id));
             assertTrue(sucursalController.BajaSucursal(sucursalDTO4.id));
             assertTrue(sucursalController.BajaSucursal(sucursalDTO5.id));
+
+            assertTrue(usuarioController.BajaUsuario(usuarioDTO1.id));
+            assertTrue(usuarioController.BajaUsuario(usuarioDTO2.id));
+            assertTrue(usuarioController.BajaUsuario(usuarioDTO3.id));
+            assertTrue(usuarioController.BajaUsuario(usuarioDTO4.id));
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -23,6 +23,10 @@ public class UsuarioController {
     public UsuarioDTO AltaUsuario(UsuarioDTO u) throws Exception {
         try {
             UsuarioDAO usuarioDAO = new UsuarioDAO();
+            if (Objects.isNull(u.dni)){
+                throw new Exception("El campo DNI es mandatorio");
+            }
+
             u.id = Integer.parseInt(u.dni);
             usuarioDAO.CrearUsuario(u);
         } catch (Exception e) {

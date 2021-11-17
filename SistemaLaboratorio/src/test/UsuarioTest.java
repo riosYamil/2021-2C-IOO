@@ -102,7 +102,6 @@ public class UsuarioTest {
         UsuarioController usuarioController = UsuarioController.getInstance();
 
         UsuarioDTO usuarioDTO = new UsuarioDTO();
-        usuarioDTO.id = 37340794;
         usuarioDTO.nombre = "GABRIEL";
         usuarioDTO.email = "GYRB@mail.com";
         usuarioDTO.password = "pass";
@@ -112,15 +111,19 @@ public class UsuarioTest {
         usuarioDTO.fechaDeNacimiento = new Date();
         usuarioController.AltaUsuario(usuarioDTO);
 
-        UsuarioDTO usuarioDTOParaTest = new UsuarioDTO();
+        try {
+            //ID inexistente
+            assertFalse(usuarioController.BajaUsuario(1));
+        } catch (Exception e) {
+            assertEquals("El usuario no existe", e.getMessage());
+        }
 
-        //ID inexistente
-        usuarioDTOParaTest.id = 1;
-        assertFalse(usuarioController.BajaUsuario(usuarioDTOParaTest.id));
-
-        //ID existente
-        usuarioDTOParaTest.id = usuarioDTO.id;
-        assertTrue(usuarioController.BajaUsuario(usuarioDTOParaTest.id));
+        try {
+            //ID existente
+            assertTrue(usuarioController.BajaUsuario(usuarioDTO.id));
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Test

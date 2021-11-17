@@ -47,15 +47,19 @@ public class PracticaTest {
         practicaDTO.horasEsperaResultado = 48;
         practicaDTO.estadoPractica = EstadoPractica.Habilitado;
 
+        PracticaDTO practicaDTOParaTest = new PracticaDTO();
+        try {
+            //ID inexistente
+            practicaDTOParaTest.id = 123456;
+            assertFalse(practicaController.BajaPractica(practicaDTOParaTest.id));
+        } catch (Exception e) {
+            assertEquals("La practica no existe", e.getMessage());
+        }
+
         try {
             practicaDTO = practicaController.AltaPractica(practicaDTO);
             assertNotNull(practicaDTO);
 
-            PracticaDTO practicaDTOParaTest = new PracticaDTO();
-
-            //ID inexistente
-            practicaDTOParaTest.id = 123456;
-            assertFalse(practicaController.BajaPractica(practicaDTOParaTest.id));
             //ID existente
             practicaDTOParaTest.id = practicaDTO.id;
             assertTrue(practicaController.BajaPractica(practicaDTOParaTest.id));
@@ -113,16 +117,21 @@ public class PracticaTest {
         practicaDTO.estadoPractica = EstadoPractica.Habilitado;
 
         try {
+            //ID inexistente
+            assertNull(practicaController.ObtenerPractica(123456789));
+        } catch (Exception e) {
+            assertEquals("La practica no existe", e.getMessage());
+        }
+
+        try {
             practicaDTO = practicaController.AltaPractica(practicaDTO);
             assertNotNull(practicaDTO);
 
-            //ID inexistente
-            assertNull(practicaController.ObtenerPractica(123456789));
             //ID existente
             assertNotNull(practicaController.ObtenerPractica(practicaDTO.id));
 
             assertTrue(practicaController.BajaPractica(practicaDTO.id));
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

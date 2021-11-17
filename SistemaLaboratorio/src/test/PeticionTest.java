@@ -98,6 +98,10 @@ public class PeticionTest {
             peticionController.AltaPeticion(peticionDTO);
             assertTrue(peticionController.BajaPeticion(peticionDTO.id));
             assertTrue(practicaController.BajaPractica(practicaDTO.id));
+            assertTrue(usuarioController.BajaUsuario(usuarioDTO.id));
+            assertTrue(sucursalController.BajaSucursal(sucursalDTO.id));
+            assertTrue(pacienteController.BajaPaciente(pacienteDTO.id));
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -107,14 +111,57 @@ public class PeticionTest {
     public void BajaPeticion() {
 
         PeticionController peticionController = PeticionController.getInstance();
+        UsuarioController usuarioController = UsuarioController.getInstance();
+        SucursalController sucursalController = SucursalController.getInstance();
+        PacienteController pacienteController = PacienteController.getInstance();
+
+        UsuarioDTO usuarioDTO = new UsuarioDTO();
+        SucursalDTO sucursalDTO = new SucursalDTO();
+        try {
+            usuarioDTO.id = 37340001;
+            usuarioDTO.nombre = "GABRIEL";
+            usuarioDTO.email = "GYRB@mail.com";
+            usuarioDTO.password = "pass";
+            usuarioDTO.nombreCompleto = "GABRIEL RIOS";
+            usuarioDTO.domicilio = "CALLE FALSA 1234";
+            usuarioDTO.dni = "37340001";
+            usuarioDTO.fechaDeNacimiento = new Date();
+            usuarioDTO = usuarioController.AltaUsuario(usuarioDTO);
+            assertNotNull(usuarioDTO);
+
+            sucursalDTO.numero = 12345;
+            sucursalDTO.direccion = "Calle Falsa 1234";
+            sucursalDTO.responsableTecnicoDNI = usuarioDTO.id;
+            sucursalDTO = sucursalController.AltaSucursal(sucursalDTO);
+            assertNotNull(sucursalDTO);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        PacienteDTO pacienteDTO = new PacienteDTO();
+        try {
+            pacienteDTO.id = 37340794;
+            pacienteDTO.dni = "37340794";
+            pacienteDTO.nombre = "GABRIEL";
+            pacienteDTO.domicilio = "CALLE FALSA 1234";
+            pacienteDTO.edad = 27;
+            pacienteDTO.estado = EstadoPaciente.Activo;
+            pacienteDTO.mail = "gabriel.rios.93@gmail.com";
+            pacienteDTO.sexo = "Masculino";
+
+            PacienteDTO paciente = pacienteController.AltaPaciente(pacienteDTO);
+            assertNotNull(paciente);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         PeticionDTO peticionDTO = new PeticionDTO();
-        peticionDTO.pacienteID = 37340794;
+        peticionDTO.pacienteID = pacienteDTO.id;
         peticionDTO.obraSocial = "OSDE";
         peticionDTO.fechaDeCarga = new Date();
         peticionDTO.fechaDeEntrega = new Date();
         peticionDTO.estadoPeticion = EstadoPeticion.Activa;
-        peticionDTO.sucursalID = 12345;
+        peticionDTO.sucursalID = sucursalDTO.id;
 
         try {
             peticionDTO = peticionController.AltaPeticion(peticionDTO);
@@ -123,14 +170,19 @@ public class PeticionTest {
             e.printStackTrace();
         }
 
+        PacienteDTO pacienteDTOParaTest = new PacienteDTO();
         try {
-            PacienteDTO pacienteDTOParaTest = new PacienteDTO();
             //ID inexistente
-            pacienteDTOParaTest.id = 123456;
-            assertFalse(peticionController.BajaPeticion(pacienteDTOParaTest.id));
-            //ID existente
-            pacienteDTOParaTest.id = peticionDTO.id;
-            assertTrue(peticionController.BajaPeticion(pacienteDTOParaTest.id));
+            assertFalse(peticionController.BajaPeticion(123456));
+        } catch (Exception e) {
+            assertEquals("La petición no existe", e.getMessage());
+        }
+
+        try {
+            assertTrue(peticionController.BajaPeticion(peticionDTO.id));
+            assertTrue(usuarioController.BajaUsuario(usuarioDTO.id));
+            assertTrue(sucursalController.BajaSucursal(sucursalDTO.id));
+            assertTrue(pacienteController.BajaPaciente(pacienteDTO.id));
         } catch (Exception e) {
             e.printStackTrace();
         }

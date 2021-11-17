@@ -104,13 +104,19 @@ public class ReglasDeNegocioTest {
 
         try {
             sucursalController.BajaSucursal(sucursal.id);
+
+        } catch (Exception e) {
+            assertEquals("La sucursal tiene peticiones finalizadas.", e.getMessage());
+        }
+
+        try {
             assertTrue(usuarioController.BajaUsuario(usuario.id));
             assertTrue(peticionController.BajaPeticion(peticion.id));
             assertTrue(pacienteController.BajaPaciente(paciente.id));
             assertTrue(sucursalController.BajaSucursal(sucursal.id));
             assertTrue(practicaController.BajaPractica(practica.id));
         } catch (Exception e) {
-            assertEquals("La sucursal tiene peticiones finalizadas.", e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -161,7 +167,7 @@ public class ReglasDeNegocioTest {
         SucursalDTO sucursal = new SucursalDTO();
         sucursal.numero = 12345;
         sucursal.direccion = "Calle Falsa 1234";
-        sucursal.responsableTecnicoDNI = 37340001;
+        sucursal.responsableTecnicoDNI = usuario.id;
         sucursal = sucursalController.AltaSucursal(sucursal);
         assertNotNull(sucursal);
 
@@ -171,7 +177,7 @@ public class ReglasDeNegocioTest {
         peticion.obraSocial = "OSDE";
         peticion.fechaDeCarga = new Date();
         peticion.fechaDeEntrega = new Date();
-        peticion.sucursalID = 12345;
+        peticion.sucursalID = sucursal.id;
 
         //Creo practica asociada a petición
         PracticaAsociadaDTO practicaAsociadaI = new PracticaAsociadaDTO();
@@ -205,11 +211,15 @@ public class ReglasDeNegocioTest {
             assertEquals(EstadoPeticion.RetirarPorSucursal, p.estadoPeticion);
         }
 
-        assertTrue(usuarioController.BajaUsuario(usuario.id));
-        assertTrue(peticionController.BajaPeticion(peticion.id));
-        assertTrue(pacienteController.BajaPaciente(paciente.id));
-        assertTrue(sucursalController.BajaSucursal(sucursal.id));
-        assertTrue(practicaController.BajaPractica(practica.id));
+        try {
+            assertTrue(usuarioController.BajaUsuario(usuario.id));
+            assertTrue(peticionController.BajaPeticion(peticion.id));
+            assertTrue(pacienteController.BajaPaciente(paciente.id));
+            assertTrue(sucursalController.BajaSucursal(sucursal.id));
+            assertTrue(practicaController.BajaPractica(practica.id));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Test

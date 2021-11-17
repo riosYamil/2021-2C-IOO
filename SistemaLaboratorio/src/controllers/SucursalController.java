@@ -107,7 +107,7 @@ public class SucursalController {
             SucursalDAO sucursalDAO = new SucursalDAO();
             s = sucursalDAO.ObtenerSucursal(sucursalID);
             if (Objects.isNull(s)) {
-                throw new Exception("La surcusal no existe");
+                throw new Exception("La sucursal no existe");
             }
         } catch (Exception e) {
             throw e;
