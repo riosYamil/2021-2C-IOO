@@ -293,23 +293,28 @@ public class SucursalPanel {
             	String rt = tResponsableTecnico.getText();
             	
             	if( !dir.isBlank() && !rt.isBlank()) {
-                	SucursalDTO s = new SucursalDTO();
-                	s.direccion = dir;
+					SucursalDTO s = new SucursalDTO();
+					s.direccion = dir;
 					s.responsableTecnicoDNI = Integer.parseInt(rt);
-                	UsuarioDTO u = UsuarioController.getInstance().ObtenerUsuario(Integer.parseInt(rt));
+					UsuarioDTO u = new UsuarioDTO();
 
-					if (u != null) {
-						try {
-							sucursalController.AltaSucursal(s);
-							limpiarFormulario();
-							alert("Se agregó correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
-						} catch (Exception ex) {
-							alert("No se pudo dar de alta la sucursal (" + ex.getMessage() + ").", "Error", JOptionPane.ERROR_MESSAGE);
+					try {
+						u = UsuarioController.getInstance().ObtenerUsuario(Integer.parseInt(rt));
+						if (u != null) {
+							try {
+								sucursalController.AltaSucursal(s);
+								limpiarFormulario();
+								alert("Se agregó correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
+							} catch (Exception ex) {
+								alert("No se pudo dar de alta la sucursal (" + ex.getMessage() + ").", "Error", JOptionPane.ERROR_MESSAGE);
+							}
+						} else {
+							alert("No se reconoce el DNI.", "Error", JOptionPane.ERROR_MESSAGE);
 						}
-					} else {
-						alert("No se reconoce el DNI.", "Error", JOptionPane.ERROR_MESSAGE);
+					} catch (Exception ex) {
+						alert("Error inesperado (" + ex.getMessage() + ").", "Error", JOptionPane.ERROR_MESSAGE);
 					}
-            	}
+				}
             	else {
             		alert("Falta información.", "Error", JOptionPane.ERROR_MESSAGE);
             	}           	           
@@ -365,31 +370,36 @@ public class SucursalPanel {
         		String rt = tResponsableTecnicoMod.getText();
         		
         		if (!rt.isBlank()) {
-            		SucursalDTO s = new SucursalDTO();
-					UsuarioDTO u = UsuarioController.getInstance().ObtenerUsuario(Integer.parseInt(rt));
+					SucursalDTO s = new SucursalDTO();
 
-					if(u != null) {
-						s.id = Integer.parseInt(num);
-						s.numero = Integer.parseInt(num);
-						s.direccion = dir;
-						s.responsableTecnicoDNI = Integer.parseInt(rt);
+					try {
+						UsuarioDTO u = UsuarioController.getInstance().ObtenerUsuario(Integer.parseInt(rt));
+						if (u != null) {
+							s.id = Integer.parseInt(num);
+							s.numero = Integer.parseInt(num);
+							s.direccion = dir;
+							s.responsableTecnicoDNI = Integer.parseInt(rt);
 
-						try {
-							if (sucursalController.ModificarSucursal(s)) {
-								limpiarFormulario();
-								btnUpdateSuc.setEnabled(false);
-								tNumMod.setEnabled(true);
-								btnObtenerSuc.setEnabled(true);
-								alert("Se modificó correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
-							} else {
-								alert("No se pudo modificar.", "Error", JOptionPane.ERROR_MESSAGE);
+							try {
+								if (sucursalController.ModificarSucursal(s)) {
+									limpiarFormulario();
+									btnUpdateSuc.setEnabled(false);
+									tNumMod.setEnabled(true);
+									btnObtenerSuc.setEnabled(true);
+									alert("Se modificó correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
+								} else {
+									alert("No se pudo modificar.", "Error", JOptionPane.ERROR_MESSAGE);
+								}
+							} catch (Exception ex) {
+								alert("No se pudo modificar (" + ex.getMessage() + ").", "Error", JOptionPane.ERROR_MESSAGE);
 							}
-						} catch (Exception ex){
-							alert("No se pudo modificar (" + ex.getMessage() + ").", "Error", JOptionPane.ERROR_MESSAGE);
+						} else {
+							alert("No se reconoce ese usuario.", "Error", JOptionPane.ERROR_MESSAGE);
 						}
-					} else {
-						alert("No se reconoce ese usuario.", "Error", JOptionPane.ERROR_MESSAGE);
+					} catch (Exception ex) {
+						alert("Error inesperado (" + ex.getMessage() + ").", "Error", JOptionPane.ERROR_MESSAGE);
 					}
+
 				}else {
 					alert("No se reconoce el DNI.", "Error", JOptionPane.ERROR_MESSAGE);
 				}

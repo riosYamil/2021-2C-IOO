@@ -54,6 +54,7 @@ public class FrmPrincipal extends JFrame {
 			usuarioDTO.rol = Rol.Administrador;
 			usuarioController.AltaUsuario(usuarioDTO);
 		}catch (Exception e){
+			e.printStackTrace();
 		}
 	}
 
@@ -126,10 +127,14 @@ public class FrmPrincipal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				int id = Integer.parseInt(tUsuario.getText());
 				if (validateUser(id)) {
-					UsuarioController usuarioController = UsuarioController.getInstance();
-					String rol = usuarioController.ObtenerUsuario(id).rol.toString();
-					cleanPanel();
-					addTabbedOPanel(rol);
+					try {
+						UsuarioController usuarioController = UsuarioController.getInstance();
+						String rol = usuarioController.ObtenerUsuario(id).rol.toString();
+						cleanPanel();
+						addTabbedOPanel(rol);
+					}catch (Exception ex){
+						ex.printStackTrace();
+					}
 				} else {
 					JOptionPane.showMessageDialog(pnlIntro, "No se reconoce ese DNI o contraseña.", "Error",
 							JOptionPane.ERROR_MESSAGE);

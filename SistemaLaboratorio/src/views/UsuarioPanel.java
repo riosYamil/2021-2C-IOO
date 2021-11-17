@@ -367,40 +367,42 @@ public class UsuarioPanel {
 	        		String dni = tdni.getText();
 	        		
 	        		if(!dni.isBlank()) {
-	        			UsuarioDTO u = new UsuarioDTO();
-	        			u = usuarioController.ObtenerUsuario(Integer.parseInt(dni));
-	        			
-	        			if(u != null) {
-	        				tNombre.setText(u.nombreCompleto);
-	        				tDomicilio.setText(u.domicilio);
-	        				tMail.setText(u.email);
-	        	    		tNomUs.setText(u.nombre);
-	        	    		tPass.setText(u.password);
-	        	    		
-			        		if(u.rol == Rol.Administrador) {
-			        			rdbtnAdmin.setSelected(true);
-			        		}
-			        		
-			        		if(u.rol == Rol.Laboratista) {
-			        			rdbtnLab.setSelected(true);
-			        		}
-			        		
-			        		if(u.rol == Rol.Recepcion) {
-			        			rdbtnRecep.setSelected(true);
-			        		}
+						UsuarioDTO u = new UsuarioDTO();
+						try {
+							u = usuarioController.ObtenerUsuario(Integer.parseInt(dni));
+							if (u != null) {
+								tNombre.setText(u.nombreCompleto);
+								tDomicilio.setText(u.domicilio);
+								tMail.setText(u.email);
+								tNomUs.setText(u.nombre);
+								tPass.setText(u.password);
 
-	        	    		tDia.setText(String.valueOf(u.fechaDeNacimiento.getDay()));
-	        	    		tMes.setText(String.valueOf(u.fechaDeNacimiento.getMonth()));
-	        	    		tYear.setText(String.valueOf(u.fechaDeNacimiento.getYear()));
+								if (u.rol == Rol.Administrador) {
+									rdbtnAdmin.setSelected(true);
+								}
 
-	        				tdni.setEnabled(false);
-	        				btnAddUs.setEnabled(false);
-	        				btnUpdateUs.setEnabled(true);
-	        			} else{
-							alert("Este usuario no se pudo obtener.", "Error", JOptionPane.ERROR_MESSAGE);
+								if (u.rol == Rol.Laboratista) {
+									rdbtnLab.setSelected(true);
+								}
+
+								if (u.rol == Rol.Recepcion) {
+									rdbtnRecep.setSelected(true);
+								}
+
+								tDia.setText(String.valueOf(u.fechaDeNacimiento.getDay()));
+								tMes.setText(String.valueOf(u.fechaDeNacimiento.getMonth()));
+								tYear.setText(String.valueOf(u.fechaDeNacimiento.getYear()));
+
+								tdni.setEnabled(false);
+								btnAddUs.setEnabled(false);
+								btnUpdateUs.setEnabled(true);
+							} else {
+								alert("Este usuario no se pudo obtener.", "Error", JOptionPane.ERROR_MESSAGE);
+							}
+						} catch (Exception ex) {
+							alert("Este usuario no se pudo obtener (" + ex.getMessage() + ").", "Error", JOptionPane.ERROR_MESSAGE);
 						}
 	        		}
-	        		
 	        	}
 	        });
 	    	

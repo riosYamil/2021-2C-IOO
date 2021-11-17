@@ -101,7 +101,7 @@ public class UsuarioController {
         return true;
     }
 
-    public UsuarioDTO ObtenerUsuario(int usuarioID) {
+    public UsuarioDTO ObtenerUsuario(int usuarioID) throws Exception {
         UsuarioDTO u = new UsuarioDTO();
         try {
             UsuarioDAO usuarioDAO = new UsuarioDAO();
@@ -110,7 +110,7 @@ public class UsuarioController {
                 throw new Exception("El usuario no existe");
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         }
         return u;
     }
@@ -127,7 +127,12 @@ public class UsuarioController {
     }
 
     public boolean Autenticador(int id, String password) {
-        UsuarioDTO usuarioDTO = ObtenerUsuario(id);
+        UsuarioDTO usuarioDTO = new UsuarioDTO();
+        try {
+            usuarioDTO = ObtenerUsuario(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return usuarioDTO.id == id && usuarioDTO.password.equals(password);
     }
 }
