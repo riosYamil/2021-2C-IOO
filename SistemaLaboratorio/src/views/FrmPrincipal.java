@@ -2,6 +2,7 @@ package views;
 
 
 import controllers.UsuarioController;
+import dtos.UsuarioDTO;
 
 import javax.swing.*;
 import java.awt.*;
@@ -44,6 +45,14 @@ public class FrmPrincipal extends JFrame {
 		setPrincipalPnl();
 		asociarEventos();
 
+		try {
+			UsuarioController usuarioController = UsuarioController.getInstance();
+			UsuarioDTO usuarioDTO = new UsuarioDTO();
+			usuarioDTO.password = "1234";
+			usuarioDTO.dni = "1234";
+			usuarioController.AltaUsuario(usuarioDTO);
+		}catch (Exception e){
+		}
 	}
 
 	/**
