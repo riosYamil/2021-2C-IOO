@@ -52,7 +52,6 @@ public class PeticionController {
             //Valido que exista la petición
             PeticionDTO peticionDTO = ObtenerPeticion(peticionID);
 
-            BorrarPracticasAsociadas(peticionID);
             boolean fueBorrado = peticionDAO.BorrarPeticion(peticionID);
             if (!fueBorrado) {
                 return false;
@@ -77,15 +76,6 @@ public class PeticionController {
             throw e;
         }
         return true;
-    }
-
-    public void BorrarPracticasAsociadas(int id) throws Exception {
-        PeticionDTO p = ObtenerPeticion(id);
-
-        for (PracticaAsociadaDTO pa : p.practicasAsociadas) {
-            PracticaController practicaController = PracticaController.getInstance();
-            practicaController.BajaPractica(pa.practicaID);
-        }
     }
 
     public PeticionDTO ObtenerPeticion(int PeticionID) throws Exception {

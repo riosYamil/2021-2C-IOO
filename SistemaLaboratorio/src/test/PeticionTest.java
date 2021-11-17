@@ -42,7 +42,6 @@ public class PeticionTest {
         UsuarioDTO usuarioDTO = new UsuarioDTO();
         SucursalDTO sucursalDTO = new SucursalDTO();
         try {
-            usuarioDTO.id = 37340001;
             usuarioDTO.nombre = "GABRIEL";
             usuarioDTO.email = "GYRB@mail.com";
             usuarioDTO.password = "pass";
@@ -64,7 +63,6 @@ public class PeticionTest {
 
         PacienteDTO pacienteDTO = new PacienteDTO();
         try {
-            pacienteDTO.id = 37340794;
             pacienteDTO.dni = "37340794";
             pacienteDTO.nombre = "GABRIEL";
             pacienteDTO.domicilio = "CALLE FALSA 1234";
@@ -118,7 +116,6 @@ public class PeticionTest {
         UsuarioDTO usuarioDTO = new UsuarioDTO();
         SucursalDTO sucursalDTO = new SucursalDTO();
         try {
-            usuarioDTO.id = 37340001;
             usuarioDTO.nombre = "GABRIEL";
             usuarioDTO.email = "GYRB@mail.com";
             usuarioDTO.password = "pass";
@@ -140,7 +137,6 @@ public class PeticionTest {
 
         PacienteDTO pacienteDTO = new PacienteDTO();
         try {
-            pacienteDTO.id = 37340794;
             pacienteDTO.dni = "37340794";
             pacienteDTO.nombre = "GABRIEL";
             pacienteDTO.domicilio = "CALLE FALSA 1234";
@@ -170,7 +166,6 @@ public class PeticionTest {
             e.printStackTrace();
         }
 
-        PacienteDTO pacienteDTOParaTest = new PacienteDTO();
         try {
             //ID inexistente
             assertFalse(peticionController.BajaPeticion(123456));
