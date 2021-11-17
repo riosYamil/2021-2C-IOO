@@ -14,9 +14,9 @@ public class PeticionService {
 
     public EstadoPeticion DeterminarEstado(PeticionDTO peticionDTO) {
 
-        boolean practicaPendiente = false;
+        boolean practicaPendiente = true;
+        boolean practicaFinalizada = true;
         boolean practicaReservada = false;
-        boolean practicaFinalizada = false;
 
         EstadoPeticion resultado = EstadoPeticion.Activa;
 
