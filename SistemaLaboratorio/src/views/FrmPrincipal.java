@@ -3,6 +3,7 @@ package views;
 
 import controllers.UsuarioController;
 import dtos.UsuarioDTO;
+import enums.Rol;
 
 import javax.swing.*;
 import java.awt.*;
@@ -50,6 +51,7 @@ public class FrmPrincipal extends JFrame {
 			UsuarioDTO usuarioDTO = new UsuarioDTO();
 			usuarioDTO.password = "1234";
 			usuarioDTO.dni = "1234";
+			usuarioDTO.rol = Rol.Administrador;
 			usuarioController.AltaUsuario(usuarioDTO);
 		}catch (Exception e){
 		}
