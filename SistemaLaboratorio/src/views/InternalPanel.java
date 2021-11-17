@@ -22,7 +22,7 @@ public class InternalPanel extends JTabbedPane {
 		}
 
 		if (rol == Rol.Recepcion.toString() || rol == Rol.Administrador.toString()) {
-			this.addTab("Pacientes", pnlPaciente.setPanelPaciente());
+			this.addTab("Pacientes", pnlPaciente.setPanelPaciente(rol));
 			this.addTab("Peticiones", pnlPeticion.setPeticionesTab(rol));
 		}
 		

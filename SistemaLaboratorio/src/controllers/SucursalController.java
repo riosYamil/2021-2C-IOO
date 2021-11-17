@@ -30,9 +30,10 @@ public class SucursalController {
         try {
             UsuarioController usuarioController = UsuarioController.getInstance();
             SucursalDAO sucursalDAO = new SucursalDAO();
-
+            
             usuarioController.ObtenerUsuario(s.responsableTecnicoDNI);
             s.id = sucursalDAO.getLastInsertId() + 1;
+            s.numero = s.id;
             sucursalDAO.CrearSucursal(s);
         } catch (Exception e) {
             throw e;

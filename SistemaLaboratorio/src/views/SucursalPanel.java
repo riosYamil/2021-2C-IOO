@@ -20,10 +20,8 @@ public class SucursalPanel {
 	private JPanel Alta_1;
 	private JLabel lblDireccion;
 	private JLabel lblResponsableTecnico;
-	private JTextField tNumero;
 	private JTextField tDireccion;
 	private JTextField tResponsableTecnico;
-	private JLabel lblNumero;
 	private Button btnAddSuc;
 	private Panel Baja_1;
 	private JLabel lblNum;
@@ -78,9 +76,9 @@ public class SucursalPanel {
 		btnObtenerSuc.setBackground(SystemColor.activeCaption);
 		btnObtenerSuc.setBounds(230, 174, 50, 27);
 		
-		lblNewLabel = new JLabel("Para obtener una sucursal ingrese su número:");
+		lblNewLabel = new JLabel("Para obtener una sucursal ingrese su ID:");
 		
-		lblNumeroMod = new JLabel("NUMERO");
+		lblNumeroMod = new JLabel("ID");
 		
 		lblDireccionMod = new JLabel("DIRECCION");
 		
@@ -237,18 +235,11 @@ public class SucursalPanel {
 
 		lblResponsableTecnico = new JLabel("DNI DEL RESPONSABLE TECNICO");
 
-		tNumero = new JTextField();
-		tNumero.setFont(new Font("Arial", Font.PLAIN, 15));
-
 		tDireccion = new JTextField();
 		tDireccion.setColumns(10);
 
 		tResponsableTecnico = new JTextField();
 		tResponsableTecnico.setColumns(10);
-
-		lblNumero = new JLabel("NUMERO");
-		lblNumero.setForeground(Color.BLACK);
-		lblNumero.setFont(new Font("Tahoma", Font.PLAIN, 11));
 
 		btnAddSuc = new Button("Agregar sucursal");
 		btnAddSuc.setForeground(Color.WHITE);
@@ -265,13 +256,10 @@ public class SucursalPanel {
 						.addGroup(gl_Alta_1.createSequentialGroup()
 							.addGap(23)
 							.addGroup(gl_Alta_1.createParallelGroup(Alignment.LEADING)
-								.addComponent(tNumero, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblNumero, GroupLayout.PREFERRED_SIZE, 79, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblDireccion)
 								.addComponent(tDireccion, 449, 449, 449)
-								.addGroup(gl_Alta_1.createParallelGroup(Alignment.TRAILING, false)
-									.addComponent(tResponsableTecnico, Alignment.LEADING)
-									.addComponent(lblResponsableTecnico, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+								.addComponent(lblResponsableTecnico, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(tResponsableTecnico, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(gl_Alta_1.createSequentialGroup()
 							.addGap(168)
 							.addComponent(btnAddSuc, GroupLayout.PREFERRED_SIZE, 228, GroupLayout.PREFERRED_SIZE)))
@@ -281,20 +269,16 @@ public class SucursalPanel {
 			gl_Alta_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_Alta_1.createSequentialGroup()
 					.addGap(34)
-					.addComponent(btnAddSuc)
-					.addGap(26)
-					.addComponent(lblNumero)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(tNumero, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
-					.addGap(11)
+					.addComponent(btnAddSuc, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(29)
 					.addComponent(lblDireccion)
-					.addGap(7)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(tDireccion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(11)
+					.addGap(18)
 					.addComponent(lblResponsableTecnico)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(tResponsableTecnico, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(244, Short.MAX_VALUE))
+					.addContainerGap(287, Short.MAX_VALUE))
 		);
 		Alta_1.setLayout(gl_Alta_1);
 		return Alta_1;
@@ -305,14 +289,11 @@ public class SucursalPanel {
 		
         btnAddSuc.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	String num = tNumero.getText();
             	String dir = tDireccion.getText();
             	String rt = tResponsableTecnico.getText();
             	
-            	if(!num.isBlank() && !dir.isBlank() && !rt.isBlank()) {
+            	if( !dir.isBlank() && !rt.isBlank()) {
                 	SucursalDTO s = new SucursalDTO();
-                	s.id = Integer.parseInt(num);
-                	s.numero = Integer.parseInt(num);
                 	s.direccion = dir;
 					s.responsableTecnicoDNI = Integer.parseInt(rt);
                 	UsuarioDTO u = UsuarioController.getInstance().ObtenerUsuario(Integer.parseInt(rt));
@@ -341,11 +322,8 @@ public class SucursalPanel {
         		String numNuevo = tNuevaSucursal.getText();
         		
         		if(!num.isBlank() && !numNuevo.isBlank()) {
-        			SucursalDTO s = new SucursalDTO();
-
         			try {
-						s = sucursalController.ObtenerSucursal(Integer.parseInt(num));
-						if(sucursalController.BajaSucursal(s.id)) {
+						if(sucursalController.BajaSucursal(Integer.parseInt(num), Integer.parseInt(numNuevo))) {
 							limpiarFormulario();
 							alert("Se borró correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
 						}else {
@@ -441,7 +419,6 @@ public class SucursalPanel {
     }
 	
     private void limpiarFormulario() {
-		tNumero.setText("");
 		tDireccion.setText("");
 		tResponsableTecnico.setText("");
 		tNum.setText("");
