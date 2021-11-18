@@ -46,6 +46,7 @@ public class FrmPrincipal extends JFrame {
 		setPrincipalPnl();
 		asociarEventos();
 
+		/*
 		try {
 			UsuarioController usuarioController = UsuarioController.getInstance();
 			UsuarioDTO usuarioDTO = new UsuarioDTO();
@@ -55,7 +56,7 @@ public class FrmPrincipal extends JFrame {
 			usuarioController.AltaUsuario(usuarioDTO);
 		}catch (Exception e){
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 	/**

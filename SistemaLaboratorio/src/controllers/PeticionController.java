@@ -4,11 +4,14 @@ import dao.PeticionDAO;
 import domains.Peticion;
 import dtos.PeticionDTO;
 import dtos.PracticaAsociadaDTO;
+import dtos.PracticaDTO;
 import enums.EstadoPeticion;
 import enums.EstadoResultadoPractica;
 import services.PeticionService;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -37,6 +40,7 @@ public class PeticionController {
 
             p.id = peticionDAO.getLastInsertId() + 1;
             p.estadoPeticion = peticionService.DeterminarEstado(p);
+            p.fechaDeEntrega = calcularFechaDeEntrega(p.practicasAsociadas);
 
             peticionDAO.CrearPeticion(p);
         } catch (Exception e) {
@@ -44,7 +48,7 @@ public class PeticionController {
         }
         return p;
     }
-
+    
     public boolean BajaPeticion(int peticionID) throws Exception {
         try {
             PeticionDAO peticionDAO = new PeticionDAO();
@@ -99,11 +103,56 @@ public class PeticionController {
         }
         return existe;
     }
+    
+	private Date calcularFechaDeEntrega(List<PracticaAsociadaDTO> pa) {
+		Date d = new Date();
+		int h = ObtenerHoras(pa);
+		int dias = h / 12;
+		Calendar c = Calendar.getInstance();
+		
+		c.add(Calendar.DATE, dias);
+		d = c.getTime();
+	
+		return d;
+	}
+	
+	private int ObtenerHoras(List<PracticaAsociadaDTO> pa) {
+		PracticaController practicaController = PracticaController.getInstance();
+		int h = 0;
+        for (PracticaAsociadaDTO p : pa) {
+        	try {
+				PracticaDTO practica = practicaController.ObtenerPractica(p.practicaID);
+				
+				h += practica.horasEsperaResultado;
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+        }
+		
+		return h;
+	}
 
     public void EnviarNotificacion() {
         System.out.println("notificación enviada");
     }
 
+    public PracticaAsociadaDTO ObtenerPracticaAsociada(int peticionID, int id) throws Exception {
+    	PracticaAsociadaDTO p = null;
+		try {
+			List<PracticaAsociadaDTO> pa = ObtenerPeticion(peticionID).practicasAsociadas;
+	    	for (PracticaAsociadaDTO practicasAsociada : pa) {
+	        	if(practicasAsociada.practicaID == id) {
+	        		p = practicasAsociada;
+	        	}
+	        }
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+		
+		return p;
+    }
+    
     public List<PeticionDTO> ObtenerPeticionesCriticas() {
         List<PeticionDTO> peticiones = new ArrayList<>();
 

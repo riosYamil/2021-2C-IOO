@@ -77,18 +77,7 @@ public class PracticaController {
         }
         return p;
     }
-    
-    public PracticaAsociadaDTO ObtenerPracticaAsocidada(List<PracticaAsociadaDTO> pa, int id) {
-    	PracticaAsociadaDTO p = null;
-    	for (PracticaAsociadaDTO practicasAsociada : pa) {
-        	if(practicasAsociada.practicaID == id) {
-        		p = practicasAsociada;
-        	}
-
-        }
-		return p;
-    }
-    
+        
     public boolean EstaHabilitada(EstadoResultadoPractica e, int id) {
     	boolean habilidata = false;
 		if(e == EstadoResultadoPractica.Pendiente) {

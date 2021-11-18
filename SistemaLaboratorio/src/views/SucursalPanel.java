@@ -15,7 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SucursalPanel {
-	
+
 	private JTabbedPane tabbedPane_3;
 	private JPanel Alta_1;
 	private JLabel lblDireccion;
@@ -40,8 +40,7 @@ public class SucursalPanel {
 	private JTextField tNumMod;
 	private JTextField tResponsableTecnicoMod;
 	private JTextField tNuevaSucursal;
-		
-	
+
 	/**
 	 * @wbp.parser.entryPoint
 	 */
@@ -49,116 +48,103 @@ public class SucursalPanel {
 		tabbedPane_3 = new JTabbedPane(JTabbedPane.LEFT);
 		tabbedPane_3.setBackground(Color.white);
 		tabbedPane_3.setBounds(100, 100, 629, 476);
-		
+
 		tabbedPane_3.add("Alta", setAltaSucursal());
 		tabbedPane_3.add("Baja", setBajaSucursal());
 		tabbedPane_3.add("Modificación", setModificacionSucursal());
 
-
 		asociarEventos();
-		
+
 		return tabbedPane_3;
 	}
-	
+
 	private Panel setModificacionSucursal() {
 		Modificacion = new Panel();
-		
+
 		btnUpdateSuc = new JButton("Modificar sucursal");
 		btnUpdateSuc.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnUpdateSuc.setForeground(Color.BLACK);
 		btnUpdateSuc.setBackground(new Color(133, 189, 212));
 		btnUpdateSuc.setBounds(230, 174, 150, 27);
 		btnUpdateSuc.setEnabled(false);
-		
+
 		btnObtenerSuc = new Button("Obtener sucursal");
 		btnObtenerSuc.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnObtenerSuc.setForeground(Color.WHITE);
 		btnObtenerSuc.setBackground(SystemColor.activeCaption);
 		btnObtenerSuc.setBounds(230, 174, 50, 27);
-		
+
 		lblNewLabel = new JLabel("Para obtener una sucursal ingrese su ID:");
-		
+
 		lblNumeroMod = new JLabel("ID");
-		
+
 		lblDireccionMod = new JLabel("DIRECCION");
-		
+
 		lblResponsableTecnicoMod = new JLabel("DNI DEL RESPONSABLE TECNICO");
-		
+
 		btnLimpiarForm = new JButton("Limpiar formulario");
-		
+
 		tDireccionMod = new JTextField();
 		tDireccionMod.setColumns(10);
-		
+
 		tNumMod = new JTextField();
 		tNumMod.setText("");
 		tNumMod.setColumns(10);
-		
+
 		tResponsableTecnicoMod = new JTextField();
 		tResponsableTecnicoMod.setColumns(10);
 		GroupLayout gl_Modificacion = new GroupLayout(Modificacion);
-		gl_Modificacion.setHorizontalGroup(
-			gl_Modificacion.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_Modificacion.createSequentialGroup()
-					.addGap(50)
-					.addGroup(gl_Modificacion.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_Modificacion.createSequentialGroup()
-							.addComponent(btnLimpiarForm)
-							.addContainerGap())
+		gl_Modificacion.setHorizontalGroup(gl_Modificacion.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_Modificacion.createSequentialGroup().addGap(50).addGroup(gl_Modificacion
+						.createParallelGroup(Alignment.LEADING)
+						.addGroup(
+								gl_Modificacion.createSequentialGroup().addComponent(btnLimpiarForm).addContainerGap())
 						.addGroup(gl_Modificacion.createParallelGroup(Alignment.LEADING)
-							.addGroup(gl_Modificacion.createSequentialGroup()
-								.addComponent(tResponsableTecnicoMod, GroupLayout.PREFERRED_SIZE, 137, GroupLayout.PREFERRED_SIZE)
-								.addContainerGap())
-							.addGroup(gl_Modificacion.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_Modificacion.createSequentialGroup()
-									.addComponent(lblDireccionMod)
-									.addContainerGap())
+										.addComponent(tResponsableTecnicoMod, GroupLayout.PREFERRED_SIZE, 137,
+												GroupLayout.PREFERRED_SIZE)
+										.addContainerGap())
 								.addGroup(gl_Modificacion.createParallelGroup(Alignment.LEADING)
-									.addGroup(gl_Modificacion.createSequentialGroup()
-										.addComponent(tNumMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addContainerGap())
-									.addGroup(gl_Modificacion.createSequentialGroup()
-										.addComponent(lblResponsableTecnicoMod)
-										.addContainerGap())
-									.addGroup(gl_Modificacion.createSequentialGroup()
-										.addComponent(lblNumeroMod)
-										.addContainerGap())
-									.addGroup(gl_Modificacion.createSequentialGroup()
-										.addComponent(lblNewLabel)
-										.addContainerGap())
-									.addGroup(Alignment.TRAILING, gl_Modificacion.createSequentialGroup()
-										.addComponent(btnObtenerSuc, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
-										.addComponent(btnUpdateSuc)
-										.addGap(133))
-									.addGroup(gl_Modificacion.createSequentialGroup()
-										.addComponent(tDireccionMod, GroupLayout.PREFERRED_SIZE, 309, GroupLayout.PREFERRED_SIZE)
-										.addContainerGap()))))))
-		);
-		gl_Modificacion.setVerticalGroup(
-			gl_Modificacion.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_Modificacion.createSequentialGroup()
-					.addGap(40)
-					.addComponent(lblNewLabel)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(lblNumeroMod)
-					.addGap(4)
-					.addComponent(tNumMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_Modificacion.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnObtenerSuc, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addGroup(gl_Modificacion.createSequentialGroup().addComponent(lblDireccionMod)
+												.addContainerGap())
+										.addGroup(gl_Modificacion.createParallelGroup(Alignment.LEADING)
+												.addGroup(gl_Modificacion.createSequentialGroup()
+														.addComponent(tNumMod, GroupLayout.PREFERRED_SIZE,
+																GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+														.addContainerGap())
+												.addGroup(gl_Modificacion.createSequentialGroup()
+														.addComponent(lblResponsableTecnicoMod).addContainerGap())
+												.addGroup(gl_Modificacion.createSequentialGroup()
+														.addComponent(lblNumeroMod).addContainerGap())
+												.addGroup(gl_Modificacion.createSequentialGroup()
+														.addComponent(lblNewLabel).addContainerGap())
+												.addGroup(Alignment.TRAILING, gl_Modificacion.createSequentialGroup()
+														.addComponent(btnObtenerSuc, GroupLayout.PREFERRED_SIZE, 129,
+																GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.RELATED, 97,
+																Short.MAX_VALUE)
+														.addComponent(btnUpdateSuc).addGap(133))
+												.addGroup(
+														gl_Modificacion.createSequentialGroup()
+																.addComponent(tDireccionMod, GroupLayout.PREFERRED_SIZE,
+																		309, GroupLayout.PREFERRED_SIZE)
+																.addContainerGap())))))));
+		gl_Modificacion.setVerticalGroup(gl_Modificacion.createParallelGroup(Alignment.LEADING).addGroup(gl_Modificacion
+				.createSequentialGroup().addGap(40).addComponent(lblNewLabel)
+				.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(lblNumeroMod).addGap(4)
+				.addComponent(tNumMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(ComponentPlacement.UNRELATED)
+				.addGroup(gl_Modificacion.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnObtenerSuc, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+								GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnUpdateSuc))
-					.addGap(33)
-					.addComponent(lblDireccionMod)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(tDireccionMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(13)
-					.addComponent(lblResponsableTecnicoMod)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(tResponsableTecnicoMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(36)
-					.addComponent(btnLimpiarForm)
-					.addContainerGap(144, Short.MAX_VALUE))
-		);
+				.addGap(33).addComponent(lblDireccionMod).addPreferredGap(ComponentPlacement.UNRELATED)
+				.addComponent(tDireccionMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+						GroupLayout.PREFERRED_SIZE)
+				.addGap(13).addComponent(lblResponsableTecnicoMod).addPreferredGap(ComponentPlacement.RELATED)
+				.addComponent(tResponsableTecnicoMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+						GroupLayout.PREFERRED_SIZE)
+				.addGap(36).addComponent(btnLimpiarForm).addContainerGap(144, Short.MAX_VALUE)));
 		Modificacion.setLayout(gl_Modificacion);
 		return Modificacion;
 	}
@@ -169,7 +155,8 @@ public class SucursalPanel {
 
 		lblNum = new JLabel("NUMERO");
 
-		lblBaja = new JLabel("Por favor, ingrese el NUMERO de la sucursal que desea eliminar y el NUMERO de la nueva sucursal.");
+		lblBaja = new JLabel(
+				"Por favor, ingrese el NUMERO de la sucursal que desea eliminar y el NUMERO de la nueva sucursal.");
 
 		tNum = new JTextField();
 		tNum.setColumns(10);
@@ -179,48 +166,40 @@ public class SucursalPanel {
 		btnDeleteSuc.setForeground(Color.WHITE);
 		btnDeleteSuc.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnDeleteSuc.setBackground(Color.RED);
-		
+
 		JLabel lblNuevaSucursal = new JLabel("NUMERO DE NUEVA SUCURSAL");
-		
+
 		tNuevaSucursal = new JTextField();
 		tNuevaSucursal.setColumns(10);
 		GroupLayout gl_Baja_1 = new GroupLayout(Baja_1);
-		gl_Baja_1.setHorizontalGroup(
-			gl_Baja_1.createParallelGroup(Alignment.LEADING)
-				.addGap(0, 550, Short.MAX_VALUE)
-				.addGroup(gl_Baja_1.createSequentialGroup()
-					.addGap(35)
-					.addGroup(gl_Baja_1.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblBaja)
-						.addComponent(btnDeleteSuc, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_Baja_1.createSequentialGroup()
-							.addGroup(gl_Baja_1.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblNum)
-								.addComponent(tNum, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(83)
-							.addGroup(gl_Baja_1.createParallelGroup(Alignment.LEADING)
-								.addComponent(tNuevaSucursal, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblNuevaSucursal))))
-					.addContainerGap(207, Short.MAX_VALUE))
-		);
-		gl_Baja_1.setVerticalGroup(
-			gl_Baja_1.createParallelGroup(Alignment.LEADING)
-				.addGap(0, 471, Short.MAX_VALUE)
-				.addGroup(gl_Baja_1.createSequentialGroup()
-					.addGap(22)
-					.addComponent(lblBaja)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_Baja_1.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNum)
-						.addComponent(lblNuevaSucursal))
-					.addGap(4)
-					.addGroup(gl_Baja_1.createParallelGroup(Alignment.BASELINE)
-						.addComponent(tNum, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(tNuevaSucursal, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(btnDeleteSuc, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(351, Short.MAX_VALUE))
-		);
+		gl_Baja_1.setHorizontalGroup(gl_Baja_1.createParallelGroup(Alignment.LEADING).addGap(0, 550, Short.MAX_VALUE)
+				.addGroup(gl_Baja_1.createSequentialGroup().addGap(35)
+						.addGroup(gl_Baja_1.createParallelGroup(Alignment.LEADING).addComponent(lblBaja)
+								.addComponent(btnDeleteSuc, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
+								.addGroup(gl_Baja_1.createSequentialGroup()
+										.addGroup(gl_Baja_1.createParallelGroup(Alignment.LEADING).addComponent(lblNum)
+												.addComponent(tNum, GroupLayout.PREFERRED_SIZE,
+														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+										.addGap(83)
+										.addGroup(gl_Baja_1.createParallelGroup(Alignment.LEADING)
+												.addComponent(tNuevaSucursal, GroupLayout.PREFERRED_SIZE,
+														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+												.addComponent(lblNuevaSucursal))))
+						.addContainerGap(207, Short.MAX_VALUE)));
+		gl_Baja_1.setVerticalGroup(gl_Baja_1.createParallelGroup(Alignment.LEADING).addGap(0, 471, Short.MAX_VALUE)
+				.addGroup(gl_Baja_1.createSequentialGroup().addGap(22).addComponent(lblBaja)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addGroup(gl_Baja_1.createParallelGroup(Alignment.BASELINE).addComponent(lblNum)
+								.addComponent(lblNuevaSucursal))
+						.addGap(4)
+						.addGroup(gl_Baja_1.createParallelGroup(Alignment.BASELINE)
+								.addComponent(tNum, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+								.addComponent(tNuevaSucursal, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(btnDeleteSuc, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+						.addContainerGap(351, Short.MAX_VALUE)));
 		Baja_1.setLayout(gl_Baja_1);
 
 		return Baja_1;
@@ -246,189 +225,161 @@ public class SucursalPanel {
 		btnAddSuc.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnAddSuc.setBackground(new Color(133, 189, 212));
 		btnAddSuc.setBounds(230, 174, 150, 27);
-		
-		//layout
+
+		// layout
 		GroupLayout gl_Alta_1 = new GroupLayout(Alta_1);
-		gl_Alta_1.setHorizontalGroup(
-			gl_Alta_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_Alta_1.createSequentialGroup()
-					.addGroup(gl_Alta_1.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_Alta_1.createSequentialGroup()
-							.addGap(23)
-							.addGroup(gl_Alta_1.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblDireccion)
+		gl_Alta_1.setHorizontalGroup(gl_Alta_1.createParallelGroup(Alignment.LEADING).addGroup(gl_Alta_1
+				.createSequentialGroup()
+				.addGroup(gl_Alta_1.createParallelGroup(Alignment.LEADING).addGroup(gl_Alta_1.createSequentialGroup()
+						.addGap(23)
+						.addGroup(gl_Alta_1.createParallelGroup(Alignment.LEADING).addComponent(lblDireccion)
 								.addComponent(tDireccion, 449, 449, 449)
-								.addComponent(lblResponsableTecnico, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(tResponsableTecnico, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-						.addGroup(gl_Alta_1.createSequentialGroup()
-							.addGap(168)
-							.addComponent(btnAddSuc, GroupLayout.PREFERRED_SIZE, 228, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(78, Short.MAX_VALUE))
-		);
-		gl_Alta_1.setVerticalGroup(
-			gl_Alta_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_Alta_1.createSequentialGroup()
-					.addGap(34)
-					.addComponent(btnAddSuc, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(29)
-					.addComponent(lblDireccion)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(tDireccion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addComponent(lblResponsableTecnico)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(tResponsableTecnico, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(287, Short.MAX_VALUE))
-		);
+								.addComponent(lblResponsableTecnico, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
+										Short.MAX_VALUE)
+								.addComponent(tResponsableTecnico, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)))
+						.addGroup(gl_Alta_1.createSequentialGroup().addGap(168).addComponent(btnAddSuc,
+								GroupLayout.PREFERRED_SIZE, 228, GroupLayout.PREFERRED_SIZE)))
+				.addContainerGap(78, Short.MAX_VALUE)));
+		gl_Alta_1
+				.setVerticalGroup(
+						gl_Alta_1.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_Alta_1.createSequentialGroup().addGap(34)
+										.addComponent(btnAddSuc, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.PREFERRED_SIZE)
+										.addGap(29).addComponent(lblDireccion)
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addComponent(tDireccion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.PREFERRED_SIZE)
+										.addGap(18).addComponent(lblResponsableTecnico)
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addComponent(tResponsableTecnico, GroupLayout.PREFERRED_SIZE,
+												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addContainerGap(287, Short.MAX_VALUE)));
 		Alta_1.setLayout(gl_Alta_1);
 		return Alta_1;
 	}
-	
+
 	private void asociarEventos() {
 		SucursalController sucursalController = SucursalController.getInstance();
-		
-        btnAddSuc.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	String dir = tDireccion.getText();
-            	String rt = tResponsableTecnico.getText();
-            	
-            	if( !dir.isBlank() && !rt.isBlank()) {
-					SucursalDTO s = new SucursalDTO();
-					s.direccion = dir;
-					s.responsableTecnicoDNI = Integer.parseInt(rt);
-					UsuarioDTO u = new UsuarioDTO();
 
-					try {
-						u = UsuarioController.getInstance().ObtenerUsuario(Integer.parseInt(rt));
-						if (u != null) {
-							try {
-								sucursalController.AltaSucursal(s);
-								limpiarFormulario();
-								alert("Se agregó correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
-							} catch (Exception ex) {
-								alert("No se pudo dar de alta la sucursal (" + ex.getMessage() + ").", "Error", JOptionPane.ERROR_MESSAGE);
-							}
-						} else {
-							alert("No se reconoce el DNI.", "Error", JOptionPane.ERROR_MESSAGE);
-						}
-					} catch (Exception ex) {
-						alert("Error inesperado (" + ex.getMessage() + ").", "Error", JOptionPane.ERROR_MESSAGE);
-					}
+		btnAddSuc.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String dir = tDireccion.getText();
+				String rt = tResponsableTecnico.getText();
+
+				if (dir.isBlank() && rt.isBlank()) {
+					alert("Falta información.", "Error", JOptionPane.ERROR_MESSAGE);
+					return;
 				}
-            	else {
-            		alert("Falta información.", "Error", JOptionPane.ERROR_MESSAGE);
-            	}           	           
-            }
-        });
-        
-        btnDeleteSuc.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		String num = tNum.getText();
-        		String numNuevo = tNuevaSucursal.getText();
-        		
-        		if(!num.isBlank() && !numNuevo.isBlank()) {
-        			try {
-						if(sucursalController.BajaSucursal(Integer.parseInt(num), Integer.parseInt(numNuevo))) {
-							limpiarFormulario();
-							alert("Se borró correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
-						}else {
-							alert("La sucursal no se puede eliminar.", "Error", JOptionPane.ERROR_MESSAGE);
-						}
-					} catch (Exception ex){
-						alert("La sucursal no se puede eliminar (" + ex.getMessage() + ").", "Error", JOptionPane.ERROR_MESSAGE);
-					}
-        		}
-        	}
-        });
-        
+
+				SucursalDTO s = new SucursalDTO();
+				s.direccion = dir;
+				s.responsableTecnicoDNI = Integer.parseInt(rt);
+
+				try {
+					UsuarioController.getInstance().ObtenerUsuario(Integer.parseInt(rt));
+
+					sucursalController.AltaSucursal(s);
+					limpiarFormulario();
+					alert("Se agregó correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
+				} catch (Exception ex) {
+					alert("Error inesperado (" + ex.getMessage() + ").", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+
+		btnDeleteSuc.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String num = tNum.getText();
+				String numNuevo = tNuevaSucursal.getText();
+
+				try {
+					sucursalController.BajaSucursal(Integer.parseInt(num), Integer.parseInt(numNuevo));
+					limpiarFormulario();
+					alert("Se borró correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
+				} catch (Exception ex) {
+					alert("La sucursal no se puede eliminar (" + ex.getMessage() + ").", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+
+			}
+		});
+
 		btnObtenerSuc.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-        		String num = tNumMod.getText();
+				String num = tNumMod.getText();
 
-        		try {
-					if (!num.isBlank()) {
-						SucursalDTO s = sucursalController.ObtenerSucursal(Integer.parseInt(num));
-
-						tDireccionMod.setText(s.direccion);
-						tResponsableTecnicoMod.setText(String.valueOf(s.responsableTecnicoDNI));
-						btnUpdateSuc.setEnabled(true);
-						tNumMod.setEnabled(false);
-						btnObtenerSuc.setEnabled(false);
-					} else {
-						alert("No se pudo obtener sucursal.", "Error", JOptionPane.ERROR_MESSAGE);
-					}
-				}catch (Exception ex){
+				try {
+					SucursalDTO s = sucursalController.ObtenerSucursal(Integer.parseInt(num));
+					tDireccionMod.setText(s.direccion);
+					tResponsableTecnicoMod.setText(String.valueOf(s.responsableTecnicoDNI));
+					btnUpdateSuc.setEnabled(true);
+					tNumMod.setEnabled(false);
+					btnObtenerSuc.setEnabled(false);
+				} catch (Exception ex) {
 					alert("No se pudo obtener sucursal (" + ex.getMessage() + ").", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
-		
+
 		btnUpdateSuc.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-        		String num = tNumMod.getText();
-        		String dir = tDireccionMod.getText();
-        		String rt = tResponsableTecnicoMod.getText();
-        		
-        		if (!rt.isBlank()) {
-					SucursalDTO s = new SucursalDTO();
+				String num = tNumMod.getText();
+				String dir = tDireccionMod.getText();
+				String rt = tResponsableTecnicoMod.getText();
+				SucursalDTO s = new SucursalDTO();
 
-					try {
-						UsuarioDTO u = UsuarioController.getInstance().ObtenerUsuario(Integer.parseInt(rt));
-						if (u != null) {
-							s.id = Integer.parseInt(num);
-							s.numero = Integer.parseInt(num);
-							s.direccion = dir;
-							s.responsableTecnicoDNI = Integer.parseInt(rt);
+				if (rt.isBlank()) {
+					alert("No se reconoce el DNI.", "Error", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
 
-							try {
-								if (sucursalController.ModificarSucursal(s)) {
-									limpiarFormulario();
-									btnUpdateSuc.setEnabled(false);
-									tNumMod.setEnabled(true);
-									btnObtenerSuc.setEnabled(true);
-									alert("Se modificó correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
-								} else {
-									alert("No se pudo modificar.", "Error", JOptionPane.ERROR_MESSAGE);
-								}
-							} catch (Exception ex) {
-								alert("No se pudo modificar (" + ex.getMessage() + ").", "Error", JOptionPane.ERROR_MESSAGE);
-							}
-						} else {
-							alert("No se reconoce ese usuario.", "Error", JOptionPane.ERROR_MESSAGE);
-						}
-					} catch (Exception ex) {
-						alert("Error inesperado (" + ex.getMessage() + ").", "Error", JOptionPane.ERROR_MESSAGE);
+				try {
+					UsuarioController.getInstance().ObtenerUsuario(Integer.parseInt(rt));
+					s.id = Integer.parseInt(num);
+					s.numero = Integer.parseInt(num);
+					s.direccion = dir;
+					s.responsableTecnicoDNI = Integer.parseInt(rt);
+
+					if (sucursalController.ModificarSucursal(s)) {
+						limpiarFormulario();
+						btnUpdateSuc.setEnabled(false);
+						tNumMod.setEnabled(true);
+						btnObtenerSuc.setEnabled(true);
+						alert("Se modificó correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
+					} else {
+						alert("No se pudo modificar.", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 
-				}else {
-					alert("No se reconoce el DNI.", "Error", JOptionPane.ERROR_MESSAGE);
+				} catch (Exception ex) {
+					alert("Error inesperado (" + ex.getMessage() + ").", "Error", JOptionPane.ERROR_MESSAGE);
 				}
-        		        		
-        		
+
 			}
 		});
-        
+
 		btnLimpiarForm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-    			btnUpdateSuc.setEnabled(false);
-    			tNumMod.setEnabled(true);
-    			btnObtenerSuc.setEnabled(true);
-    			limpiarFormulario();
+				btnUpdateSuc.setEnabled(false);
+				tNumMod.setEnabled(true);
+				btnObtenerSuc.setEnabled(true);
+				limpiarFormulario();
 			}
 		});
-        
+
 		tabbedPane_3.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				limpiarFormulario();
 			}
 		});
 	}
-	
-    private void alert(String msg, String type, int pane) {
-        JOptionPane.showMessageDialog(tabbedPane_3, msg, type, pane);
-    }
-	
-    private void limpiarFormulario() {
+
+	private void alert(String msg, String type, int pane) {
+		JOptionPane.showMessageDialog(tabbedPane_3, msg, type, pane);
+	}
+
+	private void limpiarFormulario() {
 		tDireccion.setText("");
 		tResponsableTecnico.setText("");
 		tNum.setText("");
@@ -436,5 +387,5 @@ public class SucursalPanel {
 		tResponsableTecnicoMod.setText("");
 		tNumMod.setText("");
 		tNuevaSucursal.setText("");
-    }
+	}
 }

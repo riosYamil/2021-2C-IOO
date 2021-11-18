@@ -325,19 +325,24 @@ public class UsuarioPanel {
 					Date d = obtenerFecha();
 	        		UsuarioDTO u = new UsuarioDTO();
 
-	        		if(!dni.isBlank() && !pass.isBlank() && (rdbtnAdmin.isSelected() || rdbtnLab.isSelected() || rdbtnRecep.isSelected())) {
-		        		if(rdbtnAdmin.isSelected()) {
-		        			u.rol = Rol.Administrador;
-		        		}
-		        		
-		        		if(rdbtnLab.isSelected()) {
-		        			u.rol = Rol.Laboratista;
-		        		}
-		        		
-		        		if(rdbtnRecep.isSelected()) {
-		        			u.rol = Rol.Recepcion;
-		        		}
-		        		
+	        		if(dni.isBlank() && pass.isBlank() && (rdbtnAdmin.isSelected() || rdbtnLab.isSelected() || rdbtnRecep.isSelected())) {
+	        			alert("Faltan datos.", "Error", JOptionPane.ERROR_MESSAGE);
+	        		}
+	        		
+	        		if(rdbtnAdmin.isSelected()) {
+	        			u.rol = Rol.Administrador;
+	        		}
+	        		
+	        		if(rdbtnLab.isSelected()) {
+	        			u.rol = Rol.Laboratista;
+	        		}
+	        		
+	        		if(rdbtnRecep.isSelected()) {
+	        			u.rol = Rol.Recepcion;
+	        		}
+	        		
+
+					try {
 		        		u.id = Integer.parseInt(dni);
 		        		u.dni = dni;
 		        		u.nombre = nombreDeUsuario;
@@ -346,18 +351,13 @@ public class UsuarioPanel {
 		        		u.fechaDeNacimiento = d;
 		        		u.password = pass;
 		        		u.email = mail;
-
-						try {
-							usuarioController.AltaUsuario(u);
-							limpiarFormulario();
-							alert("Se creó correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
-						} catch (Exception ex) {
-							alert("Este usuario ya está creado.", "Error", JOptionPane.ERROR_MESSAGE);
-						}
-	        		}else {
-	        			alert("Faltan datos.", "Error", JOptionPane.ERROR_MESSAGE);
-	        		}
-	        		
+						
+						usuarioController.AltaUsuario(u);
+						limpiarFormulario();
+						alert("Se creó correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+					} catch (Exception ex) {
+						alert("Hbo un error al crear el usuario: "+ ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+					}
                     
 	        	}
 	        });
@@ -367,9 +367,8 @@ public class UsuarioPanel {
 	        		String dni = tdni.getText();
 	        		
 	        		if(!dni.isBlank()) {
-						UsuarioDTO u = new UsuarioDTO();
 						try {
-							u = usuarioController.ObtenerUsuario(Integer.parseInt(dni));
+							UsuarioDTO u = usuarioController.ObtenerUsuario(Integer.parseInt(dni));
 							if (u != null) {
 								tNombre.setText(u.nombreCompleto);
 								tDomicilio.setText(u.domicilio);
