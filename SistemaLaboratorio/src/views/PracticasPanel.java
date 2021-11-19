@@ -85,7 +85,7 @@ public class PracticasPanel {
 		tabbedPane_4.addTab("Alta Resultado", setAltaResultado());
 
 		if (r != Rol.Laboratista.toString()) {
-		// tabbedPane_4.add("Baja", setBajaPractica());
+			tabbedPane_4.add("Baja", setBajaPractica());
 			tabbedPane_4.add("Alta", setAltaPractica());
 		}
 
@@ -404,9 +404,9 @@ public class PracticasPanel {
 								.addComponent(rdbtnPendiente).addComponent(rdbtnNormal).addComponent(rdbtnCritico)
 								.addComponent(rdbtnReservado))
 						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addGroup(gl_AltaResultado.createParallelGroup(Alignment.BASELINE)
-								.addComponent(btnUpdatePeticion).addComponent(btnLimpiar1)
-								.addComponent(btnObtenerPeticiones))
+						.addGroup(
+								gl_AltaResultado.createParallelGroup(Alignment.BASELINE).addComponent(btnUpdatePeticion)
+										.addComponent(btnLimpiar1).addComponent(btnObtenerPeticiones))
 						.addContainerGap(124, Short.MAX_VALUE)));
 		AltaResultado.setLayout(gl_AltaResultado);
 
@@ -720,17 +720,21 @@ public class PracticasPanel {
 				}
 			});
 
-			/*
-			 * btnDelete.addActionListener(new ActionListener() { public void
-			 * actionPerformed(ActionEvent e) { String id = tID.getText();
-			 * 
-			 * try { pc.BajaPractica(Integer.parseInt(id)); tID.setText("");
-			 * alert("Se eliminó correctamente", "Información",
-			 * JOptionPane.INFORMATION_MESSAGE); } catch (Exception ex) {
-			 * alert("Este práctica no se pudo eliminar (" + ex.getMessage() + ").",
-			 * "Error", JOptionPane.ERROR_MESSAGE); } } });
-			 */
-			
+			btnDelete.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					String id = tID.getText();
+
+					try {
+						pc.BajaPractica(Integer.parseInt(id));
+						tID.setText("");
+						alert("Se eliminó correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+					} catch (Exception ex) {
+						alert("Este práctica no se pudo eliminar (" + ex.getMessage() + ").", "Error",
+								JOptionPane.ERROR_MESSAGE);
+					}
+				}
+			});
+
 			btnLimpiar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					limpiarFormulario();
@@ -744,7 +748,8 @@ public class PracticasPanel {
 				String idPeticion = tPeticionID.getText();
 
 				try {
-					PracticaAsociadaDTO pa = peticionController.ObtenerPracticaAsociada(Integer.parseInt(idPeticion), Integer.parseInt(id));
+					PracticaAsociadaDTO pa = peticionController.ObtenerPracticaAsociada(Integer.parseInt(idPeticion),
+							Integer.parseInt(id));
 					PracticaDTO practica = pc.ObtenerPractica(Integer.parseInt(id));
 
 					tNombre1.setText(practica.nombre);
@@ -759,11 +764,11 @@ public class PracticasPanel {
 					if (practica.estadoPractica == EstadoPractica.Habilitado) {
 						lblHabliticacion_1.setText("SI");
 					}
-					
-					if(String.valueOf(pa.resultado).isBlank()) {
+
+					if (String.valueOf(pa.resultado).isBlank()) {
 						tResultado.setText("0");
 					}
-					
+
 					estado = pa.resultadoPractica;
 					setearEstados();
 					btnUpdatePeticion.setEnabled(true);
@@ -774,34 +779,33 @@ public class PracticasPanel {
 
 			}
 		});
-		
+
 		btnUpdatePeticion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String id = tid1.getText();
 				String idPeticion = tPeticionID.getText();
 				String resultado = tResultado.getText();
-				
+
 				try {
 					PeticionDTO peticion = peticionController.ObtenerPeticion(Integer.parseInt(idPeticion));
-					
-			    	for (PracticaAsociadaDTO practicasAsociada : peticion.practicasAsociadas) {
-			        	if(practicasAsociada.practicaID == Integer.parseInt(id)) {
-			        		practicasAsociada.resultado = Integer.parseInt(resultado);
-			        	}
-			        }
-			    	
-			    	peticionController.ModificarPeticion(peticion);
-			    	limpiarFormularioPeticion();
-			    	alert("Se modificó correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+
+					for (PracticaAsociadaDTO practicasAsociada : peticion.practicasAsociadas) {
+						if (practicasAsociada.practicaID == Integer.parseInt(id)) {
+							practicasAsociada.resultado = Integer.parseInt(resultado);
+						}
+					}
+
+					peticionController.ModificarPeticion(peticion);
+					limpiarFormularioPeticion();
+					alert("Se modificó correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
 				} catch (Exception ex) {
 					alert("No se pudo modificar la petición: (" + ex.getMessage() + ").", "Error",
 							JOptionPane.ERROR_MESSAGE);
 				}
-				
 
 			}
 		});
-		
+
 		btnLimpiar1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				limpiarFormularioPeticion();
@@ -871,7 +875,7 @@ public class PracticasPanel {
 		tid.setEnabled(true);
 		btnUpdatePractica.setEnabled(false);
 	}
-	
+
 	private void limpiarFormulario() {
 		tid.setText("");
 		tPeticionID.setText("");
