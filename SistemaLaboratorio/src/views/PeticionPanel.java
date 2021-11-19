@@ -116,6 +116,7 @@ public class PeticionPanel {
 		btnBorrarPractica = new JButton("Borrar Practica");
 		
 		tPracticasAsociadas = new JTextArea();
+		tPracticasAsociadas.setColumns(2);
 		tPracticasAsociadas.setLineWrap(true);
 		tPracticasAsociadas.setWrapStyleWord(true);
 
@@ -146,12 +147,11 @@ public class PeticionPanel {
 												.addComponent(btnAddPractica, GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
 												.addComponent(tIDPractica, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 											.addGap(41))
-										.addGroup(gl_AltaPeticiones.createSequentialGroup()
-											.addComponent(btnVerPracticas)
-											.addPreferredGap(ComponentPlacement.RELATED)))
+										.addComponent(btnVerPracticas)
+										.addComponent(lblNumeroSucursal))
+									.addPreferredGap(ComponentPlacement.RELATED)
 									.addComponent(tPracticasAsociadas, GroupLayout.PREFERRED_SIZE, 309, GroupLayout.PREFERRED_SIZE)
-									.addGap(15))
-								.addComponent(lblNumeroSucursal)))
+									.addGap(82))))
 						.addGroup(gl_AltaPeticiones.createSequentialGroup()
 							.addGap(176)
 							.addComponent(btnAddPet, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)))
@@ -170,26 +170,29 @@ public class PeticionPanel {
 					.addGroup(gl_AltaPeticiones.createParallelGroup(Alignment.BASELINE)
 						.addComponent(tDNI, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(tOB, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addComponent(lblNumeroSucursal)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(tNumSucursal, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addComponent(lblPracticas)
-					.addGap(4)
-					.addComponent(lblIDPractica)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(tIDPractica, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_AltaPeticiones.createParallelGroup(Alignment.BASELINE)
+					.addGroup(gl_AltaPeticiones.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_AltaPeticiones.createSequentialGroup()
+							.addGap(18)
+							.addComponent(lblNumeroSucursal)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(tNumSucursal, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addComponent(lblPracticas)
+							.addGap(4)
+							.addComponent(lblIDPractica)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(tIDPractica, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnAddPractica)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnBorrarPractica)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnVerPracticas))
-						.addComponent(tPracticasAsociadas, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE))
-					.addGap(172))
+							.addComponent(btnVerPracticas)
+							.addGap(0))
+						.addGroup(gl_AltaPeticiones.createSequentialGroup()
+							.addGap(35)
+							.addComponent(tPracticasAsociadas, GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+							.addContainerGap())))
 		);
 		AltaPeticiones.setLayout(gl_AltaPeticiones);
 
@@ -369,27 +372,30 @@ public class PeticionPanel {
 
 		btnVerPracticas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//List practicas = new ArrayList();
-				//practicasAsociadas.forEach(p -> practicas.add(p.practicaID));
-				tPracticasAsociadas.setText(practicas.toString());
+				PracticaController practicaController = PracticaController.getInstance();
+				tPracticasAsociadas.setText("");
+				for (dtos.PracticaAsociadaDTO o : practicasAsociadas){
+					try {
+						PracticaDTO practica = practicaController.ObtenerPractica(o.practicaID);
+						tPracticasAsociadas.append("ID: " + practica.id + " Nombre: " + practica.nombre + "\n");
+					} catch (Exception ex) {
+						alert("No se puede ver la lista: (" + ex.getMessage() + ").", "Error",
+								JOptionPane.ERROR_MESSAGE);
+					}
+				}
 			}
 		});
 
 		btnAddPractica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PracticaController practicaController = PracticaController.getInstance();
 				String idPractica = tIDPractica.getText();
 				
 				try {
-					PracticaDTO practica = practicaController.ObtenerPractica(Integer.parseInt(idPractica));
 					dtos.PracticaAsociadaDTO pa = new dtos.PracticaAsociadaDTO();
 					pa.practicaID = Integer.parseInt(idPractica);
 					pa.resultado = null;
 					practicasAsociadas.add(pa);
-					
-					Object[] p = {idPractica, practica.nombre};
-					
-					practicas.add(p);
+										
 					tIDPractica.setText("");
 					alert("La práctica se agregó a la lista", "Información", JOptionPane.INFORMATION_MESSAGE);
 				} catch (Exception ex) {
@@ -443,6 +449,7 @@ public class PeticionPanel {
 		tabbedPane_5.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				limpiarFormulario();
+				limpiarListas();
 			}
 		});
 
