@@ -82,11 +82,11 @@ public class PracticasPanel {
 		tabbedPane_4 = new JTabbedPane(JTabbedPane.LEFT);
 		tabbedPane_4.setBackground(Color.WHITE);
 		tabbedPane_4.setBounds(100, 100, 629, 476);
-		tabbedPane_4.add("Alta", setAltaPractica());
+		tabbedPane_4.addTab("Alta Resultado", setAltaResultado());
 
 		if (r != Rol.Laboratista.toString()) {
 		// tabbedPane_4.add("Baja", setBajaPractica());
-			tabbedPane_4.addTab("Alta Resultado", setAltaResultado());
+			tabbedPane_4.add("Alta", setAltaPractica());
 		}
 
 		asociarEventos();
@@ -730,6 +730,12 @@ public class PracticasPanel {
 			 * alert("Este práctica no se pudo eliminar (" + ex.getMessage() + ").",
 			 * "Error", JOptionPane.ERROR_MESSAGE); } } });
 			 */
+			
+			btnLimpiar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					limpiarFormulario();
+				}
+			});
 		}
 
 		btnObtenerPractica1.addActionListener(new ActionListener() {
@@ -796,12 +802,6 @@ public class PracticasPanel {
 			}
 		});
 		
-		btnLimpiar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				limpiarFormulario();
-			}
-		});
-
 		btnLimpiar1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				limpiarFormularioPeticion();
