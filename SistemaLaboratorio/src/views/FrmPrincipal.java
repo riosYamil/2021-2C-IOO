@@ -46,17 +46,9 @@ public class FrmPrincipal extends JFrame {
 		setPrincipalPnl();
 		asociarEventos();
 
-		/*
-		try {
-			UsuarioController usuarioController = UsuarioController.getInstance();
-			UsuarioDTO usuarioDTO = new UsuarioDTO();
-			usuarioDTO.password = "1234";
-			usuarioDTO.dni = "1234";
-			usuarioDTO.rol = Rol.Administrador;
-			usuarioController.AltaUsuario(usuarioDTO);
-		}catch (Exception e){
-			e.printStackTrace();
-		}*/
+		AdminLoader();
+		LaboratistaLoader();
+		RecepcionLoader();
 	}
 
 	/**
@@ -169,5 +161,44 @@ public class FrmPrincipal extends JFrame {
 		InternalPanel frame = new InternalPanel(rol);
 		pnlIntro.add(frame);
 
+	}
+
+	private void AdminLoader() {
+		try {
+			UsuarioController usuarioController = UsuarioController.getInstance();
+			UsuarioDTO usuarioDTO = new UsuarioDTO();
+			usuarioDTO.password = "1";
+			usuarioDTO.dni = "1";
+			usuarioDTO.rol = Rol.Administrador;
+			usuarioController.AltaUsuario(usuarioDTO);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void LaboratistaLoader() {
+		try {
+			UsuarioController usuarioController = UsuarioController.getInstance();
+			UsuarioDTO usuarioDTO = new UsuarioDTO();
+			usuarioDTO.password = "2";
+			usuarioDTO.dni = "2";
+			usuarioDTO.rol = Rol.Laboratista;
+			usuarioController.AltaUsuario(usuarioDTO);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void RecepcionLoader() {
+		try {
+			UsuarioController usuarioController = UsuarioController.getInstance();
+			UsuarioDTO usuarioDTO = new UsuarioDTO();
+			usuarioDTO.password = "3";
+			usuarioDTO.dni = "3";
+			usuarioDTO.rol = Rol.Recepcion;
+			usuarioController.AltaUsuario(usuarioDTO);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

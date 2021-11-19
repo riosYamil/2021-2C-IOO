@@ -1,5 +1,6 @@
 package services;
 
+import controllers.PeticionController;
 import controllers.PracticaController;
 import domains.Practica;
 import dtos.PeticionDTO;
@@ -8,6 +9,7 @@ import dtos.PracticaDTO;
 import enums.EstadoPeticion;
 import enums.EstadoResultadoPractica;
 
+import java.util.List;
 import java.util.Objects;
 
 public class PeticionService {
@@ -60,5 +62,27 @@ public class PeticionService {
         }
 
         return resultado;
+
+    }
+
+    public boolean ExistePracticaAsociadaAAlgunaPeticion(int practicaID) {
+        boolean result = false;
+        PeticionController peticionController = PeticionController.getInstance();
+        List<PeticionDTO> peticiones = peticionController.ObtenerTodasLasPeticiones();
+
+        for (PeticionDTO peticion : peticiones) {
+            for (PracticaAsociadaDTO practicaAsociadaDTO : peticion.practicasAsociadas) {
+                if (practicaID == practicaAsociadaDTO.practicaID) {
+                    result = true;
+                    break;
+                }
+            }
+
+            if (result) {
+                break;
+            }
+        }
+
+        return result;
     }
 }

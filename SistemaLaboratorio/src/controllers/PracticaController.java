@@ -1,12 +1,11 @@
 package controllers;
 
 import dao.PracticaDAO;
-import dtos.PracticaAsociadaDTO;
 import dtos.PracticaDTO;
+import enums.EstadoPractica;
 import enums.EstadoResultadoPractica;
+import services.PeticionService;
 
-import java.io.FileNotFoundException;
-import java.util.List;
 import java.util.Objects;
 
 public class PracticaController {
@@ -36,13 +35,20 @@ public class PracticaController {
     public boolean BajaPractica(int practicaID) throws Exception {
         try {
             PracticaDAO practicaDAO = new PracticaDAO();
+            PeticionService peticionService = new PeticionService();
 
             //Valida que exista la practica
             PracticaDTO practicaDTO = ObtenerPractica(practicaID);
 
-            boolean fueBorrado = practicaDAO.BorrarPractica(practicaID);
-            if (!fueBorrado) {
-                return false;
+            //Valida si existe una petición con esta practica asociada
+            if (peticionService.ExistePracticaAsociadaAAlgunaPeticion(practicaID)) {
+                practicaDTO.estadoPractica = EstadoPractica.Inhabilidado;
+                practicaDAO.ActualizarPractica(practicaDTO);
+            } else {
+                boolean fueBorrado = practicaDAO.BorrarPractica(practicaID);
+                if (!fueBorrado) {
+                    return false;
+                }
             }
         } catch (Exception e) {
             throw e;

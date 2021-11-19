@@ -8,8 +8,6 @@ import dtos.PeticionDTO;
 import dtos.PracticaAsociadaDTO;
 import dtos.PracticaDTO;
 import enums.EstadoPeticion;
-import enums.EstadoPractica;
-import enums.EstadoResultadoPractica;
 import enums.Rol;
 
 import javax.swing.*;
@@ -21,9 +19,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class PeticionPanel {
 
@@ -343,7 +341,12 @@ public class PeticionPanel {
 					peticion.estadoPeticion = EstadoPeticion.Activa;
 					peticion.fechaDeCarga = new Date();
 					peticion.pacienteID = Integer.parseInt(dni);
-					peticion.practicasAsociadas = practicasAsociadas;
+
+					if (!Objects.isNull(practicasAsociadas)) {
+						peticion.practicasAsociadas = practicasAsociadas;
+					} else {
+						peticion.practicasAsociadas = new ArrayList<>();
+					}
 					peticion.sucursalID = Integer.parseInt(numSucursal);
 					peticion.obraSocial = ob;
 
@@ -391,11 +394,25 @@ public class PeticionPanel {
 				String idPractica = tIDPractica.getText();
 				
 				try {
+					PracticaController practicaController = PracticaController.getInstance();
 					dtos.PracticaAsociadaDTO pa = new dtos.PracticaAsociadaDTO();
+
+					practicaController.ObtenerPractica(Integer.parseInt(idPractica));
+
 					pa.practicaID = Integer.parseInt(idPractica);
 					pa.resultado = null;
-					practicasAsociadas.add(pa);
-										
+
+					boolean existe = false;
+					for (PracticaAsociadaDTO actualPA : practicasAsociadas){
+						if (actualPA.practicaID == pa.practicaID){
+							existe = true;
+						}
+					}
+
+					if (!existe){
+						practicasAsociadas.add(pa);
+					}
+
 					tIDPractica.setText("");
 					alert("La práctica se agregó a la lista", "Información", JOptionPane.INFORMATION_MESSAGE);
 				} catch (Exception ex) {
