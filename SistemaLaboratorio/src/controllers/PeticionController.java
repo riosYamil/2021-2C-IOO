@@ -216,8 +216,14 @@ public class PeticionController {
 
     public List<PeticionDTO> ObtenerPeticionesCriticasPorPaciente(int pacienteID) {
         List<PeticionDTO> peticiones = ObtenerPeticionesDelPaciente(pacienteID);
+        List<PeticionDTO> resultado = new ArrayList<>();
 
-        return obtenerPeticionesCriticas(peticiones);
+        for (PeticionDTO p : peticiones) {
+            if (p.estadoPeticion == EstadoPeticion.RetirarPorSucursal) {
+                resultado.add(p);
+            }
+        }
+        return obtenerPeticionesCriticas(resultado);
     }
 
     private List<PeticionDTO> obtenerPeticionesCriticas(List<PeticionDTO> peticiones) {
