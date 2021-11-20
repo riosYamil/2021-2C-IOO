@@ -106,7 +106,7 @@ public class ReglasDeNegocioTest {
             sucursalController.BajaSucursal(sucursal.id);
 
         } catch (Exception e) {
-            assertEquals("La sucursal tiene peticiones finalizadas.", e.getMessage());
+            assertEquals("La sucursal 1 tiene peticiones finalizadas.", e.getMessage());
         }
 
         try {
