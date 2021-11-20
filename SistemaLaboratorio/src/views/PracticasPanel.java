@@ -85,8 +85,8 @@ public class PracticasPanel {
 		tabbedPane_4.addTab("Alta Resultado", setAltaResultado());
 
 		if (r != Rol.Laboratista.toString()) {
-			tabbedPane_4.add("Baja", setBajaPractica());
 			tabbedPane_4.add("Alta", setAltaPractica());
+			tabbedPane_4.add("Baja", setBajaPractica());
 		}
 
 		asociarEventos();
@@ -838,7 +838,7 @@ public class PracticasPanel {
 			PeticionesYPracticas f = new PeticionesYPracticas(listPeticiones);
 			f.setVisible(true);
 		} catch (Exception e) {
-			alert("Hubo un error al obtenr peticiones: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+			alert("Hubo un error al obtener peticiones: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 

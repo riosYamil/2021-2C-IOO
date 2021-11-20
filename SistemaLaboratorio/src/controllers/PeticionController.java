@@ -71,6 +71,7 @@ public class PeticionController {
             PeticionDAO peticionDAO = new PeticionDAO();
             PeticionService peticionService = new PeticionService();
             p.estadoPeticion = peticionService.DeterminarEstado(p);
+            p.fechaDeEntrega = calcularFechaDeEntrega(p.practicasAsociadas);
 
             boolean fueActualizado = peticionDAO.ActualizarPeticion(p);
             if (!fueActualizado) {
@@ -133,9 +134,6 @@ public class PeticionController {
 		return h;
 	}
 
-    public void EnviarNotificacion() {
-        System.out.println("notificación enviada");
-    }
 
     public PracticaAsociadaDTO ObtenerPracticaAsociada(int peticionID, int id) throws Exception {
     	PracticaAsociadaDTO p = null;
