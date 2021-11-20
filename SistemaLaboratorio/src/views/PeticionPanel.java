@@ -532,34 +532,56 @@ public class PeticionPanel {
 				boolean peticionesCompletas = chckbxPeticionesCompletas.isSelected();
 				boolean peticionesPendientes = chckbxPeticionesPendientes.isSelected();
 				boolean peticionesCriticas = chckbxPeticionesCriticas.isSelected();
+				PacienteController pc = PacienteController.getInstance();
 
-				if (!dni.isBlank() && (peticionesCompletas || peticionesPendientes || peticionesCriticas)) {
+
+				if (!dni.isBlank()) {
 					try {
-						PacienteController pc = PacienteController.getInstance();
 						PacienteDTO p = pc.ObtenerPaciente(Integer.parseInt(dni));
+						if (peticionesCompletas || peticionesPendientes || peticionesCriticas) {
 
-						if (peticionesCompletas) {
-							listPeticiones.addAll(peticionController.ObtenerPeticionesCompletasPorPaciente(p.id)); // Enum:
-																													// finalizada
+							if (peticionesCompletas) {
+								listPeticiones.addAll(peticionController.ObtenerPeticionesCompletasPorPaciente(p.id)); // Enum: finalizada
+							}
+
+							if (peticionesPendientes) {
+								listPeticiones.addAll(peticionController.ObtenerPeticionesPendientesPorPaciente(p.id)); // Enum: activas
+							}
+
+							if (peticionesCriticas) {
+								listPeticiones.addAll(peticionController.ObtenerPeticionesCriticasPorPaciente(p.id)); // Enum: RetirarPorSucursal
+							}
+						} else {
+							listPeticiones.addAll(peticionController.ObtenerPeticionesDelPaciente(p.id));
 						}
-
-						if (peticionesPendientes) {
-							listPeticiones.addAll(peticionController.ObtenerPeticionesPendientesPorPaciente(p.id)); // Enum:
-																													// activas
-						}
-
-						if (peticionesCriticas) {
-							listPeticiones.addAll(peticionController.ObtenerPeticionesCriticasPorPaciente(p.id)); // Enum:
-																													// RetirarPorSucursal
-						}
-
 					} catch (Exception ex) {
 						alert("No fue posible obtener la petición (" + ex.getMessage() + ").", "Error",
 								JOptionPane.ERROR_MESSAGE);
-
 					}
-				} else {
-					listPeticiones.addAll(peticionController.ObtenerTodasLasPeticiones());
+				}
+
+				if (dni.isBlank()) {
+					if (peticionesCompletas || peticionesPendientes || peticionesCriticas) {
+						try {
+							if (peticionesCompletas) {
+								listPeticiones.addAll(peticionController.ObtenerPeticionesFinalizadas()); // Enum: finalizada
+							}
+
+							if (peticionesPendientes) {
+								listPeticiones.addAll(peticionController.ObtenerPeticionesPendientes()); // Enum: activas
+							}
+
+							if (peticionesCriticas) {
+								listPeticiones.addAll(peticionController.ObtenerPeticionesCriticas()); // Enum: RetirarPorSucursal
+							}
+
+						} catch (Exception ex) {
+							alert("No fue posible obtener la petición (" + ex.getMessage() + ").", "Error",
+									JOptionPane.ERROR_MESSAGE);
+						}
+					} else {
+						listPeticiones.addAll(peticionController.ObtenerTodasLasPeticiones());
+					}
 				}
 
 				mostrarPeticionesYPracticas();
@@ -572,14 +594,15 @@ public class PeticionPanel {
 				String id = tIDPeticionMod.getText();
 				
 				try {
+					practicasAsociadas.clear();
 					PeticionDTO p = peticionController.ObtenerPeticion(Integer.parseInt(id));
-					
+
 					tIDPacienteMod.setText(String.valueOf(p.pacienteID));
 					tIDSucursalMod.setText(String.valueOf(p.sucursalID));
 					tOBMod.setText(String.valueOf(p.obraSocial));
 					tIDPeticionMod.setEnabled(false);
 					practicasAsociadas.addAll(p.practicasAsociadas);
-					
+
 					SetearTextArea(false);
 				} catch (Exception ex) {
 					alert("La practica no se pudo obtener la petición: (" + ex.getMessage() + ").", "Error",

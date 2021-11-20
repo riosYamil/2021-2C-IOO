@@ -24,11 +24,14 @@ public class SucursalService {
         return result;
     }
 
-    public void MigrarPeticiones(int fromSucursalID, int toSucursalID) throws Exception {
+    public void MigrarPeticiones(Integer fromSucursalID, Integer toSucursalID) throws Exception {
         PeticionController peticionController = PeticionController.getInstance();
         List<PeticionDTO> peticiones = peticionController.ObtenerPeticionesDeSucursal(fromSucursalID);
 
         for (PeticionDTO peticionDTO : peticiones) {
+            if (peticiones.size() > 0 && toSucursalID == null) {
+                throw new Exception("La sucursalID: " + fromSucursalID + " tiene peticiones para migrar, y no pueden migrarse a la sucursalID: " + toSucursalID);
+            }
             peticionDTO.sucursalID = toSucursalID;
             peticionController.ModificarPeticion(peticionDTO);
         }

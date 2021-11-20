@@ -1,1 +1,2 @@
 {"id":1,"peticionID":0,"nombre":"COVID","grupo":"21","valorCriticoMin":0,"valorCriticoMax":0,"valorReservadoMin":1,"valorReservadoMax":1,"horasEsperaResultado":48,"estadoPractica":"Habilitado"}
+{"id":2,"peticionID":0,"nombre":"pcr","grupo":"covid19","valorCriticoMin":1,"valorCriticoMax":1,"valorReservadoMin":1,"valorReservadoMax":1,"horasEsperaResultado":48,"estadoPractica":"Habilitado"}

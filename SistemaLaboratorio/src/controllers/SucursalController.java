@@ -53,6 +53,7 @@ public class SucursalController {
                 throw new Exception("La sucursal " + sucursalID + " tiene peticiones finalizadas.");
             }
 
+            sucursalService.MigrarPeticiones(sucursalID, null);
             boolean fueBorrado = sucursalDAO.BorrarSucursal(sucursalID);
             if (!fueBorrado) {
                 return false;

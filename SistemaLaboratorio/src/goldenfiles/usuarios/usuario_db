@@ -1,3 +1,7 @@
-{"id":1,"password":"1","dni":"1","rol":"Administrador"}
 {"id":2,"password":"2","dni":"2","rol":"Laboratista"}
 {"id":3,"password":"3","dni":"3","rol":"Recepcion"}
+{"id":37340001,"nombre":"GABRIEL","email":"GYRB@mail.com","password":"pass","nombreCompleto":"GABRIEL RIOS","domicilio":"CALLE FALSA 1234","dni":"37340001","fechaDeNacimiento":"Nov 20, 2021, 12:57:55 AM"}
+{"id":37340002,"dni":"37340002"}
+{"id":37340003,"dni":"37340003"}
+{"id":37340004,"dni":"37340004"}
+{"id":1,"password":"1","dni":"1","rol":"Administrador"}

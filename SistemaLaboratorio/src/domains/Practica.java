@@ -50,10 +50,10 @@ public class Practica {
     }
 
     public boolean EsUnValorReservado(Integer resultado) {
-        return !Objects.isNull(resultado) && this.valorReservadoMin < resultado && resultado < this.valorReservadoMax;
+        return !Objects.isNull(resultado) && this.valorReservadoMin <= resultado && resultado <= this.valorReservadoMax;
     }
 
     public boolean EsUnValorCritico(Integer resultado) {
-        return !Objects.isNull(resultado) && this.valorCriticoMin < resultado && resultado < this.valorCriticoMax;
+        return !Objects.isNull(resultado) && this.valorCriticoMin <= resultado && resultado <= this.valorCriticoMax;
     }
 }

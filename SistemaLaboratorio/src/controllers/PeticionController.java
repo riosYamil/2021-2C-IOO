@@ -258,7 +258,25 @@ public class PeticionController {
         }
         return ps;
     }
-    
+
+    public List<PeticionDTO> ObtenerPeticionesPendientes() {
+        List<PeticionDTO> ps = new ArrayList<>();
+
+        try {
+            PeticionDAO peticionDAO = new PeticionDAO();
+            List<PeticionDTO> peticiones = peticionDAO.ObtenerPeticiones();
+            for (PeticionDTO peticionDTO : peticiones) {
+                Peticion peticion = new Peticion(peticionDTO);
+                if (peticion.EstaActiva()) {
+                    ps.add(peticionDTO);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ps;
+    }
+
     public List<PeticionDTO> ObtenerTodasLasPeticiones() {
         List<PeticionDTO> ps = new ArrayList<>();
 

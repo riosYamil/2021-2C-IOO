@@ -17,8 +17,6 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -704,7 +702,7 @@ public class PracticasPanel {
 						p.estadoPractica = EstadoPractica.Inhabilidado;
 					}
 
-					if (p.valorCriticoMax > p.valorCriticoMin || p.valorReservadoMax > p.valorReservadoMin) {
+					if (p.valorCriticoMax >= p.valorCriticoMin || p.valorReservadoMax >= p.valorReservadoMin) {
 						try {
 							pc.ModificarPractica(p);
 							limpiarFormulario();
@@ -744,6 +742,7 @@ public class PracticasPanel {
 
 		btnObtenerPractica1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				limpiarEstados();
 				String id = tid1.getText();
 				String idPeticion = tPeticionID.getText();
 
@@ -858,6 +857,13 @@ public class PracticasPanel {
 		if (estado == EstadoResultadoPractica.Reservado) {
 			rdbtnReservado.setSelected(true);
 		}
+	}
+
+	private void limpiarEstados() {
+		rdbtnPendiente.setSelected(false);
+		rdbtnCritico.setSelected(false);
+		rdbtnNormal.setSelected(false);
+		rdbtnReservado.setSelected(false);
 	}
 
 	private void limpiarFormularioPeticion() {
