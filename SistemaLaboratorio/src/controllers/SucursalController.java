@@ -50,7 +50,7 @@ public class SucursalController {
             SucursalDTO sucursalDTO = ObtenerSucursal(sucursalID);
 
             if (!sucursalService.PuedeSerEliminado(sucursalID)) {
-                throw new Exception("La sucursal tiene peticiones finalizadas.");
+                throw new Exception("La sucursal " + sucursalID + " tiene peticiones finalizadas.");
             }
 
             boolean fueBorrado = sucursalDAO.BorrarSucursal(sucursalID);
@@ -75,7 +75,7 @@ public class SucursalController {
             SucursalDTO sucursalDestino = ObtenerSucursal(destinoSucursalID);
 
             if (!sucursalService.PuedeSerEliminado(origenSucursalID)) {
-                throw new Exception("La sucursal tiene peticiones finalizadas.");
+                throw new Exception("La sucursal " + origenSucursalID + " tiene peticiones finalizadas.");
             }
 
             sucursalService.MigrarPeticiones(origenSucursalID, destinoSucursalID);

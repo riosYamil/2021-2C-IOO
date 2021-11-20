@@ -3,7 +3,6 @@ package views;
 import controllers.SucursalController;
 import controllers.UsuarioController;
 import dtos.SucursalDTO;
-import dtos.UsuarioDTO;
 
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
@@ -295,7 +294,13 @@ public class SucursalPanel {
 				String numNuevo = tNuevaSucursal.getText();
 
 				try {
-					sucursalController.BajaSucursal(Integer.parseInt(num), Integer.parseInt(numNuevo));
+
+					if (numNuevo == null || numNuevo.length() == 0) {
+						sucursalController.BajaSucursal(Integer.parseInt(num));
+					} else {
+						sucursalController.BajaSucursal(Integer.parseInt(num), Integer.parseInt(numNuevo));
+					}
+
 					limpiarFormulario();
 					alert("Se borró correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
 				} catch (Exception ex) {

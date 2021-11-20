@@ -8,7 +8,7 @@ import enums.EstadoResultadoPractica;
 public class PracticaAsociada {
     private int practicaID;
     private EstadoResultadoPractica resultadoPractica;
-    private int resultado;
+    private Integer resultado;
 
     public PracticaAsociada(PracticaAsociadaDTO practicaAsociadaDTO) {
         this.practicaID = practicaAsociadaDTO.practicaID;

@@ -8,8 +8,6 @@ import dtos.PeticionDTO;
 import dtos.PracticaAsociadaDTO;
 import dtos.PracticaDTO;
 import enums.EstadoPeticion;
-import enums.EstadoPractica;
-import enums.EstadoResultadoPractica;
 import enums.Rol;
 
 import javax.swing.*;
@@ -21,9 +19,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class PeticionPanel {
 
@@ -41,7 +39,7 @@ public class PeticionPanel {
 	private JTextField tOB;
 	private JLabel lblPracticas;
 	private JButton btnAddPractica;
-	private Panel ModificarPeticiones;
+	private Panel MasPeticiones;
 	private Panel AltaPeticiones;
 	private Panel BajaPeticiones;
 	private Button btnObtenerPeticiones;
@@ -59,16 +57,6 @@ public class PeticionPanel {
 	private List<PracticaAsociadaDTO> practicasAsociadas = new ArrayList<PracticaAsociadaDTO>();
 	private List<PeticionDTO> listPeticiones = new ArrayList<PeticionDTO>();
 	private List practicas = new ArrayList();
-	private JTextField tIDPeticionMod;
-	private JTextField tIDPacienteMod;
-	private JTextField tOBMod;
-	private JTextField tIDSucursalMod;
-	private JTextField tIDPracticaMod;
-	private JButton btnObtnerPeticionMod;
-	private JButton btnUpdatePeticionMod;
-	private JTextArea textAreaPracticasAsociadas;
-	private JButton btnAddPracticaMod;
-	private JButton btnDeletePracticaMod;
 
 	/**
 	 * @wbp.parser.entryPoint
@@ -79,7 +67,6 @@ public class PeticionPanel {
 		tabbedPane_5.setBounds(100, 100, 629, 476);
 		tabbedPane_5.add("Peticiones", setObtenerPeticiones());
 		tabbedPane_5.add("Alta", setAltaPeticiones());
-		tabbedPane_5.add("Modificar Petición", setModificarPeticion());
 
 		if (rol != Rol.Recepcion.toString()) {
 			tabbedPane_5.add("Baja", setBajaPeticiones());
@@ -89,128 +76,8 @@ public class PeticionPanel {
 
 		return tabbedPane_5;
 	}
-	
-	private Panel setModificarPeticion() {
-		ModificarPeticiones = new Panel();
-		
-		JLabel lblNewLabel = new JLabel("Para modifcar una petición, ingrese su ID y clickee en obtener petición.");
-		
-		btnObtnerPeticionMod = new JButton("Obtener Petición");
-		
-		btnUpdatePeticionMod = new JButton("Modificar petición");
-		
-		tIDPeticionMod = new JTextField();
-		tIDPeticionMod.setColumns(10);
-		
-		JLabel lblIDPeticion = new JLabel("ID PETICION");
-		
-		tIDPacienteMod = new JTextField();
-		tIDPacienteMod.setColumns(10);
-		
-		JLabel lblIDPaciente = new JLabel("ID PACIENTE");
-		
-		JLabel lblNewLabel_1 = new JLabel("OBRA SOCIAL");
-		
-		tOBMod = new JTextField();
-		tOBMod.setColumns(10);
-		
-		tIDSucursalMod = new JTextField();
-		tIDSucursalMod.setColumns(10);
-		
-		JLabel lblIDSucursal = new JLabel("ID SUCURSAL");
-		
-		textAreaPracticasAsociadas = new JTextArea();
-		textAreaPracticasAsociadas.setWrapStyleWord(true);
-		textAreaPracticasAsociadas.setLineWrap(true);
-		textAreaPracticasAsociadas.setBackground(SystemColor.inactiveCaptionBorder);
-		
-		btnAddPracticaMod = new JButton("Agregar practica");
-		
-		btnDeletePracticaMod = new JButton("Borrar practica");
-		
-		tIDPracticaMod = new JTextField();
-		tIDPracticaMod.setColumns(10);
-		
-		JLabel lblIDPractica = new JLabel("ID PRACTICA:");
-		GroupLayout gl_ModificarPeticiones = new GroupLayout(ModificarPeticiones);
-		gl_ModificarPeticiones.setHorizontalGroup(
-			gl_ModificarPeticiones.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_ModificarPeticiones.createSequentialGroup()
-					.addGap(34)
-					.addGroup(gl_ModificarPeticiones.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_ModificarPeticiones.createParallelGroup(Alignment.TRAILING)
-							.addGroup(gl_ModificarPeticiones.createSequentialGroup()
-								.addComponent(btnObtnerPeticionMod)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(btnUpdatePeticionMod))
-							.addComponent(lblNewLabel))
-						.addGroup(gl_ModificarPeticiones.createParallelGroup(Alignment.LEADING)
-							.addGroup(gl_ModificarPeticiones.createSequentialGroup()
-								.addComponent(tIDPeticionMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addGap(18)
-								.addComponent(tIDPacienteMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addGap(18)
-								.addComponent(tOBMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(ComponentPlacement.UNRELATED)
-								.addComponent(tIDSucursalMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addComponent(textAreaPracticasAsociadas, GroupLayout.PREFERRED_SIZE, 437, GroupLayout.PREFERRED_SIZE)
-							.addGroup(gl_ModificarPeticiones.createSequentialGroup()
-								.addGroup(gl_ModificarPeticiones.createParallelGroup(Alignment.LEADING)
-									.addGroup(gl_ModificarPeticiones.createSequentialGroup()
-										.addComponent(lblIDPractica)
-										.addGap(18)
-										.addComponent(tIDPracticaMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.UNRELATED)
-										.addComponent(btnAddPracticaMod))
-									.addGroup(gl_ModificarPeticiones.createSequentialGroup()
-										.addComponent(lblIDPeticion)
-										.addGap(46)
-										.addComponent(lblIDPaciente)
-										.addGap(37)
-										.addComponent(lblNewLabel_1)))
-								.addPreferredGap(ComponentPlacement.UNRELATED)
-								.addGroup(gl_ModificarPeticiones.createParallelGroup(Alignment.LEADING)
-									.addComponent(lblIDSucursal)
-									.addComponent(btnDeletePracticaMod)))))
-					.addContainerGap(54, Short.MAX_VALUE))
-		);
-		gl_ModificarPeticiones.setVerticalGroup(
-			gl_ModificarPeticiones.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_ModificarPeticiones.createSequentialGroup()
-					.addGap(19)
-					.addGroup(gl_ModificarPeticiones.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnUpdatePeticionMod)
-						.addComponent(btnObtnerPeticionMod))
-					.addGap(18)
-					.addComponent(lblNewLabel)
-					.addGap(12)
-					.addGroup(gl_ModificarPeticiones.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblIDPeticion)
-						.addComponent(lblIDPaciente)
-						.addComponent(lblNewLabel_1)
-						.addComponent(lblIDSucursal))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_ModificarPeticiones.createParallelGroup(Alignment.BASELINE)
-						.addComponent(tIDPeticionMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(tIDPacienteMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(tOBMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(tIDSucursalMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_ModificarPeticiones.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnDeletePracticaMod)
-						.addComponent(btnAddPracticaMod)
-						.addComponent(tIDPracticaMod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblIDPractica))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(textAreaPracticasAsociadas, GroupLayout.PREFERRED_SIZE, 230, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(75, Short.MAX_VALUE))
-		);
-		ModificarPeticiones.setLayout(gl_ModificarPeticiones);
-		
-		return ModificarPeticiones;
-	}
 
-	private Panel setAltaPeticiones() {
+	public Panel setAltaPeticiones() {
 		AltaPeticiones = new Panel();
 		btnAddPet = new Button("Agregar Petición");
 		btnAddPet.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -247,7 +114,6 @@ public class PeticionPanel {
 		btnBorrarPractica = new JButton("Borrar Practica");
 		
 		tPracticasAsociadas = new JTextArea();
-		tPracticasAsociadas.setBackground(SystemColor.inactiveCaptionBorder);
 		tPracticasAsociadas.setColumns(2);
 		tPracticasAsociadas.setLineWrap(true);
 		tPracticasAsociadas.setWrapStyleWord(true);
@@ -282,8 +148,8 @@ public class PeticionPanel {
 										.addComponent(btnVerPracticas)
 										.addComponent(lblNumeroSucursal))
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(tPracticasAsociadas, GroupLayout.PREFERRED_SIZE, 271, GroupLayout.PREFERRED_SIZE)
-									.addGap(120))))
+									.addComponent(tPracticasAsociadas, GroupLayout.PREFERRED_SIZE, 309, GroupLayout.PREFERRED_SIZE)
+									.addGap(82))))
 						.addGroup(gl_AltaPeticiones.createSequentialGroup()
 							.addGap(176)
 							.addComponent(btnAddPet, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)))
@@ -319,11 +185,12 @@ public class PeticionPanel {
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnBorrarPractica)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnVerPracticas))
+							.addComponent(btnVerPracticas)
+							.addGap(0))
 						.addGroup(gl_AltaPeticiones.createSequentialGroup()
 							.addGap(35)
-							.addComponent(tPracticasAsociadas, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)))
-					.addGap(76))
+							.addComponent(tPracticasAsociadas, GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+							.addContainerGap())))
 		);
 		AltaPeticiones.setLayout(gl_AltaPeticiones);
 
@@ -474,7 +341,12 @@ public class PeticionPanel {
 					peticion.estadoPeticion = EstadoPeticion.Activa;
 					peticion.fechaDeCarga = new Date();
 					peticion.pacienteID = Integer.parseInt(dni);
-					peticion.practicasAsociadas = practicasAsociadas;
+
+					if (!Objects.isNull(practicasAsociadas)) {
+						peticion.practicasAsociadas = practicasAsociadas;
+					} else {
+						peticion.practicasAsociadas = new ArrayList<>();
+					}
 					peticion.sucursalID = Integer.parseInt(numSucursal);
 					peticion.obraSocial = ob;
 
@@ -494,22 +366,59 @@ public class PeticionPanel {
 				String idPractica = tIDPractica.getText();
 
 				if (!idPractica.isBlank()) {
-					deletePractica(Integer.parseInt(idPractica));
+					practicasAsociadas.removeIf(p -> (p.practicaID == Integer.parseInt(idPractica)));
 					tIDPractica.setText("");
+					alert("La práctica se borró a la lista", "Información", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});
 
 		btnVerPracticas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SetearTextArea(true);
+				PracticaController practicaController = PracticaController.getInstance();
+				tPracticasAsociadas.setText("");
+				for (dtos.PracticaAsociadaDTO o : practicasAsociadas){
+					try {
+						PracticaDTO practica = practicaController.ObtenerPractica(o.practicaID);
+						tPracticasAsociadas.append("ID: " + practica.id + " Nombre: " + practica.nombre + "\n");
+					} catch (Exception ex) {
+						alert("No se puede ver la lista: (" + ex.getMessage() + ").", "Error",
+								JOptionPane.ERROR_MESSAGE);
+					}
+				}
 			}
 		});
 
 		btnAddPractica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String idPractica = tIDPractica.getText();
-				addPractica(Integer.parseInt(idPractica));
+				
+				try {
+					PracticaController practicaController = PracticaController.getInstance();
+					dtos.PracticaAsociadaDTO pa = new dtos.PracticaAsociadaDTO();
+
+					practicaController.ObtenerPractica(Integer.parseInt(idPractica));
+
+					pa.practicaID = Integer.parseInt(idPractica);
+					pa.resultado = null;
+
+					boolean existe = false;
+					for (PracticaAsociadaDTO actualPA : practicasAsociadas){
+						if (actualPA.practicaID == pa.practicaID){
+							existe = true;
+						}
+					}
+
+					if (!existe){
+						practicasAsociadas.add(pa);
+					}
+
+					tIDPractica.setText("");
+					alert("La práctica se agregó a la lista", "Información", JOptionPane.INFORMATION_MESSAGE);
+				} catch (Exception ex) {
+					alert("La practica no se pudo agregar a la lista (" + ex.getMessage() + ").", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 
@@ -554,75 +463,6 @@ public class PeticionPanel {
 			}
 		});
 
-		btnObtnerPeticionMod.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String id = tIDPeticionMod.getText();
-				
-				try {
-					PeticionDTO p = peticionController.ObtenerPeticion(Integer.parseInt(id));
-					
-					tIDPacienteMod.setText(String.valueOf(p.pacienteID));
-					tIDSucursalMod.setText(String.valueOf(p.sucursalID));
-					tOBMod.setText(String.valueOf(p.obraSocial));
-					tIDPeticionMod.setEnabled(false);
-					practicasAsociadas.addAll(p.practicasAsociadas);
-					
-					SetearTextArea(false);
-				} catch (Exception ex) {
-					alert("La practica no se pudo obtener la petición: (" + ex.getMessage() + ").", "Error",
-							JOptionPane.ERROR_MESSAGE);
-				}
-				
-			}
-		});
-		
-		btnAddPracticaMod.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String idPractica = tIDPracticaMod.getText();
-				addPractica(Integer.parseInt(idPractica));
-				SetearTextArea(false);
-			}
-		});
-		
-		btnDeletePracticaMod.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String idPractica = tIDPracticaMod.getText();
-
-				if (!idPractica.isBlank()) {
-					deletePractica(Integer.parseInt(idPractica));
-					tIDPracticaMod.setText("");
-				}
-			}
-		});
-		
-		btnUpdatePeticionMod.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String id = tIDPeticionMod.getText();
-				String idPaciente = tIDPacienteMod.getText();
-				String idSucursal = tIDSucursalMod.getText();
-				String ob = tOBMod.getText();
-				
-				PeticionDTO p = new PeticionDTO();
-				p.id = Integer.parseInt(id);
-				p.pacienteID = Integer.parseInt(idPaciente);
-				p.sucursalID = Integer.parseInt(idSucursal);
-				p.obraSocial = ob;
-				p.fechaDeCarga = new Date();
-				p.practicasAsociadas = practicasAsociadas;
-				
-				try {
-					peticionController.ModificarPeticion(p);
-					limpiarListas();
-					limpiarFormulario();
-					alert("Se modificó correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
-				} catch (Exception ex) {
-					alert("La practica no se pudo modificar la petición: (" + ex.getMessage() + ").", "Error",
-							JOptionPane.ERROR_MESSAGE);
-				}				
-				
-			}
-		});
-		
 		tabbedPane_5.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				limpiarFormulario();
@@ -630,50 +470,6 @@ public class PeticionPanel {
 			}
 		});
 
-	}
-	
-	private void SetearTextArea(Boolean tabAlta) {
-		PracticaController practicaController = PracticaController.getInstance();
-		
-		textAreaPracticasAsociadas.setText("");		
-		tPracticasAsociadas.setText("");
-		
-		for (dtos.PracticaAsociadaDTO o : practicasAsociadas){
-			try {
-				PracticaDTO practica = practicaController.ObtenerPractica(o.practicaID);
-				
-				if(tabAlta) {
-					tPracticasAsociadas.append("ID: " + practica.id + " Nombre: " + practica.nombre + "\n");
-				}else {
-					textAreaPracticasAsociadas.append("ID: " + practica.id + " Nombre: " + practica.nombre + "\n");
-				}
-
-			} catch (Exception ex) {
-				alert("No se puede ver la lista: (" + ex.getMessage() + ").", "Error",
-						JOptionPane.ERROR_MESSAGE);
-			}
-		}
-	}
-	
-	private void deletePractica(int id) {
-		practicasAsociadas.removeIf(p -> (p.practicaID == id));
-		alert("La práctica se borró a la lista", "Información", JOptionPane.INFORMATION_MESSAGE);
-	}
-	
-	private void addPractica(int id) {
-		try {
-			dtos.PracticaAsociadaDTO pa = new dtos.PracticaAsociadaDTO();
-			pa.practicaID = id;
-			pa.resultado = null;
-			practicasAsociadas.add(pa);
-								
-			tIDPractica.setText("");
-			tIDPracticaMod.setText("");
-			alert("La práctica se agregó a la lista", "Información", JOptionPane.INFORMATION_MESSAGE);
-		} catch (Exception ex) {
-			alert("La practica no se pudo agregar a la lista (" + ex.getMessage() + ").", "Error",
-					JOptionPane.ERROR_MESSAGE);
-		}
 	}
 
 	private void mostrarPeticionesYPracticas() {
@@ -705,12 +501,5 @@ public class PeticionPanel {
 		tOB.setText("");
 		tIDPractica.setText("");
 		tPracticasAsociadas.setText("");
-		tIDPacienteMod.setText("");
-		tIDSucursalMod.setText("");
-		tOBMod.setText("");
-		tIDPeticionMod.setEnabled(true);
-		textAreaPracticasAsociadas.setText("");		
-		tPracticasAsociadas.setText("");
-		tIDPeticionMod.setText("");
 	}
 }
