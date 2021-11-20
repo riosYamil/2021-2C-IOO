@@ -616,6 +616,7 @@ public class PeticionPanel {
 			public void actionPerformed(ActionEvent e) {
 				String idPractica = tIDPracticaMod.getText();
 				addPractica(Integer.parseInt(idPractica));
+				tIDPracticaMod.setText("");
 				SetearTextArea(false);
 			}
 		});
@@ -627,6 +628,7 @@ public class PeticionPanel {
 				if (!idPractica.isBlank()) {
 					deletePractica(Integer.parseInt(idPractica));
 					tIDPracticaMod.setText("");
+					SetearTextArea(false);
 				}
 			}
 		});
